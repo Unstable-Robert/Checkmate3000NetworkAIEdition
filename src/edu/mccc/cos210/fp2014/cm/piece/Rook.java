@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Rook extends Piece {
 
 	@Override
-	public ArrayList<PossibleTile> getPossibleTiles() {
+	public ArrayList<PossibleTile> getPossibleTiles(ArrayList<Piece> pieces) {
 		// TODO Auto-generated method stub
 		return null;
 	}

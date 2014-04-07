@@ -10,7 +10,7 @@ public abstract class Piece {
 	protected int yLoc;
 	protected Color c;
 	
-	public abstract ArrayList<PossibleTile> getPossibleTiles();
+	public abstract ArrayList<PossibleTile> getPossibleTiles(ArrayList<Piece> pieces);
 	public void setLocation(int x, int y){
 		
 	}
