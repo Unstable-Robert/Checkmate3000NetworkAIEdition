@@ -1,8 +1,10 @@
 package edu.mccc.cos210.fp2014.cm.menu;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 
-public abstract class SettingsView extends JPanel {
+public abstract class SettingsView extends JPanel implements ActionListener {
 
 	/**
 	 * 
