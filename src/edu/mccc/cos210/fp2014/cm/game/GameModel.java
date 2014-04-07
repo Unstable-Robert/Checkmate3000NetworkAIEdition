@@ -25,7 +25,7 @@ public class GameModel extends Observable{
 	public void updateGame (Piece p) {
 		
 	}
-	public void nextTurn(){
+	public void timerExpired(){
 		
 	}
 	private void isCheck(){
