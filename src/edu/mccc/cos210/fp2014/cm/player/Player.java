@@ -10,4 +10,7 @@ public abstract class Player {
 	public void updateEvent(){
 		
 	}
+	public void timerExperied(){
+		
+	}
 }
