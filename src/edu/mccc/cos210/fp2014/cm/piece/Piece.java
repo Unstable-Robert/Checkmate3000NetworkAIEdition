@@ -1,7 +1,8 @@
 package edu.mccc.cos210.fp2014.cm.piece;
 
 import java.util.ArrayList;
-import edu.mccc.cos210.fp2014.cm.game.Color;
+
+import edu.mccc.cos210.fp2014.cm.util.Color;
 
 public abstract class Piece {
 	

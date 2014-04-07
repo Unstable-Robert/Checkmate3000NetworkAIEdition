@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
+import edu.mccc.cos210.fp2014.cm.util.Color;
 
 public class GameModel extends Observable{
 	
