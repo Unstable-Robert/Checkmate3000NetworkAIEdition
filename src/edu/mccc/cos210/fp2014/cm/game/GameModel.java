@@ -10,8 +10,6 @@ import edu.mccc.cos210.fp2014.cm.util.Color;
 public class GameModel extends Observable{
 	
 	private Color turn;
-	private boolean whiteCheck;
-	private boolean blackCheck;
 	private ArrayList<Piece> pieces;
 	private Timer t;
 	
@@ -26,9 +24,6 @@ public class GameModel extends Observable{
 		
 	}
 	public void timerExpired(){
-		
-	}
-	private void isCheck(){
 		
 	}
 	private void isCheckMate(){
