@@ -3,21 +3,15 @@ package edu.mccc.cos210.fp2014.cm.menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuView extends SettingsView implements ActionListener  {
+import javax.swing.JPanel;
+
+public class DrawView extends JPanel implements ActionListener{
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8818430694660983542L;
+	private static final long serialVersionUID = 8739133045085915923L;
 
-	public MenuView(){
-		
-	}
-	
-	public static void main(String[] sa) {
-		new MenuView();
-	}
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

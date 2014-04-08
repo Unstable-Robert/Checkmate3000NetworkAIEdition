@@ -9,5 +9,10 @@ public class Pawn extends Piece {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	public boolean possibleToPassant() {
+		return false;
+	}
+	private boolean hasMoved() {
+		return false;
+	}
 }

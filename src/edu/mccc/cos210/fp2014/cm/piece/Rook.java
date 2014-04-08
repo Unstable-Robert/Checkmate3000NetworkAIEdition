@@ -9,5 +9,7 @@ public class Rook extends Piece {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	public boolean canCastle(){
+		return false;
+	}
 }
