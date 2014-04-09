@@ -7,9 +7,9 @@ import java.util.TimerTask;
 import edu.mccc.cos210.fp2014.cm.util.Color;
 
 /**
- * 
+ * This class is responsible for maintaining the timer and what keeping track of turns.
  */
-public abstract class TimerEvent extends TimerTask implements Observer, Runnable {
+public abstract class TimerEvent extends TimerTask implements Observer {
 
 	protected GameModel gm;
 	protected Timer timer;
@@ -17,9 +17,6 @@ public abstract class TimerEvent extends TimerTask implements Observer, Runnable
 	protected int maxTicks;
 	protected Color color;
 	
-	/**
-	 * 
-	 */
 	protected abstract void resetTimer();
 
 }

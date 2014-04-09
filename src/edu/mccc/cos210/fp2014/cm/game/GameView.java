@@ -12,7 +12,8 @@ import javax.swing.JPanel;
 import edu.mccc.cos210.fp2014.cm.player.Player;
 
 /**
- * 
+ * A jpanel view of the board.
+ * Handles click actions and player selection.
  */
 public class GameView extends JPanel implements Observer, ActionListener, MouseListener{
 
@@ -21,7 +22,7 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 	private Player p;
 	
 	/**
-	 * 
+	 * Updates the view when the model updates.
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
