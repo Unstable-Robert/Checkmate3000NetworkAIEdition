@@ -19,6 +19,8 @@ public class Board {
 	@XmlElement
 	private ArrayList<PossibleTile> possibleTiles;
 	@XmlElement
+	private ArrayList<Piece> pieces;
+	@XmlElement
 	private int movesSincePeiceTaken;
 	@XmlElement
 	private Color turn;
