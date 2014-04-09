@@ -9,4 +9,6 @@ public abstract class SearchAlgorithm implements Runnable{
 	
 	protected ExecutorService threadPool;
 	
+	public abstract void search();
+	
 }
