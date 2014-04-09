@@ -1,10 +1,12 @@
 package edu.mccc.cos210.fp2014.cm.player.intelligence;
 
-import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
 
-import edu.mccc.cos210.fp2014.cm.piece.Piece;
-
-public abstract class SearchAlgorithm {
+/**
+ * 
+ */
+public abstract class SearchAlgorithm implements Runnable{
 	
-	protected abstract ArrayList<ArrayList<Piece>> search(ArrayList<Piece> pieces);
+	protected ExecutorService threadPool;
+	
 }

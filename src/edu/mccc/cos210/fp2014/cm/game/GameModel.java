@@ -1,31 +1,50 @@
 package edu.mccc.cos210.fp2014.cm.game;
 
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Timer;
 
-import edu.mccc.cos210.fp2014.cm.piece.Piece;
-import edu.mccc.cos210.fp2014.cm.util.Color;
-
+/**
+ * 
+ */
 public class GameModel extends Observable{
 	
-	private Color turn;
-	private ArrayList<Piece> pieces;
+	private Board board;
 	private Timer t;
 	
+	/**
+	 * 
+	 */
 	public GameModel() {
 		
 	}
 	
-	public ArrayList<Piece> getPieces() {
+	/**
+	 * 
+	 */
+	public Board getBoard() {
 		return null;
 	}
-	public void updateGame (Piece p) {
+	/**
+	 * 
+	 */
+	public void updateBoard(Board b) {
 		
 	}
-	public void timerExpired(){
+	/**
+	 * 
+	 */
+	public void nextTurn() {
 		
 	}
+	/**
+	 * 
+	 */
+	public void gameExpired() {
+		
+	}
+	/**
+	 * 
+	 */
 	private void isCheckMate(){
 		
 	}

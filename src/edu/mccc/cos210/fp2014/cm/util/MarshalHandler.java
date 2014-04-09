@@ -5,17 +5,25 @@ import java.io.OutputStream;
 
 import javax.xml.bind.JAXBContext;
 
-import edu.mccc.cos210.fp2014.cm.piece.Piece;
+import edu.mccc.cos210.fp2014.cm.game.Board;
 
+/**
+ * 
+ */
 public class MarshalHandler {
 	
 	JAXBContext jc;
 	
-	public Piece unmarshal(OutputStream out) {
+	/**
+	 * 
+	 */
+	public Board unmarshal(InputStream in) {
 		return null;
 	}
-	
-	public InputStream marshal(Piece p) {
+	/**
+	 * 
+	 */
+	public OutputStream marshal(Board b) {
 		return null;
 	}
 }

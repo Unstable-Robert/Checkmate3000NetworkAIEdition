@@ -1,11 +1,12 @@
 package edu.mccc.cos210.fp2014.cm.player.intelligence;
 
-import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
 
-import edu.mccc.cos210.fp2014.cm.piece.Piece;
+/**
+ * 
+ */
+public abstract class EvaluationAlgorithm implements Runnable {
 
-public abstract class EvaluationAlgorithm {
-
-	protected abstract double evaluate(ArrayList<Piece> pieces);
+	protected ExecutorService threadPool;
 
 }

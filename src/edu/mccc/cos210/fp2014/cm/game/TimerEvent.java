@@ -1,17 +1,25 @@
 package edu.mccc.cos210.fp2014.cm.game;
 
+import java.util.Observer;
+import java.util.Timer;
 import java.util.TimerTask;
 
-import edu.mccc.cos210.fp2014.cm.player.Player;
+import edu.mccc.cos210.fp2014.cm.util.Color;
 
-public class TimerEvent extends TimerTask {
+/**
+ * 
+ */
+public abstract class TimerEvent extends TimerTask implements Observer, Runnable {
 
-	private Player p;
+	protected GameModel gm;
+	protected Timer timer;
+	protected int ticks;
+	protected int maxTicks;
+	protected Color color;
 	
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-
-	}
+	/**
+	 * 
+	 */
+	protected abstract void resetTimer();
 
 }
