@@ -47,4 +47,7 @@ public class Board {
 	public void peiceTaken() {
 		
 	}
+	public ArrayList<Piece> getPieces() {
+		
+	}
 }
