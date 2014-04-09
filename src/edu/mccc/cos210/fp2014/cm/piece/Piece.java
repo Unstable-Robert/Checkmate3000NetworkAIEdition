@@ -2,6 +2,8 @@ package edu.mccc.cos210.fp2014.cm.piece;
 
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlElement;
+
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.util.Color;
 
@@ -10,10 +12,15 @@ import edu.mccc.cos210.fp2014.cm.util.Color;
  */
 public abstract class Piece {
 	
+	@XmlElement
 	protected int xLoc;
+	@XmlElement
 	protected int yLoc;
+	@XmlElement
 	protected Color c;
+	@XmlElement
 	protected int uID;
+	@XmlElement
 	protected boolean selected;
 	/**
 	 * A method to be implemented by subclasses which gets a list of possible moves.
