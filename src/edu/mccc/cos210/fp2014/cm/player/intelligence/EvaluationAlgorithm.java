@@ -8,5 +8,7 @@ import java.util.concurrent.ExecutorService;
 public abstract class EvaluationAlgorithm implements Runnable {
 
 	protected ExecutorService threadPool;
+	
+	public abstract void evaluate();
 
 }
