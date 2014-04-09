@@ -47,6 +47,9 @@ public class Board {
 	public void peiceTaken() {
 		
 	}
+	public void removePiece(Piece p){
+		
+	}
 	public ArrayList<Piece> getPieces() {
 		
 	}
