@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutorService;
  */
 public abstract class SearchAlgorithm implements Runnable{
 	
-	protected static ExecutorService threadPool;
+	protected ExecutorService threadPool;
 	
 	public abstract void search();
 	
