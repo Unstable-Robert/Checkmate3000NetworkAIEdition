@@ -2,6 +2,9 @@ package edu.mccc.cos210.fp2014.cm.game;
 
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
 import edu.mccc.cos210.fp2014.cm.util.Color;
 
@@ -10,11 +13,16 @@ import edu.mccc.cos210.fp2014.cm.util.Color;
  * It contains meta information about itself, the position of pieces, and turn info.
  * It also keeps track of information about draw scenarios.
  */
+ @XmlRootElement
 public class Board {
 
+	@XmlElement
 	private ArrayList<PossibleTile> possibleTiles;
+	@XmlElement
 	private int movesSincePeiceTaken;
+	@XmlElement
 	private Color turn;
+	@XmlElement
 	private Meta metaInfo;
 	
 	/**
