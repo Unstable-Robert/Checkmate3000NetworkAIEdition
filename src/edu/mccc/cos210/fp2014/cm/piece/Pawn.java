@@ -3,12 +3,29 @@ package edu.mccc.cos210.fp2014.cm.piece;
 import java.util.ArrayList;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
+import edu.mccc.cos210.fp2014.cm.util.Color;
 
 /**
  * Represents the pawn and it's movements.
  */
 public class Pawn extends Piece {
 
+	private boolean hasMoved;
+	private boolean possibleToPassant;
+	
+	public Pawn(int x, int y, Color c, int iD){
+		super(x,y,c,iD);
+		this.hasMoved = false;
+	}
+	public Pawn(int x, int y, Color c, int iD, boolean s){
+		super(x,y,c,iD,s);
+		this.hasMoved = false;
+	}
+	public Pawn(int x, int y, Color c, int iD, boolean s, boolean moved, boolean passant){
+		super(x,y,c,iD,s);
+		this.hasMoved = moved;
+		this.possibleToPassant = passant;
+	}
 	/**
 	 * Gets possible tiles that this piece can move given the board.
 	 * @param board the board that is checked for possible moves
@@ -30,5 +47,15 @@ public class Pawn extends Piece {
 	 */
 	private boolean hasMoved() {
 		return false;
+	}
+	@Override
+	public Pawn clone(){
+		return new Pawn(this.getX(), 
+				this.getY(), 
+				this.getColor(), 
+				this.getUID(), 
+				this.isSelected(),
+				this.hasMoved(),
+				this.possibleToPassant());
 	}
 }
