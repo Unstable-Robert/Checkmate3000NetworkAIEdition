@@ -27,38 +27,52 @@ public class Board implements Cloneable{
 	private Color turn;
 	@XmlElement
 	private Meta metaInfo;
-	
+
 	/**
 	 * This updates the timer that will be painted by GameView
 	 * @param i The number of seconds remaining on the clock for the current player's turn
 	 */
 	public void updateTimer(int i) {
-		
+
 	}
 	/**
 	 * This changes which player is taking their turn.
 	 */
 	public void nextTurn() {
-		
+
 	}
 	/**
-	 * This restarts the countdown used to enact a draw when there have been 
+	 * This restarts the countdown used to enact a draw when there have been
 	 * no taken pieces for 50 turns.
 	 */
 	public void peiceTaken() {
-		
+
 	}
+    /**
+     * Removes a Piece from the board
+     * @param p Piece being removed from board
+     */
 	public void removePiece(Piece p){
-		
+
 	}
+
+    /**
+     * Gets all the pieces on the board
+     * @return All the pieces currently on the board
+     */
 	public ArrayList<Piece> getPieces() {
 		return null;
 	}
+
+    /**
+     * Adds a piece to the board
+     * @param p Piece being added to the board
+     */
 	public void addPiece(Piece p){
-		
+
 	}
 	//we need to take great care with this method, it's extremely easy to screw up
-	//whoever implements this needs to do a deep clone (aka all of it's 
+	//whoever implements this needs to do a deep clone (aka all of it's
 	//attribute objects are cloned too).
 	//also, we might consider a copy constructor
 	public Board clone(){

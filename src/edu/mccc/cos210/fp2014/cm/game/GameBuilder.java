@@ -47,7 +47,7 @@ public class GameBuilder {
 	}
 	/**
 	 * Builds a networked game for the joining player
-	 * @param g The gametype of the game
+	 * @param a The internet address of the host
 	 * @param t The time, if a timed game.
 	 */
 	public static void buildJoinGame(InetAddress a, int t) {
