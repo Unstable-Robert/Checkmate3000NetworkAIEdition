@@ -10,7 +10,7 @@ import edu.mccc.cos210.fp2014.cm.util.Color;
 /**
  * And abstract class representing an individual piece on the board.
  */
-public abstract class Piece {
+public abstract class Piece implements Cloneable {
 	
 	@XmlElement
 	protected int xLoc;
@@ -37,5 +37,12 @@ public abstract class Piece {
 	 */
 	public void setSelected(boolean b) {
 		
+	}
+	public Piece clone(){
+		try{
+			return (Piece) super.clone();
+		} catch (CloneNotSupportedException e) {
+			return null;
+		}
 	}
 }

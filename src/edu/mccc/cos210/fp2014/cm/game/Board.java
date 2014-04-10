@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
 import edu.mccc.cos210.fp2014.cm.util.Color;
 
@@ -14,7 +15,7 @@ import edu.mccc.cos210.fp2014.cm.util.Color;
  * It also keeps track of information about draw scenarios.
  */
  @XmlRootElement
-public class Board {
+public class Board implements Cloneable{
 
 	@XmlElement
 	private ArrayList<PossibleTile> possibleTiles;
@@ -51,6 +52,16 @@ public class Board {
 		
 	}
 	public ArrayList<Piece> getPieces() {
+		return null;
+	}
+	public void addPiece(Piece p){
 		
+	}
+	public Board clone(){
+		try{
+			return (Board) super.clone();
+		} catch (CloneNotSupportedException e) {
+			return null;
+		}
 	}
 }

@@ -25,13 +25,19 @@ public class PossibleTile {
 	/**
 	 * returns the x location of the tile
 	 */
-	public int getXLoc() {
+	public int getX() {
 		return 0;
 	}
 	/**
 	 * returns the y location of the tile.
 	 */
-	public int getYLoc() {
+	public int getY() {
 		return 0;
+	}
+	public Piece getRemovePiece() {
+		return null;
+	}
+	public boolean hasPieceToRemove() {
+		return false;
 	}
 }
