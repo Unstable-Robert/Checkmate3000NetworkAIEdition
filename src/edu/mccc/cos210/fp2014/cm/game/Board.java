@@ -60,6 +60,7 @@ public class Board implements Cloneable{
 	//we need to take great care with this method, it's extremely easy to screw up
 	//whoever implements this needs to do a deep clone (aka all of it's 
 	//attribute objects are cloned too).
+	//also, we might consider a copy constructor
 	public Board clone(){
 		return null;
 	}
