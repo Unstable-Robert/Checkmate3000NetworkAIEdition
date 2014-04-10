@@ -5,7 +5,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 /**
- * 
+ * The class from which all main menus extend from, it includes common elements like 
+ * closure behavior, background, all of that good stuff.
  */
 public abstract class SettingsView extends JPanel implements ActionListener {
 

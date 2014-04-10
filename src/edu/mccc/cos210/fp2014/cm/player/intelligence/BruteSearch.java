@@ -11,6 +11,10 @@ import edu.mccc.cos210.fp2014.cm.game.Board;
 
 /**
  * testing concept, all of this needs to be rewritten
+ * This is a very stupid brute search algorithm. It iterates through all possible moves
+ * with a MAXDEPTH and saves them in a Tree<Board>.
+ * When actually implemented, we should probably decide to search only one depth, then 
+ * evaluate, etc. We should also use an AiTree instead of a tree for evaluation purposes.
  */
 public class BruteSearch extends SearchAlgorithm implements Runnable{
 
@@ -18,8 +22,8 @@ public class BruteSearch extends SearchAlgorithm implements Runnable{
     private Tree<Board> tree;
     private static final int MAXDEPTH = 5;
     
-    public BruteSearch(Tree<Board> t) {
-        this.tree = t;
+    public BruteSearch(Board t) {
+        this.tree = new Tree<Board>(t);
         this.depth = 0;
         this.threadPool = Executors.newFixedThreadPool(10);
     }
@@ -29,13 +33,21 @@ public class BruteSearch extends SearchAlgorithm implements Runnable{
         this.threadPool = tp;
     }
 
-    private void search() {
+    /**
+     * Creates new BruteSearch objects for all of the leaves in a tree.
+     */
+    protected void search() {
         if (this.depth < MAXDEPTH) {
             for (Tree<Board> b : tree.getLeaves()) {
                 this.threadPool.submit(new BruteSearch(b, this.depth + 1, this.threadPool));
             }
         }
     }
+    /**
+     * This searches for all of the possible moves within a possible board and adds
+     * these possibilities as leaves of that board.
+     * It then searches that tree.
+     */
     @Override
 	public void run() {
     	Board root = this.tree.getRoot();

@@ -11,6 +11,9 @@ public class Tree<T> {
 	private T root;
 	private ArrayList<Tree<T>> leaves;
 	
+	public Tree(T t){
+		
+	}
 	/**
 	 * Returns the root of the tree, the element from which all other possibilities orrur.
 	 * @return the element which makes up our root.

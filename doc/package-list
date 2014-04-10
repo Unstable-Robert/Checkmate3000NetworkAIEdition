@@ -1,1 +1,6 @@
+edu.mccc.cos210.fp2014.cm.game
+edu.mccc.cos210.fp2014.cm.menu
 edu.mccc.cos210.fp2014.cm.piece
+edu.mccc.cos210.fp2014.cm.player
+edu.mccc.cos210.fp2014.cm.player.intelligence
+edu.mccc.cos210.fp2014.cm.util

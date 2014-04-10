@@ -9,22 +9,19 @@ import javax.swing.JPanel;
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
 
 /**
- * 
+ * A user wants to promote it's pawn to another piece when reaching the end of the board.
  */
 public class PawnPromotionView extends JPanel implements ActionListener, Callable<Piece> {
 
 	private static final long serialVersionUID = 6061543872701062824L;
 	private Piece p;
 	
-	/**
-	 * 
-	 */
 	public PawnPromotionView() {
 		
 	}
 	
 	/**
-	 * 
+	 * The user has decided which piece to promote the pawn.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -32,7 +29,8 @@ public class PawnPromotionView extends JPanel implements ActionListener, Callabl
 		
 	}
 	/**
-	 * 
+	 * Probably? needed after this has been displayed. I can't think of another way
+	 * in which for the player class get's the information of which piece the pawn will be.
 	 */
 	@Override
 	public Piece call() throws Exception {
