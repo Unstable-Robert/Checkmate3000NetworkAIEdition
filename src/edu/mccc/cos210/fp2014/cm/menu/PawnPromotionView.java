@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.Callable;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
@@ -11,7 +12,7 @@ import edu.mccc.cos210.fp2014.cm.piece.Piece;
 /**
  * A user wants to promote it's pawn to another piece when reaching the end of the board.
  */
-public class PawnPromotionView extends JPanel implements ActionListener, Callable<Piece> {
+public class PawnPromotionView extends JFrame implements ActionListener, Callable<Piece> {
 
 	private static final long serialVersionUID = 6061543872701062824L;
 	private Piece p;
