@@ -38,11 +38,8 @@ public abstract class Piece implements Cloneable {
 	public void setSelected(boolean b) {
 		
 	}
+	//be careful. See board.clone warning....
 	public Piece clone(){
-		try{
-			return (Piece) super.clone();
-		} catch (CloneNotSupportedException e) {
-			return null;
-		}
+		return null;
 	}
 }

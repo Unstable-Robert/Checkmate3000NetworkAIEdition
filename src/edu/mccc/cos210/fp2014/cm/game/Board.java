@@ -57,11 +57,10 @@ public class Board implements Cloneable{
 	public void addPiece(Piece p){
 		
 	}
+	//we need to take great care with this method, it's extremely easy to screw up
+	//whoever implements this needs to do a deep clone (aka all of it's 
+	//attribute objects are cloned too).
 	public Board clone(){
-		try{
-			return (Board) super.clone();
-		} catch (CloneNotSupportedException e) {
-			return null;
-		}
+		return null;
 	}
 }
