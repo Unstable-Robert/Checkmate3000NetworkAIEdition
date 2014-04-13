@@ -2,14 +2,19 @@ package edu.mccc.cos210.fp2014.cm.piece;
 
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.util.Color;
 
 /**
  * The class represents the Rook piece and it's movements
  */
+@XmlRootElement
 public class Rook extends Piece {
 
+	@XmlElement
 	private boolean canCastle;
 	public Rook(int x, int y, Color c, int iD){
 		super(x,y,c,iD);

@@ -2,12 +2,15 @@ package edu.mccc.cos210.fp2014.cm.piece;
 
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.util.Color;
 
 /**
  * Represents the Knight piece and it's movements
  */
+@XmlRootElement
 public class Knight extends Piece {
 	
 	public Knight(int x, int y, Color c, int iD){

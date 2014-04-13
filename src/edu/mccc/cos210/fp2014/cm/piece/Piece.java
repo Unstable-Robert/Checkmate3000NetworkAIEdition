@@ -3,6 +3,7 @@ package edu.mccc.cos210.fp2014.cm.piece;
 import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.util.Color;
@@ -10,6 +11,7 @@ import edu.mccc.cos210.fp2014.cm.util.Color;
 /**
  * And abstract class representing an individual piece on the board.
  */
+@XmlRootElement
 public abstract class Piece implements Cloneable {
 	
 	@XmlElement
