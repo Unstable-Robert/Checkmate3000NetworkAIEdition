@@ -9,11 +9,10 @@ import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.util.Color;
 
 /**
- * The class represents the Rook piece and it's movements
+ * The class represents the Rook piece and its movements.
  */
 @XmlRootElement
 public class Rook extends Piece {
-
 	@XmlElement
 	private boolean canCastle;
 	public Rook(int x, int y, Color c, int iD){
@@ -29,13 +28,12 @@ public class Rook extends Piece {
 		this.canCastle = castle;
 	}
 	/**
-	 * Gets possible tiles that this piece can move given the board.
+	 * Gets possible tiles that this piece can move on the given board.
 	 * @param board the board that is checked for possible moves
 	 * @return all of the possible tiles to which this piece can move.
 	 */
 	@Override
 	public ArrayList<PossibleTile> getPossibleTiles(Board board) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	/**

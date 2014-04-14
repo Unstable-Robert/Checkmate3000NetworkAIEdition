@@ -1,4 +1,4 @@
-package edu.mccc.cos210.fp2014.cm.menu;
+package edu.mccc.cos210.fp2014.cm;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

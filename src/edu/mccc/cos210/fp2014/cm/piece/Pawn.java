@@ -9,37 +9,27 @@ import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.util.Color;
 
 /**
- * Represents the pawn and it's movements.
+ * Represents the pawn and its movements.
  */
 @XmlRootElement
 public class Pawn extends Piece {
-
 	@XmlElement
 	private boolean hasMoved;
 	@XmlElement
 	private boolean possibleToPassant;
-	
 	public Pawn(int x, int y, Color c, int iD){
-		super(x,y,c,iD);
-		this.hasMoved = false;
 	}
 	public Pawn(int x, int y, Color c, int iD, boolean s){
-		super(x,y,c,iD,s);
-		this.hasMoved = false;
 	}
 	public Pawn(int x, int y, Color c, int iD, boolean s, boolean moved, boolean passant){
-		super(x,y,c,iD,s);
-		this.hasMoved = moved;
-		this.possibleToPassant = passant;
 	}
 	/**
-	 * Gets possible tiles that this piece can move given the board.
+	 * Gets possible tiles that this piece can move on the given board.
 	 * @param board the board that is checked for possible moves
 	 * @return all of the possible tiles to which this piece can move.
 	 */
 	@Override
 	public ArrayList<PossibleTile> getPossibleTiles(Board board) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	/**

@@ -9,6 +9,7 @@ import edu.mccc.cos210.fp2014.cm.util.Tree;
 import edu.mccc.cos210.fp2014.cm.game.Board;
 
 /**
+ * Search algorithm test.
  * testing concept, all of this needs to be rewritten
  * This is a very stupid brute search algorithm. It iterates through all possible moves
  * with a MAXDEPTH and saves them in a Tree<Board>.
