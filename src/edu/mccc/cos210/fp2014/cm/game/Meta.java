@@ -6,8 +6,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import edu.mccc.cos210.fp2014.cm.util.GameType;
 
 /**
- * A list of information relevant to each board, including gametype, time left over,
- * scores (for the AI).
+ * Various board info.
+ * A list of information relevant to each board, including gametype, time left over, scores (for the AI).
  */
  @XmlRootElement
 public class Meta implements Cloneable {
@@ -23,14 +23,7 @@ public class Meta implements Cloneable {
 	private double blackScore;
 	@XmlElement
 	private int numPossibleMoves;
-	
 	public Meta(GameType gt, int p1, int p2, double wS, double bS, int nPM){
-		this.gameType = gt;
-		this.p1Time = p1;
-		this.p2Time = p2;
-		this.whiteScore = wS;
-		this.blackScore = bS;
-		this.numPossibleMoves = nPM;
 	}
 	public GameType getGameType(){
 		return null;

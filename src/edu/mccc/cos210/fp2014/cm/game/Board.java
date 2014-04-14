@@ -2,68 +2,57 @@ package edu.mccc.cos210.fp2014.cm.game;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
-import edu.mccc.cos210.fp2014.cm.util.Color;
 
 /**
- * This class represents the piece centric board of the chess engine.
+ * Represents the piece-centric board of the chess engine.
  * It contains meta information about itself, the position of pieces, and turn info.
  * It also keeps track of information about draw scenarios.
  */
  @XmlRootElement
 public class Board implements Cloneable{
-
 	@XmlElement
 	private ArrayList<PossibleTile> possibleTiles;
 	@XmlElement
 	private ArrayList<Piece> pieces;
 	@XmlElement
-	private int movesSincePeiceTaken;
+	private int movesSincePieceTaken;
 	@XmlElement
-	private Color turn;
+	private boolean whiteTurn;
 	@XmlElement
 	private Meta metaInfo;
-
-	public Board (ArrayList<PossibleTile> tiles, ArrayList<Piece> p, int moves, Color t, Meta meta) {
-		this.possibleTiles = tiles;
-		this.pieces = p;
-		this.movesSincePeiceTaken = moves;
-		this.turn = t;
-		this.metaInfo = meta;
+	/**
+	 * Constructor.
+	 * Saves possible tiles, pieces, moves, whose turn it is, and meta data.
+	 */
+	public Board(ArrayList<PossibleTile> tiles, ArrayList<Piece> p, int moves, boolean t, Meta meta) {
 	}
 	/**
 	 * This updates the timer that will be painted by GameView
 	 * @param i The number of seconds remaining on the clock for the current player's turn
 	 */
 	public void updateTimer(int i) {
-
 	}
 	/**
 	 * This changes which player is taking their turn.
 	 */
 	public void nextTurn() {
-
 	}
 	/**
-	 * This restarts the countdown used to enact a draw when there have been
-	 * no taken pieces for 50 turns.
+	 * This restarts the countdown used to enact a draw when there have been no pieces taken for 50 turns.
 	 */
-	public void peiceTaken() {
-
+	public void pieceTaken() {
 	}
     /**
      * Removes a Piece from the board
      * @param p Piece being removed from board
      */
 	public void removePiece(Piece p){
-
 	}
-
     /**
      * Gets all the pieces on the board
      * @return All the pieces currently on the board
@@ -77,8 +66,8 @@ public class Board implements Cloneable{
 	public int getNumMovesSinceLastPieceTaken(){
 		return 0;
 	}
-	public Color getTurn(){
-		return null;
+	public boolean isWhiteTurn(){
+		return false;
 	}
 	public Meta getMetaInfo(){
 		return null;
@@ -88,7 +77,6 @@ public class Board implements Cloneable{
      * @param p Piece being added to the board
      */
 	public void addPiece(Piece p){
-
 	} 
 	public Board clone(){
 		ArrayList<Piece> newPieces = new ArrayList<Piece>();
