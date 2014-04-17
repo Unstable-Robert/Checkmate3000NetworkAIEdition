@@ -15,15 +15,15 @@ import edu.mccc.cos210.fp2014.cm.util.Color;
 public class Rook extends Piece {
 	@XmlElement
 	private boolean canCastle;
-	public Rook(int x, int y, Color c, int iD){
+	public Rook(int x, int y, boolean c, int iD){
 		super(x,y,c,iD);
 		this.canCastle = true;
 	}
-	public Rook(int x, int y, Color c, int iD, boolean s){
+	public Rook(int x, int y, boolean c, int iD, boolean s){
 		super(x,y,c,iD,s);
 		this.canCastle = true;
 	}
-	public Rook(int x, int y, Color c, int iD, boolean s, boolean castle){
+	public Rook(int x, int y, boolean c, int iD, boolean s, boolean castle){
 		super(x,y,c,iD,s);
 		this.canCastle = castle;
 	}

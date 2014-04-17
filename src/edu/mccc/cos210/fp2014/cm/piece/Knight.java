@@ -12,10 +12,10 @@ import edu.mccc.cos210.fp2014.cm.util.Color;
  */
 @XmlRootElement
 public class Knight extends Piece {
-	public Knight(int x, int y, Color c, int iD){
+	public Knight(int x, int y, boolean c, int iD){
 		super(x,y,c,iD);
 	}
-	public Knight(int x, int y, Color c, int iD, boolean s){
+	public Knight(int x, int y, boolean c, int iD, boolean s){
 		super(x,y,c,iD,s);
 	}
 	/**

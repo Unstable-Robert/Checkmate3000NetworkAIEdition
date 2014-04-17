@@ -14,6 +14,6 @@ public abstract class TimerEvent extends TimerTask implements Observer {
 	protected Timer timer;
 	protected int ticks;
 	protected int maxTicks;
-	protected Color color;
+	protected boolean color;
 	protected abstract void resetTimer();
 }

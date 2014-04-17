@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
-import edu.mccc.cos210.fp2014.cm.util.Color;
 
 /**
  * Represents the pawn and its movements.
@@ -17,11 +16,11 @@ public class Pawn extends Piece {
 	private boolean hasMoved;
 	@XmlElement
 	private boolean possibleToPassant;
-	public Pawn(int x, int y, Color c, int iD){
+	public Pawn(int x, int y, boolean c, int iD){
 	}
-	public Pawn(int x, int y, Color c, int iD, boolean s){
+	public Pawn(int x, int y, boolean c, int iD, boolean s){
 	}
-	public Pawn(int x, int y, Color c, int iD, boolean s, boolean moved, boolean passant){
+	public Pawn(int x, int y, boolean c, int iD, boolean s, boolean moved, boolean passant){
 	}
 	/**
 	 * Gets possible tiles that this piece can move on the given board.

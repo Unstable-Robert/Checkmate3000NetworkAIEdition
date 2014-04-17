@@ -1,7 +1,9 @@
-package edu.mccc.cos210.fp2014.cm;
+package edu.mccc.cos210.fp2014.cm.menu;
 
+import javax.swing.JFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JPanel;
 
 /**
  * Runner class and main JFrame.

@@ -5,7 +5,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
-import edu.mccc.cos210.fp2014.cm.util.Color;
 
 /**
  * Represents the king piece and its movements.
@@ -14,15 +13,15 @@ import edu.mccc.cos210.fp2014.cm.util.Color;
 public class King extends Piece {
 	@XmlElement
 	private boolean canCastle;
-	public King(int x, int y, Color c, int iD){
+	public King(int x, int y, boolean c, int iD){
 		super(x,y,c,iD);
 		this.canCastle = true;
 	}
-	public King(int x, int y, Color c, int iD, boolean s){
+	public King(int x, int y, boolean c, int iD, boolean s){
 		super(x,y,c,iD,s);
 		this.canCastle = true;
 	}
-	public King(int x, int y, Color c, int iD, boolean s, boolean castle){
+	public King(int x, int y, boolean c, int iD, boolean s, boolean castle){
 		super(x,y,c,iD,s);
 		this.canCastle = castle;
 	}

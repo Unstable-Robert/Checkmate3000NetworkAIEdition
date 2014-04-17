@@ -11,10 +11,10 @@ import edu.mccc.cos210.fp2014.cm.util.Color;
  */
 @XmlRootElement
 public class Queen extends Piece {
-	public Queen(int x, int y, Color c, int iD){
+	public Queen(int x, int y, boolean c, int iD){
 		super(x,y,c,iD);
 	}
-	public Queen(int x, int y, Color c, int iD, boolean s){
+	public Queen(int x, int y, boolean c, int iD, boolean s){
 		super(x,y,c,iD,s);
 	}
 	/**

@@ -17,7 +17,7 @@ public abstract class Piece implements Cloneable {
 	@XmlElement
 	protected int yLoc;
 	@XmlElement
-	protected Color color;
+	protected boolean color;
 	@XmlElement
 	protected int uID;
 	@XmlElement
@@ -27,9 +27,9 @@ public abstract class Piece implements Cloneable {
 	 */
 	public Piece(){
 	}
-	public Piece(int x, int y, Color c, int iD){
+	public Piece(int x, int y, boolean c, int iD){
 	}
-	public Piece(int x, int y, Color c, int iD, boolean s){
+	public Piece(int x, int y, boolean c, int iD, boolean s){
 	}
 	public abstract ArrayList<PossibleTile> getPossibleTiles(Board b);
 	/**
@@ -43,7 +43,7 @@ public abstract class Piece implements Cloneable {
 	public int getY(){
 		return this.yLoc;
 	}
-	public Color getColor(){
+	public boolean getColor(){
 		return this.color;
 	}
 	public int getUID(){
