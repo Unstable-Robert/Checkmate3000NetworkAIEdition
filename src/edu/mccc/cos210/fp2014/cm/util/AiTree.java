@@ -7,6 +7,7 @@ package edu.mccc.cos210.fp2014.cm.util;
 public class AiTree<T> extends Tree<T>{
 	public AiTree(T t) {
 		super(t);
+		// TODO Auto-generated constructor stub
 	}
 	private boolean evaluateFurther;
 	private double whiteTreeScore;

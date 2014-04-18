@@ -10,7 +10,9 @@ import java.util.List;
 public class Tree<T> {
 	private T root;
 	private ArrayList<Tree<T>> leaves;
+	
 	public Tree(T t){
+		
 	}
 	/**
 	 * Returns the root of the tree, the element from which all other possibilities orrur.
@@ -38,6 +40,7 @@ public class Tree<T> {
 	 * @param t the value to be added
 	 */
 	public void addLeaf(T t) {
+		
 	}
 	/**
 	 * Trims the tree to the values passed into as a paramater
@@ -45,5 +48,6 @@ public class Tree<T> {
 	 * @param t the value to trim the tree to.
 	 */
 	public void trimTree(T t) {
+		
 	}
 }
