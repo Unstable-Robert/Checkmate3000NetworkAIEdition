@@ -6,82 +6,50 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.JPanel;
 
 import edu.mccc.cos210.fp2014.cm.player.Player;
 
 /**
- * A jpanel view of the board.
- * Handles click actions and player selection.
+ * JPanel view of the board.
+ * Also handles click actions and player selection.
  */
 public class GameView extends JPanel implements Observer, ActionListener, MouseListener{
-
-	private static final long serialVersionUID = -5254471447199451521L;
+	private static final long serialVersionUID = 1L;
 	private GameModel gm;
 	private Player p;
-	
 	/**
 	 * Updates the view when the model updates.
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
 	}
 	/**
-	 * 
+	 * Checks is the resign button was pressed.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 	/**
-	 * 
+	 * Draws game.
+	 * Draws board, pieces, times, whose turn it is.
 	 */
 	@Override
 	public void repaint(){
-		
 	}
-	/**
-	 * 
-	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
-	/**
-	 * 
-	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
-	/**
-	 * 
-	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
-	/**
-	 * 
-	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
-	/**
-	 * 
-	 */
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 }

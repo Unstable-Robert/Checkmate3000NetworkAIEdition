@@ -1,43 +1,36 @@
 package edu.mccc.cos210.fp2014.cm.piece;
 
 /**
- * This represents the place that a piece can move, and what it will remove if it does.
+ * This represents the place that a piece can move, and what piece will be removed if it move does.
  */
 public class PossibleTile implements Cloneable{
 	private int xLoc;
 	private int yLoc;
 	private Piece originalPiece;
 	private Piece removePiece;
-	
 	/**
-	 * Default constructor
+	 * Default constructor.
 	 */
 	public PossibleTile(int x, int y, Piece original){
-
 	}
 	/**
 	 * Constructor including a piece to remove
 	 */
 	public PossibleTile(int x, int y, Piece original, Piece removed) {
-		this.xLoc = x;
-		this.yLoc = y;
-		this.originalPiece = original;
-		this.removePiece = removed;
 	}
-	
 	/**
-	 * returns the x location of the tile
+	 * Returns the x location of the tile.
 	 */
 	public int getX() {
 		return 0;
 	}
 	/**
-	 * returns the y location of the tile.
+	 * Returns the Y location of the tile.
 	 */
 	public int getY() {
 		return 0;
 	}
-	public Piece getOriginalPiece(){
+	public Piece getOriginalPiece() {
 		return null;
 	}
 	public Piece getRemovePiece() {
