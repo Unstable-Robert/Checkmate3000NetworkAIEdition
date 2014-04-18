@@ -1,19 +1,19 @@
 package edu.mccc.cos210.fp2014.cm.piece;
 
 import java.util.ArrayList;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
-import edu.mccc.cos210.fp2014.cm.util.Color;
 
 /**
- * Represents the Bishop piece and it's movements
+ * Represents the Bishop piece and its movements.
  */
+@XmlRootElement
 public class Bishop extends Piece {
-
-	public Bishop(int x, int y, Color c, int iD){
+	public Bishop(int x, int y, boolean c, int iD){
 		super(x,y,c,iD);
 	}
-	public Bishop(int x, int y, Color c, int iD, boolean s){
+	public Bishop(int x, int y, boolean c, int iD, boolean s){
 		super(x,y,c,iD,s);
 	}
 	/**
@@ -23,7 +23,6 @@ public class Bishop extends Piece {
 	 */
 	@Override
 	public ArrayList<PossibleTile> getPossibleTiles(Board board) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override

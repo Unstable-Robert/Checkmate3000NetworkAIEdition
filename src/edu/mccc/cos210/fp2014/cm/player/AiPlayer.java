@@ -9,7 +9,7 @@ import edu.mccc.cos210.fp2014.cm.player.intelligence.Intelligence;
 import edu.mccc.cos210.fp2014.cm.util.GamePart;
 
 /**
- * This is an artificially intelligent chess playa.
+ * Artificial intelligent chess player.
  * It contains an intelligence object which can be defined be the point in the game
  * (beginning, middle, or end) which handles all of the search and evaluation.
  */
@@ -17,7 +17,6 @@ public class AiPlayer extends Player implements Runnable{
 	private Intelligence intelligence;
 	private GamePart gamePart;
 	private GameModel gm;
-	
 	/**
 	 * This takes a board parameter and returns the best move (as determined by the intelligence module).
 	 * @param b The board to search for the best move
@@ -31,24 +30,19 @@ public class AiPlayer extends Player implements Runnable{
 	 */
 	@Override
 	public void updateModel(Piece p) {
-		// TODO Auto-generated method stub
-
 	}
 	/**
+	 * Updates the intelligence.
 	 * This is called when the model changes. It updates the intelligence's current board,
 	 * if it differs from the current one.
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
 	}
 	/**
 	 * Called when this object is created in order to start the search-eval loop.
 	 */
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		
 	}
 }

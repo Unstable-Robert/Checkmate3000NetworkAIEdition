@@ -4,5 +4,5 @@ package edu.mccc.cos210.fp2014.cm.util;
  * An enumeration representing the various game types that can be played.
  */
 public enum GameType {
-	NORMAL, TIMEDTURN, TIMEDGAME
+	NORMAL, TIMED_TURN, TIMED_GAME
 }
