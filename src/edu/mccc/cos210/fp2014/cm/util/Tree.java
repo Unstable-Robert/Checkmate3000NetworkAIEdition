@@ -8,36 +8,43 @@ import java.util.List;
  * This is our internal representation of possible boards from a given point in time.
  */
 public class Tree<T> {
-	private T root;
+	private TreeNode<T> root;
 	private ArrayList<Tree<T>> leaves;
-	public Tree(T t){
+	public Tree(T t){ 
+		this.root = new TreeNode<T>(t);
+		this.leaves = new ArrayList<Tree<T>>();
+	}
+	public Tree(T t, TreeNode<T> p) {
+		this.root = new TreeNode<T>(t, p);
+		this.leaves = new ArrayList<Tree<T>>();
 	}
 	/**
 	 * Returns the root of the tree, the element from which all other possibilities orrur.
 	 * @return the element which makes up our root.
 	 */
 	public T getRoot() {
-		return null;
+		return this.root.getValue();
 	}
 	/**
 	 * This returns a list of all of the leaves, possibilities stemming from our original root.
 	 * @return a list of all leaves (and their trees as well)
 	 */
 	public List<Tree<T>> getLeaves() {
-		return null;
+		return this.leaves;
 	}
 	/**
 	 * Returns true if the root has leaves, false otherwise.
 	 * @return whether or not the tree has leaves
 	 */
 	public boolean hasLeaves() {
-		return false;
+		return this.leaves.size() > 0 ? true : false;
 	}
 	/**
 	 * Adds a leaf to the tree
 	 * @param t the value to be added
 	 */
 	public void addLeaf(T t) {
+		this.leaves.add(new Tree<T>(t));
 	}
 	/**
 	 * Trims the tree to the values passed into as a paramater
@@ -45,5 +52,22 @@ public class Tree<T> {
 	 * @param t the value to trim the tree to.
 	 */
 	public void trimTree(T t) {
+	}
+	protected class TreeNode<T> {
+		private T value;
+		private TreeNode<T> parent;
+		public TreeNode(T t){
+			this.value = t;
+		}
+		public TreeNode(T t, TreeNode<T> p) {
+			this.value = t;
+			this.parent = p;
+		}
+		public T getValue() {
+			return this.value;
+		}
+		public TreeNode<T> getParent() {
+			return parent;
+		}
 	}
 }
