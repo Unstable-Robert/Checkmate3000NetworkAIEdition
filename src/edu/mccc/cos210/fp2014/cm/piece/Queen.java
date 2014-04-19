@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
-import edu.mccc.cos210.fp2014.cm.util.Color;
 
 /**
  * Represents the Queen piece and its movement.

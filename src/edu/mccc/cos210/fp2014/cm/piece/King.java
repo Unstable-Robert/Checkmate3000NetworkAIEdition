@@ -56,6 +56,6 @@ public class King extends Piece {
 				this.getColor(), 
 				this.getUID(), 
 				this.isSelected(), 
-				this.canCastle());
+				this.canCastle);
 	}
 }

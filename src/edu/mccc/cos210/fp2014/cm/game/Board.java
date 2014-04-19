@@ -90,7 +90,7 @@ public class Board implements Cloneable{
 		return new Board(newTiles, 
 				newPieces,
 				this.getNumMovesSinceLastPieceTaken(), 
-				this.getTurn(), 
+				this.whiteTurn,
 				this.getMetaInfo().clone());
 	}
 }
