@@ -1,6 +1,6 @@
 package edu.mccc.cos210.fp2014.cm.menu;
 
-import sun.tools.jstat.Alignment;
+//import sun.tools.jstat.Alignment;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -13,13 +13,13 @@ import java.awt.event.ActionListener;
  */
 public class TestSettingsView {
     private static boolean isTimed;
-    private static int timeMin;
+    private static final int TIME_MIN = 0;
+	private static final int TIME_MAX = 180;
     public static void main(String[] sa){
         isTimed = false;
-        timeMin = 0;
         JFrame jf = new JFrame("Settings");
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jf.setSize(500, 320);
+        jf.setSize(800, 640);
         jf.setResizable(false);
         jf.setLocationRelativeTo(null);
         jf.setBackground(new Color(255, 123, 50));
@@ -37,7 +37,7 @@ public class TestSettingsView {
         });
         jf.add(backButton);
 
-        //startButon starts the game with given settings
+        //startButton starts the game with given settings
         JButton startButton = new JButton("Start Game");
         startButton.setSize(100,50);
         startButton.setLocation((int)(jf.getWidth() * 0.78), (int)(jf.getHeight() * 0.05));
@@ -49,7 +49,7 @@ public class TestSettingsView {
         });
         jf.add(startButton);
 
-        //Checkbox wether game is timed or not
+        //Checkbox whether game is timed or not
         JCheckBox checkbox = new JCheckBox();
         checkbox.setSize(100,40);
         checkbox.setLocation((int) (jf.getWidth() * 0.28), (int) (jf.getHeight() * 0.25));
@@ -73,10 +73,10 @@ public class TestSettingsView {
         timeLabel.setSize(40,20);
         timeLabel.setLocation((int)(jf.getWidth() * 0.1),(int)(jf.getHeight() * 0.42));
         jf.add(timeLabel);
-        JTextField timeField = new JTextField(timeMin);
-        timeField.setSize(40,20);
-        timeField.setLocation((int)(jf.getWidth() * 0.18),(int)(jf.getHeight() * 0.42));
-        jf.add(timeField);
+        JSpinner timeSpinner = new JSpinner(new SpinnerNumberModel(TIME_MIN, TIME_MIN, TIME_MAX, 1));
+        timeSpinner.setSize(40,20);
+        timeSpinner.setLocation((int)(jf.getWidth() * 0.18),(int)(jf.getHeight() * 0.42));
+        jf.add(timeSpinner);
         JLabel minLabel = new JLabel("Minutes");
         minLabel.setSize(55,20);
         minLabel.setLocation((int)(jf.getWidth() * 0.3),(int)(jf.getHeight() * 0.42));
@@ -91,6 +91,7 @@ public class TestSettingsView {
         JRadioButton whiteRadio = new JRadioButton("White");
         whiteRadio.setLocation((int) (jf.getWidth() * 0.25), (int) (jf.getHeight() * 0.55));
         whiteRadio.setSize(70,20);
+		whiteRadio.setSelected(true);
         colorPickerButtons.add(whiteRadio);
         jf.add(whiteRadio);
         JRadioButton blackRadio = new JRadioButton("Black");
