@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Test if the The main menu.
+ * Test the The main menu.
  * This menu allows a user to chose what type of game they want to play.
  * Types of game:
  *    Local game, Host game, Join game
