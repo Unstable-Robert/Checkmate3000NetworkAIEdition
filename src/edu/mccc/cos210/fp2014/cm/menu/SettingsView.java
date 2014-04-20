@@ -14,8 +14,9 @@ public abstract class SettingsView extends JPanel implements ActionListener {
 	/**
 	 * Constructor stores main JFrame so the View can be easily changed.
 	 */
-    public SettingsView(){
-    }
 	public SettingsView(Checkmate c) {
+		super();
+		myCheckmate = c;
+		setLayout(null);
 	}
 }

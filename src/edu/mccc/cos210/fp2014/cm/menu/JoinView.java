@@ -9,6 +9,9 @@ import java.awt.event.ActionListener;
  */
 public class JoinView extends SettingsView implements ActionListener {
 	private static final long serialVersionUID = 1L;
+	public JoinView(Checkmate c) {
+		super(c);
+	}
 	/**
 	 * Allows user to enter the host's IP and return to the main menu.
 	 */

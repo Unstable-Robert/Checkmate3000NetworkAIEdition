@@ -9,6 +9,9 @@ import java.awt.event.ActionListener;
  */
 public class HostView extends SettingsView implements ActionListener {
 	private static final long serialVersionUID = 1L;
+	public HostView(Checkmate c) {
+		super(c);
+	}
 	/**
 	 * Allows user to change settings, start a hosted game, and return to the main menu.
 	 */
