@@ -36,13 +36,23 @@ public class MainMenuView extends SettingsView implements ActionListener  {
 		JButton hostButton = new JButton("Host Game");
 		hostButton.setSize(150, 50);
 		hostButton.setLocation((int)(c.getWidth() * 0.45), (int)(c.getHeight() * 0.55));
-		hostButton.setEnabled(false);
+		hostButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				myCheckmate.setView(Checkmate.HOST);
+			}
+		});
 		add(hostButton);
 		
 		JButton joinButton = new JButton("Join Game");
 		joinButton.setSize(150, 50);
 		joinButton.setLocation((int)(c.getWidth() * 0.45), (int)(c.getHeight() * 0.65));
-		joinButton.setEnabled(false);
+		joinButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				myCheckmate.setView(Checkmate.JOIN);
+			}
+		});
 		add(joinButton);
 		
 		JButton quitButton = new JButton("Quit Game");

@@ -13,6 +13,8 @@ public class Checkmate extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public static final String MAIN_MENU = "main menu";
 	public static final String LOCAL = "local";
+	public static final String HOST = "host";
+	public static final String JOIN = "join";
 	private CardLayout cards;
 	private JPanel cardPanel;
 	private Checkmate() {
@@ -25,6 +27,8 @@ public class Checkmate extends JFrame {
 		cardPanel.setLayout(cards);
 		cardPanel.add(new MainMenuView(this), MAIN_MENU);
 		cardPanel.add(new LocalView(this), LOCAL);
+		cardPanel.add(new HostView(this), HOST);
+		cardPanel.add(new JoinView(this), JOIN);
 		add(cardPanel);
 		cards.show(cardPanel, MAIN_MENU);
 		setVisible(true);
