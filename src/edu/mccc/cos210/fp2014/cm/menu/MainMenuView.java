@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
  */
 public class MainMenuView extends SettingsView implements ActionListener  {
 	private static final long serialVersionUID = 1L;
-	private JButton localButton, hostButton, joinButton, quitButton;
 	public MainMenuView(Checkmate c) {
 		super(c);
 		
@@ -21,27 +20,32 @@ public class MainMenuView extends SettingsView implements ActionListener  {
 		JLabel titleLabel = new JLabel("Checkmate 3000 Network AI Edition");
 		titleLabel.setSize(225, 50);
 		titleLabel.setLocation((int)(c.getWidth() * 0.41), (int)(c.getHeight() * 0.25));
-        add(titleLabel);
+		add(titleLabel);
 		
-		localButton = new JButton("Local Game");
+		JButton localButton = new JButton("Local Game");
 		localButton.setSize(150, 50);
 		localButton.setLocation((int)(c.getWidth() * 0.45), (int)(c.getHeight() * 0.45));
-		localButton.setEnabled(false);
+		localButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				myCheckmate.setView(Checkmate.LOCAL);
+			}
+		});
 		add(localButton);
 		
-		hostButton = new JButton("Host Game");
+		JButton hostButton = new JButton("Host Game");
 		hostButton.setSize(150, 50);
 		hostButton.setLocation((int)(c.getWidth() * 0.45), (int)(c.getHeight() * 0.55));
 		hostButton.setEnabled(false);
 		add(hostButton);
 		
-		joinButton = new JButton("Join Game");
+		JButton joinButton = new JButton("Join Game");
 		joinButton.setSize(150, 50);
 		joinButton.setLocation((int)(c.getWidth() * 0.45), (int)(c.getHeight() * 0.65));
 		joinButton.setEnabled(false);
 		add(joinButton);
 		
-		quitButton = new JButton("Quit Game");
+		JButton quitButton = new JButton("Quit Game");
 		quitButton.setSize(150, 50);
 		quitButton.setLocation((int)(c.getWidth() * 0.45), (int)(c.getHeight() * 0.75));
 		quitButton.addActionListener(new ActionListener() {
@@ -56,8 +60,8 @@ public class MainMenuView extends SettingsView implements ActionListener  {
 				if (wantsExit == JOptionPane.YES_OPTION) {
 					System.exit(0);
 				}
-            }
-        });
+			}
+		});
 		add(quitButton);
 	}
 	/**

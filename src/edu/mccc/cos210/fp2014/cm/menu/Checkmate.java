@@ -1,8 +1,9 @@
 package edu.mccc.cos210.fp2014.cm.menu;
 
-import javax.swing.JFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.CardLayout;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
@@ -10,32 +11,31 @@ import javax.swing.JPanel;
  */
 public class Checkmate extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private JPanel currentView = null;
+	public static final String MAIN_MENU = "main menu";
+	public static final String LOCAL = "local";
+	private CardLayout cards;
+	private JPanel cardPanel;
 	private Checkmate() {
 		super("Checkmate 3000 Network AI Edition");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 640);
 		setResizable(false);
-		setView(new MainMenuView(this));
+		cards = new CardLayout();
+		cardPanel = new JPanel();
+		cardPanel.setLayout(cards);
+		cardPanel.add(new MainMenuView(this), MAIN_MENU);
+		cardPanel.add(new LocalView(this), LOCAL);
+		add(cardPanel);
+		cards.show(cardPanel, MAIN_MENU);
 		setVisible(true);
 	}
 	public static void main(String[] sa) {
 		new Checkmate();
 	}
 	/**
-	 * Return the JPanel that is currently being viewed.
-	 */
-	public JPanel getView() {
-		return currentView;
-	}
-	/**
 	 * Set what JPanel you want to see.
 	 */
-	public void setView(JPanel jp) {
-		if (currentView != null) {
-			this.remove(currentView);
-		}
-		this.add(jp);
-		currentView = jp;
+	public void setView(String v) {
+		cards.show(cardPanel, v);
 	}
 }
