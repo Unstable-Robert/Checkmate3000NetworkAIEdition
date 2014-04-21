@@ -1,5 +1,6 @@
 package edu.mccc.cos210.fp2014.cm.game;
 
+import java.io.IOException;
 import java.net.InetAddress;
 
 import edu.mccc.cos210.fp2014.cm.player.*;
@@ -21,7 +22,7 @@ public class GameBuilder {
 		GameModel gm = setupGameType(g,t);
 		LocalPlayer lp1 = new LocalPlayer(gm, true);
 		LocalPlayer lp2 = new LocalPlayer(gm, false);
-		GameView gv = setupGameView(gm, lp1, lp2);
+		setupGameView(gm, lp1, lp2);
 		gm.addObserver(lp1);
 		gm.addObserver(lp2);
 	}
@@ -35,7 +36,7 @@ public class GameBuilder {
 		GameModel gm = setupGameType(g,t);
 		LocalPlayer lp = new LocalPlayer(gm, localColor);
 		AiPlayer aip = new AiPlayer(gm, !localColor, d);
-		GameView gv = setupGameView(gm, lp, aip);
+		setupGameView(gm, lp, aip);
 		gm.addObserver(lp);
 		gm.addObserver(aip);
 	}
@@ -59,11 +60,17 @@ public class GameBuilder {
 	 * @param g The gametype of the game
 	 * @param t The time, if a timed game.
 	 */
-	public static void buildHostGame(GameType g, int t) {
+	public static void buildHostGame(GameType g, int t, InetAddress a) {
 		GameModel gm = setupGameType(g,t);
-		NetworkPlayer np = new NetworkPlayer(gm, true);
-		setupGameView(gm, np);
-		gm.addObserver(np);
+		NetworkPlayer np;
+		try {
+			np = new NetworkPlayer(gm, true, a);
+			setupGameView(gm, np);
+			gm.addObserver(np);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * Builds a networked game for the joining player.
@@ -72,9 +79,15 @@ public class GameBuilder {
 	 */
 	public static void buildJoinGame(InetAddress a) {
 		GameModel gm = setupGameType(null, 0);
-		NetworkPlayer np = new NetworkPlayer(a);
-		setupGameView(gm,np);
-		gm.addObserver(np);
+		NetworkPlayer np;
+		try {
+			np = new NetworkPlayer(a);
+			setupGameView(gm,np);
+			gm.addObserver(np);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	private static GameModel setupGameType(GameType g, int t) {
 		GameModel gm;

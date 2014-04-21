@@ -2,7 +2,11 @@ package edu.mccc.cos210.fp2014.cm.util;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
 
@@ -16,15 +20,34 @@ public class MarshalHandler {
 	 * @param in The input stream to unmarshal
 	 * @return The board object which was represented by the input stream.
 	 */
+	public MarshalHandler(){
+		try {
+			jc = JAXBContext.newInstance(Board.class);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+	}
 	public Board unmarshal(InputStream in) {
-		return null;
+		try {
+			Unmarshaller um = this.jc.createUnmarshaller();
+			Board b = (Board) um.unmarshal(in);
+			return b;
+		} catch (JAXBException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	/**
 	 * Marshals a board object into an OutputStream.
 	 * @param b The board object to marshal
 	 * @return The outputstream which represents the board object.
 	 */
-	public OutputStream marshal(Board b) {
-		return null;
+	public void marshal(Board b, OutputStream os) {
+		try {
+			Marshaller m = this.jc.createMarshaller();
+			m.marshal(b, os);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
 	}
 }

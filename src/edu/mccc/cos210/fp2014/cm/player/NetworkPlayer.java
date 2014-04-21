@@ -1,12 +1,15 @@
 package edu.mccc.cos210.fp2014.cm.player;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.Observable;
 
+import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.game.GameModel;
-import edu.mccc.cos210.fp2014.cm.piece.Piece;
-import edu.mccc.cos210.fp2014.cm.util.GameType;
 import edu.mccc.cos210.fp2014.cm.util.MarshalHandler;
 
 /**
@@ -18,28 +21,66 @@ import edu.mccc.cos210.fp2014.cm.util.MarshalHandler;
 public class NetworkPlayer extends Player implements Runnable {
 	private Socket socket;
 	private MarshalHandler mh;
-	public NetworkPlayer(GameModel gm, boolean isWhite) {
+	private InetAddress address;
+	
+	public NetworkPlayer(GameModel gm, boolean isWhite, InetAddress a) throws IOException{
 		super(gm,isWhite);
+		mh = new MarshalHandler();
+		this.address = a;
+		this.socket = new Socket(address, 7531);
 	}
-	public NetworkPlayer(InetAddress a) {
-		
+	public NetworkPlayer(InetAddress a) throws IOException{
+		mh = new MarshalHandler();
+		this.address = a;
+		this.socket = new Socket(address, 7531);
 	}
 	/**
 	 * Updates the model if the local individual or networked individual make a move.
 	 */
 	@Override
-	public void updateModel(Piece p) {
+	public void updateModel(Board b) {
+		gm.updateBoard(b);
 	}
 	/**
 	 * Sends a marshalled board object to the other player if the board has been updated.
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
+		try {
+			synchronized(this.socket){
+				OutputStream os = socket.getOutputStream();
+				mh.marshal(gm.getBoard(), os);
+				notify();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * Called when the class is first created, this opens the socket.
 	 */
 	@Override
 	public void run() {
+		try {
+			this.socket.setSoTimeout(100);
+			while (true){
+				synchronized (this.socket){
+					try {
+						InputStream is = socket.getInputStream();
+						Board b = mh.unmarshal(is);
+						gm.updateBoard(b);
+						notify();
+					} catch (SocketTimeoutException e){
+						try {
+							wait();
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+					}
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

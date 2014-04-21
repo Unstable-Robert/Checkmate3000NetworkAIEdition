@@ -15,15 +15,15 @@ public class GameModel extends Observable{
 	 */
 	public GameModel() {
 	}
+	public GameModel(int i, TimerEvent te){
+		Timer t = new Timer();
+		t.schedule(te, 0, i * 60 * 1000);
+		this.timer = t;
+	}
 	/**
 	 * Gets a copy of the current board.
 	 * @return a copy of the current board.
 	 */
-	public GameModel(int i, TimerEvent te){
-		Timer t = new Timer();
-		t.schedule(te, i * 60 * 1000);
-		this.timer = t;
-	}
 	public Board getBoard() {
 		return this.board;
 	}
@@ -33,6 +33,7 @@ public class GameModel extends Observable{
 	 */
 	public void updateBoard(Board b) {
 		this.board = b;
+		//do other stuff, like reschedule timer and such
 	}
 	/**
 	 * Called at the end of each turn, by the player or an expired timer.

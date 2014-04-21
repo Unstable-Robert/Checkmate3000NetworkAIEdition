@@ -35,7 +35,7 @@ public class AiPlayer extends Player implements Runnable{
 	 * Updates the game model with it's move.
 	 */
 	@Override
-	public void updateModel(Piece p) {
+	public void updateModel(Board b) {
 	}
 	/**
 	 * Updates the intelligence.

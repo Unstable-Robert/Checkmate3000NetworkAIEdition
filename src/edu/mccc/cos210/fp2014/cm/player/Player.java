@@ -2,8 +2,8 @@ package edu.mccc.cos210.fp2014.cm.player;
 
 import java.util.Observer;
 
+import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.game.GameModel;
-import edu.mccc.cos210.fp2014.cm.piece.Piece;
 
 /**
  * Abstract player class.
@@ -22,5 +22,5 @@ public abstract class Player implements Observer{
 	/**
 	 * This class will update the game model.
 	 */
-	protected abstract void updateModel(Piece p);
+	protected abstract void updateModel(Board b);
 }
