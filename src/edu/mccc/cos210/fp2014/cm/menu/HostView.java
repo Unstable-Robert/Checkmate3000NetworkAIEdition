@@ -31,17 +31,17 @@ public class HostView extends SettingsView implements ActionListener {
 		});
 		add(backButton);
 
-		//startButton starts the game with given settings
-		JButton startButton = new JButton("Start Game");
-		startButton.setSize(100,50);
-		startButton.setLocation((int)(c.getWidth() * 0.78), (int)(c.getHeight() * 0.05));
-		startButton.addActionListener(new ActionListener() {
+		//hostButton starts the game with given settings
+		JButton hostButton = new JButton("Host Game");
+		hostButton.setSize(100,50);
+		hostButton.setLocation((int)(c.getWidth() * 0.78), (int)(c.getHeight() * 0.05));
+		hostButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				System.out.println("StartButton Clicked");
+				System.out.println("Host Button Clicked");
 			}
 		});
-		add(startButton);
+		add(hostButton);
 		
 		//Checkbox whether game is timed or not
 		JCheckBox checkbox = new JCheckBox();
