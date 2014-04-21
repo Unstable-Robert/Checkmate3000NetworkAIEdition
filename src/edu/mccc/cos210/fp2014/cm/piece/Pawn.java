@@ -17,10 +17,19 @@ public class Pawn extends Piece {
 	@XmlElement
 	private boolean possibleToPassant;
 	public Pawn(int x, int y, boolean c, int iD){
+		super(x,y,c,iD);
+		this.hasMoved = false;
+		this.possibleToPassant = false;
 	}
 	public Pawn(int x, int y, boolean c, int iD, boolean s){
+		super(x,y,c,iD,s);
+		this.hasMoved = false;
+		this.possibleToPassant = false;
 	}
 	public Pawn(int x, int y, boolean c, int iD, boolean s, boolean moved, boolean passant){
+		super(x,y,c,iD,s);
+		this.hasMoved = moved;
+		this.possibleToPassant = passant;
 	}
 	/**
 	 * Gets possible tiles that this piece can move on the given board.
@@ -35,13 +44,13 @@ public class Pawn extends Piece {
 	 * Whether or not the pawn has just moved forward two spaces and can be taken en passant.
 	 */
 	public boolean possibleToPassant() {
-		return false;
+		return this.possibleToPassant;
 	}
 	/**
 	 * Whether or not the pawn has moved, and therefor whether it can move forward two spaces
 	 */
 	private boolean hasMoved() {
-		return false;
+		return this.hasMoved;
 	}
 	@Override
 	public Pawn clone(){

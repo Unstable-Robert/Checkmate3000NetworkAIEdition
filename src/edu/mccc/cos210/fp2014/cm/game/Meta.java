@@ -23,6 +23,17 @@ public class Meta implements Cloneable {
 	private double blackScore;
 	@XmlElement
 	private int numPossibleMoves;
+	public Meta(GameType g) {
+		this.gameType = g;
+		this.whiteScore = 0;
+		this.blackScore = 0;
+		this.numPossibleMoves = 0;
+	}
+	public Meta(GameType g, int t){
+		this(g);
+		this.p1Time = t;
+		this.p2Time = t;
+	}
 	public Meta(GameType gt, int p1, int p2, double wS, double bS, int nPM){
 	}
 	public GameType getGameType(){

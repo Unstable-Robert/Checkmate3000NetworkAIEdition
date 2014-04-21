@@ -17,6 +17,7 @@ public class GameBuilder {
 	 * @param t The time, if a timed game.
 	 */
 	public static void buildLocalGame(GameType g, int t) {
+		
 	}
 	/**
 	 * Builds a local game for one human player and one AI player.	 

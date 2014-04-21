@@ -38,7 +38,7 @@ public class Rook extends Piece {
 	/**
 	 * This returns true if the rook has not moved and false if it has.
 	 */
-	public boolean canCastle(){
+	public boolean canCastle(ArrayList<Piece> board){
 		return false;
 	}
 	@Override
@@ -48,6 +48,6 @@ public class Rook extends Piece {
 				this.getColor(), 
 				this.getUID(), 
 				this.isSelected(), 
-				this.canCastle());
+				this.canCastle);
 	}
 }

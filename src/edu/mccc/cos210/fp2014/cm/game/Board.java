@@ -2,11 +2,12 @@ package edu.mccc.cos210.fp2014.cm.game;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import edu.mccc.cos210.fp2014.cm.piece.Piece;
-import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
+import edu.mccc.cos210.fp2014.cm.piece.*;
+import edu.mccc.cos210.fp2014.cm.util.GameType;
 
 /**
  * Represents the piece-centric board of the chess engine.
@@ -29,6 +30,65 @@ public class Board implements Cloneable{
 	 * Constructor.
 	 * Saves possible tiles, pieces, moves, whose turn it is, and meta data.
 	 */
+	public Board(GameType g) {
+		this.possibleTiles = new ArrayList<PossibleTile>();
+		this.pieces = new ArrayList<Piece>();
+		this.movesSincePieceTaken = 0;
+		this.whiteTurn = true;
+		this.metaInfo = new Meta(g);
+		setUpPieces();
+	}
+	public Board(GameType g, int t){
+		this.possibleTiles = new ArrayList<PossibleTile>();
+		this.pieces = new ArrayList<Piece>();
+		this.movesSincePieceTaken = 0;
+		this.whiteTurn = true;
+		this.metaInfo = new Meta(g, t);
+		setUpPieces();
+	}
+	private void setUpPieces(){
+		int id = 0;
+		this.pieces.add(new Rook(7, 0, true, id));
+		id++;
+		this.pieces.add(new Knight(7, 1, true, id));
+		id++;
+		this.pieces.add(new Bishop(7, 2, true, id));
+		id++;
+		this.pieces.add(new Queen(7, 3, true, id));
+		id++;
+		this.pieces.add(new King(7, 4, true, id));
+		id++;
+		this.pieces.add(new Bishop(7, 5, true, id));
+		id++;
+		this.pieces.add(new Knight(7, 6, true, id));
+		id++;
+		this.pieces.add(new Rook(7, 7, true, id));
+		id++;
+		for (int i = 0; i< 8; i++){
+			this.pieces.add(new Pawn(i, 6, true, id));
+			id++;
+		}
+		this.pieces.add(new Rook(0, 0, false, id));
+		id++;
+		this.pieces.add(new Knight(0, 1, false, id));
+		id++;
+		this.pieces.add(new Bishop(0, 2, false, id));
+		id++;
+		this.pieces.add(new Queen(0, 3, false, id));
+		id++;
+		this.pieces.add(new King(0, 4, false, id));
+		id++;
+		this.pieces.add(new Bishop(0, 5, false, id));
+		id++;
+		this.pieces.add(new Knight(0, 6, false, id));
+		id++;
+		this.pieces.add(new Rook(0, 7, false, id));
+		id++;
+		for (int i = 0; i< 8; i++){
+			this.pieces.add(new Pawn(i, 1, false, id));
+			id++;
+		}
+	}
 	public Board(ArrayList<PossibleTile> tiles, ArrayList<Piece> p, int moves, boolean t, Meta meta) {
 	}
 	/**

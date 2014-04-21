@@ -27,14 +27,22 @@ public abstract class Piece implements Cloneable {
 	public Piece(){
 	}
 	public Piece(int x, int y, boolean c, int iD){
+		this.xLoc = x;
+		this.yLoc = y;
+		this.color = c;
+		this.uID = iD;
 	}
 	public Piece(int x, int y, boolean c, int iD, boolean s){
+		this(x, y, c, iD);
+		this.selected = s;
 	}
 	public abstract ArrayList<PossibleTile> getPossibleTiles(Board b);
 	/**
 	 * Changes the location of the piece.
 	 */
 	public void setLocation(int x, int y) {
+		this.xLoc = x;
+		this.yLoc = y;
 	}
 	public int getX(){
 		return this.xLoc;
@@ -55,6 +63,7 @@ public abstract class Piece implements Cloneable {
 	 * Changes whether or not the piece is selected.
 	 */
 	public void setSelected(boolean b) {
+		this.selected = b;
 	}
 	public abstract Piece clone();
 }

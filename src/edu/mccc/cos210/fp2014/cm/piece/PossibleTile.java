@@ -12,32 +12,40 @@ public class PossibleTile implements Cloneable{
 	 * Default constructor.
 	 */
 	public PossibleTile(int x, int y, Piece original){
+		this.xLoc = x;
+		this.yLoc = y;
+		this.originalPiece = original;
+		this.removePiece = null;
 	}
 	/**
 	 * Constructor including a piece to remove
 	 */
 	public PossibleTile(int x, int y, Piece original, Piece removed) {
+		this.xLoc = x;
+		this.yLoc = y;
+		this.originalPiece = original;
+		this.removePiece = removed;
 	}
 	/**
 	 * Returns the x location of the tile.
 	 */
 	public int getX() {
-		return 0;
+		return this.getX();
 	}
 	/**
 	 * Returns the Y location of the tile.
 	 */
 	public int getY() {
-		return 0;
+		return this.getY();
 	}
 	public Piece getOriginalPiece() {
-		return null;
+		return this.originalPiece;
 	}
 	public Piece getRemovePiece() {
-		return null;
+		return this.removePiece;
 	}
 	public boolean hasPieceToRemove() {
-		return false;
+		return this.removePiece != null;
 	}
 	public PossibleTile clone(){
 		return new PossibleTile(
