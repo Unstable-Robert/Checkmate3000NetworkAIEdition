@@ -3,7 +3,18 @@ Checkmate3000NetworkAIEdition
 
 Insert chess pun here
 
+####ToDo:
+	Implement Piece Specific getPossibleTiles methods
+	Implement GameView class including interactions with the player classes
+	Implement Board methods
+	Implement Local player class
+	Implement Game over View
+	Implement AI Player Classes
+
 ####Changelog:
+	Added code for Marshaler and Networked Player
+	Implemented GameModel
+	Implemented GameBuilder
 	Removed DrawView, GameOverView, and PawnPromotionView. Use JOptionPane.showMessageDialog() instead.
 	Made SettingViews extend JPanel instead of JFrame.
 	Created Checkmate.java as the main entry point and to have a main JFrame.
