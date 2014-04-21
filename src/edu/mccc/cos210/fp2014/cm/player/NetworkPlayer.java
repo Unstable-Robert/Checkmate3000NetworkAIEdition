@@ -1,9 +1,12 @@
 package edu.mccc.cos210.fp2014.cm.player;
 
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Observable;
 
+import edu.mccc.cos210.fp2014.cm.game.GameModel;
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
+import edu.mccc.cos210.fp2014.cm.util.GameType;
 import edu.mccc.cos210.fp2014.cm.util.MarshalHandler;
 
 /**
@@ -15,6 +18,12 @@ import edu.mccc.cos210.fp2014.cm.util.MarshalHandler;
 public class NetworkPlayer extends Player implements Runnable {
 	private Socket socket;
 	private MarshalHandler mh;
+	public NetworkPlayer(GameModel gm, boolean isWhite) {
+		super(gm,isWhite);
+	}
+	public NetworkPlayer(InetAddress a) {
+		
+	}
 	/**
 	 * Updates the model if the local individual or networked individual make a move.
 	 */

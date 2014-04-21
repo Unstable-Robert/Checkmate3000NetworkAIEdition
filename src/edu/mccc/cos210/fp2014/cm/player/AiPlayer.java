@@ -6,6 +6,7 @@ import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.game.GameModel;
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.player.intelligence.Intelligence;
+import edu.mccc.cos210.fp2014.cm.util.Difficulty;
 import edu.mccc.cos210.fp2014.cm.util.GamePart;
 
 /**
@@ -17,6 +18,11 @@ public class AiPlayer extends Player implements Runnable{
 	private Intelligence intelligence;
 	private GamePart gamePart;
 	private GameModel gm;
+	private Difficulty difficulty;
+	public AiPlayer(GameModel gm, boolean b, Difficulty d) {
+		super(gm, b);
+		this.difficulty = d;
+	}
 	/**
 	 * This takes a board parameter and returns the best move (as determined by the intelligence module).
 	 * @param b The board to search for the best move

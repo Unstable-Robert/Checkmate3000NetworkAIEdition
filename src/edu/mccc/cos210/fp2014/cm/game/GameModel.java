@@ -19,6 +19,9 @@ public class GameModel extends Observable{
 	 * Gets a copy of the current board.
 	 * @return a copy of the current board.
 	 */
+	public GameModel(int i, TimerEvent t){
+		
+	}
 	public Board getBoard() {
 		return null;
 	}

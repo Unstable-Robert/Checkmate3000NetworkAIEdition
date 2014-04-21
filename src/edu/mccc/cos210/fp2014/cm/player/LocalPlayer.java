@@ -2,6 +2,7 @@ package edu.mccc.cos210.fp2014.cm.player;
 
 import java.util.Observable;
 
+import edu.mccc.cos210.fp2014.cm.game.GameModel;
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
 
 /**
@@ -9,6 +10,10 @@ import edu.mccc.cos210.fp2014.cm.piece.Piece;
  * Updates the model when the view is updated.
  */
 public class LocalPlayer extends Player {
+	
+	public LocalPlayer(GameModel gm, boolean b) {
+		super(gm, b);
+	}
 	/**
 	 * Updates the model.
 	 */

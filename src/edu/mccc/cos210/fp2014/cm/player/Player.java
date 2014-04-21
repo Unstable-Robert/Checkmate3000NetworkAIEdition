@@ -13,6 +13,12 @@ import edu.mccc.cos210.fp2014.cm.piece.Piece;
 public abstract class Player implements Observer{
 	protected GameModel gm;
 	protected boolean isWhite;
+	public Player(){
+	}
+	public Player(GameModel gm, boolean isWhite){
+		this.gm = gm;
+		this.isWhite = isWhite;
+	}
 	/**
 	 * This class will update the game model.
 	 */
