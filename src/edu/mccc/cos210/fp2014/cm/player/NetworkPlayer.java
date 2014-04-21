@@ -50,7 +50,6 @@ public class NetworkPlayer extends Player implements Runnable {
 			synchronized(this.socket){
 				OutputStream os = socket.getOutputStream();
 				mh.marshal(gm.getBoard(), os);
-				notify();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -64,21 +63,21 @@ public class NetworkPlayer extends Player implements Runnable {
 		try {
 			this.socket.setSoTimeout(100);
 			while (true){
-				synchronized (this.socket){
-					try {
+				try {
+					synchronized (this.socket){
 						InputStream is = socket.getInputStream();
 						Board b = mh.unmarshal(is);
 						gm.updateBoard(b);
-						notify();
-					} catch (SocketTimeoutException e){
-						try {
-							wait();
-						} catch (InterruptedException e1) {
-							e1.printStackTrace();
-						}
+					}
+				} catch (SocketTimeoutException e){
+					try {
+						Thread.sleep(this.socket.getSoTimeout()/2);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
 					}
 				}
 			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
