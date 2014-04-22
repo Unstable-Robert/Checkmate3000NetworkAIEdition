@@ -120,6 +120,9 @@ public abstract class Piece implements Cloneable {
 		this.selected = b;
 	}
 	protected boolean decideToAddTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
+		if (!checkBounds(pt.getX(), pt.getY()) {
+			return false;
+		}
 		for (Piece p : b.getPieces()){
 			if (checkSameSpace(p, pt)) {
 				if (this.color != p.color) {
