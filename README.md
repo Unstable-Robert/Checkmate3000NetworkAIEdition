@@ -11,6 +11,7 @@ Insert chess pun here
 	Implement AI Player Classes
 
 ####Changelog:
+	Implemented piece lazy tiles methods.
 	Added code for Marshaler and Networked Player
 	Implemented GameModel
 	Implemented GameBuilder
