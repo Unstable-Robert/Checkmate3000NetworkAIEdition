@@ -18,19 +18,17 @@ public class GameModel extends Observable {
 	/**
 	 * Default public constructor.
 	 */
-<<<<<<< HEAD
 	public GameModel() {
 		this.board = new Board(GameType.NORMAL);
 	}
 	public GameModel(int i, TimerEvent te) {
 		this();
-=======
+	}
 	public GameModel(Board b) {
 		this.board = b;
 	}
 	public GameModel(int i, TimerEvent te, Board b){
 		this(b);
->>>>>>> c84a5a7a1a29066baf3e317eafdd365a5d423d74
 		this.timer = new Timer();
 		this.timerEvent = te;
 		this.board.updateBothTimes(i * 60 * 1000);
