@@ -16,15 +16,6 @@ public class Bishop extends Piece {
 	public Bishop(int x, int y, boolean c, int iD, boolean s){
 		super(x,y,c,iD,s);
 	}
-	/**
-	 * Gets possible tiles that this piece can move given the board.
-	 * @param board the board that is checked for possible moves
-	 * @return all of the possible tiles to which this piece can move.
-	 */
-	@Override
-	public ArrayList<PossibleTile> getPossibleTiles(Board board) {
-		return null;
-	}
 	@Override
 	public Bishop clone(){
 		return new Bishop(this.getX(), 
@@ -35,7 +26,75 @@ public class Bishop extends Piece {
 	}
 	@Override
 	protected ArrayList<PossibleTile> getLazyTiles(Board b) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<PossibleTile> possibleTiles = new ArrayList<PossibleTile>();
+		boolean canSearch = true;
+		int i = 1;
+		while (canSearch){
+			if (checkBounds(this.getX() - i, this.getY() - i)){
+				for (Piece p : b.getPieces()){
+					if (checkSameSpace(this, p)) {
+						if (this.color != p.color) {
+							possibleTiles.add(new PossibleTile(this.getX() - i, this.getY() - i, this, p));
+						}
+						canSearch = false;
+					} else {
+						possibleTiles.add(new PossibleTile(this.getX() - i, this.getY() - i, this));
+					}
+				}
+			} else { canSearch = false; }
+			i++;
+		}
+		i = 1;
+		canSearch = true;
+		while (canSearch){
+			if (checkBounds(this.getX() - i, this.getY() + i)){
+				for (Piece p : b.getPieces()){
+					if (checkSameSpace(this, p)) {
+						if (this.color != p.color) {
+							possibleTiles.add(new PossibleTile(this.getX() - i, this.getY() + i, this, p));
+						}
+						canSearch = false;
+					} else {
+						possibleTiles.add(new PossibleTile(this.getX() - i, this.getY() + i, this));
+					}
+				}
+			} else { canSearch = false; }
+			i++;
+		}
+		i = 1;
+		canSearch = true;
+		while (canSearch){
+			if (checkBounds(this.getX() + i, this.getY() - i)){
+				for (Piece p : b.getPieces()){
+					if (checkSameSpace(this, p)) {
+						if (this.color != p.color) {
+							possibleTiles.add(new PossibleTile(this.getX() + i, this.getY() - i, this, p));
+						}
+						canSearch = false;
+					} else {
+						possibleTiles.add(new PossibleTile(this.getX() + i, this.getY() - i, this));
+					}
+				}
+			} else { canSearch = false; }
+			i++;
+		}
+		i = 1;
+		canSearch = true;
+		while (canSearch){
+			if (checkBounds(this.getX() + i, this.getY() + i)){
+				for (Piece p : b.getPieces()){
+					if (checkSameSpace(this, p)) {
+						if (this.color != p.color) {
+							possibleTiles.add(new PossibleTile(this.getX() + i, this.getY() + i, this, p));
+						}
+						canSearch = false;
+					} else {
+						possibleTiles.add(new PossibleTile(this.getX() + i, this.getY() + i, this));
+					}
+				}
+			} else { canSearch = false; }
+			i++;
+		}
+		return possibleTiles;
 	}
 }

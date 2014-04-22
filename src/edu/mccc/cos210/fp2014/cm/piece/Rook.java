@@ -27,15 +27,6 @@ public class Rook extends Piece {
 		this.canCastle = castle;
 	}
 	/**
-	 * Gets possible tiles that this piece can move on the given board.
-	 * @param board the board that is checked for possible moves
-	 * @return all of the possible tiles to which this piece can move.
-	 */
-	@Override
-	public ArrayList<PossibleTile> getPossibleTiles(Board board) {
-		return null;
-	}
-	/**
 	 * This returns true if the rook has not moved and false if it has.
 	 */
 	public boolean canCastle(ArrayList<Piece> board){

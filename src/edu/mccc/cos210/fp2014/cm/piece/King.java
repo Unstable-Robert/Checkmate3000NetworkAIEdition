@@ -26,15 +26,6 @@ public class King extends Piece {
 		this.canCastle = castle;
 	}
 	/**
-	 * Gets possible tiles that this piece can move on the given board.
-	 * @param board the board that is checked for possible moves
-	 * @return all of the possible tiles to which this piece can move.
-	 */
-	@Override
-	public ArrayList<PossibleTile> getPossibleTiles(Board board) {
-		return null;
-	}
-	/**
 	 * Sees if the king can castle to the left.
 	 * Returns true if the king has not moved, there are no pieces in the way, 
 	 * and if the king is in check, moving through check, or into check.

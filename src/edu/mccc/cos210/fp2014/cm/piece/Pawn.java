@@ -32,15 +32,6 @@ public class Pawn extends Piece {
 		this.possibleToPassant = passant;
 	}
 	/**
-	 * Gets possible tiles that this piece can move on the given board.
-	 * @param board the board that is checked for possible moves
-	 * @return all of the possible tiles to which this piece can move.
-	 */
-	@Override
-	public ArrayList<PossibleTile> getPossibleTiles(Board board) {
-		return null;
-	}
-	/**
 	 * Whether or not the pawn has just moved forward two spaces and can be taken en passant.
 	 */
 	public boolean possibleToPassant() {

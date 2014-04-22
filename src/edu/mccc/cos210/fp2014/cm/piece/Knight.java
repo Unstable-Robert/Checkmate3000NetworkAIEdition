@@ -17,17 +17,6 @@ public class Knight extends Piece {
 	public Knight(int x, int y, boolean c, int iD, boolean s){
 		super(x,y,c,iD,s);
 	}
-	/**
-	 * Gets possible tiles that this piece can move on the given board.
-	 * @param board the board that is checked for possible moves
-	 * @return all of the possible tiles to which this piece can move.
-	 */
-	@Override
-	public ArrayList<PossibleTile> getPossibleTiles(Board board) {
-		ArrayList<PossibleTile> ptiles = new ArrayList<PossibleTile>();
-		
-		return null;
-	}
 	public Knight clone(){
 		return new Knight(this.getX(), 
 				this.getY(), 
