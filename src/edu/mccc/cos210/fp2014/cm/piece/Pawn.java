@@ -100,6 +100,9 @@ public class Pawn extends Piece {
 	}
 	@Override
 	protected boolean decideToAddTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
+		if (!checkBounds(pt.getX(), pt.getY()) {
+			return false;
+		}
 		for (Piece p : b.getPieces()){
 			if (checkSameSpace(p, pt)) {
 				return false;
@@ -109,6 +112,9 @@ public class Pawn extends Piece {
 		return true;
 	}
 	private void decideToAddAttackTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
+		if (!checkBounds(pt.getX(), pt.getY()) {
+			return false;
+		}
 		for (Piece p : b.getPieces()){
 			if (checkSameSpace(p, pt)) {
 				if (this.color != p.color) {
@@ -119,6 +125,9 @@ public class Pawn extends Piece {
 		}
 	}
 	private void decideToAddPassantTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
+		if (!checkBounds(pt.getX(), pt.getY()) {
+			return false;
+		}
 		PossibleTile ps;
 		if (color){
 			ps = new PossibleTile(pt.getX(), pt.getY() - 1, pt.getOriginalPiece());
