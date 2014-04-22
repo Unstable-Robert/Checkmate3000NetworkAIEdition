@@ -4,7 +4,6 @@ Checkmate3000NetworkAIEdition
 Insert chess pun here
 
 ####ToDo:
-	Implement Piece Specific getPossibleTiles methods
 	Implement GameView class including interactions with the player classes
 	Implement Board methods
 	Implement Local player class
