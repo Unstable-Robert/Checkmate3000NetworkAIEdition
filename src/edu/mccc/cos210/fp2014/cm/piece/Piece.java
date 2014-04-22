@@ -75,9 +75,11 @@ public abstract class Piece implements Cloneable {
 			}
 		}
 		for (Piece p : bClone.getPieces()){
-			for(PossibleTile move : p.getLazyTiles(bClone)){
-				if (move.getX() == k.getX() && move.getY() == k.getY()){
-					return true;
+			if(p.getColor() != pt.getOriginalPiece().getColor()){
+				for(PossibleTile move : p.getLazyTiles(bClone)){
+					if (move.getX() == k.getX() && move.getY() == k.getY()){
+						return true;
+					}
 				}
 			}
 		}
