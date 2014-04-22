@@ -30,13 +30,13 @@ public class PossibleTile implements Cloneable{
 	 * Returns the x location of the tile.
 	 */
 	public int getX() {
-		return this.getX();
+		return this.xLoc;
 	}
 	/**
 	 * Returns the Y location of the tile.
 	 */
 	public int getY() {
-		return this.getY();
+		return this.yLoc;
 	}
 	public Piece getOriginalPiece() {
 		return this.originalPiece;

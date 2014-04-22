@@ -1,7 +1,9 @@
 package edu.mccc.cos210.fp2014.cm.game;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -90,6 +92,11 @@ public class Board implements Cloneable{
 		}
 	}
 	public Board(ArrayList<PossibleTile> tiles, ArrayList<Piece> p, int moves, boolean t, Meta meta) {
+		this.possibleTiles = tiles;
+		this.pieces = p;
+		this.movesSincePieceTaken = moves;
+		this.whiteTurn = t;
+		this.metaInfo = meta;
 	}
 	/**
 	 * This updates the timer that will be painted by GameView
@@ -101,17 +108,30 @@ public class Board implements Cloneable{
 	 * This changes which player is taking their turn.
 	 */
 	public void nextTurn() {
+		this.whiteTurn = !this.whiteTurn;
 	}
 	/**
 	 * This restarts the countdown used to enact a draw when there have been no pieces taken for 50 turns.
 	 */
 	public void pieceTaken() {
+		this.movesSincePieceTaken = 0;
 	}
     /**
      * Removes a Piece from the board
      * @param p Piece being removed from board
      */
 	public void removePiece(Piece p){
+		boolean found = false;
+		for(Piece piece : this.getPieces()) {
+			if (piece.getUID() == p.getUID()) {
+				this.getPieces().remove(piece);
+				found = true;
+				break;
+			}
+		}
+		if (!found){
+			throw new NoSuchElementException();
+		}
 	}
     /**
      * Gets all the pieces on the board
@@ -137,6 +157,17 @@ public class Board implements Cloneable{
      * @param p Piece being added to the board
      */
 	public void addPiece(Piece p){
+		boolean found = false;
+		for(Piece piece : this.getPieces()) {
+			if (piece.getUID() == p.getUID()) {
+				this.getPieces().remove(piece);
+				found = true;
+				break;
+			}
+		}
+		if (!found){
+			throw new InvalidParameterException();
+		}
 	} 
 	public Board clone(){
 		ArrayList<Piece> newPieces = new ArrayList<Piece>();
