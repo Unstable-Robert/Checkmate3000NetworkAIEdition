@@ -39,5 +39,6 @@ public class Knight extends Piece {
 		for(PossibleTile pt : superLazyTiles){
 			decideToAddTile(b, lazyTiles, pt);
 		}
+		return lazyTiles;
 	}
 }

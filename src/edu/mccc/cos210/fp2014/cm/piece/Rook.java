@@ -29,8 +29,8 @@ public class Rook extends Piece {
 	/**
 	 * This returns true if the rook has not moved and false if it has.
 	 */
-	public boolean canCastle(ArrayList<Piece> board){
-		return false;
+	public boolean canCastle(){
+		return this.canCastle;
 	}
 	@Override
 	public Rook clone(){
@@ -46,34 +46,36 @@ public class Rook extends Piece {
 		ArrayList<PossibleTile> possibleTiles = new ArrayList<PossibleTile>();
 		int i = 1;
 		boolean canSearch = true;
+		Rook clone = this.clone();
+		clone.canCastle();
 		while (canSearch){
-			PossibleTile pt = new PossibleTile(this.getX() - i, this.getY(), this);
+			PossibleTile pt = new PossibleTile(clone.getX() - i, clone.getY(), clone);
 			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		i = 1;
 		canSearch = true;
 		while (canSearch){
-			PossibleTile pt = new PossibleTile(this.getX() + i, this.getY(), this);
+			PossibleTile pt = new PossibleTile(clone.getX() + i, clone.getY(), clone);
 			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		i = 1;
 		canSearch = true;
 		while (canSearch){
-			PossibleTile pt = new PossibleTile(this.getX(), this.getY() - i, this);
+			PossibleTile pt = new PossibleTile(clone.getX(), clone.getY() - i, clone);
 			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		i = 1;
 		canSearch = true;
 		while (canSearch){
-			PossibleTile pt = new PossibleTile(this.getX(), this.getY() + i, this);
+			PossibleTile pt = new PossibleTile(clone.getX(), clone.getY() + i, clone);
 			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		if (this.canCastle) {
-			for (Piece p : b) {
+			for (Piece p : b.getPieces()) {
 				if (p instanceof King){
 					King k = (King) p;
 					if (this.getX() < k.getX() &&
