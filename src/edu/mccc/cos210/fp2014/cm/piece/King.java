@@ -55,16 +55,9 @@ public class King extends Piece {
 		PossibleTile space2 = new PossibleTile(this.getX() + 2, this.getY(), this);
 		for (Piece p : board.getPieces()){
 			if (checkSameSpace(p, space1) ||
-<<<<<<< HEAD
-				checkSameSpace(p, space2)
-			) {
-				return false;
-			}
-=======
 				checkSameSpace(p, space2)) {
 					return false;
 				}
->>>>>>> 8c14c5d928449fa0ab49bc42c11571f7674679ad
 		}
 		return true;
 	}

@@ -46,13 +46,8 @@ public class Pawn extends Piece {
 	private boolean hasMoved() {
 		return this.hasMoved;
 	}
-<<<<<<< HEAD
-	private void setMoved(boolean moved){
-		this.hasMoved = moved;
-=======
 	private void setMoved(){
 		this.hasMoved = true;
->>>>>>> 8c14c5d928449fa0ab49bc42c11571f7674679ad
 	}
 	@Override
 	public Pawn clone(){
@@ -77,8 +72,7 @@ public class Pawn extends Piece {
 		if (!hasMoved && canMove) {
 			Pawn clone = this.clone();
 			PossibleTile step2;
-			Pawn clone = this.clone();
-			clone.setMoved(true);
+			clone.setMoved();
 			clone.setPossibleToPassant(true);
 			if (color){
 				step2 = new PossibleTile(clone.getX(), clone.getY() - 2, clone);
@@ -119,15 +113,9 @@ public class Pawn extends Piece {
 		pts.add(pt);
 		return true;
 	}
-<<<<<<< HEAD
-	private void decideToAddAttackTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
-		if (!checkBounds(pt.getX(), pt.getY())) {
-			return;
-=======
 	private boolean decideToAddAttackTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
 		if (!checkBounds(pt.getX(), pt.getY())) {
 			return false;
->>>>>>> 8c14c5d928449fa0ab49bc42c11571f7674679ad
 		}
 		for (Piece p : b.getPieces()){
 			if (checkSameSpace(p, pt)) {
@@ -140,15 +128,9 @@ public class Pawn extends Piece {
 		}
 		return true;
 	}
-<<<<<<< HEAD
-	private void decideToAddPassantTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
-		if (!checkBounds(pt.getX(), pt.getY())) {
-			return;
-=======
 	private boolean decideToAddPassantTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
 		if (!checkBounds(pt.getX(), pt.getY())) {
 			return false;
->>>>>>> 8c14c5d928449fa0ab49bc42c11571f7674679ad
 		}
 		PossibleTile ps;
 		if (color){
@@ -160,16 +142,10 @@ public class Pawn extends Piece {
 			if (p instanceof Pawn){
 				Pawn pawn = (Pawn) p;
 				if (pawn.possibleToPassant()){
-<<<<<<< HEAD
-					if (checkSameSpace(pawn, null)){//if (checkSameSpace(pawn, passant1)){
-						ps.setRemovePiece(pawn);
-						pts.add(ps);
-=======
 					if (checkSameSpace(pawn, pt)){
 						ps.setRemovePiece(pawn);
 						pts.add(ps);
 						return false;
->>>>>>> 8c14c5d928449fa0ab49bc42c11571f7674679ad
 					}
 				}
 			}

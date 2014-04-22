@@ -111,14 +111,14 @@ public class GameBuilder {
 		return gm;
 	}
 	private static GameView setupGameView(Checkmate c, GameModel gm, Player p1, Player p2){
-		GameView gv = new GameView(c);
+		GameView gv = new GameView(c, gm);
 		gm.addObserver(gv);
 		gv.addPlayer(p1);
 		gv.addPlayer(p2);
 		return gv;
 	}
 	private static GameView setupGameView(Checkmate c, GameModel gm, Player p1){
-		GameView gv = new GameView(c);
+		GameView gv = new GameView(c, gm);
 		gm.addObserver(gv);
 		gv.addPlayer(p1);
 		return gv;

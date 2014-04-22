@@ -92,25 +92,25 @@ public abstract class Piece implements Cloneable {
 		this.xLoc = x;
 		this.yLoc = y;
 	}
-	public int getX(){
+	public int getX() {
 		return this.xLoc;
 	}
-	public int getY(){
+	public int getY() {
 		return this.yLoc;
 	}
-	public void setX(int x){
+	public void setX(int x) {
 		this.xLoc = x;
 	}
-	public void setY(int y){
+	public void setY(int y) {
 		this.yLoc = y;
 	}
-	public boolean getColor(){
+	public boolean getColor() {
 		return this.color;
 	}
 	public int getUID(){
 		return this.uID;
 	}
-	public boolean isSelected(){
+	public boolean isSelected() {
 		return this.selected;
 	}
 	/**

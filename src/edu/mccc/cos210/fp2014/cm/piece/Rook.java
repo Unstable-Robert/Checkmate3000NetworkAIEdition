@@ -30,11 +30,7 @@ public class Rook extends Piece {
 	 * This returns true if the rook has not moved and false if it has.
 	 */
 	public boolean canCastle(){
-<<<<<<< HEAD
-		return false;
-=======
 		return this.canCastle;
->>>>>>> 8c14c5d928449fa0ab49bc42c11571f7674679ad
 	}
 	@Override
 	public Rook clone(){
