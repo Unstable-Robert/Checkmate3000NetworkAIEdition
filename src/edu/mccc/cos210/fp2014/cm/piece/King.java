@@ -55,9 +55,10 @@ public class King extends Piece {
 		PossibleTile space2 = new PossibleTile(this.getX() + 2, this.getY(), this);
 		for (Piece p : board.getPieces()){
 			if (checkSameSpace(p, space1) ||
-				checkSameSpace(p, space2) {
-					return false;
-				}
+				checkSameSpace(p, space2)
+			) {
+				return false;
+			}
 		}
 		return true;
 	}
@@ -74,15 +75,15 @@ public class King extends Piece {
 		King clone = this.clone();
 		clone.canCastle = false;
 		ArrayList<PossibleTile> possibleTiles = new ArrayList<PossibleTile>();
-		ArrayList<PossibleTile> superLazyTile = new ArrayList<PossibleTile();
-		superLazyTile.add(new PossibleTile(clone.getX() - 1, clone.getY() - 1, clone);
-		superLazyTile.add(new PossibleTile(clone.getX()    , clone.getY() - 1, clone);
-		superLazyTile.add(new PossibleTile(clone.getX() + 1, clone.getY() - 1, clone);
-		superLazyTile.add(new PossibleTile(clone.getX() + 1, clone.getY()    , clone);
-		superLazyTile.add(new PossibleTile(clone.getX() + 1, clone.getY() + 1, clone);
-		superLazyTile.add(new PossibleTile(clone.getX()    , clone.getY() + 1, clone);
-		superLazyTile.add(new PossibleTile(clone.getX() - 1, clone.getY() + 1, clone);
-		superLazyTile.add(new PossibleTile(clone.getX() - 1, clone.getY()    , clone);
+		ArrayList<PossibleTile> superLazyTile = new ArrayList<PossibleTile>();
+		superLazyTile.add(new PossibleTile(clone.getX() - 1, clone.getY() - 1, clone));
+		superLazyTile.add(new PossibleTile(clone.getX()    , clone.getY() - 1, clone));
+		superLazyTile.add(new PossibleTile(clone.getX() + 1, clone.getY() - 1, clone));
+		superLazyTile.add(new PossibleTile(clone.getX() + 1, clone.getY()    , clone));
+		superLazyTile.add(new PossibleTile(clone.getX() + 1, clone.getY() + 1, clone));
+		superLazyTile.add(new PossibleTile(clone.getX()    , clone.getY() + 1, clone));
+		superLazyTile.add(new PossibleTile(clone.getX() - 1, clone.getY() + 1, clone));
+		superLazyTile.add(new PossibleTile(clone.getX() - 1, clone.getY()    , clone));
 		for(PossibleTile pt : superLazyTile) {
 			decideToAddTile(b, possibleTiles, pt);
 		}

@@ -29,7 +29,7 @@ public class Rook extends Piece {
 	/**
 	 * This returns true if the rook has not moved and false if it has.
 	 */
-	public boolean canCastle(ArrayList<Piece> board){
+	public boolean canCastle(){
 		return false;
 	}
 	@Override
@@ -73,7 +73,7 @@ public class Rook extends Piece {
 			i++;
 		}
 		if (this.canCastle) {
-			for (Piece p : b) {
+			for (Piece p : b.getPieces()) {
 				if (p instanceof King){
 					King k = (King) p;
 					if (this.getX() < k.getX() &&

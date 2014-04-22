@@ -46,7 +46,7 @@ public class Pawn extends Piece {
 	private boolean hasMoved() {
 		return this.hasMoved;
 	}
-	private boolean setMoved(){
+	private void setMoved(boolean moved){
 		this.hasMoved = moved;
 	}
 	@Override
@@ -61,7 +61,7 @@ public class Pawn extends Piece {
 	}
 	@Override
 	protected ArrayList<PossibleTile> getLazyTiles(Board b) {
-		ArrayList<PossibleTile> lazyTiles = new ArrayList<PossibleTile();
+		ArrayList<PossibleTile> lazyTiles = new ArrayList<PossibleTile>();
 		PossibleTile step1;
 		if (color){
 			step1 = new PossibleTile(this.getX(), this.getY() - 1, this);
@@ -71,9 +71,9 @@ public class Pawn extends Piece {
 		boolean canMove = decideToAddTile(b, lazyTiles, step1);
 		if (!hasMoved && canMove) {
 			PossibleTile step2;
-			clone.setMoved();
+			Pawn clone = this.clone();
+			clone.setMoved(true);
 			clone.setPossibleToPassant(true);
-			Piece clone = this.clone();
 			if (color){
 				step2 = new PossibleTile(clone.getX(), clone.getY() - 2, clone);
 			} else {
@@ -100,7 +100,7 @@ public class Pawn extends Piece {
 	}
 	@Override
 	protected boolean decideToAddTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
-		if (!checkBounds(pt.getX(), pt.getY()) {
+		if (!checkBounds(pt.getX(), pt.getY())) {
 			return false;
 		}
 		for (Piece p : b.getPieces()){
@@ -112,8 +112,8 @@ public class Pawn extends Piece {
 		return true;
 	}
 	private void decideToAddAttackTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
-		if (!checkBounds(pt.getX(), pt.getY()) {
-			return false;
+		if (!checkBounds(pt.getX(), pt.getY())) {
+			return;
 		}
 		for (Piece p : b.getPieces()){
 			if (checkSameSpace(p, pt)) {
@@ -125,8 +125,8 @@ public class Pawn extends Piece {
 		}
 	}
 	private void decideToAddPassantTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
-		if (!checkBounds(pt.getX(), pt.getY()) {
-			return false;
+		if (!checkBounds(pt.getX(), pt.getY())) {
+			return;
 		}
 		PossibleTile ps;
 		if (color){
@@ -138,9 +138,9 @@ public class Pawn extends Piece {
 			if (p instanceof Pawn){
 				Pawn pawn = (Pawn) p;
 				if (pawn.possibleToPassant()){
-					if (checkSameSpace(pawn, passant1)){
-						ps.addRemovePiece(pawn);
-						lazyTiles.add(ps);
+					if (checkSameSpace(pawn, null)){//if (checkSameSpace(pawn, passant1)){
+						ps.setRemovePiece(pawn);
+						pts.add(ps);
 					}
 				}
 			}

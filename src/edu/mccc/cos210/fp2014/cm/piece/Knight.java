@@ -36,8 +36,9 @@ public class Knight extends Piece {
 		superLazyTiles.add(new PossibleTile(this.getX() + 1, this.getY() + 2, this));
 		superLazyTiles.add(new PossibleTile(this.getX() - 1, this.getY() + 2, this));
 		superLazyTiles.add(new PossibleTile(this.getX() - 2, this.getY() + 1, this));
-		for(PossibleTile pt : superLazyTiles){
+		for(PossibleTile pt : superLazyTiles) {
 			decideToAddTile(b, lazyTiles, pt);
 		}
+		return lazyTiles;
 	}
 }
