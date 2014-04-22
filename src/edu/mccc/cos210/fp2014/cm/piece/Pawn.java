@@ -152,4 +152,12 @@ public class Pawn extends Piece {
 		}
 		return true;
 	}
+	@Override
+	public String getUnicode() {
+		if (this.color){
+			return "\u2659";
+		} else {
+			return "\u265F";
+		}
+	}
 }

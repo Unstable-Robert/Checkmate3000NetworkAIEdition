@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
+import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.player.Player;
 
 /**

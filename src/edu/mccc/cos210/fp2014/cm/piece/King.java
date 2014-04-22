@@ -1,6 +1,7 @@
 package edu.mccc.cos210.fp2014.cm.piece;
 
 import java.util.ArrayList;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -101,5 +102,13 @@ public class King extends Piece {
 			}
 		}
 		return possibleTiles;
+	}
+	@Override
+	public String getUnicode() {
+		if (this.color){
+			return "\u2654";
+		} else {
+			return "\u265A";
+		}
 	}
 }

@@ -19,6 +19,7 @@ public class LocalPlayer extends Player {
 	 */
 	@Override
 	public void updateModel(Board b) {
+		
 	}
 	/**
 	 * Called when the model is updated.
