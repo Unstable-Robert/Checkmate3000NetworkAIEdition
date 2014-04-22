@@ -46,8 +46,13 @@ public class Pawn extends Piece {
 	private boolean hasMoved() {
 		return this.hasMoved;
 	}
+<<<<<<< HEAD
 	private void setMoved(boolean moved){
 		this.hasMoved = moved;
+=======
+	private void setMoved(){
+		this.hasMoved = true;
+>>>>>>> 8c14c5d928449fa0ab49bc42c11571f7674679ad
 	}
 	@Override
 	public Pawn clone(){
@@ -70,6 +75,7 @@ public class Pawn extends Piece {
 		}
 		boolean canMove = decideToAddTile(b, lazyTiles, step1);
 		if (!hasMoved && canMove) {
+			Pawn clone = this.clone();
 			PossibleTile step2;
 			Pawn clone = this.clone();
 			clone.setMoved(true);
@@ -81,19 +87,21 @@ public class Pawn extends Piece {
 			}
 			decideToAddTile(b, lazyTiles, step2);
 		}
+		Pawn clone = this.clone();
+		clone.setMoved();
 		PossibleTile attack1;
 		PossibleTile attack2;
 		if (color){
-			attack1 = new PossibleTile(this.getX() - 1, this.getY() - 1, this);
-			attack2 = new PossibleTile(this.getX() + 1, this.getY() - 1, this);
+			attack1 = new PossibleTile(clone.getX() - 1, clone.getY() - 1, clone);
+			attack2 = new PossibleTile(clone.getX() + 1, clone.getY() - 1, clone);
 		} else {
-			attack1 = new PossibleTile(this.getX() - 1, this.getY() + 1, this);
-			attack2 = new PossibleTile(this.getX() + 1, this.getY() + 1, this);
+			attack1 = new PossibleTile(clone.getX() - 1, clone.getY() + 1, clone);
+			attack2 = new PossibleTile(clone.getX() + 1, clone.getY() + 1, clone);
 		}
 		decideToAddAttackTile(b, lazyTiles, attack1);
 		decideToAddAttackTile(b, lazyTiles, attack2);
-		PossibleTile passant1 = new PossibleTile(this.getX() - 1, this.getY(), this);
-		PossibleTile passant2 = new PossibleTile(this.getX() + 1, this.getY(), this);
+		PossibleTile passant1 = new PossibleTile(clone.getX() - 1, clone.getY(), clone);
+		PossibleTile passant2 = new PossibleTile(clone.getX() + 1, clone.getY(), clone);
 		decideToAddPassantTile(b, lazyTiles, passant1);
 		decideToAddPassantTile(b, lazyTiles, passant2);
 		return lazyTiles;
@@ -111,22 +119,36 @@ public class Pawn extends Piece {
 		pts.add(pt);
 		return true;
 	}
+<<<<<<< HEAD
 	private void decideToAddAttackTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
 		if (!checkBounds(pt.getX(), pt.getY())) {
 			return;
+=======
+	private boolean decideToAddAttackTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
+		if (!checkBounds(pt.getX(), pt.getY())) {
+			return false;
+>>>>>>> 8c14c5d928449fa0ab49bc42c11571f7674679ad
 		}
 		for (Piece p : b.getPieces()){
 			if (checkSameSpace(p, pt)) {
 				if (this.color != p.color) {
 					pt.setRemovePiece(p);
 					pts.add(pt);
+					return false;
 				}
 			} 
 		}
+		return true;
 	}
+<<<<<<< HEAD
 	private void decideToAddPassantTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
 		if (!checkBounds(pt.getX(), pt.getY())) {
 			return;
+=======
+	private boolean decideToAddPassantTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
+		if (!checkBounds(pt.getX(), pt.getY())) {
+			return false;
+>>>>>>> 8c14c5d928449fa0ab49bc42c11571f7674679ad
 		}
 		PossibleTile ps;
 		if (color){
@@ -138,12 +160,20 @@ public class Pawn extends Piece {
 			if (p instanceof Pawn){
 				Pawn pawn = (Pawn) p;
 				if (pawn.possibleToPassant()){
+<<<<<<< HEAD
 					if (checkSameSpace(pawn, null)){//if (checkSameSpace(pawn, passant1)){
 						ps.setRemovePiece(pawn);
 						pts.add(ps);
+=======
+					if (checkSameSpace(pawn, pt)){
+						ps.setRemovePiece(pawn);
+						pts.add(ps);
+						return false;
+>>>>>>> 8c14c5d928449fa0ab49bc42c11571f7674679ad
 					}
 				}
 			}
 		}
+		return true;
 	}
 }
