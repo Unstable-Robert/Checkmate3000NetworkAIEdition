@@ -141,5 +141,6 @@ public abstract class Piece implements Cloneable {
 	protected boolean checkSameSpace(Piece p1, PossibleTile p2){
 		return (p1.getX() == p2.getX() && p1.getY() == p2.getY());
 	}
+	public abstract String getUnicode();
 	public abstract Piece clone();
 }

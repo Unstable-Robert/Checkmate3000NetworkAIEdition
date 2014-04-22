@@ -21,9 +21,12 @@ public class GameBuilder {
 	 */
 	public static void buildLocalGame(Checkmate c, GameType g, int t) {
 		GameModel gm = setupGameType(g,t);
+		c.setGameModel(gm);
+		gm.addObserver(c);
 		LocalPlayer lp1 = new LocalPlayer(gm, true);
 		LocalPlayer lp2 = new LocalPlayer(gm, false);
-		c.setGameView(setupGameView(c, gm, lp1, lp2));
+		GameView gv = setupGameView(c, gm, lp1, lp2);
+		c.setGameView(gv);
 		gm.addObserver(lp1);
 		gm.addObserver(lp2);
 	}
@@ -35,6 +38,8 @@ public class GameBuilder {
 	 */
 	public static void buildAiGame(Checkmate c, GameType g, Difficulty d, int t, boolean localColor) {
 		GameModel gm = setupGameType(g,t);
+		c.setGameModel(gm);
+		gm.addObserver(c);
 		LocalPlayer lp = new LocalPlayer(gm, localColor);
 		AiPlayer aip = new AiPlayer(gm, !localColor, d);
 		c.setGameView(setupGameView(c, gm, lp, aip));
@@ -50,6 +55,8 @@ public class GameBuilder {
 	 */
 	public static void buildDoublyAiGame(Checkmate c, GameType g, Difficulty d1, Difficulty d2, int t) {
 		GameModel gm = setupGameType(g,t);
+		c.setGameModel(gm);
+		gm.addObserver(c);
 		AiPlayer aip1 = new AiPlayer(gm, true, d1);
 		AiPlayer aip2 = new AiPlayer(gm, false, d2);
 		c.setGameView(setupGameView(c, gm, aip1, aip2));
@@ -63,6 +70,8 @@ public class GameBuilder {
 	 */
 	public static void buildHostGame(Checkmate c, GameType g, int t, InetAddress a) {
 		GameModel gm = setupGameType(g,t);
+		c.setGameModel(gm);
+		gm.addObserver(c);
 		NetworkPlayer np;
 		try {
 			np = new NetworkPlayer(gm, true, a);
@@ -80,6 +89,8 @@ public class GameBuilder {
 	 */
 	public static void buildJoinGame(Checkmate c, InetAddress a) {
 		GameModel gm = setupGameType(null, 0);
+		c.setGameModel(gm);
+		gm.addObserver(c);
 		NetworkPlayer np;
 		try {
 			np = new NetworkPlayer(a);
@@ -94,18 +105,18 @@ public class GameBuilder {
 		GameModel gm;
 		Board b;
 		if (g.equals(GameType.TIMED_GAME)){
+			b = new Board(g, t);
 			GameTimer gt = new GameTimer();
-			gm = new GameModel(t, gt);
+			gm = new GameModel(t, gt, b);
 			gm.addObserver(gt);
-			b = new Board(g, t);
 		} else if (g.equals(GameType.TIMED_TURN)){
-			TurnTimer tt = new TurnTimer();
-			gm = new GameModel(t, tt);
-			gm.addObserver(tt);
 			b = new Board(g, t);
+			TurnTimer tt = new TurnTimer();
+			gm = new GameModel(t, tt, b);
+			gm.addObserver(tt);
 		} else {
-			gm = new GameModel();
 			b = new Board(g);
+			gm = new GameModel(b);
 		}
 		gm.updateBoard(b);
 		return gm;

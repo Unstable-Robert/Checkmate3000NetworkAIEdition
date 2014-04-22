@@ -5,6 +5,8 @@ import edu.mccc.cos210.fp2014.cm.util.GameType;
 import java.util.Observable;
 import java.util.Timer;
 
+import edu.mccc.cos210.fp2014.cm.piece.Piece;
+
 /**
  * This model holds internal information about the state of the game.
  * Holds information on the board itself, a timer (if applicable), whether or not the game is over
@@ -12,16 +14,27 @@ import java.util.Timer;
 public class GameModel extends Observable {
 	private Board board;
 	private Timer timer;
+	private TimerEvent timerEvent;
 	/**
 	 * Default public constructor.
 	 */
+<<<<<<< HEAD
 	public GameModel() {
 		this.board = new Board(GameType.NORMAL);
 	}
 	public GameModel(int i, TimerEvent te) {
 		this();
+=======
+	public GameModel(Board b) {
+		this.board = b;
+	}
+	public GameModel(int i, TimerEvent te, Board b){
+		this(b);
+>>>>>>> c84a5a7a1a29066baf3e317eafdd365a5d423d74
 		this.timer = new Timer();
-		this.timer.schedule(te, 0, i * 60 * 1000);
+		this.timerEvent = te;
+		this.board.updateBothTimes(i * 60 * 1000);
+		this.timer.schedule(te, 0, this.board.getTime());
 	}
 	/**
 	 * Gets a copy of the current board.
@@ -36,12 +49,23 @@ public class GameModel extends Observable {
 	 */
 	public void updateBoard(Board b) {
 		this.board = b;
-		//do other stuff, like reschedule timer and such
+		for (Piece p : b.getPieces()){
+			if (p.isSelected()) {
+				this.board.setPossibleTiles(p.getPossibleTiles(b));
+				break;
+			}
+		}
+		if (isCheckMate()){
+			
+		}
+		this.notifyObservers();
 	}
 	/**
 	 * Called at the end of each turn, by the player or an expired timer.
 	 */
 	public void nextTurn() {
+		//reschedule timer, if applicable
+		this.board.nextTurn();
 	}
 	/**
 	 * Called when one game timer expires.
@@ -51,7 +75,14 @@ public class GameModel extends Observable {
 	/**
 	 * Returns true if the game is over.
 	 */
-	private boolean isCheckMate(){
-		return false;
+	public boolean isCheckMate(){
+		for (Piece p : this.board.getPieces()){
+			if (p.getColor() == this.board.isWhiteTurn()) {
+				if (!p.getPossibleTiles(this.board).isEmpty()){
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 }
