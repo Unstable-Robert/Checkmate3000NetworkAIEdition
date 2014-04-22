@@ -62,4 +62,9 @@ public class Pawn extends Piece {
 				this.hasMoved(),
 				this.possibleToPassant());
 	}
+	@Override
+	protected ArrayList<PossibleTile> getLazyTiles(Board b) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

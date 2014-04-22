@@ -38,6 +38,11 @@ public abstract class Piece implements Cloneable {
 	}
 	public abstract ArrayList<PossibleTile> getPossibleTiles(Board b);
 	/**
+	 * Checks for possible moves, regardless of whether or not a move causes
+	 * a the player to go into check.
+	 */
+	protected abstract ArrayList<PossibleTile> getLazyTiles(Board b);
+	/**
 	 * Changes the location of the piece.
 	 */
 	public void setLocation(int x, int y) {
@@ -64,6 +69,9 @@ public abstract class Piece implements Cloneable {
 	 */
 	public void setSelected(boolean b) {
 		this.selected = b;
+	}
+	protected boolean checkBounds(int x, int y){
+		return !(x < 0 | x > 7 | y < 0 | y > 7);
 	}
 	public abstract Piece clone();
 }

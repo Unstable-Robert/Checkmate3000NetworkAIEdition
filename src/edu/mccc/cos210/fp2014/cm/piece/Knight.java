@@ -24,6 +24,8 @@ public class Knight extends Piece {
 	 */
 	@Override
 	public ArrayList<PossibleTile> getPossibleTiles(Board board) {
+		ArrayList<PossibleTile> ptiles = new ArrayList<PossibleTile>();
+		
 		return null;
 	}
 	public Knight clone(){
@@ -32,5 +34,10 @@ public class Knight extends Piece {
 				this.getColor(), 
 				this.getUID(), 
 				this.isSelected());
+	}
+	@Override
+	protected ArrayList<PossibleTile> getLazyTiles(Board b) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

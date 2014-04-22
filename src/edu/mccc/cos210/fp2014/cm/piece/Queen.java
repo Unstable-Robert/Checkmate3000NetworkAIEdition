@@ -33,4 +33,9 @@ public class Queen extends Piece {
 				this.getUID(), 
 				this.isSelected());
 	}
+	@Override
+	protected ArrayList<PossibleTile> getLazyTiles(Board b) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
