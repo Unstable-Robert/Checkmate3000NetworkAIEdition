@@ -62,18 +62,18 @@ public class Pawn extends Piece {
 	@Override
 	protected ArrayList<PossibleTile> getLazyTiles(Board b) {
 		ArrayList<PossibleTile> lazyTiles = new ArrayList<PossibleTile();
-		Piece clone = this.clone();
 		PossibleTile step1;
 		if (color){
-			step1 = new PossibleTile(clone.getX(), clone.getY() - 1, clone);
+			step1 = new PossibleTile(this.getX(), this.getY() - 1, this);
 		} else {
-			step1 = new PossibleTile(clone.getX(), clone.getY() + 1, clone);
+			step1 = new PossibleTile(this.getX(), this.getY() + 1, this);
 		}
 		boolean canMove = decideToAddTile(b, lazyTiles, step1);
 		if (!hasMoved && canMove) {
 			PossibleTile step2;
 			clone.setMoved();
-			clone.setPossibleToPassant();
+			clone.setPossibleToPassant(true);
+			Piece clone = this.clone();
 			if (color){
 				step2 = new PossibleTile(clone.getX(), clone.getY() - 2, clone);
 			} else {
@@ -81,20 +81,19 @@ public class Pawn extends Piece {
 			}
 			decideToAddTile(b, lazyTiles, step2);
 		}
-		clone = this.clone();
 		PossibleTile attack1;
 		PossibleTile attack2;
 		if (color){
-			attack1 = new PossibleTile(clone.getX() - 1, clone.getY() - 1, clone);
-			attack2 = new PossibleTile(clone.getX() + 1, clone.getY() - 1, clone);
+			attack1 = new PossibleTile(this.getX() - 1, this.getY() - 1, this);
+			attack2 = new PossibleTile(this.getX() + 1, this.getY() - 1, this);
 		} else {
-			attack1 = new PossibleTile(clone.getX() - 1, clone.getY() + 1, clone);
-			attack2 = new PossibleTile(clone.getX() + 1, clone.getY() + 1, clone);
+			attack1 = new PossibleTile(this.getX() - 1, this.getY() + 1, this);
+			attack2 = new PossibleTile(this.getX() + 1, this.getY() + 1, this);
 		}
 		decideToAddAttackTile(b, lazyTiles, attack1);
 		decideToAddAttackTile(b, lazyTiles, attack2);
-		PossibleTile passant1 = new PossibleTile(clone.getX() - 1, clone.getY(), clone);
-		PossibleTile passant2 = new PossibleTile(clone.getX() + 1, clone.getY(), clone);
+		PossibleTile passant1 = new PossibleTile(this.getX() - 1, this.getY(), this);
+		PossibleTile passant2 = new PossibleTile(this.getX() + 1, this.getY(), this);
 		decideToAddPassantTile(b, lazyTiles, passant1);
 		decideToAddPassantTile(b, lazyTiles, passant2);
 		return lazyTiles;
