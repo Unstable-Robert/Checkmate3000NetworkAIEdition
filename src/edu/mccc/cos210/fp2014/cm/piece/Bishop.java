@@ -27,20 +27,12 @@ public class Bishop extends Piece {
 	@Override
 	protected ArrayList<PossibleTile> getLazyTiles(Board b) {
 		ArrayList<PossibleTile> possibleTiles = new ArrayList<PossibleTile>();
-		boolean canSearch = true;
 		int i = 1;
+		boolean canSearch = true;
 		while (canSearch){
 			if (checkBounds(this.getX() - i, this.getY() - i)){
-				for (Piece p : b.getPieces()){
-					if (checkSameSpace(this, p)) {
-						if (this.color != p.color) {
-							possibleTiles.add(new PossibleTile(this.getX() - i, this.getY() - i, this, p));
-						}
-						canSearch = false;
-					} else {
-						possibleTiles.add(new PossibleTile(this.getX() - i, this.getY() - i, this));
-					}
-				}
+				PossibleTile pt = new PossibleTile(this.getX() - i, this.getY() - i, this);
+				canSearch = decideToAddTile(b, possibleTiles, pt);
 			} else { canSearch = false; }
 			i++;
 		}
@@ -48,16 +40,8 @@ public class Bishop extends Piece {
 		canSearch = true;
 		while (canSearch){
 			if (checkBounds(this.getX() - i, this.getY() + i)){
-				for (Piece p : b.getPieces()){
-					if (checkSameSpace(this, p)) {
-						if (this.color != p.color) {
-							possibleTiles.add(new PossibleTile(this.getX() - i, this.getY() + i, this, p));
-						}
-						canSearch = false;
-					} else {
-						possibleTiles.add(new PossibleTile(this.getX() - i, this.getY() + i, this));
-					}
-				}
+				PossibleTile pt = new PossibleTile(this.getX() - i, this.getY() + i, this);
+				canSearch = decideToAddTile(b, possibleTiles, pt);
 			} else { canSearch = false; }
 			i++;
 		}
@@ -65,16 +49,8 @@ public class Bishop extends Piece {
 		canSearch = true;
 		while (canSearch){
 			if (checkBounds(this.getX() + i, this.getY() - i)){
-				for (Piece p : b.getPieces()){
-					if (checkSameSpace(this, p)) {
-						if (this.color != p.color) {
-							possibleTiles.add(new PossibleTile(this.getX() + i, this.getY() - i, this, p));
-						}
-						canSearch = false;
-					} else {
-						possibleTiles.add(new PossibleTile(this.getX() + i, this.getY() - i, this));
-					}
-				}
+				PossibleTile pt = new PossibleTile(this.getX() + i, this.getY() - i, this);
+				canSearch = decideToAddTile(b, possibleTiles, pt);
 			} else { canSearch = false; }
 			i++;
 		}
@@ -82,16 +58,8 @@ public class Bishop extends Piece {
 		canSearch = true;
 		while (canSearch){
 			if (checkBounds(this.getX() + i, this.getY() + i)){
-				for (Piece p : b.getPieces()){
-					if (checkSameSpace(this, p)) {
-						if (this.color != p.color) {
-							possibleTiles.add(new PossibleTile(this.getX() + i, this.getY() + i, this, p));
-						}
-						canSearch = false;
-					} else {
-						possibleTiles.add(new PossibleTile(this.getX() + i, this.getY() + i, this));
-					}
-				}
+				PossibleTile pt = new PossibleTile(this.getX() + i, this.getY() + i, this);
+				canSearch = decideToAddTile(b, possibleTiles, pt);
 			} else { canSearch = false; }
 			i++;
 		}

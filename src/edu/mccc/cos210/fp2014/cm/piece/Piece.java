@@ -77,7 +77,7 @@ public abstract class Piece implements Cloneable {
 		for (Piece p : bClone.getPieces()){
 			if(p.getColor() != pt.getOriginalPiece().getColor()){
 				for(PossibleTile move : p.getLazyTiles(bClone)){
-					if (move.getX() == k.getX() && move.getY() == k.getY()){
+					if (checkSameSpace(k, move)){
 						return true;
 					}
 				}
@@ -119,10 +119,23 @@ public abstract class Piece implements Cloneable {
 	public void setSelected(boolean b) {
 		this.selected = b;
 	}
+	protected boolean decideToAddTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
+		for (Piece p : b.getPieces()){
+			if (checkSameSpace(p, pt)) {
+				if (this.color != p.color) {
+					pt.setRemovePiece(p);
+					pts.add(pt);
+				}
+				return false;
+			} 
+		}
+		pts.add(pt);
+		return true;
+	}
 	protected boolean checkBounds(int x, int y){
 		return !(x < 0 | x > 7 | y < 0 | y > 7);
 	}
-	protected boolean checkSameSpace(Piece p1, Piece p2){
+	protected boolean checkSameSpace(Piece p1, PossibleTile p2){
 		return (p1.getX() == p2.getX() && p1.getY() == p2.getY());
 	}
 	public abstract Piece clone();

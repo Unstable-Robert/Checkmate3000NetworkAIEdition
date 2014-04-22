@@ -44,6 +44,9 @@ public class PossibleTile implements Cloneable{
 	public Piece getRemovePiece() {
 		return this.removePiece;
 	}
+	public void setRemovePiece(Piece p){
+		this.removePiece = p;
+	}
 	public boolean hasPieceToRemove() {
 		return this.removePiece != null;
 	}
