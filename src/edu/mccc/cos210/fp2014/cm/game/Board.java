@@ -103,6 +103,7 @@ public class Board implements Cloneable{
 	 * @param i The number of seconds remaining on the clock for the current player's turn
 	 */
 	public void updateTimer(int i) {
+		
 	}
 	/**
 	 * This changes which player is taking their turn.
@@ -138,19 +139,19 @@ public class Board implements Cloneable{
      * @return All the pieces currently on the board
      */
 	public List<Piece> getPieces() {
-		return null;
+		return this.pieces;
 	}
 	public List<PossibleTile> getPossibleTiles(){
-		return null;
+		return this.possibleTiles;
 	}
 	public int getNumMovesSinceLastPieceTaken(){
-		return 0;
+		return this.movesSincePieceTaken;
 	}
 	public boolean isWhiteTurn(){
-		return false;
+		return this.whiteTurn;
 	}
 	public Meta getMetaInfo(){
-		return null;
+		return this.metaInfo;
 	}
     /**
      * Adds a piece to the board

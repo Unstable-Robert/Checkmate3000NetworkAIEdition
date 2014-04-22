@@ -14,9 +14,9 @@ public class Meta implements Cloneable {
 	@XmlElement
 	private GameType gameType;
 	@XmlElement
-	private int p1Time;
+	private int whiteTime;
 	@XmlElement
-	private int p2Time;
+	private int blackTime;
 	@XmlElement
 	private double whiteScore;
 	@XmlElement
@@ -31,33 +31,54 @@ public class Meta implements Cloneable {
 	}
 	public Meta(GameType g, int t){
 		this(g);
-		this.p1Time = t;
-		this.p2Time = t;
+		this.whiteTime = t;
+		this.blackTime = t;
 	}
-	public Meta(GameType gt, int p1, int p2, double wS, double bS, int nPM){
+	public Meta(GameType gt, int wT, int bT, double wS, double bS, int nPM){
+		this.gameType = gt;
+		this.whiteTime = wT;
+		this.blackTime = bT;
+		this.whiteScore = wS;
+		this.blackScore = bS;
+		this.numPossibleMoves = nPM;
 	}
 	public GameType getGameType(){
-		return null;
+		return this.gameType;
 	}
-	public int getP1Time(){
-		return 0;
+	public int getWhiteTime(){
+		return this.whiteTime;
 	}
-	public int getP2Time(){
-		return 0;
+	public int getBlackTime(){
+		return this.blackTime;
+	}
+	public void setWhiteTime(int t){
+		this.whiteTime = t;
+	}
+	public void setBlackTime(int t){
+		this.blackTime = t;
 	}
 	public double getWhiteScore(){
-		return 0;
+		return this.whiteScore;
 	}
 	public double getBlackScore(){
-		return 0;
+		return this.blackScore;
+	}
+	public void setWhiteScore (double s){
+		this.whiteScore = s;
+	}
+	public void setBlackScore(double s){
+		this.blackScore = s;
 	}
 	public int getPossibleMoves(){
-		return 0;
+		return this.numPossibleMoves;
+	}
+	public void setPossibleMoves(int m){
+		this.numPossibleMoves = m;
 	}
 	public Meta clone(){
 		return new Meta(this.getGameType(),
-				this.getP1Time(),
-				this.getP2Time(),
+				this.getWhiteTime(),
+				this.getBlackTime(),
 				this.getWhiteScore(),
 				this.getBlackScore(),
 				this.getPossibleMoves());
