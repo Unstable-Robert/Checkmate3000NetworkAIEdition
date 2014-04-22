@@ -16,9 +16,8 @@ public class GameModel extends Observable{
 	public GameModel() {
 	}
 	public GameModel(int i, TimerEvent te){
-		Timer t = new Timer();
-		t.schedule(te, 0, i * 60 * 1000);
-		this.timer = t;
+		this.timer = new Timer();
+		this.timer.schedule(te, 0, i * 60 * 1000);
 	}
 	/**
 	 * Gets a copy of the current board.

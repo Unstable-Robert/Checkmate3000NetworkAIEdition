@@ -4,7 +4,6 @@ import java.util.Observable;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.game.GameModel;
-import edu.mccc.cos210.fp2014.cm.piece.Piece;
 
 /**
  * A local player object.

@@ -1,7 +1,6 @@
 package edu.mccc.cos210.fp2014.cm.menu;
 
 import java.awt.event.ActionListener;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**

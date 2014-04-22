@@ -1,7 +1,5 @@
 package edu.mccc.cos210.fp2014.cm.menu;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
