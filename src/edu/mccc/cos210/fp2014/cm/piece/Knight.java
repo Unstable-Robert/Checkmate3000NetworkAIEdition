@@ -26,7 +26,18 @@ public class Knight extends Piece {
 	}
 	@Override
 	protected ArrayList<PossibleTile> getLazyTiles(Board b) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<PossibleTile> lazyTiles = new ArrayList<PossibleTile>();
+		ArrayList<PossibleTile> superLazyTiles = new ArrayList<PossibleTile>();
+		superLazyTiles.add(new PossibleTile(this.getX() - 2, this.getY() - 1, this));
+		superLazyTiles.add(new PossibleTile(this.getX() - 1, this.getY() - 2, this));
+		superLazyTiles.add(new PossibleTile(this.getX() + 1, this.getY() - 2, this));
+		superLazyTiles.add(new PossibleTile(this.getX() + 2, this.getY() - 1, this));
+		superLazyTiles.add(new PossibleTile(this.getX() + 2, this.getY() + 1, this));
+		superLazyTiles.add(new PossibleTile(this.getX() + 1, this.getY() + 2, this));
+		superLazyTiles.add(new PossibleTile(this.getX() - 1, this.getY() + 2, this));
+		superLazyTiles.add(new PossibleTile(this.getX() - 2, this.getY() + 1, this));
+		for(PossibleTile pt : superLazyTiles){
+			decideToAddTile(b, lazyTiles, pt);
+		}
 	}
 }
