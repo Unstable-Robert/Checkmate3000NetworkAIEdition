@@ -75,6 +75,15 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 	}
 	@Override
 	public void repaint(){
+		if(this.gm != null){
+			for (Piece p : this.gm.getBoard().getPieces()){
+				JLabel brl = new JLabel(p.getUnicode());
+				brl.setFont(new Font(brl.getFont().toString(), Font.PLAIN, 60));	
+				brl.setLocation((int)(this.getWidth() * 0.1), (int)(this.getHeight() * 0.0));
+				brl.setSize(60, 60);
+				this.add(brl);
+			}
+		}
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {

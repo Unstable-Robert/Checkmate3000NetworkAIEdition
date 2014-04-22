@@ -2,7 +2,10 @@ package edu.mccc.cos210.fp2014.cm.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.*;
+
+import edu.mccc.cos210.fp2014.cm.game.GameBuilder;
 
 /**
  * Local game menu.
@@ -37,7 +40,8 @@ public class LocalView extends SettingsView implements ActionListener {
 		startButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				myCheckmate.setView(Checkmate.GAME);
+				//myCheckmate.setView(Checkmate.GAME);
+				GameBuilder.buildLocalGame(c, g, t);
 			}
 		});
 		add(startButton);
