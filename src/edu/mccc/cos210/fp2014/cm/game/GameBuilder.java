@@ -25,8 +25,7 @@ public class GameBuilder {
 		gm.addObserver(c);
 		LocalPlayer lp1 = new LocalPlayer(gm, true);
 		LocalPlayer lp2 = new LocalPlayer(gm, false);
-		GameView gv = setupGameView(c, gm, lp1, lp2);
-		c.setGameView(gv);
+		c.setGameView(setupGameView(c, gm, lp1, lp2));
 		gm.addObserver(lp1);
 		gm.addObserver(lp2);
 	}

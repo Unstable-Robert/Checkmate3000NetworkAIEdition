@@ -44,7 +44,8 @@ public abstract class Piece implements Cloneable {
 	 */
 	public ArrayList<PossibleTile> getPossibleTiles(Board board) {
 		ArrayList<PossibleTile> finalTiles = new ArrayList<PossibleTile>();
-		for (PossibleTile pt : getLazyTiles(board)){
+		ArrayList<PossibleTile> lazyTiles = getLazyTiles(board);
+		for (PossibleTile pt : lazyTiles){
 			if (!causesCheck(pt, board)){
 				finalTiles.add(pt);
 			}
@@ -136,9 +137,12 @@ public abstract class Piece implements Cloneable {
 		return true;
 	}
 	protected boolean checkBounds(int x, int y){
-		return !(x < 0 | x > 7 | y < 0 | y > 7);
+		return !(x < 0 || x > 7 || y < 0 || y > 7);
 	}
 	protected boolean checkSameSpace(Piece p1, PossibleTile p2){
+		if (p1 == null || p2 == null){
+			boolean yaDoneGoofed = true;
+		}
 		return (p1.getX() == p2.getX() && p1.getY() == p2.getY());
 	}
 	public abstract String getUnicode();

@@ -28,6 +28,7 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 	private Checkmate myCheckmate;
 	public GameView(Checkmate c) {
 		myCheckmate = c;
+		players = new ArrayList<Player>();
 		setBackground(Color.LIGHT_GRAY);
 	}
 	public void addPlayer(Player p){

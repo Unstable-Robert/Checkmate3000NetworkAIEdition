@@ -2,24 +2,36 @@ package edu.mccc.cos210.fp2014.cm.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.InetAddress;
 
 import javax.swing.*;
 
 import edu.mccc.cos210.fp2014.cm.game.GameBuilder;
+import edu.mccc.cos210.fp2014.cm.util.Difficulty;
+import edu.mccc.cos210.fp2014.cm.util.GameType;
 
 /**
  * Local game menu.
  */
 public class LocalView extends SettingsView implements ActionListener {
 	private static final long serialVersionUID = 1L;
-	private boolean isTimed;
+	//private boolean isTimed;
+	private Checkmate checkmate;
+	private GameType gameType;
+	private int time;
+	private Difficulty difficulty1;
+	private Difficulty difficulty2;
+	private boolean color;
     private final int TIME_MIN = 0;
 	private final int TIME_MAX = 180;
 	private JSpinner timeSpinner;
+	private JCheckBox checkbox;
+	private JRadioButton whiteRadio;
 	public LocalView(Checkmate c) {
 		super(c);
 		
-		isTimed = false;
+		//isTimed = false;
+		checkmate = c;
 		
 		//backButton returns to previous screen
 		JButton backButton = new JButton("Back");
@@ -40,25 +52,26 @@ public class LocalView extends SettingsView implements ActionListener {
 		startButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				//myCheckmate.setView(Checkmate.GAME);
-				GameBuilder.buildLocalGame(c, g, t);
+				myCheckmate.setView(Checkmate.GAME);
+				setSettings();
+				GameBuilder.buildLocalGame(checkmate, gameType, time);
 			}
 		});
 		add(startButton);
 		
 		//Checkbox whether game is timed or not
-		JCheckBox checkbox = new JCheckBox();
+		this.checkbox = new JCheckBox();
 		checkbox.setSize(100,40);
 		checkbox.setLocation((int) (c.getWidth() * 0.28), (int) (c.getHeight() * 0.25));
 		checkbox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				if (isTimed){
-					isTimed = false;
+				if (gameType == GameType.TIMED_GAME){
+					gameType = GameType.NORMAL;
 				} else {
-					isTimed = true;
+					gameType = GameType.TIMED_GAME;
 				}
-				timeSpinner.setEnabled(isTimed);
+				timeSpinner.setEnabled(gameType == GameType.TIMED_GAME);
 			}
 		});
 		add(checkbox);
@@ -72,7 +85,7 @@ public class LocalView extends SettingsView implements ActionListener {
 		timeLabel.setSize(40,20);
 		timeLabel.setLocation((int)(c.getWidth() * 0.1),(int)(c.getHeight() * 0.42));
 		add(timeLabel);
-		timeSpinner = new JSpinner(new SpinnerNumberModel(TIME_MIN, TIME_MIN, TIME_MAX, 1));
+		this.timeSpinner = new JSpinner(new SpinnerNumberModel(TIME_MIN, TIME_MIN, TIME_MAX, 1));
 		timeSpinner.setSize(40,20);
 		timeSpinner.setLocation((int)(c.getWidth() * 0.18),(int)(c.getHeight() * 0.42));
 		add(timeSpinner);
@@ -87,7 +100,7 @@ public class LocalView extends SettingsView implements ActionListener {
 		color.setLocation((int) (c.getWidth() * 0.1), (int) (c.getHeight() * 0.55));
 		add(color);
 		ButtonGroup colorPickerButtons = new ButtonGroup();
-		JRadioButton whiteRadio = new JRadioButton("White");
+		this.whiteRadio = new JRadioButton("White");
 		whiteRadio.setLocation((int) (c.getWidth() * 0.25), (int) (c.getHeight() * 0.55));
 		whiteRadio.setSize(70,20);
 		whiteRadio.setSelected(true);
@@ -98,6 +111,15 @@ public class LocalView extends SettingsView implements ActionListener {
 		blackRadio.setSize(70,20);
 		colorPickerButtons.add(blackRadio);
 		add(blackRadio);
+	}
+	protected void setSettings() {
+		if (this.checkbox.isSelected()){
+			this.gameType = GameType.TIMED_GAME;
+			this.time = (int)this.timeSpinner.getValue();
+		} else {
+			this.gameType = GameType.NORMAL;
+			this.time = 0;
+		}
 	}
 	/**
 	 * Changes settings and allows user to start the game.

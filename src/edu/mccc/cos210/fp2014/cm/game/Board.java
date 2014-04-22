@@ -50,19 +50,19 @@ public class Board implements Cloneable{
 	}
 	private void setUpPieces(){
 		int id = 0;
-		this.pieces.add(new Rook(7, 0, true, id));
+		this.pieces.add(new Rook(0, 7, true, id));
 		id++;
-		this.pieces.add(new Knight(7, 1, true, id));
+		this.pieces.add(new Knight(1, 7, true, id));
 		id++;
-		this.pieces.add(new Bishop(7, 2, true, id));
+		this.pieces.add(new Bishop(2, 7, true, id));
 		id++;
-		this.pieces.add(new Queen(7, 3, true, id));
+		this.pieces.add(new Queen(3, 7, true, id));
 		id++;
-		this.pieces.add(new King(7, 4, true, id));
+		this.pieces.add(new King(4, 7, true, id));
 		id++;
-		this.pieces.add(new Bishop(7, 5, true, id));
+		this.pieces.add(new Bishop(5, 7, true, id));
 		id++;
-		this.pieces.add(new Knight(7, 6, true, id));
+		this.pieces.add(new Knight(6, 7, true, id));
 		id++;
 		this.pieces.add(new Rook(7, 7, true, id));
 		id++;
@@ -72,19 +72,19 @@ public class Board implements Cloneable{
 		}
 		this.pieces.add(new Rook(0, 0, false, id));
 		id++;
-		this.pieces.add(new Knight(0, 1, false, id));
+		this.pieces.add(new Knight(1, 0, false, id));
 		id++;
-		this.pieces.add(new Bishop(0, 2, false, id));
+		this.pieces.add(new Bishop(2, 0, false, id));
 		id++;
-		this.pieces.add(new Queen(0, 3, false, id));
+		this.pieces.add(new Queen(3, 0, false, id));
 		id++;
-		this.pieces.add(new King(0, 4, false, id));
+		this.pieces.add(new King(4, 0, false, id));
 		id++;
-		this.pieces.add(new Bishop(0, 5, false, id));
+		this.pieces.add(new Bishop(5, 0, false, id));
 		id++;
-		this.pieces.add(new Knight(0, 6, false, id));
+		this.pieces.add(new Knight(6, 0, false, id));
 		id++;
-		this.pieces.add(new Rook(0, 7, false, id));
+		this.pieces.add(new Rook(7, 0, false, id));
 		id++;
 		for (int i = 0; i< 8; i++){
 			this.pieces.add(new Pawn(i, 1, false, id));
@@ -184,7 +184,7 @@ public class Board implements Cloneable{
 				break;
 			}
 		}
-		if (!found){
+		if (found){
 			throw new InvalidParameterException();
 		}
 	} 
