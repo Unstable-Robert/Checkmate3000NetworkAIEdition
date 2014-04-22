@@ -43,7 +43,49 @@ public class Rook extends Piece {
 	}
 	@Override
 	protected ArrayList<PossibleTile> getLazyTiles(Board b) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<PossibleTile> possibleTiles = new ArrayList<PossibleTile>();
+		int i = 1;
+		boolean canSearch = true;
+		while (canSearch){
+			PossibleTile pt = new PossibleTile(this.getX() - i, this.getY(), this);
+			canSearch = decideToAddTile(b, possibleTiles, pt);
+			i++;
+		}
+		i = 1;
+		canSearch = true;
+		while (canSearch){
+			PossibleTile pt = new PossibleTile(this.getX() + i, this.getY(), this);
+			canSearch = decideToAddTile(b, possibleTiles, pt);
+			i++;
+		}
+		i = 1;
+		canSearch = true;
+		while (canSearch){
+			PossibleTile pt = new PossibleTile(this.getX(), this.getY() - i, this);
+			canSearch = decideToAddTile(b, possibleTiles, pt);
+			i++;
+		}
+		i = 1;
+		canSearch = true;
+		while (canSearch){
+			PossibleTile pt = new PossibleTile(this.getX(), this.getY() + i, this);
+			canSearch = decideToAddTile(b, possibleTiles, pt);
+			i++;
+		}
+		if (this.canCastle) {
+			for (Piece p : b) {
+				if (p instanceof King){
+					King k = (King) p;
+					if (this.getX() < k.getX() &&
+						k.canCastleLeft(b)){
+						possibleTiles.add(new PossibleTile(k.getX(), k.getY(), this));
+					} else if (this.getX() > k.getX() &&
+						k.canCastleRight(b)){
+						possibleTiles.add(new PossibleTile(k.getX(), k.getY(), this));
+					}
+				}
+			}
+		}
+		return possibleTiles;
 	}
 }
