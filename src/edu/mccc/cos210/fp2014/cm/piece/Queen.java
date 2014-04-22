@@ -31,71 +31,55 @@ public class Queen extends Piece {
 		int i = 1;
 		boolean canSearch = true;
 		while (canSearch){
-			if (checkBounds(this.getX() - i, this.getY() - i)){
-				PossibleTile pt = new PossibleTile(this.getX() - i, this.getY() - i, this);
-				canSearch = decideToAddTile(b, possibleTiles, pt);
-			} else { canSearch = false; }
+			PossibleTile pt = new PossibleTile(this.getX() - i, this.getY() - i, this);
+			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		i = 1;
 		canSearch = true;
 		while (canSearch){
-			if (checkBounds(this.getX() - i, this.getY() + i)){
-				PossibleTile pt = new PossibleTile(this.getX() - i, this.getY() + i, this);
-				canSearch = decideToAddTile(b, possibleTiles, pt);
-			} else { canSearch = false; }
+			PossibleTile pt = new PossibleTile(this.getX() - i, this.getY() + i, this);
+			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		i = 1;
 		canSearch = true;
 		while (canSearch){
-			if (checkBounds(this.getX() + i, this.getY() - i)){
-				PossibleTile pt = new PossibleTile(this.getX() + i, this.getY() - i, this);
-				canSearch = decideToAddTile(b, possibleTiles, pt);
-			} else { canSearch = false; }
+			PossibleTile pt = new PossibleTile(this.getX() + i, this.getY() - i, this);
+			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		i = 1;
 		canSearch = true;
 		while (canSearch){
-			if (checkBounds(this.getX() + i, this.getY() + i)){
-				PossibleTile pt = new PossibleTile(this.getX() + i, this.getY() + i, this);
-				canSearch = decideToAddTile(b, possibleTiles, pt);
-			} else { canSearch = false; }
+			PossibleTile pt = new PossibleTile(this.getX() + i, this.getY() + i, this);
+			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		while (canSearch){
-			if (checkBounds(this.getX() - i, this.getY())){
-				PossibleTile pt = new PossibleTile(this.getX() - i, this.getY(), this);
-				canSearch = decideToAddTile(b, possibleTiles, pt);
-			} else { canSearch = false; }
+			PossibleTile pt = new PossibleTile(this.getX() - i, this.getY(), this);
+			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		i = 1;
 		canSearch = true;
 		while (canSearch){
-			if (checkBounds(this.getX() + i, this.getY())){
-				PossibleTile pt = new PossibleTile(this.getX() + i, this.getY(), this);
-				canSearch = decideToAddTile(b, possibleTiles, pt);
-			} else { canSearch = false; }
+			PossibleTile pt = new PossibleTile(this.getX() + i, this.getY(), this);
+			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		i = 1;
 		canSearch = true;
 		while (canSearch){
-			if (checkBounds(this.getX(), this.getY() - i)){
-				PossibleTile pt = new PossibleTile(this.getX(), this.getY() - i, this);
-				canSearch = decideToAddTile(b, possibleTiles, pt);
-			} else { canSearch = false; }
+			PossibleTile pt = new PossibleTile(this.getX(), this.getY() - i, this);
+			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		i = 1;
 		canSearch = true;
 		while (canSearch){
-			if (checkBounds(this.getX(), this.getY() + i)){
-				PossibleTile pt = new PossibleTile(this.getX(), this.getY() + i, this);
-				canSearch = decideToAddTile(b, possibleTiles, pt);
-			} else { canSearch = false; }
+			PossibleTile pt = new PossibleTile(this.getX(), this.getY() + i, this);
+			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		return possibleTiles;
