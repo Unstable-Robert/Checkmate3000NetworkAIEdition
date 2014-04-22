@@ -30,7 +30,7 @@ public class King extends Piece {
 	 * Returns true if the king has not moved, there are no pieces in the way, 
 	 * and if the king is in check, moving through check, or into check.
 	 */
-	public boolean canCastleLeft(ArrayList<Piece> board){
+	public boolean canCastleLeft(Board board){
 		return false;
 	}
 	/**
@@ -38,7 +38,7 @@ public class King extends Piece {
 	 * Returns true if the king has not moved, there are no pieces in the way, 
 	 * and if the king is in check, moving through check, or into check.
 	 */
-	public boolean canCastleRight(ArrayList<Piece> board){
+	public boolean canCastleRight(Board board){
 		return false;
 	}
 	public King clone(){
