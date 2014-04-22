@@ -50,44 +50,44 @@ public class Board implements Cloneable{
 	}
 	private void setUpPieces(){
 		int id = 0;
-		this.pieces.add(new Rook(0, 7, true, id));
+		this.pieces.add(new Rook(0, 7, false, id));
 		id++;
-		this.pieces.add(new Knight(1, 7, true, id));
+		this.pieces.add(new Knight(1, 7, false, id));
 		id++;
-		this.pieces.add(new Bishop(2, 7, true, id));
+		this.pieces.add(new Bishop(2, 7, false, id));
 		id++;
-		this.pieces.add(new Queen(3, 7, true, id));
+		this.pieces.add(new Queen(3, 7, false, id));
 		id++;
-		this.pieces.add(new King(4, 7, true, id));
+		this.pieces.add(new King(4, 7, false, id));
 		id++;
-		this.pieces.add(new Bishop(5, 7, true, id));
+		this.pieces.add(new Bishop(5, 7, false, id));
 		id++;
-		this.pieces.add(new Knight(6, 7, true, id));
+		this.pieces.add(new Knight(6, 7, false, id));
 		id++;
-		this.pieces.add(new Rook(7, 7, true, id));
+		this.pieces.add(new Rook(7, 7, false, id));
 		id++;
 		for (int i = 0; i< 8; i++){
-			this.pieces.add(new Pawn(i, 6, true, id));
+			this.pieces.add(new Pawn(i, 6, false, id));
 			id++;
 		}
-		this.pieces.add(new Rook(0, 0, false, id));
+		this.pieces.add(new Rook(0, 0, true, id));
 		id++;
-		this.pieces.add(new Knight(1, 0, false, id));
+		this.pieces.add(new Knight(1, 0, true, id));
 		id++;
-		this.pieces.add(new Bishop(2, 0, false, id));
+		this.pieces.add(new Bishop(2, 0, true, id));
 		id++;
-		this.pieces.add(new Queen(3, 0, false, id));
+		this.pieces.add(new Queen(3, 0, true, id));
 		id++;
-		this.pieces.add(new King(4, 0, false, id));
+		this.pieces.add(new King(4, 0, true, id));
 		id++;
-		this.pieces.add(new Bishop(5, 0, false, id));
+		this.pieces.add(new Bishop(5, 0, true, id));
 		id++;
-		this.pieces.add(new Knight(6, 0, false, id));
+		this.pieces.add(new Knight(6, 0, true, id));
 		id++;
-		this.pieces.add(new Rook(7, 0, false, id));
+		this.pieces.add(new Rook(7, 0, true, id));
 		id++;
 		for (int i = 0; i< 8; i++){
-			this.pieces.add(new Pawn(i, 1, false, id));
+			this.pieces.add(new Pawn(i, 1, true, id));
 			id++;
 		}
 	}
