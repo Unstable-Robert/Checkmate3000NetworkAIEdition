@@ -37,11 +37,17 @@ public class Pawn extends Piece {
 	public boolean possibleToPassant() {
 		return this.possibleToPassant;
 	}
+	public void setPossibleToPassant(boolean possible) {
+		this.possibleToPassant = possible;
+	}
 	/**
 	 * Whether or not the pawn has moved, and therefor whether it can move forward two spaces
 	 */
 	private boolean hasMoved() {
 		return this.hasMoved;
+	}
+	private boolean setMoved(){
+		this.hasMoved = moved;
 	}
 	@Override
 	public Pawn clone(){
@@ -55,7 +61,81 @@ public class Pawn extends Piece {
 	}
 	@Override
 	protected ArrayList<PossibleTile> getLazyTiles(Board b) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<PossibleTile> lazyTiles = new ArrayList<PossibleTile();
+		Piece clone = this.clone();
+		PossibleTile step1;
+		if (color){
+			step1 = new PossibleTile(clone.getX(), clone.getY() - 1, clone);
+		} else {
+			step1 = new PossibleTile(clone.getX(), clone.getY() + 1, clone);
+		}
+		boolean canMove = decideToAddTile(b, lazyTiles, step1);
+		if (!hasMoved && canMove) {
+			PossibleTile step2;
+			clone.setMoved();
+			clone.setPossibleToPassant();
+			if (color){
+				step2 = new PossibleTile(clone.getX(), clone.getY() - 2, clone);
+			} else {
+				step2 = new PossibleTile(clone.getX(), clone.getY() + 2, clone);
+			}
+			decideToAddTile(b, lazyTiles, step2);
+		}
+		clone = this.clone();
+		PossibleTile attack1;
+		PossibleTile attack2;
+		if (color){
+			attack1 = new PossibleTile(clone.getX() - 1, clone.getY() - 1, clone);
+			attack2 = new PossibleTile(clone.getX() + 1, clone.getY() - 1, clone);
+		} else {
+			attack1 = new PossibleTile(clone.getX() - 1, clone.getY() + 1, clone);
+			attack2 = new PossibleTile(clone.getX() + 1, clone.getY() + 1, clone);
+		}
+		decideToAddAttackTile(b, lazyTiles, attack1);
+		decideToAddAttackTile(b, lazyTiles, attack2);
+		PossibleTile passant1 = new PossibleTile(clone.getX() - 1, clone.getY(), clone);
+		PossibleTile passant2 = new PossibleTile(clone.getX() + 1, clone.getY(), clone);
+		decideToAddPassantTile(b, lazyTiles, passant1);
+		decideToAddPassantTile(b, lazyTiles, passant2);
+		return lazyTiles;
+	}
+	@Override
+	protected boolean decideToAddTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
+		for (Piece p : b.getPieces()){
+			if (checkSameSpace(p, pt)) {
+				return false;
+			} 
+		}
+		pts.add(pt);
+		return true;
+	}
+	private void decideToAddAttackTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
+		for (Piece p : b.getPieces()){
+			if (checkSameSpace(p, pt)) {
+				if (this.color != p.color) {
+					pt.setRemovePiece(p);
+					pts.add(pt);
+				}
+			} 
+		}
+	}
+	private void decideToAddPassantTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
+		PossibleTile ps;
+		if (color){
+			ps = new PossibleTile(pt.getX(), pt.getY() - 1, pt.getOriginalPiece());
+		} else {
+			ps = new PossibleTile(pt.getX(), pt.getY() + 1, pt.getOriginalPiece());
+		}
+		for (Piece p : b.getPieces()){
+			if (p instanceof Pawn){
+				Pawn pawn = (Pawn) p;
+				if (pawn.possibleToPassant()){
+					if (checkSameSpace(pawn, passant1)){
+						ps.addRemovePiece(pawn);
+						lazyTiles.add(ps);
+					}
+				}
+			}
+		}
 	}
 }
