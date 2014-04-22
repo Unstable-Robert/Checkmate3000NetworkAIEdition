@@ -37,7 +37,7 @@ public class LocalView extends SettingsView implements ActionListener {
 		startButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				System.out.println("StartButton Clicked");
+				myCheckmate.setView(Checkmate.GAME);
 			}
 		});
 		add(startButton);

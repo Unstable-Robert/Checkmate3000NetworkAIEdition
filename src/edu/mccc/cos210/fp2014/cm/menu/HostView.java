@@ -2,6 +2,8 @@ package edu.mccc.cos210.fp2014.cm.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import javax.swing.*;
 
 /**
@@ -97,8 +99,11 @@ public class HostView extends SettingsView implements ActionListener {
 		add(blackRadio);
 
 		//displays your ip
-		// Make it so that it gets your actual IP.
-		JLabel ipLabel = new JLabel("Your IP: " + "192.168.1.10");
+		String ipAddress = "UNKNOWN";
+		try {
+			ipAddress = InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e){}
+		JLabel ipLabel = new JLabel("Your IP: " + ipAddress);
 		ipLabel.setSize(140,40);
 		ipLabel.setLocation((int)((c.getWidth() * 0.5) - ipLabel.getWidth()/2), (int) (c.getHeight() * 0.75));
 		add(ipLabel);

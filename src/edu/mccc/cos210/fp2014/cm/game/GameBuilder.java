@@ -3,6 +3,7 @@ package edu.mccc.cos210.fp2014.cm.game;
 import java.io.IOException;
 import java.net.InetAddress;
 
+import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
 import edu.mccc.cos210.fp2014.cm.player.*;
 import edu.mccc.cos210.fp2014.cm.util.Difficulty;
 import edu.mccc.cos210.fp2014.cm.util.GameType;
@@ -18,11 +19,11 @@ public class GameBuilder {
 	 * @param g The gametype of the game
 	 * @param t The time, if a timed game.
 	 */
-	public static void buildLocalGame(GameType g, int t) {
+	public static void buildLocalGame(Checkmate c, GameType g, int t) {
 		GameModel gm = setupGameType(g,t);
 		LocalPlayer lp1 = new LocalPlayer(gm, true);
 		LocalPlayer lp2 = new LocalPlayer(gm, false);
-		setupGameView(gm, lp1, lp2);
+		c.setGameView(setupGameView(c, gm, lp1, lp2));
 		gm.addObserver(lp1);
 		gm.addObserver(lp2);
 	}
@@ -32,11 +33,11 @@ public class GameBuilder {
 	 * @param d The difficulty of the AI.
 	 * @param t The time, if a timed game.
 	 */
-	public static void buildAiGame(GameType g, Difficulty d, int t, boolean localColor) {
+	public static void buildAiGame(Checkmate c, GameType g, Difficulty d, int t, boolean localColor) {
 		GameModel gm = setupGameType(g,t);
 		LocalPlayer lp = new LocalPlayer(gm, localColor);
 		AiPlayer aip = new AiPlayer(gm, !localColor, d);
-		setupGameView(gm, lp, aip);
+		c.setGameView(setupGameView(c, gm, lp, aip));
 		gm.addObserver(lp);
 		gm.addObserver(aip);
 	}
@@ -47,11 +48,11 @@ public class GameBuilder {
 	 * @param d2 The difficulty of the AI.
 	 * @param t The time, if a timed game.
 	 */
-	public static void buildDoublyAiGame(GameType g, Difficulty d1, Difficulty d2, int t) {
+	public static void buildDoublyAiGame(Checkmate c, GameType g, Difficulty d1, Difficulty d2, int t) {
 		GameModel gm = setupGameType(g,t);
 		AiPlayer aip1 = new AiPlayer(gm, true, d1);
 		AiPlayer aip2 = new AiPlayer(gm, false, d2);
-		setupGameView(gm, aip1, aip2);
+		c.setGameView(setupGameView(c, gm, aip1, aip2));
 		gm.addObserver(aip1);
 		gm.addObserver(aip2);
 	}
@@ -60,12 +61,12 @@ public class GameBuilder {
 	 * @param g The gametype of the game
 	 * @param t The time, if a timed game.
 	 */
-	public static void buildHostGame(GameType g, int t, InetAddress a) {
+	public static void buildHostGame(Checkmate c, GameType g, int t, InetAddress a) {
 		GameModel gm = setupGameType(g,t);
 		NetworkPlayer np;
 		try {
 			np = new NetworkPlayer(gm, true, a);
-			setupGameView(gm, np);
+			c.setGameView(setupGameView(c, gm, np));
 			gm.addObserver(np);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -77,12 +78,12 @@ public class GameBuilder {
 	 * @param a The internet address of the host
 	 * @param t The time, if a timed game.
 	 */
-	public static void buildJoinGame(InetAddress a) {
+	public static void buildJoinGame(Checkmate c, InetAddress a) {
 		GameModel gm = setupGameType(null, 0);
 		NetworkPlayer np;
 		try {
 			np = new NetworkPlayer(a);
-			setupGameView(gm,np);
+			c.setGameView(setupGameView(c, gm, np));
 			gm.addObserver(np);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -109,15 +110,15 @@ public class GameBuilder {
 		gm.updateBoard(b);
 		return gm;
 	}
-	private static GameView setupGameView(GameModel gm, Player p1, Player p2){
-		GameView gv = new GameView();
+	private static GameView setupGameView(Checkmate c, GameModel gm, Player p1, Player p2){
+		GameView gv = new GameView(c);
 		gm.addObserver(gv);
 		gv.addPlayer(p1);
 		gv.addPlayer(p2);
 		return gv;
 	}
-	private static GameView setupGameView(GameModel gm, Player p1){
-		GameView gv = new GameView();
+	private static GameView setupGameView(Checkmate c, GameModel gm, Player p1){
+		GameView gv = new GameView(c);
 		gm.addObserver(gv);
 		gv.addPlayer(p1);
 		return gv;

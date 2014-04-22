@@ -1,5 +1,7 @@
 package edu.mccc.cos210.fp2014.cm.menu;
 
+import edu.mccc.cos210.fp2014.cm.game.GameView;
+
 import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,6 +15,7 @@ public class Checkmate extends JFrame {
 	public static final String LOCAL = "local";
 	public static final String HOST = "host";
 	public static final String JOIN = "join";
+	public static final String GAME = "game";
 	private CardLayout cards;
 	private JPanel cardPanel;
 	private Checkmate() {
@@ -27,6 +30,7 @@ public class Checkmate extends JFrame {
 		cardPanel.add(new LocalView(this), LOCAL);
 		cardPanel.add(new HostView(this), HOST);
 		cardPanel.add(new JoinView(this), JOIN);
+		cardPanel.add(new GameView(this), GAME);
 		add(cardPanel);
 		cards.show(cardPanel, MAIN_MENU);
 		setVisible(true);
@@ -39,5 +43,8 @@ public class Checkmate extends JFrame {
 	 */
 	public void setView(String v) {
 		cards.show(cardPanel, v);
+	}
+	public void setGameView(GameView gv) {
+		cardPanel.add(gv, GAME);
 	}
 }
