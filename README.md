@@ -5,7 +5,7 @@ Insert chess pun here
 
 ####ToDo:
 	Implement GameView class including interactions with the player classes
-	Implement Board methods
+	Add timer responsibilities.
 	Implement Local player class
 	Implement Game over View
 	Implement AI Player Classes
