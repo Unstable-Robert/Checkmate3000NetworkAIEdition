@@ -17,7 +17,7 @@ public abstract class Piece implements Cloneable {
 	@XmlElement
 	protected int yLoc;
 	@XmlElement
-	protected boolean color;
+	protected boolean isWhite;
 	@XmlElement
 	protected int uID;
 	@XmlElement
@@ -30,7 +30,7 @@ public abstract class Piece implements Cloneable {
 	public Piece(int x, int y, boolean c, int iD){
 		this.xLoc = x;
 		this.yLoc = y;
-		this.color = c;
+		this.isWhite = c;
 		this.uID = iD;
 	}
 	public Piece(int x, int y, boolean c, int iD, boolean s){
@@ -69,14 +69,14 @@ public abstract class Piece implements Cloneable {
 		}
 		King k = null;
 		for (Piece p : bClone.getPieces()){
-			if (p.getColor() == pt.getOriginalPiece().getColor() &&
+			if (p.isWhite() == pt.getOriginalPiece().isWhite() &&
 					p instanceof King){
 				k = (King) p;
 				break;
 			}
 		}
 		for (Piece p : bClone.getPieces()){
-			if(p.getColor() != pt.getOriginalPiece().getColor()){
+			if(p.isWhite() != pt.getOriginalPiece().isWhite()){
 				for(PossibleTile move : p.getLazyTiles(bClone)){
 					if (checkSameSpace(k, move)){
 						return true;
@@ -105,8 +105,8 @@ public abstract class Piece implements Cloneable {
 	public void setY(int y) {
 		this.yLoc = y;
 	}
-	public boolean getColor() {
-		return this.color;
+	public boolean isWhite() {
+		return this.isWhite;
 	}
 	public int getUID(){
 		return this.uID;
@@ -126,7 +126,7 @@ public abstract class Piece implements Cloneable {
 		}
 		for (Piece p : b.getPieces()){
 			if (checkSameSpace(p, pt)) {
-				if (this.color != p.color) {
+				if (this.isWhite != p.isWhite) {
 					pt.setRemovePiece(p);
 					pts.add(pt);
 				}

@@ -11,7 +11,6 @@ import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
  * Updates the model when the view is updated.
  */
 public class LocalPlayer extends Player {
-	
 	public LocalPlayer(GameModel gm, boolean b) {
 		super(gm, b);
 	}

@@ -20,7 +20,7 @@ public class Bishop extends Piece {
 	public Bishop clone(){
 		return new Bishop(this.getX(), 
 				this.getY(), 
-				this.getColor(), 
+				this.isWhite(), 
 				this.getUID(), 
 				this.isSelected());
 	}
@@ -59,7 +59,7 @@ public class Bishop extends Piece {
 	}
 	@Override
 	public String getUnicode() {
-		if (this.color){
+		if (this.isWhite){
 			return "\u2657";
 		} else {
 			return "\u265D";

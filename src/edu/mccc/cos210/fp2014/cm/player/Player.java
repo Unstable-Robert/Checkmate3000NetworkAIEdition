@@ -27,8 +27,9 @@ public abstract class Player implements Observer{
 	 */
 	public boolean updateModel(Piece piece, PossibleTile pt){
 		Board b = gm.getBoard();
-		if (b.isWhiteTurn() == piece.getColor() &&
-				b.isWhiteTurn() == this.isWhite) {
+		if (b.isWhiteTurn() == piece.isWhite() &&
+			b.isWhiteTurn() == this.isWhite
+		){
 			b.nextTurn();
 			b.removePiece(piece);
 			Piece clone = pt.getOriginalPiece();

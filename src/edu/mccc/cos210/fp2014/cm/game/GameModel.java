@@ -67,7 +67,7 @@ public class GameModel extends Observable {
 	 */
 	public boolean isCheckMate(){
 		for (Piece p : this.board.getPieces()){
-			if (p.getColor() == this.board.isWhiteTurn()) {
+			if (p.isWhite() == this.board.isWhiteTurn()) {
 				if (!p.getPossibleTiles(this.board).isEmpty()){
 					return false;
 				}

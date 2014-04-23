@@ -46,6 +46,13 @@ public class Board implements Cloneable{
 		this.metaInfo = new Meta(g, t);
 		setUpPieces();
 	}
+	public Board(ArrayList<PossibleTile> tiles, ArrayList<Piece> p, int moves, boolean t, Meta meta) {
+		this.possibleTiles = tiles;
+		this.pieces = p;
+		this.movesSincePieceTaken = moves;
+		this.whiteTurn = t;
+		this.metaInfo = meta;
+	}
 	private void setUpPieces(){
 		int id = 0;
 		this.pieces.add(new Rook(0, 7, true, id));
@@ -88,13 +95,6 @@ public class Board implements Cloneable{
 			this.pieces.add(new Pawn(i, 1, false, id));
 			id++;
 		}
-	}
-	public Board(ArrayList<PossibleTile> tiles, ArrayList<Piece> p, int moves, boolean t, Meta meta) {
-		this.possibleTiles = tiles;
-		this.pieces = p;
-		this.movesSincePieceTaken = moves;
-		this.whiteTurn = t;
-		this.metaInfo = meta;
 	}
 	/**
 	 * This updates the timer that will be painted by GameView
@@ -166,7 +166,7 @@ public class Board implements Cloneable{
 	public int getNumMovesSinceLastPieceTaken(){
 		return this.movesSincePieceTaken;
 	}
-	public boolean isWhiteTurn(){
+	public boolean isWhiteTurn() {
 		return this.whiteTurn;
 	}
 	public Meta getMetaInfo(){

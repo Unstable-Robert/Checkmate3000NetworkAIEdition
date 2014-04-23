@@ -55,7 +55,7 @@ public class Pawn extends Piece {
 	public Pawn clone(){
 		return new Pawn(this.getX(), 
 				this.getY(), 
-				this.getColor(), 
+				this.isWhite(), 
 				this.getUID(), 
 				this.isSelected(),
 				this.hasMoved(),
@@ -65,7 +65,7 @@ public class Pawn extends Piece {
 	protected ArrayList<PossibleTile> getLazyTiles(Board b) {
 		ArrayList<PossibleTile> lazyTiles = new ArrayList<PossibleTile>();
 		PossibleTile step1;
-		if (color){
+		if (isWhite){
 			Pawn clone = this.clone();
 			clone.setMoved();
 			step1 = new PossibleTile(clone.getX(), clone.getY() - 1, clone);
@@ -80,7 +80,7 @@ public class Pawn extends Piece {
 			PossibleTile step2;
 			clone.setMoved();
 			clone.setPossibleToPassant(true);
-			if (color){
+			if (isWhite){
 				step2 = new PossibleTile(clone.getX(), clone.getY() - 2, clone);
 			} else {
 				step2 = new PossibleTile(clone.getX(), clone.getY() + 2, clone);
@@ -91,7 +91,7 @@ public class Pawn extends Piece {
 		clone.setMoved();
 		PossibleTile attack1;
 		PossibleTile attack2;
-		if (color){
+		if (isWhite){
 			attack1 = new PossibleTile(clone.getX() - 1, clone.getY() - 1, clone);
 			attack2 = new PossibleTile(clone.getX() + 1, clone.getY() - 1, clone);
 		} else {
@@ -125,7 +125,7 @@ public class Pawn extends Piece {
 		}
 		for (Piece p : b.getPieces()){
 			if (checkSameSpace(p, pt)) {
-				if (this.color != p.color) {
+				if (this.isWhite != p.isWhite) {
 					pt.setRemovePiece(p);
 					pts.add(pt);
 					return false;
@@ -139,7 +139,7 @@ public class Pawn extends Piece {
 			return false;
 		}
 		PossibleTile ps;
-		if (color){
+		if (isWhite){
 			ps = new PossibleTile(pt.getX(), pt.getY() - 1, pt.getOriginalPiece());
 		} else {
 			ps = new PossibleTile(pt.getX(), pt.getY() + 1, pt.getOriginalPiece());
@@ -160,7 +160,7 @@ public class Pawn extends Piece {
 	}
 	@Override
 	public String getUnicode() {
-		if (this.color){
+		if (this.isWhite){
 			return "\u2659";
 		} else {
 			return "\u265F";

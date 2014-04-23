@@ -107,6 +107,15 @@ public class HostView extends SettingsView implements ActionListener {
 		ipLabel.setSize(140,40);
 		ipLabel.setLocation((int)((c.getWidth() * 0.5) - ipLabel.getWidth()/2), (int) (c.getHeight() * 0.75));
 		add(ipLabel);
+		
+		JLabel enemyIpLabel = new JLabel("Opponent's IP Address:");
+		enemyIpLabel.setSize(250, 20);
+		enemyIpLabel.setLocation((int)(c.getWidth() * 0.25),(int)(c.getHeight() * 0.63));
+		add(enemyIpLabel);
+		JTextField ipTextField = new JTextField();
+		ipTextField.setSize(250, 20);
+		ipTextField.setLocation((int)(c.getWidth() * 0.35),(int)(c.getHeight() * 0.68));
+		add(ipTextField);
 	}
 	/**
 	 * Allows user to change settings, start a hosted game, and return to the main menu.

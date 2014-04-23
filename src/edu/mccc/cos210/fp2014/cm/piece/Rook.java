@@ -36,7 +36,7 @@ public class Rook extends Piece {
 	public Rook clone(){
 		return new Rook(this.getX(), 
 				this.getY(), 
-				this.getColor(), 
+				this.isWhite(), 
 				this.getUID(), 
 				this.isSelected(), 
 				this.canCastle);
@@ -47,7 +47,7 @@ public class Rook extends Piece {
 		int i = 1;
 		boolean canSearch = true;
 		Rook clone = this.clone();
-		clone.canCastle();
+		//clone.canCastle();
 		while (canSearch){
 			PossibleTile pt = new PossibleTile(clone.getX() - i, clone.getY(), clone);
 			canSearch = decideToAddTile(b, possibleTiles, pt);
@@ -74,9 +74,10 @@ public class Rook extends Piece {
 			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
-		if (this.canCastle) {
+		// You will only be able to castle as the king.
+		/*if (this.canCastle) {
 			for (Piece p : b.getPieces()) {
-				if (p instanceof King && p.color == this.color){
+				if (p instanceof King && p.isWhite == this.isWhite){
 					King k = (King) p;
 					if (this.getX() < k.getX() &&
 						k.canCastleLeft(b)){
@@ -87,12 +88,12 @@ public class Rook extends Piece {
 					}
 				}
 			}
-		}
+		}*/
 		return possibleTiles;
 	}
 	@Override
 	public String getUnicode() {
-		if (this.color){
+		if (this.isWhite){
 			return "\u2656";
 		} else {
 			return "\u265C";

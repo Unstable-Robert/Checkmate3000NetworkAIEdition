@@ -2,6 +2,8 @@ package edu.mccc.cos210.fp2014.cm.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import javax.swing.*;
 
 /**
@@ -24,7 +26,7 @@ public class JoinView extends SettingsView implements ActionListener {
 		});
 		add(backButton);
 		
-		//startButton starts the game with given settings
+		//joinButton starts the game with given settings
 		JButton joinButton = new JButton("Join Game");
 		joinButton.setSize(100,50);
 		joinButton.setLocation((int)(c.getWidth() * 0.78), (int)(c.getHeight() * 0.05));
@@ -36,15 +38,24 @@ public class JoinView extends SettingsView implements ActionListener {
 		});
 		add(joinButton);
 		
-		JLabel ipLabel = new JLabel("Opponent's IP Address:");
-		ipLabel.setSize(250, 20);
-		ipLabel.setLocation((int)(c.getWidth() * 0.25),(int)(c.getHeight() * 0.42));
-		add(ipLabel);
-		
+		JLabel enemyIpLabel = new JLabel("Opponent's IP Address:");
+		enemyIpLabel.setSize(250, 20);
+		enemyIpLabel.setLocation((int)(c.getWidth() * 0.25),(int)(c.getHeight() * 0.42));
+		add(enemyIpLabel);
 		JTextField ipTextField = new JTextField();
 		ipTextField.setSize(250, 20);
 		ipTextField.setLocation((int)(c.getWidth() * 0.35),(int)(c.getHeight() * 0.47));
 		add(ipTextField);
+		
+		//displays your ip
+		String ipAddress = "UNKNOWN";
+		try {
+			ipAddress = InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e){}
+		JLabel ipLabel = new JLabel("Your IP: " + ipAddress);
+		ipLabel.setSize(140,40);
+		ipLabel.setLocation((int)((c.getWidth() * 0.5) - ipLabel.getWidth()/2), (int) (c.getHeight() * 0.60));
+		add(ipLabel);
 	}
 	/**
 	 * Allows user to enter the host's IP and return to the main menu.

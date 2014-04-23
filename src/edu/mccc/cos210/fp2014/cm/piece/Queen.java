@@ -21,7 +21,7 @@ public class Queen extends Piece {
 	public Queen clone(){
 		return new Queen(this.getX(), 
 				this.getY(), 
-				this.getColor(), 
+				this.isWhite(), 
 				this.getUID(), 
 				this.isSelected());
 	}
@@ -88,7 +88,7 @@ public class Queen extends Piece {
 	}
 	@Override
 	public String getUnicode() {
-		if (this.color){
+		if (this.isWhite){
 			return "\u2655";
 		} else {
 			return "\u265B";

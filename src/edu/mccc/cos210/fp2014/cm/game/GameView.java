@@ -27,19 +27,19 @@ import edu.mccc.cos210.fp2014.cm.player.Player;
  */
 public class GameView extends JPanel implements Observer, ActionListener, MouseListener{
 	private static final long serialVersionUID = 1L;
+	private Checkmate myCheckmate;
 	private GameModel gm;
 	private ArrayList<Player> players;
-	private Checkmate myCheckmate;
+	private BufferedImage image;
 	public GameView(Checkmate c) {
 		myCheckmate = c;
 		players = new ArrayList<Player>();
 		this.addMouseListener(this);
+		setBackground(new Color(137, 207, 240));
 	}
-	private BufferedImage image;
 	public GameView(Checkmate c, GameModel model) {
 		this(c);
 		this.gm = model;
-		setBackground(Color.LIGHT_GRAY);
 		image = loadImage();
 	}
 	public void addPlayer(Player p){
@@ -135,7 +135,7 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 			} else {
 				gridX = 300;
 			}
-			if (p.getColor()) {
+			if (p.isWhite()) {
 				gridY = 60;
 			} else {
 				gridY = 0;
@@ -164,16 +164,24 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 		Piece piece = null;
 		PossibleTile possibleTile = null;
 		for (Piece p : this.gm.getBoard().getPieces()){
-			if (x > (p.getX() + 1) * 60 + 100 && x < (p.getX() + 2) * 60 + 100 &&
-					y > (p.getY() + 1) * 60 && y < (p.getY() + 2) * 60) {
+			if (
+				x > (p.getX() + 1) * 60 + 100 && 
+				x < (p.getX() + 2) * 60 + 100 &&
+				y > (p.getY() + 1) * 60 && 
+				y < (p.getY() + 2) * 60
+			) {
 				found = true;
 				piece = p;
 				break;
 			}
 		}
 		for (PossibleTile pt : this.gm.getBoard().getPossibleTiles()){
-			if (x > (pt.getX() + 1) * 60 + 100 && x < (pt.getX() + 2) * 60 + 100 &&
-					y > (pt.getY() + 1) * 60 && y < (pt.getY() + 2) * 60) {
+			if (
+				x > (pt.getX() + 1) * 60 + 100 && 
+				x < (pt.getX() + 2) * 60 + 100 &&
+				y > (pt.getY() + 1) * 60 && 
+				y < (pt.getY() + 2) * 60
+			) {
 				found = true;
 				possibleTile = pt;
 				break;
@@ -202,9 +210,14 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 				}
 			}else if (piece != null) {
 				Board b = this.gm.getBoard();
-				b.clearSelected();
-				piece.setSelected(true);
-				this.gm.updateBoard(b);
+				if (
+					(b.isWhiteTurn() && piece.isWhite()) ||
+					(!b.isWhiteTurn() && !piece.isWhite()) 
+				){
+					b.clearSelected();
+					piece.setSelected(true);
+					this.gm.updateBoard(b);
+				}
 			}
 		}
 	}
