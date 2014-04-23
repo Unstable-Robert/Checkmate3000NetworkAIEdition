@@ -11,10 +11,11 @@ Insert chess pun here
 	Implement Game over View
 	Finish up with Network Player class
 	and start AI Player Classes
-	Menus look nice.
-	Add timers, resign button to GameView.
-	Remove RadioButtons from LocalView.
 	Clicking anywhere but a possible move space will deselect a piece.
+	Remove RadioButtons from LocalView.
+	Add timers, resign button to GameView.
+	Menus look nice.
+	
 
 ####Changelog:
 	Implemented piece lazy tiles methods.
