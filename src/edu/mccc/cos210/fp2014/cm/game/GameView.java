@@ -148,9 +148,6 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 		g2d.dispose();
 	}
 	@Override
-	public void repaint(){
-	}
-	@Override
 	public void mouseClicked(MouseEvent e) {
 	}
 	@Override
@@ -209,15 +206,27 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 					}
 				}
 			}else if (piece != null) {
-				Board b = this.gm.getBoard();
-				if (
-					(b.isWhiteTurn() && piece.isWhite()) ||
-					(!b.isWhiteTurn() && !piece.isWhite()) 
-				){
-					b.clearSelected();
-					piece.setSelected(true);
-					this.gm.updateBoard(b);
+				if (this.gm.getBoard().hasSelectedPiece()){
+					Piece p = this.gm.getBoard().getSelectedPiece();
+					p.setSelected(false);
+					repaint();
+				} else {
+					Board b = this.gm.getBoard();
+					if (
+						(b.isWhiteTurn() && piece.isWhite()) ||
+						(!b.isWhiteTurn() && !piece.isWhite()) 
+					){
+						b.clearSelected();
+						piece.setSelected(true);
+						this.gm.updateBoard(b);
+					}
 				}
+			}
+		} else {
+			if (this.gm.getBoard().hasSelectedPiece()){
+				Piece p = this.gm.getBoard().getSelectedPiece();
+				p.setSelected(false);
+				repaint();
 			}
 		}
 	}
