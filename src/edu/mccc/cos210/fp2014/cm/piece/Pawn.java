@@ -68,10 +68,12 @@ public class Pawn extends Piece {
 		if (isWhite){
 			Pawn clone = this.clone();
 			clone.setMoved();
+			clone.setPossibleToPassant(false);
 			step1 = new PossibleTile(clone.getX(), clone.getY() - 1, clone);
 		} else {
 			Pawn clone = this.clone();
 			clone.setMoved();
+			clone.setPossibleToPassant(false);
 			step1 = new PossibleTile(clone.getX(), clone.getY() + 1, clone);
 		}
 		boolean canMove = decideToAddTile(b, lazyTiles, step1);
@@ -89,6 +91,7 @@ public class Pawn extends Piece {
 		}
 		Pawn clone = this.clone();
 		clone.setMoved();
+		clone.setPossibleToPassant(false);
 		PossibleTile attack1;
 		PossibleTile attack2;
 		if (isWhite){

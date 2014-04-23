@@ -188,7 +188,17 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 			}
 		}
 		if (found) {
-			if (possibleTile != null) {
+			if(possibleTile != null && piece != null){
+				if (this.gm.getBoard().hasSelectedPiece()){
+					Piece p = this.gm.getBoard().getSelectedPiece();
+					p.setSelected(false);
+					for(Player player : this.players) {
+						if (player.updateCastle(p, piece)){
+							break;
+						}
+					}
+				}
+			}else if (possibleTile != null) {
 				if (this.gm.getBoard().hasSelectedPiece()){
 					Piece p = this.gm.getBoard().getSelectedPiece();
 					p.setSelected(false);
