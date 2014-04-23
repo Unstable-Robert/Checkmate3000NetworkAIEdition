@@ -65,7 +65,7 @@ public class King extends Piece {
 	public King clone(){
 		return new King(this.getX(), 
 				this.getY(), 
-				this.getColor(), 
+				this.isWhite(), 
 				this.getUID(), 
 				this.isSelected(), 
 				this.canCastle);
@@ -88,7 +88,7 @@ public class King extends Piece {
 			decideToAddTile(b, possibleTiles, pt);
 		}
 		for (Piece p : b.getPieces()){
-			if (p instanceof Rook && p.color == this.color) {
+			if (p instanceof Rook && p.isWhite == this.isWhite) {
 				Rook r = (Rook) p;
 				if (r.canCastle()){
 					if (this.getX() < r.getX() &&
@@ -105,7 +105,7 @@ public class King extends Piece {
 	}
 	@Override
 	public String getUnicode() {
-		if (this.color){
+		if (this.isWhite){
 			return "\u2654";
 		} else {
 			return "\u265A";

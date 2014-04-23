@@ -20,7 +20,7 @@ public class Knight extends Piece {
 	public Knight clone(){
 		return new Knight(this.getX(), 
 				this.getY(), 
-				this.getColor(), 
+				this.isWhite(), 
 				this.getUID(), 
 				this.isSelected());
 	}
@@ -43,7 +43,7 @@ public class Knight extends Piece {
 	}
 	@Override
 	public String getUnicode() {
-		if (this.color){
+		if (this.isWhite){
 			return "\u2658";
 		} else {
 			return "\u265E";

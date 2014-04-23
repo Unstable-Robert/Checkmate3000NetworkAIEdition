@@ -135,7 +135,7 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 			} else {
 				gridX = 300;
 			}
-			if (p.getColor()) {
+			if (p.isWhite()) {
 				gridY = 60;
 			} else {
 				gridY = 0;
@@ -164,16 +164,24 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 		Piece piece = null;
 		PossibleTile possibleTile = null;
 		for (Piece p : this.gm.getBoard().getPieces()){
-			if (x > (p.getX() + 1) * 60 + 100 && x < (p.getX() + 2) * 60 + 100 &&
-					y > (p.getY() + 1) * 60 && y < (p.getY() + 2) * 60) {
+			if (
+				x > (p.getX() + 1) * 60 + 100 && 
+				x < (p.getX() + 2) * 60 + 100 &&
+				y > (p.getY() + 1) * 60 && 
+				y < (p.getY() + 2) * 60
+			) {
 				found = true;
 				piece = p;
 				break;
 			}
 		}
 		for (PossibleTile pt : this.gm.getBoard().getPossibleTiles()){
-			if (x > (pt.getX() + 1) * 60 + 100 && x < (pt.getX() + 2) * 60 + 100 &&
-					y > (pt.getY() + 1) * 60 && y < (pt.getY() + 2) * 60) {
+			if (
+				x > (pt.getX() + 1) * 60 + 100 && 
+				x < (pt.getX() + 2) * 60 + 100 &&
+				y > (pt.getY() + 1) * 60 && 
+				y < (pt.getY() + 2) * 60
+			) {
 				found = true;
 				possibleTile = pt;
 				break;
@@ -192,9 +200,14 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 				}
 			}else if (piece != null) {
 				Board b = this.gm.getBoard();
-				b.clearSelected();
-				piece.setSelected(true);
-				this.gm.updateBoard(b);
+				if (
+					(b.isWhiteTurn() && piece.isWhite()) ||
+					(!b.isWhiteTurn() && !piece.isWhite()) 
+				){
+					b.clearSelected();
+					piece.setSelected(true);
+					this.gm.updateBoard(b);
+				}
 			}
 		}
 	}
