@@ -4,7 +4,6 @@ Checkmate3000NetworkAIEdition
 Insert chess pun here
 
 ####ToDo:
-	Fix pawn attack bug. Capturing with the other pieces is completely broken as well.
 	Make other menus call gamebuilder like localview does
 	Add Pawn promotion.
 	Add timer responsibilities.
