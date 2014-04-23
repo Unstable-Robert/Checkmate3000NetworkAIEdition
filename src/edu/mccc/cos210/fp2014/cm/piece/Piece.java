@@ -137,11 +137,10 @@ public abstract class Piece implements Cloneable {
 		return true;
 	}
 	protected boolean checkBounds(int x, int y){
-		return !(x < 0 || x > 7 || y < 0 || y > 7);
+		return x >= 0 && x <= 7 && y >= 0 && y <= 7;
 	}
 	protected boolean checkSameSpace(Piece p1, PossibleTile p2){
 		return (p1.getX() == p2.getX() && p1.getY() == p2.getY());
 	}
-	public abstract String getUnicode();
 	public abstract Piece clone();
 }

@@ -15,6 +15,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.imageio.*;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
@@ -41,6 +42,16 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 		this(c);
 		this.gm = model;
 		image = loadImage();
+		JButton resignButton = new JButton("Resign");
+		resignButton.setSize(100,50);
+		resignButton.setLocation((int)(c.getWidth() * 0.05), (int)(c.getHeight() * 0.95));
+		resignButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				myCheckmate.setView(Checkmate.MAIN_MENU);
+			}
+		});
+		add(resignButton);
 	}
 	public void addPlayer(Player p){
 		this.players.add(p);
@@ -58,17 +69,17 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 	}
 	private void drawPiece(Graphics2D g2d, int x, int y, int gridX, int gridY) {
 		g2d.drawImage(
-				image,
-				x,
-				y,
-				x + 60,
-				y + 60,
-				gridX,
-				gridY,
-				gridX + 60,
-				gridY + 60,
-				null
-			);
+			image,
+			x,
+			y,
+			x + 60,
+			y + 60,
+			gridX,
+			gridY,
+			gridX + 60,
+			gridY + 60,
+			null
+		);
 	}
 	private void drawPossibleTile(Graphics2D g2d, int x, int y) {
 		g2d.setColor(Color.CYAN);
@@ -117,8 +128,14 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 			}
 		}
 		
-		g2d.setFont(new Font(g2d.getFont().toString(), Font.PLAIN, 60));
-		g2d.setPaint(Color.WHITE);
+		g2d.setFont(new Font(g2d.getFont().toString(), Font.PLAIN, 28));
+		if (gm.getBoard().isWhiteTurn()) {
+			g2d.drawString("White's Turn", myCheckmate.getWidth() * .02f, myCheckmate.getHeight() * .05f);
+		} else {
+			g2d.setPaint(Color.BLACK);
+			g2d.drawString("Black's Turn", myCheckmate.getWidth() * .02f, myCheckmate.getHeight() * .05f);
+		}
+		
 		List<Piece> pieces = gm.getBoard().getPieces();
 		int gridX, gridY;
 		for (Piece p: pieces) {
@@ -143,7 +160,11 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 			drawPiece(g2d, p.getX() * 60 + 160, p.getY() * 60 + 60, gridX, gridY);
 		}
 		for (PossibleTile pt : gm.getBoard().getPossibleTiles()){
-			drawPossibleTile(g2d, pt.getX() * 60 + 160, pt.getY() * 60 + 60);
+			drawPossibleTile(
+				g2d, 
+				pt.getX() * 60 + 160, 
+				pt.getY() * 60 + 60
+			);
 		}
 		g2d.dispose();
 	}

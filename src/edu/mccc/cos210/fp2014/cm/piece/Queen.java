@@ -86,12 +86,4 @@ public class Queen extends Piece {
 		}
 		return possibleTiles;
 	}
-	@Override
-	public String getUnicode() {
-		if (this.isWhite){
-			return "\u2655";
-		} else {
-			return "\u265B";
-		}
-	}
 }

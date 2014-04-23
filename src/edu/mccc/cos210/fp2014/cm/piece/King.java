@@ -103,12 +103,4 @@ public class King extends Piece {
 		}
 		return possibleTiles;
 	}
-	@Override
-	public String getUnicode() {
-		if (this.isWhite){
-			return "\u2654";
-		} else {
-			return "\u265A";
-		}
-	}
 }

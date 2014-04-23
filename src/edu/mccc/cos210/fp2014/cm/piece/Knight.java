@@ -41,12 +41,4 @@ public class Knight extends Piece {
 		}
 		return lazyTiles;
 	}
-	@Override
-	public String getUnicode() {
-		if (this.isWhite){
-			return "\u2658";
-		} else {
-			return "\u265E";
-		}
-	}
 }

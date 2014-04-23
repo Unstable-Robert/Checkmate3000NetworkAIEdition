@@ -57,12 +57,4 @@ public class Bishop extends Piece {
 		}
 		return possibleTiles;
 	}
-	@Override
-	public String getUnicode() {
-		if (this.isWhite){
-			return "\u2657";
-		} else {
-			return "\u265D";
-		}
-	}
 }

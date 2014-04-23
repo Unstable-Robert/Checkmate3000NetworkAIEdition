@@ -91,12 +91,4 @@ public class Rook extends Piece {
 		}*/
 		return possibleTiles;
 	}
-	@Override
-	public String getUnicode() {
-		if (this.isWhite){
-			return "\u2656";
-		} else {
-			return "\u265C";
-		}
-	}
 }
