@@ -4,11 +4,13 @@ Checkmate3000NetworkAIEdition
 Insert chess pun here
 
 ####ToDo:
-	Implement GameView class including interactions with the player classes
+	Add AI possibilities to localview
+	Make other menus call gamebuilder like localview does
+	Fix castling bug.
 	Add timer responsibilities.
-	Implement Local player class
 	Implement Game over View
-	Implement AI Player Classes
+	Finish up with Network Player class
+	and start AI Player Classes
 
 ####Changelog:
 	Implemented piece lazy tiles methods.
