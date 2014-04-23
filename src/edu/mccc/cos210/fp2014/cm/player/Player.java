@@ -5,6 +5,7 @@ import java.util.Observer;
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.game.GameModel;
 import edu.mccc.cos210.fp2014.cm.piece.King;
+import edu.mccc.cos210.fp2014.cm.piece.Pawn;
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
 
@@ -26,6 +27,12 @@ public abstract class Player implements Observer{
 	 * This class will update the game model.
 	 */
 	public boolean updateModel(Piece piece, PossibleTile pt){
+		for (Piece p : this.gm.getBoard().getPieces()){
+			if (p instanceof Pawn){
+				Pawn pawn = (Pawn) p;
+				pawn.setPossibleToPassant(false);
+			}
+		}
 		Board b = gm.getBoard();
 		if (b.isWhiteTurn() == piece.isWhite() &&
 			b.isWhiteTurn() == this.isWhite
