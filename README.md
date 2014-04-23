@@ -5,15 +5,14 @@ Insert chess pun here
 
 ####ToDo:
 	Make other menus call gamebuilder like localview does
-	Fix castling bug
-	Add timer responsibilities
+	Add Pawn promotion.
 	Add timer responsibilities.
 	Implement Game over View
 	Finish up with Network Player class
 	and start AI Player Classes
 	Menus look nice.
 	Add timers, resign button to GameView.
-	Remove RadioButtons from LocalView.
+	Remove RadioButtons from LocalView (I disagree, they're still being used for AI games - we may want to make them inaccessible if there are two or zero human players).
 	Clicking anywhere but a possible move space will deselect a piece.
 
 ####Changelog:
