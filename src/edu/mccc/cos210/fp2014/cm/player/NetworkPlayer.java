@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.Observable;
@@ -21,15 +22,16 @@ import edu.mccc.cos210.fp2014.cm.util.MarshalHandler;
  * state.
  */
 public class NetworkPlayer extends Player implements Runnable {
+	private ServerSocket ss;
 	private Socket socket;
 	private MarshalHandler mh;
 	private InetAddress address;
 	
 	public NetworkPlayer(GameModel gm, boolean isWhite, InetAddress a) throws IOException{
 		super(gm,isWhite);
+		ss = new ServerSocket(7531);
 		mh = new MarshalHandler();
 		this.address = a;
-		this.socket = new Socket(address, 7531);
 	}
 	public NetworkPlayer(InetAddress a) throws IOException{
 		mh = new MarshalHandler();
@@ -63,6 +65,7 @@ public class NetworkPlayer extends Player implements Runnable {
 	@Override
 	public void run() {
 		try {
+			this.socket = ss.accept();
 			this.socket.setSoTimeout(100);
 			while (true){
 				try {

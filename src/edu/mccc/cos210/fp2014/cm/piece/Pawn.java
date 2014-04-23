@@ -145,7 +145,7 @@ public class Pawn extends Piece {
 			ps = new PossibleTile(pt.getX(), pt.getY() + 1, pt.getOriginalPiece());
 		}
 		for (Piece p : b.getPieces()){
-			if (p instanceof Pawn){
+			if (p instanceof Pawn && p.isWhite != this.isWhite){
 				Pawn pawn = (Pawn) p;
 				if (pawn.possibleToPassant()){
 					if (checkSameSpace(pawn, pt)){

@@ -45,6 +45,7 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 		JButton resignButton = new JButton("Resign");
 		resignButton.setSize(100,50);
 		resignButton.setLocation((int)(c.getWidth() * 0.05), (int)(c.getHeight() * 0.95));
+		resignButton.setVisible(true);
 		resignButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {

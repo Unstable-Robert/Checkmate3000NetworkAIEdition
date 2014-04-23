@@ -143,7 +143,6 @@ public class LocalView extends SettingsView implements ActionListener {
 		} else {
 			this.difficulty2 = Difficulty.HARD;
 		}
-		this.color = this.whiteRadio.isSelected();
 	}
 	/**
 	 * Changes settings and allows user to start the game.
