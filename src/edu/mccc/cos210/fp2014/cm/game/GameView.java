@@ -27,19 +27,19 @@ import edu.mccc.cos210.fp2014.cm.player.Player;
  */
 public class GameView extends JPanel implements Observer, ActionListener, MouseListener{
 	private static final long serialVersionUID = 1L;
+	private Checkmate myCheckmate;
 	private GameModel gm;
 	private ArrayList<Player> players;
-	private Checkmate myCheckmate;
+	private BufferedImage image;
 	public GameView(Checkmate c) {
 		myCheckmate = c;
 		players = new ArrayList<Player>();
 		this.addMouseListener(this);
+		setBackground(new Color(137, 207, 240));
 	}
-	private BufferedImage image;
 	public GameView(Checkmate c, GameModel model) {
 		this(c);
 		this.gm = model;
-		setBackground(Color.LIGHT_GRAY);
 		image = loadImage();
 	}
 	public void addPlayer(Player p){

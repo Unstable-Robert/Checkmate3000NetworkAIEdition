@@ -1,6 +1,7 @@
 package edu.mccc.cos210.fp2014.cm.menu;
 
 import java.awt.event.ActionListener;
+import java.awt.Color;
 import javax.swing.JPanel;
 
 /**
@@ -17,5 +18,6 @@ public abstract class SettingsView extends JPanel implements ActionListener {
 		super();
 		myCheckmate = c;
 		setLayout(null);
+		setBackground(new Color(137, 207, 240));
 	}
 }

@@ -3,11 +3,14 @@ package edu.mccc.cos210.fp2014.cm.menu;
 import edu.mccc.cos210.fp2014.cm.game.GameModel;
 import edu.mccc.cos210.fp2014.cm.game.GameView;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.CardLayout;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -25,7 +28,7 @@ public class Checkmate extends JFrame implements Observer {
 	private GameModel gm;
 	private Checkmate() {
 		super("Checkmate 3000 Network AI Edition");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setSize(800, 640);
 		setResizable(false);
 		cards = new CardLayout();
@@ -38,6 +41,20 @@ public class Checkmate extends JFrame implements Observer {
 		//cardPanel.add(new GameView(this, new GameModel()), GAME);
 		add(cardPanel);
 		cards.show(cardPanel, MAIN_MENU);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent we) {
+				int wantsExit = JOptionPane.showConfirmDialog(
+					Checkmate.this,
+					"Are you sure you want to exit the program?",
+					"Exit Program?",
+					JOptionPane.YES_NO_OPTION
+				);
+				if (wantsExit == JOptionPane.YES_OPTION) {
+					System.exit(0);
+				}
+			}
+		});
 		setVisible(true);
 	}
 	public static void main(String[] sa) {
