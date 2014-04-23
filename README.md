@@ -4,7 +4,6 @@ Checkmate3000NetworkAIEdition
 Insert chess pun here
 
 ####ToDo:
-	Make other menus call gamebuilder like localview does
 	Add Pawn promotion.
 	Add timer responsibilities.
 	Implement Game over View
