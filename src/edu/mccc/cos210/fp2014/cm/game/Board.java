@@ -179,18 +179,13 @@ public class Board implements Cloneable{
      * @param p Piece being added to the board
      */
 	public void addPiece(Piece p){
-		boolean found = false;
-		for(Piece piece : this.getPieces()) {
-			if (piece.getUID() == p.getUID()) {
-				this.getPieces().remove(piece);
-				found = true;
-				break;
-			}
-		}
-		if (found){
-			throw new InvalidParameterException();
-		}
+		this.getPieces().add(p);
 	} 
+	public void clearSelected(){
+		for(Piece p : this.getPieces()){
+			p.setSelected(false);
+		}
+	}
 	public boolean hasSelectedPiece(){
 		for (Piece p : this.getPieces()){
 			if (p.isSelected()){

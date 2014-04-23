@@ -5,6 +5,7 @@ import java.util.Observable;
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.game.GameModel;
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
+import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
 import edu.mccc.cos210.fp2014.cm.player.intelligence.Intelligence;
 import edu.mccc.cos210.fp2014.cm.util.Difficulty;
 import edu.mccc.cos210.fp2014.cm.util.GamePart;
@@ -35,7 +36,7 @@ public class AiPlayer extends Player implements Runnable{
 	 * Updates the game model with it's move.
 	 */
 	@Override
-	public void updateModel(Piece oldPiece, Piece newPiece){
+	public void updateModel(Piece piece, PossibleTile pt){
 	}
 	/**
 	 * Updates the intelligence.

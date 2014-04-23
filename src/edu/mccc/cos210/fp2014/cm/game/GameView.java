@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.Rectangle;
 import java.io.*;
@@ -12,13 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-import javax.imageio.*;
 
+import javax.imageio.*;
 import javax.swing.JPanel;
 
 import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
 import edu.mccc.cos210.fp2014.cm.piece.*;
-import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.player.Player;
 
 /**
@@ -70,12 +70,18 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 				null
 			);
 	}
+	private void drawPossibleTile(Graphics2D g2d, int x, int y) {
+		g2d.setColor(Color.CYAN);
+		g2d.setStroke(new BasicStroke(3));
+		Rectangle2D s = new Rectangle2D.Double(x, y, 60, 60);
+		g2d.draw(s);
+	}
 	/**
 	 * Updates the view when the model updates.
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		this.repaint();
+		this.paintComponent(this.getGraphics());
 	}
 	/**
 	 * Checks is the resign button was pressed.
@@ -136,11 +142,13 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 			}
 			drawPiece(g2d, p.getX() * 60 + 160, p.getY() * 60 + 60, gridX, gridY);
 		}
+		for (PossibleTile pt : gm.getBoard().getPossibleTiles()){
+			drawPossibleTile(g2d, pt.getX() * 60 + 160, pt.getY() * 60 + 60);
+		}
 		g2d.dispose();
 	}
 	@Override
 	public void repaint(){
-		super.repaint();
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -172,19 +180,19 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 			}
 		}
 		if (found) {
-			if (piece != null) {
-				piece.setSelected(true);
-			} else if (possibleTile != null) {
+			if (possibleTile != null) {
 				if (this.gm.getBoard().hasSelectedPiece()){
 					Piece p = this.gm.getBoard().getSelectedPiece();
-					Piece clone = p.clone();
-					clone.setSelected(false);
-					clone.setX(possibleTile.getX());
-					clone.setY(possibleTile.getY());
+					p.setSelected(false);
 					for(Player player : this.players) {
-						player.updateModel(p, clone);
+						player.updateModel(p, possibleTile);
 					}
 				}
+			}else if (piece != null) {
+				Board b = this.gm.getBoard();
+				b.clearSelected();
+				piece.setSelected(true);
+				this.gm.updateBoard(b);
 			}
 		}
 	}
