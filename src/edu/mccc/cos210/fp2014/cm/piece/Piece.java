@@ -140,9 +140,6 @@ public abstract class Piece implements Cloneable {
 		return !(x < 0 || x > 7 || y < 0 || y > 7);
 	}
 	protected boolean checkSameSpace(Piece p1, PossibleTile p2){
-		if (p1 == null || p2 == null){
-			boolean yaDoneGoofed = true;
-		}
 		return (p1.getX() == p2.getX() && p1.getY() == p2.getY());
 	}
 	public abstract String getUnicode();

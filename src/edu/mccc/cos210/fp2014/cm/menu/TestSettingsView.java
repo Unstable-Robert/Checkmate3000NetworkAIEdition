@@ -3,7 +3,6 @@ package edu.mccc.cos210.fp2014.cm.menu;
 //import sun.tools.jstat.Alignment;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
