@@ -31,7 +31,11 @@ public class Board implements Cloneable{
 	 * Saves possible tiles, pieces, moves, whose turn it is, and meta data.
 	 */
 	public Board(){
-		
+		this.possibleTiles = new ArrayList<PossibleTile>();
+		this.pieces = new ArrayList<Piece>();
+		this.movesSincePieceTaken = 0;
+		this.whiteTurn = true;
+		this.metaInfo = new Meta();
 	}
 	public Board(GameType g) {
 		this.possibleTiles = new ArrayList<PossibleTile>();

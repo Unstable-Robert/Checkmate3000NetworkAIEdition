@@ -65,7 +65,9 @@ public class NetworkPlayer extends Player implements Runnable {
 	@Override
 	public void run() {
 		try {
-			this.socket = ss.accept();
+			if (this.ss == null){
+				this.socket = new Socket(address, 7531);
+			}
 			this.socket.setSoTimeout(100);
 			while (true){
 				try {

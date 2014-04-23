@@ -73,7 +73,7 @@ public class GameBuilder {
 	 * @param t The time, if a timed game.
 	 */
 	public static void buildJoinGame(Checkmate c, InetAddress a) {
-		GameModel gm = setupGameType(null, 0);
+		GameModel gm = setupGameType();
 		c.setGameModel(gm);
 		gm.addObserver(c);
 		NetworkPlayer np;
@@ -103,6 +103,12 @@ public class GameBuilder {
 			b = new Board(g);
 			gm = new GameModel(b);
 		}
+		gm.updateBoard(b);
+		return gm;
+	}
+	private static GameModel setupGameType(){
+		Board b = new Board();
+		GameModel gm = new GameModel(b);
 		gm.updateBoard(b);
 		return gm;
 	}
