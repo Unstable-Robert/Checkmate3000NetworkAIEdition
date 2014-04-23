@@ -4,13 +4,19 @@ Checkmate3000NetworkAIEdition
 Insert chess pun here
 
 ####ToDo:
+	Fix pawn attack bug.
 	Make other menus call gamebuilder like localview does
-	Fix castling bug
-	Add timer responsibilities
+	Add Pawn promotion.
 	Add timer responsibilities.
 	Implement Game over View
 	Finish up with Network Player class
 	and start AI Player Classes
+<<<<<<< HEAD
+=======
+	Menus look nice.
+	Add timers, resign button to GameView.
+	Remove RadioButtons from LocalView (I disagree, they're still being used for AI games - we may want to make them inaccessible if there are two or zero human players).
+>>>>>>> e45e33529642f9d030accd2346c93dcda8cab1bb
 	Clicking anywhere but a possible move space will deselect a piece.
 	Remove RadioButtons from LocalView.
 	Add timers, resign button to GameView.
