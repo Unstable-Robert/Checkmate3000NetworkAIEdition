@@ -11,7 +11,6 @@ Insert chess pun here
 	Implement Game over View
 	Finish up with Network Player class
 	and start AI Player Classes
-	En passant should only work the turn after that pawn moved.
 	Menus look nice.
 	Add timers, resign button to GameView.
 	Remove RadioButtons from LocalView.
