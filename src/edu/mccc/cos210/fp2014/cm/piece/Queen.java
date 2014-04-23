@@ -56,6 +56,8 @@ public class Queen extends Piece {
 			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
+		i = 1;
+		canSearch = true;
 		while (canSearch){
 			PossibleTile pt = new PossibleTile(this.getX() - i, this.getY(), this);
 			canSearch = decideToAddTile(b, possibleTiles, pt);
