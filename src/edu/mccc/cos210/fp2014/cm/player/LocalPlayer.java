@@ -4,6 +4,7 @@ import java.util.Observable;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.game.GameModel;
+import edu.mccc.cos210.fp2014.cm.piece.Piece;
 
 /**
  * A local player object.
@@ -18,8 +19,8 @@ public class LocalPlayer extends Player {
 	 * Updates the model.
 	 */
 	@Override
-	public void updateModel(Board b) {
-		
+	public void updateModel(Piece oldPiece, Piece newPiece){
+		super.updateModel(oldPiece, newPiece);
 	}
 	/**
 	 * Called when the model is updated.

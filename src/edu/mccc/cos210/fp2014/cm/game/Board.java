@@ -157,10 +157,13 @@ public class Board implements Cloneable{
 		return this.pieces;
 	}
 	public ArrayList<PossibleTile> getPossibleTiles(){
+		if (this.hasSelectedPiece()){
+			Piece p = this.getSelectedPiece();
+			this.possibleTiles = p.getPossibleTiles(this);
+		} else {
+			this.possibleTiles = new ArrayList<PossibleTile>();
+		}
 		return this.possibleTiles;
-	}
-	public void setPossibleTiles(ArrayList<PossibleTile> pts){
-		this.possibleTiles = pts;
 	}
 	public int getNumMovesSinceLastPieceTaken(){
 		return this.movesSincePieceTaken;
@@ -188,14 +191,27 @@ public class Board implements Cloneable{
 			throw new InvalidParameterException();
 		}
 	} 
+	public boolean hasSelectedPiece(){
+		for (Piece p : this.getPieces()){
+			if (p.isSelected()){
+				return true;
+			}
+		}
+		return false;
+	}
+	public Piece getSelectedPiece(){
+		for (Piece p : this.getPieces()){
+			if (p.isSelected()){
+				return p;
+			}
+		}
+		return null;
+	}
 	public Board clone(){
 		ArrayList<Piece> newPieces = new ArrayList<Piece>();
 		ArrayList<PossibleTile> newTiles = new ArrayList<PossibleTile>();
 		for(Piece p : this.getPieces()){
 			newPieces.add(p.clone());
-		}
-		for(PossibleTile t : this.getPossibleTiles()){
-			newTiles.add(t.clone());
 		}
 		return new Board(newTiles, 
 				newPieces,

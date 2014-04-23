@@ -10,6 +10,7 @@ import java.util.Observable;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.game.GameModel;
+import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.util.MarshalHandler;
 
 /**
@@ -38,8 +39,8 @@ public class NetworkPlayer extends Player implements Runnable {
 	 * Updates the model if the local individual or networked individual make a move.
 	 */
 	@Override
-	public void updateModel(Board b) {
-		gm.updateBoard(b);
+	public void updateModel(Piece oldPiece, Piece newPiece) {
+
 	}
 	/**
 	 * Sends a marshalled board object to the other player if the board has been updated.

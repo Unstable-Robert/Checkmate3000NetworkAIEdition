@@ -47,15 +47,7 @@ public class GameModel extends Observable {
 	 */
 	public void updateBoard(Board b) {
 		this.board = b;
-		for (Piece p : b.getPieces()){
-			if (p.isSelected()) {
-				this.board.setPossibleTiles(p.getPossibleTiles(b));
-				break;
-			}
-		}
-		if (isCheckMate()){
-			
-		}
+		this.setChanged();
 		this.notifyObservers();
 	}
 	/**

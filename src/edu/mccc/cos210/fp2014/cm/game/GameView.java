@@ -33,10 +33,11 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 	public GameView(Checkmate c) {
 		myCheckmate = c;
 		players = new ArrayList<Player>();
+		this.addMouseListener(this);
 	}
 	private BufferedImage image;
 	public GameView(Checkmate c, GameModel model) {
-		this.myCheckmate = c;
+		this(c);
 		this.gm = model;
 		setBackground(Color.LIGHT_GRAY);
 		image = loadImage();
@@ -74,6 +75,7 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
+		this.repaint();
 	}
 	/**
 	 * Checks is the resign button was pressed.
@@ -138,6 +140,7 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 	}
 	@Override
 	public void repaint(){
+		super.repaint();
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -147,6 +150,43 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+		boolean found = false;
+		Piece piece = null;
+		PossibleTile possibleTile = null;
+		for (Piece p : this.gm.getBoard().getPieces()){
+			if (x > (p.getX() + 1) * 60 + 100 && x < (p.getX() + 2) * 60 + 100 &&
+					y > (p.getY() + 1) * 60 && y < (p.getY() + 2) * 60) {
+				found = true;
+				piece = p;
+				break;
+			}
+		}
+		for (PossibleTile pt : this.gm.getBoard().getPossibleTiles()){
+			if (x > (pt.getX() + 1) * 60 + 100 && x < (pt.getX() + 2) * 60 + 100 &&
+					y > (pt.getY() + 1) * 60 && y < (pt.getY() + 2) * 60) {
+				found = true;
+				possibleTile = pt;
+				break;
+			}
+		}
+		if (found) {
+			if (piece != null) {
+				piece.setSelected(true);
+			} else if (possibleTile != null) {
+				if (this.gm.getBoard().hasSelectedPiece()){
+					Piece p = this.gm.getBoard().getSelectedPiece();
+					Piece clone = p.clone();
+					clone.setSelected(false);
+					clone.setX(possibleTile.getX());
+					clone.setY(possibleTile.getY());
+					for(Player player : this.players) {
+						player.updateModel(p, clone);
+					}
+				}
+			}
+		}
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {

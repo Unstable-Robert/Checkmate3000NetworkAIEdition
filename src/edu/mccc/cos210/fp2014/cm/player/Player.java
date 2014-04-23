@@ -4,6 +4,7 @@ import java.util.Observer;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.game.GameModel;
+import edu.mccc.cos210.fp2014.cm.piece.Piece;
 
 /**
  * Abstract player class.
@@ -22,5 +23,12 @@ public abstract class Player implements Observer{
 	/**
 	 * This class will update the game model.
 	 */
-	protected abstract void updateModel(Board b);
+	public void updateModel(Piece oldPiece, Piece newPiece) {
+		Board b = gm.getBoard();
+		if (b.isWhiteTurn() == this.isWhite) {
+			b.removePiece(oldPiece);
+			b.addPiece(newPiece);
+			gm.updateBoard(b);
+		}
+	}
 }
