@@ -2,9 +2,14 @@ package edu.mccc.cos210.fp2014.cm.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+
 import javax.swing.*;
+
+import edu.mccc.cos210.fp2014.cm.game.GameBuilder;
+import edu.mccc.cos210.fp2014.cm.util.GameType;
 
 /**
  * Join network game menu.
@@ -12,6 +17,8 @@ import javax.swing.*;
  */
 public class JoinView extends SettingsView implements ActionListener {
 	private static final long serialVersionUID = 1L;
+	private String address;
+	private JTextField ipTextField;
 	public JoinView(Checkmate c) {
 		super(c);
 		
@@ -33,7 +40,14 @@ public class JoinView extends SettingsView implements ActionListener {
 		joinButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				System.out.println("Join Button Clicked");
+				try {
+					setSettings();
+					InetAddress inetAddress = InetAddress.getByName(address);
+					GameBuilder.buildJoinGame(myCheckmate, inetAddress);
+					myCheckmate.setView(Checkmate.GAME);
+				} catch (IOException e){
+					e.printStackTrace();
+				}
 			}
 		});
 		add(joinButton);
@@ -42,7 +56,7 @@ public class JoinView extends SettingsView implements ActionListener {
 		enemyIpLabel.setSize(250, 20);
 		enemyIpLabel.setLocation((int)(c.getWidth() * 0.25),(int)(c.getHeight() * 0.42));
 		add(enemyIpLabel);
-		JTextField ipTextField = new JTextField();
+		this.ipTextField = new JTextField();
 		ipTextField.setSize(250, 20);
 		ipTextField.setLocation((int)(c.getWidth() * 0.35),(int)(c.getHeight() * 0.47));
 		add(ipTextField);
@@ -56,6 +70,9 @@ public class JoinView extends SettingsView implements ActionListener {
 		ipLabel.setSize(140,40);
 		ipLabel.setLocation((int)((c.getWidth() * 0.5) - ipLabel.getWidth()/2), (int) (c.getHeight() * 0.60));
 		add(ipLabel);
+	}
+	protected void setSettings() {
+		this.address = ipTextField.getText();
 	}
 	/**
 	 * Allows user to enter the host's IP and return to the main menu.

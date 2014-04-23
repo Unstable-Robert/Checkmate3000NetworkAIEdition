@@ -16,20 +16,23 @@ import edu.mccc.cos210.fp2014.cm.util.GameType;
  */
  @XmlRootElement
 public class Board implements Cloneable{
-	@XmlElement
+	@XmlElement(name="possibleTiles")
 	private ArrayList<PossibleTile> possibleTiles;
-	@XmlElement
+	@XmlElement(name="pieces")
 	private ArrayList<Piece> pieces;
-	@XmlElement
+	@XmlElement(name="movesSincePieceTaken")
 	private int movesSincePieceTaken;
-	@XmlElement
+	@XmlElement(name="whiteTurn")
 	private boolean whiteTurn;
-	@XmlElement
+	@XmlElement(name="metaInfo")
 	private Meta metaInfo;
 	/**
 	 * Constructor.
 	 * Saves possible tiles, pieces, moves, whose turn it is, and meta data.
 	 */
+	public Board(){
+		
+	}
 	public Board(GameType g) {
 		this.possibleTiles = new ArrayList<PossibleTile>();
 		this.pieces = new ArrayList<Piece>();

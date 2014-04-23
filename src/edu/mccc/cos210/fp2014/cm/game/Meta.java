@@ -1,5 +1,7 @@
 package edu.mccc.cos210.fp2014.cm.game;
 
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -9,20 +11,18 @@ import edu.mccc.cos210.fp2014.cm.util.GameType;
  * Various board info.
  * A list of information relevant to each board, including gametype, time left over, scores (for the AI).
  */
- @XmlRootElement
+ @XmlRootElement(name="Meta")
+ @XmlAccessorType(XmlAccessType.FIELD)
 public class Meta implements Cloneable {
-	@XmlElement
 	private GameType gameType;
-	@XmlElement
 	private int whiteTime;
-	@XmlElement
 	private int blackTime;
-	@XmlElement
 	private double whiteScore;
-	@XmlElement
 	private double blackScore;
-	@XmlElement
 	private int numPossibleMoves;
+	public Meta (){
+		
+	}
 	public Meta(GameType g) {
 		this.gameType = g;
 		this.whiteScore = 0;

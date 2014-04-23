@@ -2,9 +2,15 @@ package edu.mccc.cos210.fp2014.cm.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+
 import javax.swing.*;
+
+import edu.mccc.cos210.fp2014.cm.game.GameBuilder;
+import edu.mccc.cos210.fp2014.cm.util.Difficulty;
+import edu.mccc.cos210.fp2014.cm.util.GameType;
 
 /**
  * Host network game menu.
@@ -12,15 +18,17 @@ import javax.swing.*;
  */
 public class HostView extends SettingsView implements ActionListener {
 	private static final long serialVersionUID = 1L;
-	private boolean isTimed;
+	private GameType gameType;
+	private int time;
+	private String address;
     private final int TIME_MIN = 0;
 	private final int TIME_MAX = 180;
 	private JSpinner timeSpinner;
+	private JCheckBox checkbox;
+	private JTextField ipTextField;
 	public HostView(Checkmate c) {
 		super(c);
-		
-		isTimed = false;
-		
+				
 		//backButton returns to previous screen
 		JButton backButton = new JButton("Back");
 		backButton.setSize(100,50);
@@ -40,24 +48,31 @@ public class HostView extends SettingsView implements ActionListener {
 		hostButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				System.out.println("Host Button Clicked");
+				try {
+					setSettings();
+					InetAddress inetAddress = InetAddress.getByName(address);
+					GameBuilder.buildHostGame(myCheckmate, gameType, time, inetAddress);
+					myCheckmate.setView(Checkmate.GAME);
+				} catch (IOException e){
+					e.printStackTrace();
+				}
 			}
 		});
 		add(hostButton);
 		
 		//Checkbox whether game is timed or not
-		JCheckBox checkbox = new JCheckBox();
+		this.checkbox = new JCheckBox();
 		checkbox.setSize(100,40);
 		checkbox.setLocation((int) (c.getWidth() * 0.28), (int) (c.getHeight() * 0.25));
 		checkbox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				if (isTimed){
-					isTimed = false;
+				if (gameType == GameType.TIMED_GAME){
+					gameType = GameType.NORMAL;
 				} else {
-					isTimed = true;
+					gameType = GameType.TIMED_GAME;
 				}
-				timeSpinner.setEnabled(isTimed);
+				timeSpinner.setEnabled(gameType == GameType.TIMED_GAME);
 			}
 		});
 		add(checkbox);
@@ -74,29 +89,12 @@ public class HostView extends SettingsView implements ActionListener {
 		timeSpinner = new JSpinner(new SpinnerNumberModel(TIME_MIN, TIME_MIN, TIME_MAX, 1));
 		timeSpinner.setSize(40,20);
 		timeSpinner.setLocation((int)(c.getWidth() * 0.18),(int)(c.getHeight() * 0.42));
+		timeSpinner.setEnabled(false);
 		add(timeSpinner);
 		JLabel minLabel = new JLabel("Minutes");
 		minLabel.setSize(55,20);
 		minLabel.setLocation((int)(c.getWidth() * 0.3),(int)(c.getHeight() * 0.42));
 		add(minLabel);
-
-		//items to pick color
-		JLabel color = new JLabel("Your Color: ");
-		color.setSize(100,20);
-		color.setLocation((int) (c.getWidth() * 0.1), (int) (c.getHeight() * 0.55));
-		add(color);
-		ButtonGroup colorPickerButtons = new ButtonGroup();
-		JRadioButton whiteRadio = new JRadioButton("White");
-		whiteRadio.setLocation((int) (c.getWidth() * 0.25), (int) (c.getHeight() * 0.55));
-		whiteRadio.setSize(70,20);
-		whiteRadio.setSelected(true);
-		colorPickerButtons.add(whiteRadio);
-		add(whiteRadio);
-		JRadioButton blackRadio = new JRadioButton("Black");
-		blackRadio.setLocation((int) (c.getWidth() * 0.4), (int) (c.getHeight() * 0.55));
-		blackRadio.setSize(70,20);
-		colorPickerButtons.add(blackRadio);
-		add(blackRadio);
 
 		//displays your ip
 		String ipAddress = "UNKNOWN";
@@ -112,10 +110,20 @@ public class HostView extends SettingsView implements ActionListener {
 		enemyIpLabel.setSize(250, 20);
 		enemyIpLabel.setLocation((int)(c.getWidth() * 0.25),(int)(c.getHeight() * 0.63));
 		add(enemyIpLabel);
-		JTextField ipTextField = new JTextField();
+		this.ipTextField = new JTextField();
 		ipTextField.setSize(250, 20);
 		ipTextField.setLocation((int)(c.getWidth() * 0.35),(int)(c.getHeight() * 0.68));
 		add(ipTextField);
+	}
+	protected void setSettings() {
+		if (this.checkbox.isSelected()){
+			this.gameType = GameType.TIMED_GAME;
+			this.time = (int)this.timeSpinner.getValue();
+		} else {
+			this.gameType = GameType.NORMAL;
+			this.time = 0;
+		}
+		this.address = ipTextField.getText();
 	}
 	/**
 	 * Allows user to change settings, start a hosted game, and return to the main menu.

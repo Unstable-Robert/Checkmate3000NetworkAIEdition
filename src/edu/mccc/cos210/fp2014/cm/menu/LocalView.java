@@ -49,7 +49,7 @@ public class LocalView extends SettingsView implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				setSettings();
-				GameBuilder.buildLocalGame(myCheckmate, gameType, time, color, difficulty1, difficulty2);
+				GameBuilder.buildLocalGame(myCheckmate, gameType, time, difficulty1, difficulty2);
 				myCheckmate.setView(Checkmate.GAME);
 			}
 		});
@@ -93,11 +93,11 @@ public class LocalView extends SettingsView implements ActionListener {
 		p2.setSize(100, 30);
 		p2.setLocation((int)(c.getWidth() * .3), (int) (c.getHeight() * .2));
 		add(p2);
-		JLabel player1 = new JLabel("Player One");
+		JLabel player1 = new JLabel("White Player");
 		player1.setSize(100,40);
 		player1.setLocation((int)(c.getWidth() * 0.1),(int)(c.getHeight() * 0.15));
 		add(player1);
-		JLabel player2 = new JLabel("Player Two");
+		JLabel player2 = new JLabel("Black Player");
 		player2.setSize(100,40);
 		player2.setLocation((int)(c.getWidth() * 0.3),(int)(c.getHeight() * 0.15));
 		add(player2);
@@ -110,29 +110,12 @@ public class LocalView extends SettingsView implements ActionListener {
 		this.timeSpinner = new JSpinner(new SpinnerNumberModel(TIME_MIN, TIME_MIN, TIME_MAX, 1));
 		timeSpinner.setSize(40,20);
 		timeSpinner.setLocation((int)(c.getWidth() * 0.18),(int)(c.getHeight() * 0.42));
+		timeSpinner.setEnabled(false);
 		add(timeSpinner);
 		JLabel minLabel = new JLabel("Minutes");
 		minLabel.setSize(55,20);
 		minLabel.setLocation((int)(c.getWidth() * 0.3),(int)(c.getHeight() * 0.42));
 		add(minLabel);
-
-		//items to pick color
-		JLabel color = new JLabel("Player One Color: ");
-		color.setSize(100,20);
-		color.setLocation((int) (c.getWidth() * 0.1), (int) (c.getHeight() * 0.55));
-		add(color);
-		ButtonGroup colorPickerButtons = new ButtonGroup();
-		this.whiteRadio = new JRadioButton("White");
-		whiteRadio.setLocation((int) (c.getWidth() * 0.25), (int) (c.getHeight() * 0.55));
-		whiteRadio.setSize(70,20);
-		whiteRadio.setSelected(true);
-		colorPickerButtons.add(whiteRadio);
-		add(whiteRadio);
-		JRadioButton blackRadio = new JRadioButton("Black");
-		blackRadio.setLocation((int) (c.getWidth() * 0.4), (int) (c.getHeight() * 0.55));
-		blackRadio.setSize(70,20);
-		colorPickerButtons.add(blackRadio);
-		add(blackRadio);
 	}
 	protected void setSettings() {
 		if (this.checkbox.isSelected()){

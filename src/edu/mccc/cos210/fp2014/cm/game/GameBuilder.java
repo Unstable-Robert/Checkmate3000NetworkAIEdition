@@ -19,7 +19,7 @@ public class GameBuilder {
 	 * @param g The gametype of the game
 	 * @param t The time, if a timed game.
 	 */
-	public static void buildLocalGame(Checkmate c, GameType g, int t, boolean color, Difficulty d1, Difficulty d2) {
+	public static void buildLocalGame(Checkmate c, GameType g, int t, Difficulty d1, Difficulty d2) {
 		GameModel gm = setupGameType(g,t);
 		c.setGameModel(gm);
 		gm.addObserver(c);
@@ -29,14 +29,14 @@ public class GameBuilder {
 			c.setGameView(setupGameView(c, gm, lp1, lp2));
 			gm.addObserver(lp1);
 		} else if (d1 == Difficulty.HUMAN && d2 != Difficulty.HUMAN){
-			LocalPlayer lp = new LocalPlayer(gm, color);
-			AiPlayer aip = new AiPlayer(gm, !color, d2);
+			LocalPlayer lp = new LocalPlayer(gm, true);
+			AiPlayer aip = new AiPlayer(gm, false, d2);
 			c.setGameView(setupGameView(c, gm, lp, aip));
 			gm.addObserver(lp);
 			gm.addObserver(aip);
 		} else if (d1 != Difficulty.HUMAN && d2 == Difficulty.HUMAN){
-			LocalPlayer lp = new LocalPlayer(gm, !color);
-			AiPlayer aip = new AiPlayer(gm, color, d1);
+			LocalPlayer lp = new LocalPlayer(gm, false);
+			AiPlayer aip = new AiPlayer(gm, true, d1);
 			c.setGameView(setupGameView(c, gm, lp, aip));
 			gm.addObserver(lp);
 			gm.addObserver(aip);
