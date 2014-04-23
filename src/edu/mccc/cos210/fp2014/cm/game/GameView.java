@@ -136,9 +136,9 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 				gridX = 300;
 			}
 			if (p.getColor()) {
-				gridY = 0;
-			} else {
 				gridY = 60;
+			} else {
+				gridY = 0;
 			}
 			drawPiece(g2d, p.getX() * 60 + 160, p.getY() * 60 + 60, gridX, gridY);
 		}

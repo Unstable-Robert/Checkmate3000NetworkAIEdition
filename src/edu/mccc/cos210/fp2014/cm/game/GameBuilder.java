@@ -24,10 +24,10 @@ public class GameBuilder {
 		c.setGameModel(gm);
 		gm.addObserver(c);
 		LocalPlayer lp1 = new LocalPlayer(gm, true);
-		LocalPlayer lp2 = new LocalPlayer(gm, false);
-		c.setGameView(setupGameView(c, gm, lp1, lp2));
+		//LocalPlayer lp2 = new LocalPlayer(gm, false);
+		c.setGameView(setupGameView(c, gm, lp1));//, lp2));
 		gm.addObserver(lp1);
-		gm.addObserver(lp2);
+		//gm.addObserver(lp2);
 	}
 	/**
 	 * Builds a local game for one human player and one AI player.	 
