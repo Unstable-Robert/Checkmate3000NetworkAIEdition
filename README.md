@@ -4,9 +4,7 @@ Checkmate3000NetworkAIEdition
 Insert chess pun here
 
 ####ToDo:
-	Add AI possibilities to localview
 	Make other menus call gamebuilder like localview does
-	Fix castling bug.
 	Add timer responsibilities.
 	Implement Game over View
 	Finish up with Network Player class
