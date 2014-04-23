@@ -47,7 +47,7 @@ public abstract class Player implements Observer{
 	}
 	public boolean updateCastle(Piece p1, Piece p2) {
 		Board b = gm.getBoard();
-		if (b.isWhiteTurn() == p1.getColor() &&
+		if (b.isWhiteTurn() == p1.isWhite() &&
 				b.isWhiteTurn() == this.isWhite) {
 			b.nextTurn();
 			Piece clone1 = p1.clone();
