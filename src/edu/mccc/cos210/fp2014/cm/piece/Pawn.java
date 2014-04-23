@@ -23,11 +23,13 @@ public class Pawn extends Piece {
 	}
 	public Pawn(int x, int y, boolean c, int iD, boolean s){
 		super(x,y,c,iD,s);
+		this.selected = s;
 		this.hasMoved = false;
 		this.possibleToPassant = false;
 	}
 	public Pawn(int x, int y, boolean c, int iD, boolean s, boolean moved, boolean passant){
 		super(x,y,c,iD,s);
+		this.selected = s;
 		this.hasMoved = moved;
 		this.possibleToPassant = passant;
 	}
@@ -64,12 +66,16 @@ public class Pawn extends Piece {
 		ArrayList<PossibleTile> lazyTiles = new ArrayList<PossibleTile>();
 		PossibleTile step1;
 		if (color){
-			step1 = new PossibleTile(this.getX(), this.getY() - 1, this);
+			Pawn clone = this.clone();
+			clone.setMoved();
+			step1 = new PossibleTile(clone.getX(), clone.getY() - 1, clone);
 		} else {
-			step1 = new PossibleTile(this.getX(), this.getY() + 1, this);
+			Pawn clone = this.clone();
+			clone.setMoved();
+			step1 = new PossibleTile(clone.getX(), clone.getY() + 1, clone);
 		}
 		boolean canMove = decideToAddTile(b, lazyTiles, step1);
-		if (!hasMoved && canMove) {
+		if (!this.hasMoved && canMove) {
 			Pawn clone = this.clone();
 			PossibleTile step2;
 			clone.setMoved();

@@ -33,9 +33,9 @@ public class King extends Piece {
 	 */
 	public boolean canCastleLeft(Board board){
 		if (!this.canCastle) { return false; }
-		PossibleTile space1 = new PossibleTile(this.getX() + 1, this.getY(), this);
-		PossibleTile space2 = new PossibleTile(this.getX() + 2, this.getY(), this);
-		PossibleTile space3 = new PossibleTile(this.getX() + 3, this.getY(), this);
+		PossibleTile space1 = new PossibleTile(this.getX() - 1, this.getY(), this);
+		PossibleTile space2 = new PossibleTile(this.getX() - 2, this.getY(), this);
+		PossibleTile space3 = new PossibleTile(this.getX() - 3, this.getY(), this);
 		for (Piece p : board.getPieces()){
 			if (checkSameSpace(p, space1) ||
 				checkSameSpace(p, space2) ||
@@ -88,7 +88,7 @@ public class King extends Piece {
 			decideToAddTile(b, possibleTiles, pt);
 		}
 		for (Piece p : b.getPieces()){
-			if (p instanceof Rook) {
+			if (p instanceof Rook && p.color == this.color) {
 				Rook r = (Rook) p;
 				if (r.canCastle()){
 					if (this.getX() < r.getX() &&

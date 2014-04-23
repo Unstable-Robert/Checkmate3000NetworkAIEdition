@@ -76,12 +76,12 @@ public class Rook extends Piece {
 		}
 		if (this.canCastle) {
 			for (Piece p : b.getPieces()) {
-				if (p instanceof King){
+				if (p instanceof King && p.color == this.color){
 					King k = (King) p;
 					if (this.getX() < k.getX() &&
 						k.canCastleLeft(b)){
 						possibleTiles.add(new PossibleTile(k.getX(), k.getY(), this));
-					} else if (this.getX() > k.getX() &&
+					} else if (this.getX() < k.getX() &&
 						k.canCastleRight(b)){
 						possibleTiles.add(new PossibleTile(k.getX(), k.getY(), this));
 					}

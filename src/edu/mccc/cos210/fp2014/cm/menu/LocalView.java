@@ -15,8 +15,6 @@ import edu.mccc.cos210.fp2014.cm.util.GameType;
  */
 public class LocalView extends SettingsView implements ActionListener {
 	private static final long serialVersionUID = 1L;
-	//private boolean isTimed;
-	private Checkmate checkmate;
 	private GameType gameType;
 	private int time;
 	private Difficulty difficulty1;
@@ -29,10 +27,7 @@ public class LocalView extends SettingsView implements ActionListener {
 	private JRadioButton whiteRadio;
 	public LocalView(Checkmate c) {
 		super(c);
-		
-		//isTimed = false;
-		checkmate = c;
-		
+
 		//backButton returns to previous screen
 		JButton backButton = new JButton("Back");
 		backButton.setSize(100,50);
@@ -52,9 +47,8 @@ public class LocalView extends SettingsView implements ActionListener {
 		startButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				myCheckmate.setView(Checkmate.GAME);
 				setSettings();
-				GameBuilder.buildLocalGame(checkmate, gameType, time);
+				GameBuilder.buildLocalGame(myCheckmate, gameType, time);
 			}
 		});
 		add(startButton);

@@ -27,6 +27,7 @@ public class GameBuilder {
 		//LocalPlayer lp2 = new LocalPlayer(gm, false);
 		c.setGameView(setupGameView(c, gm, lp1));//, lp2));
 		gm.addObserver(lp1);
+		c.setView(Checkmate.GAME);
 		//gm.addObserver(lp2);
 	}
 	/**
@@ -44,6 +45,7 @@ public class GameBuilder {
 		c.setGameView(setupGameView(c, gm, lp, aip));
 		gm.addObserver(lp);
 		gm.addObserver(aip);
+		c.setView(Checkmate.GAME);
 	}
 	/**
 	 * Builds a local game for two AI players.

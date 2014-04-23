@@ -29,9 +29,10 @@ public abstract class Player implements Observer{
 		if (b.isWhiteTurn() == piece.getColor()) {
 			b.nextTurn();
 			b.removePiece(piece);
-			Piece clone = piece.clone();
+			Piece clone = pt.getOriginalPiece();
 			clone.setX(pt.getX());
 			clone.setY(pt.getY());
+			clone.setSelected(false);
 			b.addPiece(clone);
 			if (pt.hasPieceToRemove()){
 				b.removePiece(pt.getRemovePiece());
