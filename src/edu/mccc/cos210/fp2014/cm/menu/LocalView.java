@@ -25,6 +25,8 @@ public class LocalView extends SettingsView implements ActionListener {
 	private JSpinner timeSpinner;
 	private JCheckBox checkbox;
 	private JRadioButton whiteRadio;
+	private JComboBox<String> p1;
+	private JComboBox<String> p2;
 	public LocalView(Checkmate c) {
 		super(c);
 
@@ -48,7 +50,8 @@ public class LocalView extends SettingsView implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				setSettings();
-				GameBuilder.buildLocalGame(myCheckmate, gameType, time);
+				GameBuilder.buildLocalGame(myCheckmate, gameType, time, color, difficulty1, difficulty2);
+				myCheckmate.setView(Checkmate.GAME);
 			}
 		});
 		add(startButton);
@@ -74,6 +77,32 @@ public class LocalView extends SettingsView implements ActionListener {
 		timedGame.setLocation((int)(c.getWidth() * 0.1),(int)(c.getHeight() * 0.25));
 		add(timedGame);
 		
+		//dropdown for AIs
+		this.p1 = new JComboBox<String>();
+		p1.addItem("Human");
+		p1.addItem("Easy AI");
+		p1.addItem("Medium AI");
+		p1.addItem("Hard AI");
+		p1.setSize(100, 30);
+		p1.setLocation((int)(c.getWidth() * .1), (int) (c.getHeight() * .2));
+		add(p1);
+		this.p2 = new JComboBox<String>();
+		p2.addItem("Human");
+		p2.addItem("Easy AI");
+		p2.addItem("Medium AI");
+		p2.addItem("Hard AI");
+		p2.setSize(100, 30);
+		p2.setLocation((int)(c.getWidth() * .3), (int) (c.getHeight() * .2));
+		add(p2);
+		JLabel player1 = new JLabel("Player One");
+		player1.setSize(100,40);
+		player1.setLocation((int)(c.getWidth() * 0.1),(int)(c.getHeight() * 0.15));
+		add(player1);
+		JLabel player2 = new JLabel("Player Two");
+		player2.setSize(100,40);
+		player2.setLocation((int)(c.getWidth() * 0.3),(int)(c.getHeight() * 0.15));
+		add(player2);
+		
 		//if game is timed on is display timer settings
 		JLabel timeLabel = new JLabel("Time");
 		timeLabel.setSize(40,20);
@@ -89,7 +118,7 @@ public class LocalView extends SettingsView implements ActionListener {
 		add(minLabel);
 
 		//items to pick color
-		JLabel color = new JLabel("Your Color: ");
+		JLabel color = new JLabel("Player One Color: ");
 		color.setSize(100,20);
 		color.setLocation((int) (c.getWidth() * 0.1), (int) (c.getHeight() * 0.55));
 		add(color);
@@ -114,6 +143,25 @@ public class LocalView extends SettingsView implements ActionListener {
 			this.gameType = GameType.NORMAL;
 			this.time = 0;
 		}
+		if (this.p1.getSelectedItem().equals("Human")){
+			this.difficulty1 = Difficulty.HUMAN;
+		} else if (this.p1.getSelectedItem().equals("Easy AI")){
+			this.difficulty1 = Difficulty.EASY;
+		} else if (this.p1.getSelectedItem().equals("Medium AI")){
+			this.difficulty1 = Difficulty.MEDIUM;
+		} else {
+			this.difficulty1 = Difficulty.HARD;
+		} 
+		if (this.p2.getSelectedItem().equals("Human")){
+			this.difficulty2 = Difficulty.HUMAN;
+		} else if (this.p2.getSelectedItem().equals("Easy AI")){
+			this.difficulty2 = Difficulty.EASY;
+		} else if (this.p2.getSelectedItem().equals("Medium AI")){
+			this.difficulty2 = Difficulty.MEDIUM;
+		} else {
+			this.difficulty2 = Difficulty.HARD;
+		}
+		this.color = this.whiteRadio.isSelected();
 	}
 	/**
 	 * Changes settings and allows user to start the game.

@@ -20,8 +20,8 @@ public class LocalPlayer extends Player {
 	 * Updates the model.
 	 */
 	@Override
-	public void updateModel(Piece piece, PossibleTile pt){
-		super.updateModel(piece, pt);
+	public boolean updateModel(Piece piece, PossibleTile pt){
+		return super.updateModel(piece, pt);
 	}
 	/**
 	 * Called when the model is updated.

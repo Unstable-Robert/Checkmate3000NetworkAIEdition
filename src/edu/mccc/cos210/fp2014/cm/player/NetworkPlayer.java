@@ -40,8 +40,8 @@ public class NetworkPlayer extends Player implements Runnable {
 	 * Updates the model if the local individual or networked individual make a move.
 	 */
 	@Override
-	public void updateModel(Piece piece, PossibleTile pt) {
-
+	public boolean updateModel(Piece piece, PossibleTile pt) {
+		return super.updateModel(piece, pt);
 	}
 	/**
 	 * Sends a marshalled board object to the other player if the board has been updated.

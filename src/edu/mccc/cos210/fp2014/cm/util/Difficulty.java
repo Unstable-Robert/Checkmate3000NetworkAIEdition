@@ -4,5 +4,5 @@ package edu.mccc.cos210.fp2014.cm.util;
  * An enumeration represent the various AI difficulties in the game.
  */
 public enum Difficulty {
-	EASY, MEDIUM, HARD
+	HUMAN, EASY, MEDIUM, HARD
 }

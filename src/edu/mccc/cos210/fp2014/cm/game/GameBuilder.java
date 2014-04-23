@@ -19,50 +19,34 @@ public class GameBuilder {
 	 * @param g The gametype of the game
 	 * @param t The time, if a timed game.
 	 */
-	public static void buildLocalGame(Checkmate c, GameType g, int t) {
+	public static void buildLocalGame(Checkmate c, GameType g, int t, boolean color, Difficulty d1, Difficulty d2) {
 		GameModel gm = setupGameType(g,t);
 		c.setGameModel(gm);
 		gm.addObserver(c);
-		LocalPlayer lp1 = new LocalPlayer(gm, true);
-		//LocalPlayer lp2 = new LocalPlayer(gm, false);
-		c.setGameView(setupGameView(c, gm, lp1));//, lp2));
-		gm.addObserver(lp1);
-		c.setView(Checkmate.GAME);
-		//gm.addObserver(lp2);
-	}
-	/**
-	 * Builds a local game for one human player and one AI player.	 
-	 * @param g The gametype of the game
-	 * @param d The difficulty of the AI.
-	 * @param t The time, if a timed game.
-	 */
-	public static void buildAiGame(Checkmate c, GameType g, Difficulty d, int t, boolean localColor) {
-		GameModel gm = setupGameType(g,t);
-		c.setGameModel(gm);
-		gm.addObserver(c);
-		LocalPlayer lp = new LocalPlayer(gm, localColor);
-		AiPlayer aip = new AiPlayer(gm, !localColor, d);
-		c.setGameView(setupGameView(c, gm, lp, aip));
-		gm.addObserver(lp);
-		gm.addObserver(aip);
-		c.setView(Checkmate.GAME);
-	}
-	/**
-	 * Builds a local game for two AI players.
-	 * @param g The gametype of the game
-	 * @param d1 The difficulty of the AI.
-	 * @param d2 The difficulty of the AI.
-	 * @param t The time, if a timed game.
-	 */
-	public static void buildDoublyAiGame(Checkmate c, GameType g, Difficulty d1, Difficulty d2, int t) {
-		GameModel gm = setupGameType(g,t);
-		c.setGameModel(gm);
-		gm.addObserver(c);
-		AiPlayer aip1 = new AiPlayer(gm, true, d1);
-		AiPlayer aip2 = new AiPlayer(gm, false, d2);
-		c.setGameView(setupGameView(c, gm, aip1, aip2));
-		gm.addObserver(aip1);
-		gm.addObserver(aip2);
+		if (d1 == Difficulty.HUMAN && d2 == Difficulty.HUMAN) {
+			LocalPlayer lp1 = new LocalPlayer(gm, true);
+			LocalPlayer lp2 = new LocalPlayer(gm, false);
+			c.setGameView(setupGameView(c, gm, lp1, lp2));
+			gm.addObserver(lp1);
+		} else if (d1 == Difficulty.HUMAN && d2 != Difficulty.HUMAN){
+			LocalPlayer lp = new LocalPlayer(gm, color);
+			AiPlayer aip = new AiPlayer(gm, !color, d2);
+			c.setGameView(setupGameView(c, gm, lp, aip));
+			gm.addObserver(lp);
+			gm.addObserver(aip);
+		} else if (d1 != Difficulty.HUMAN && d2 == Difficulty.HUMAN){
+			LocalPlayer lp = new LocalPlayer(gm, !color);
+			AiPlayer aip = new AiPlayer(gm, color, d1);
+			c.setGameView(setupGameView(c, gm, lp, aip));
+			gm.addObserver(lp);
+			gm.addObserver(aip);
+		}else {
+			AiPlayer aip1 = new AiPlayer(gm, true, d1);
+			AiPlayer aip2 = new AiPlayer(gm, false, d2);
+			c.setGameView(setupGameView(c, gm, aip1, aip2));
+			gm.addObserver(aip1);
+			gm.addObserver(aip2);
+		}
 	}
 	/**
 	 * Builds a networked game for the host player.
