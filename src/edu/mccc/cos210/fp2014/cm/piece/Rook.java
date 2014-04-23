@@ -81,7 +81,7 @@ public class Rook extends Piece {
 					if (this.getX() < k.getX() &&
 						k.canCastleLeft(b)){
 						possibleTiles.add(new PossibleTile(k.getX(), k.getY(), this));
-					} else if (this.getX() < k.getX() &&
+					} else if (this.getX() > k.getX() &&
 						k.canCastleRight(b)){
 						possibleTiles.add(new PossibleTile(k.getX(), k.getY(), this));
 					}
