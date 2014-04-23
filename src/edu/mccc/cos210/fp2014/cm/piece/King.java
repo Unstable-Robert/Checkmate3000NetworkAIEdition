@@ -33,9 +33,14 @@ public class King extends Piece {
 	 */
 	public boolean canCastleLeft(Board board){
 		if (!this.canCastle) { return false; }
+		if (this.inCheck(board)) { return false; }
 		PossibleTile space1 = new PossibleTile(this.getX() - 1, this.getY(), this);
 		PossibleTile space2 = new PossibleTile(this.getX() - 2, this.getY(), this);
 		PossibleTile space3 = new PossibleTile(this.getX() - 3, this.getY(), this);
+		if (spaceInCheck(board, space1) ||
+				spaceInCheck(board, space2)){
+			return false;
+		}
 		for (Piece p : board.getPieces()){
 			if (checkSameSpace(p, space1) ||
 				checkSameSpace(p, space2) ||
@@ -52,8 +57,13 @@ public class King extends Piece {
 	 */
 	public boolean canCastleRight(Board board){
 		if (!this.canCastle) { return false; }
+		if (this.inCheck(board)) { return false; }
 		PossibleTile space1 = new PossibleTile(this.getX() + 1, this.getY(), this);
 		PossibleTile space2 = new PossibleTile(this.getX() + 2, this.getY(), this);
+		if (spaceInCheck(board, space1) ||
+			spaceInCheck(board, space2)){
+			return false;
+		}
 		for (Piece p : board.getPieces()){
 			if (checkSameSpace(p, space1) ||
 				checkSameSpace(p, space2)) {
@@ -61,6 +71,30 @@ public class King extends Piece {
 				}
 		}
 		return true;
+	}
+	private boolean inCheck(Board b){
+		for (Piece p : b.getPieces()){
+			if(p.isWhite() != this.isWhite() && !(p instanceof King)){
+				for(PossibleTile move : p.getLazyTiles(b)){
+					if (checkSameSpace(this, move)){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	private boolean spaceInCheck(Board b, PossibleTile pt){
+		for (Piece p : b.getPieces()){
+			if(p.isWhite() != this.isWhite() && !(p instanceof King)){
+				for(PossibleTile ppt : p.getLazyTiles(b)){
+					if (checkSameSpace(pt, ppt)){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 	public King clone(){
 		return new King(this.getX(), 

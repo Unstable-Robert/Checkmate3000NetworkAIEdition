@@ -66,13 +66,13 @@ public abstract class Player implements Observer{
 					clone1.setX(p2.getX() - 1);
 					clone2.setX(p1.getX() + 1);
 				} else {
-					clone1.setX(p2.getX() - 2);
-					clone2.setX(p1.getX() + 1);
+					clone1.setX(p2.getX() - 1);
+					clone2.setX(p1.getX() + 2);
 				}
 			} else {
 				if (p1 instanceof King){
-					clone1.setX(p2.getX() + 1);
-					clone2.setX(p1.getX() - 2);
+					clone1.setX(p2.getX() + 2);
+					clone2.setX(p1.getX() - 1);
 				} else {
 					clone1.setX(p2.getX() + 1);
 					clone2.setX(p1.getX() - 1);
