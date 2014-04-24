@@ -64,9 +64,11 @@ public class NetworkPlayer extends Player implements Runnable {
 	@Override
 	public void update(Observable o, Object arg) {
 		try {
-			synchronized(this.socket){
+			if(this.isWhite == this.gm.isWhiteTurn() || this.gm.hasTimer()){
 				OutputStream os = socket.getOutputStream();
-				mh.marshal(gm.getBoard(), os);
+				mh.marshal(this.gm.getBoard(), os);
+				os.flush();
+				os.dispose();
 			}
 		}catch (IOException e) {
 			e.printStackTrace();
@@ -78,27 +80,19 @@ public class NetworkPlayer extends Player implements Runnable {
 	@Override
 	public void run() {
 		try {
-			if (this.ss == null){
-				this.socket = new Socket(address, 7531);
-			} else {
+			if (this.ss != null){
 				this.socket = this.ss.accept();
-			}
-			this.socket.setSoTimeout(200);
+				update(this.gm, null);
+			} 
 			while (true){
 				try {
-					synchronized (this.socket){
-						InputStream is = socket.getInputStream();
-						Board b = mh.unmarshal(is);
-						if (!this.gm.getBoard().equals(b) && !this.firstUpdate){
-							this.gm.updateBoard(b);
-						}
-					}
+					InputStream is = socket.getInputStream();
+					Board b = mh.unmarshal(is);
+					is.flush();
+					is.dispose();
+					this.gm.updateBoard(b);
 				} catch (SocketTimeoutException e){
-					try {
-						Thread.sleep(this.socket.getSoTimeout()/2);
-					} catch (InterruptedException e1) {
-						e1.printStackTrace();
-					}
+					e.printStackTrace();
 				}
 			}
 			
