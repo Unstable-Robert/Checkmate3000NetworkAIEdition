@@ -207,6 +207,7 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 				break;
 			}
 		}
+		pTiles = new ArrayList<PossibleTile>();
 		if (found) {
 			if(possibleTile != null && piece != null && !possibleTile.hasPieceToRemove()){
 				if (this.gm.getBoard().hasSelectedPiece()){
