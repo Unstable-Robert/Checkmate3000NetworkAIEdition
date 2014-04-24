@@ -31,6 +31,7 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 	private Checkmate myCheckmate;
 	private GameModel gm;
 	private ArrayList<Player> players;
+	private List<PossibleTile> pTiles = null;
 	private BufferedImage image;
 	public GameView(Checkmate c) {
 		myCheckmate = c;
@@ -160,7 +161,7 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 			}
 			drawPiece(g2d, p.getX() * 60 + 160, p.getY() * 60 + 60, gridX, gridY);
 		}
-		for (PossibleTile pt : gm.getBoard().getPossibleTiles()){
+		for (PossibleTile pt : pTiles){
 			drawPossibleTile(
 				g2d, 
 				pt.getX() * 60 + 160, 
@@ -241,6 +242,10 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 						b.clearSelected();
 						piece.setSelected(true);
 						this.gm.updateBoard(b);
+						pTiles = gm.getBoard().getPossibleTiles();
+						if (pTiles.size() == 0) {
+							p.setSelected(false);
+						}
 					}
 				}
 			}
