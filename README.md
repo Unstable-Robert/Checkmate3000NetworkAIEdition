@@ -4,7 +4,6 @@ Checkmate3000NetworkAIEdition
 Insert chess pun here
 
 ####ToDo:
-	Add Pawn promotion.
 	Add timer responsibilities.
 	Implement Game over View
 	Finish up with Network Player class
@@ -16,6 +15,7 @@ Insert chess pun here
 	Check if piece can move before selecting it. Save list of possible moves when checking so it doesn't need to check again to draw possible tiles?
 
 ####Changelog:
+	Added Pawn promotion.
 	Implemented piece lazy tiles methods.
 	Added code for Marshaler and Networked Player
 	Implemented GameModel
