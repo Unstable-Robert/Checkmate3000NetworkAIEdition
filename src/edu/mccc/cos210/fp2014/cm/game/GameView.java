@@ -111,11 +111,11 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g.create();
 		
-		Rectangle r = new Rectangle(155, 55, 490, 490);
+		Rectangle2D r = new Rectangle2D.Double(155, 55, 490, 490);
 		g2d.setPaint(Color.BLACK);
 		g2d.fill(r);
 		
-		r = new Rectangle(160, 60, 480, 480);
+		r = new Rectangle2D.Double(160, 60, 480, 480);
 		GradientPaint gp = new GradientPaint(0, 0, Color.DARK_GRAY, 350, 480, Color.GRAY);
 		g2d.setPaint(gp);
 		g2d.fill(r);
@@ -124,7 +124,7 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 		for (int y = 0; y < 8; y++) {
 			for (int x = 0; x < 8; x++) {
 				if ( (x + y) % 2 == 0 ) {
-					r = new Rectangle(x * 60 + 160, y * 60 + 60, 60, 60);
+					r = new Rectangle2D.Double(x * 60 + 160, y * 60 + 60, 60, 60);
 					g2d.fill(r);
 				}
 			}

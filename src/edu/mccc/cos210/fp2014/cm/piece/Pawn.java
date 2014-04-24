@@ -68,10 +68,10 @@ public class Pawn extends Piece {
      */
     public boolean canPromote(){
         if (this.isWhite()){
-            if (this.getY() == 7) return true;
+            if (this.getY() == 0) return true;
         }
         else {
-            if (this.getY() == 0) return true;
+            if (this.getY() == 7) return true;
         }
         return false;
     }

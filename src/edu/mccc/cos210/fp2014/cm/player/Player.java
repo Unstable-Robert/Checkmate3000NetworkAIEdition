@@ -26,15 +26,16 @@ public abstract class Player implements Observer{
 	/**
 	 * This class will update the game model.
 	 */
-	public boolean updateModel(Piece piece, PossibleTile pt){
-		for (Piece p : this.gm.getBoard().getPieces()){
+	public boolean updateModel(Piece piece, PossibleTile pt) {
+		for (Piece p : this.gm.getBoard().getPieces()) {
 			if (p instanceof Pawn){
 				Pawn pawn = (Pawn) p;
 				pawn.setPossibleToPassant(false);
 			}
 		}
 		Board b = gm.getBoard();
-		if (b.isWhiteTurn() == piece.isWhite() &&
+		if (
+			b.isWhiteTurn() == piece.isWhite() &&
 			b.isWhiteTurn() == this.isWhite
 		){
 			b.nextTurn();
@@ -54,14 +55,16 @@ public abstract class Player implements Observer{
 	}
 	public boolean updateCastle(Piece p1, Piece p2) {
 		Board b = gm.getBoard();
-		if (b.isWhiteTurn() == p1.isWhite() &&
-				b.isWhiteTurn() == this.isWhite) {
+		if (
+			b.isWhiteTurn() == p1.isWhite() &&
+			b.isWhiteTurn() == this.isWhite
+		){
 			b.nextTurn();
 			Piece clone1 = p1.clone();
 			Piece clone2 = p2.clone();
 			b.removePiece(p1);
 			b.removePiece(p2);
-			if (p1.getX() < p2.getX()){
+			if (p1.getX() < p2.getX()) {
 				if (p1 instanceof King){
 					clone1.setX(p2.getX() - 1);
 					clone2.setX(p1.getX() + 1);

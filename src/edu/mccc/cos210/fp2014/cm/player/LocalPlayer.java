@@ -28,35 +28,44 @@ public class LocalPlayer extends Player {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-        for (Piece p : this.gm.getBoard().getPieces()){
-            if (p instanceof Pawn){
-               if (((Pawn) p).canPromote()){
-                   ((Pawn) p).setHasPromoted(true);
-                   JPanel panel = new JPanel(new GridLayout(2, 1));
-                   JLabel label = new JLabel("What would you like to promote your pawn to?");
-                   JComboBox selection = new JComboBox(new String[]{"Queen","Knight","Bishop","Rook"});
-                   String[] options = {"OK"};
-                   panel.add(label);
-                   panel.add(selection);
-                   int Selected = JOptionPane.showOptionDialog(null, panel, "Pawn Promotion",
-                                  JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
-                                  null, options, options[0]);
-                   Piece newPiece = null;
-                   switch (Selected){
-                       case 0: newPiece = new Queen(p);
-                           break;
-                       case 1: newPiece = new Knight(p);
-                           break;
-                       case 2: newPiece = new Bishop(p);
-                           break;
-                       case 3: newPiece = new Rook(p);
-                           break;
-                   }
-                   PossibleTile tile = new PossibleTile(p.getX(),p.getY(),p,p);
-                   updateModel(newPiece, tile);
-
-               }
-            }
-        }
+		for (Piece p : this.gm.getBoard().getPieces()) {
+			if (p instanceof Pawn){
+				Pawn pawn = (Pawn) p;
+				if (pawn.canPromote() && !pawn.isPromoted()) {
+					pawn.setHasPromoted(true);
+					JPanel panel = new JPanel(new GridLayout(2, 1));
+					JLabel label = new JLabel("What would you like to promote your pawn to?");
+					JComboBox<String> selection = new JComboBox<String>(new String[]{"Queen","Knight","Bishop","Rook"});
+					String[] options = new String[]{"OK"};
+					panel.add(label);
+					panel.add(selection);
+					int selected = JOptionPane.showOptionDialog(null, panel, "Pawn Promotion",
+								  JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+								  null, options, options[0]);
+					Piece newPiece = null;
+					switch (selected) {
+					case 0:
+						System.out.println("");
+						newPiece = new Queen(p);
+						break;
+					case 1:
+						newPiece = new Knight(p);
+						break;
+					case 2:
+						newPiece = new Bishop(p);
+						break;
+					case 3:
+						newPiece = new Rook(p);
+						break;
+					default:
+						break;
+					}
+					PossibleTile tile = new PossibleTile(p.getX(), p.getY(), newPiece, p);
+					gm.getBoard().removePiece(p);
+					gm.getBoard().addPiece(newPiece);
+					gm.updateBoard(gm.getBoard());
+				}
+			}
+		}
 	}
 }
