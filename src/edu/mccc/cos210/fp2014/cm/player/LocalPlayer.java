@@ -39,13 +39,12 @@ public class LocalPlayer extends Player {
 					String[] options = new String[]{"OK"};
 					panel.add(label);
 					panel.add(selection);
-					int selected = JOptionPane.showOptionDialog(null, panel, "Pawn Promotion",
+					JOptionPane.showOptionDialog(null, panel, "Pawn Promotion",
 								  JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
 								  null, options, options[0]);
 					Piece newPiece = null;
-					switch (selected) {
+					switch (selection.getSelectedIndex()) {
 					case 0:
-						System.out.println("");
 						newPiece = new Queen(p);
 						break;
 					case 1:
