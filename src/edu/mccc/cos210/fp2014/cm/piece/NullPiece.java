@@ -2,8 +2,13 @@ package edu.mccc.cos210.fp2014.cm.piece;
 
 import java.util.ArrayList;
 
-import edu.mccc.cos210.fp2014.cm.game.Board;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import edu.mccc.cos210.fp2014.cm.game.Board;
+@XmlRootElement(name="NullPiece")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class NullPiece extends Piece {
 
 	public NullPiece() {

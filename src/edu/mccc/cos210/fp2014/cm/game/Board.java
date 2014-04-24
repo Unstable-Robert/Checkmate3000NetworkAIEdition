@@ -18,7 +18,7 @@ import edu.mccc.cos210.fp2014.cm.util.GameType;
 public class Board implements Cloneable{
 	@XmlElement(name="possibleTiles")
 	private ArrayList<PossibleTile> possibleTiles;
-	@XmlElement(name="pieces")
+	@XmlElement(name="piece")
 	private ArrayList<Piece> pieces;
 	@XmlElement(name="movesSincePieceTaken")
 	private int movesSincePieceTaken;

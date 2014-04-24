@@ -1,7 +1,13 @@
 package edu.mccc.cos210.fp2014.cm.util;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.FileSystem;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -30,12 +36,15 @@ public class MarshalHandler {
 	public Board unmarshal(InputStream in) {
 		try {
 			Unmarshaller um = this.jc.createUnmarshaller();
+			Files.copy(in, Paths.get("/Users/collinscangarella/Documents/cm/Checkmate3000NetworkAIEdition/unmarshaltest.txt"));
 			Board b = (Board) um.unmarshal(in);
 			return b;
 		} catch (JAXBException e) {
 			e.printStackTrace();
-			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		return null;
 	}
 	/**
 	 * Marshals a board object into an OutputStream.

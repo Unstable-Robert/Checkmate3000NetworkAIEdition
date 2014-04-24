@@ -2,6 +2,8 @@ package edu.mccc.cos210.fp2014.cm.piece;
 
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -10,7 +12,8 @@ import edu.mccc.cos210.fp2014.cm.game.Board;
 /**
  * Represents the pawn and its movements.
  */
-@XmlRootElement
+@XmlRootElement(name="Pawn")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Pawn extends Piece {
 	@XmlElement
 	private boolean hasMoved;
@@ -18,6 +21,9 @@ public class Pawn extends Piece {
 	private boolean possibleToPassant;
     @XmlElement
     private boolean hasPromoted;
+    public Pawn(){
+    	
+    }
 	public Pawn(int x, int y, boolean c, int iD){
 		super(x,y,c,iD);
 		this.hasMoved = false;

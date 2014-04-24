@@ -63,7 +63,7 @@ public class GameModel extends Observable {
 	public void gameExpired() {
 	}
 	public boolean hasTimer(){
-		return this.timer == null;
+		return this.timer != null;
 	}
 	/**
 	 * Returns true if the game is over.

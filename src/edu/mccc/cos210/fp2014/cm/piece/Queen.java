@@ -2,6 +2,8 @@ package edu.mccc.cos210.fp2014.cm.piece;
 
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
@@ -9,8 +11,12 @@ import edu.mccc.cos210.fp2014.cm.game.Board;
 /**
  * Represents the Queen piece and its movement.
  */
-@XmlRootElement
+@XmlRootElement(name="Queen")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Queen extends Piece {
+	public Queen(){
+		
+	}
 	public Queen(int x, int y, boolean c, int iD){
 		super(x,y,c,iD);
 	}

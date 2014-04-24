@@ -1,16 +1,30 @@
 package edu.mccc.cos210.fp2014.cm.piece;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * This represents the place that a piece can move, and what piece will be removed if it move does.
  */
+@XmlRootElement(name="PossibleTile")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PossibleTile implements Cloneable{
+	@XmlElement
 	private int xLoc;
+	@XmlElement
 	private int yLoc;
+	@XmlElement
 	private Piece originalPiece;
+	@XmlElement
 	private Piece removePiece;
 	/**
 	 * Default constructor.
 	 */
+	public PossibleTile(){
+		
+	}
 	public PossibleTile(int x, int y, Piece original){
 		this.xLoc = x;
 		this.yLoc = y;

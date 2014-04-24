@@ -32,17 +32,17 @@ public class NetworkPlayer extends Player implements Runnable {
 		super(gm, true);
 		mh = new MarshalHandler();
 		this.address = a;
-		firstUpdate = true;
 	}
 	public static NetworkPlayer GetHostNetwork(GameModel gm, InetAddress a)throws IOException{
 		NetworkPlayer np = new NetworkPlayer(gm, false, a);
 		np.setServerSocket(new ServerSocket(7531));
+		np.firstUpdate = true;
 		return np;
 	}
 	public static NetworkPlayer GetJoinNetwork(GameModel gm, InetAddress a) throws IOException{
 		NetworkPlayer np = new NetworkPlayer(gm, false, a);
 		np.setSocket(new Socket(a, 7531));
-		np.update(np.gm, null);
+		np.firstUpdate = false;
 		return np;
 	}
 	private void setServerSocket(ServerSocket ss){
@@ -64,11 +64,13 @@ public class NetworkPlayer extends Player implements Runnable {
 	@Override
 	public void update(Observable o, Object arg) {
 		try {
-			if(this.isWhite == this.gm.isWhiteTurn() || this.gm.hasTimer()){
+			if(this.isWhite != this.gm.getBoard().isWhiteTurn() || 
+					this.gm.hasTimer() ||
+					this.firstUpdate){
 				OutputStream os = socket.getOutputStream();
 				mh.marshal(this.gm.getBoard(), os);
 				os.flush();
-				os.dispose();
+				firstUpdate = false;
 			}
 		}catch (IOException e) {
 			e.printStackTrace();
@@ -82,15 +84,14 @@ public class NetworkPlayer extends Player implements Runnable {
 		try {
 			if (this.ss != null){
 				this.socket = this.ss.accept();
-				update(this.gm, null);
+				update(this.gm, this.gm.getBoard());
 			} 
 			while (true){
 				try {
 					InputStream is = socket.getInputStream();
 					Board b = mh.unmarshal(is);
-					is.flush();
-					is.dispose();
 					this.gm.updateBoard(b);
+					is.reset();
 				} catch (SocketTimeoutException e){
 					e.printStackTrace();
 				}

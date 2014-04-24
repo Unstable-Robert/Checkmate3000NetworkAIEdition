@@ -1,6 +1,9 @@
 package edu.mccc.cos210.fp2014.cm.piece;
 
 import java.util.ArrayList;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
@@ -8,8 +11,12 @@ import edu.mccc.cos210.fp2014.cm.game.Board;
 /**
  * Represents the Bishop piece and its movements.
  */
-@XmlRootElement
+@XmlRootElement(name="Bishop")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Bishop extends Piece {
+	public Bishop(){
+		
+	}
 	public Bishop(int x, int y, boolean c, int iD){
 		super(x,y,c,iD);
 	}

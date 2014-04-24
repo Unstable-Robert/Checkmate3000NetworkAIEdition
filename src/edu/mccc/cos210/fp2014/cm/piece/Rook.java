@@ -2,6 +2,8 @@ package edu.mccc.cos210.fp2014.cm.piece;
 
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -10,10 +12,13 @@ import edu.mccc.cos210.fp2014.cm.game.Board;
 /**
  * The class represents the Rook piece and its movements.
  */
-@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Rook extends Piece {
 	@XmlElement
 	private boolean canCastle;
+	public Rook(){
+		
+	}
 	public Rook(int x, int y, boolean c, int iD){
 		super(x,y,c,iD);
 		this.canCastle = true;

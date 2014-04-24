@@ -6,14 +6,17 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
 
 /**
  * An abstract class representing an individual piece on the board.
  */
-@XmlRootElement(name="Piece")
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement
+@XmlTransient
+@XmlSeeAlso({Bishop.class, King.class, Knight.class, NullPiece.class, Pawn.class, Queen.class, Rook.class})
 public abstract class Piece implements Cloneable {
 	@XmlElement
 	protected int xLoc;
