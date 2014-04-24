@@ -15,7 +15,7 @@ public class PossibleTile implements Cloneable{
 		this.xLoc = x;
 		this.yLoc = y;
 		this.originalPiece = original;
-		this.removePiece = null;
+		this.removePiece = new NullPiece();
 	}
 	/**
 	 * Constructor including a piece to remove
@@ -48,7 +48,7 @@ public class PossibleTile implements Cloneable{
 		this.removePiece = p;
 	}
 	public boolean hasPieceToRemove() {
-		return this.removePiece != null;
+		return this.removePiece instanceof NullPiece;
 	}
 	public PossibleTile clone(){
 		return new PossibleTile(

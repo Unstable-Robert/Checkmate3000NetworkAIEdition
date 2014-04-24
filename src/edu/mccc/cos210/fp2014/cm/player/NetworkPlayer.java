@@ -68,7 +68,7 @@ public class NetworkPlayer extends Player implements Runnable {
 				OutputStream os = socket.getOutputStream();
 				mh.marshal(gm.getBoard(), os);
 			}
-		} catch (IOException e) {
+		}catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -80,14 +80,18 @@ public class NetworkPlayer extends Player implements Runnable {
 		try {
 			if (this.ss == null){
 				this.socket = new Socket(address, 7531);
+			} else {
+				this.socket = this.ss.accept();
 			}
-			this.socket.setSoTimeout(100);
+			this.socket.setSoTimeout(200);
 			while (true){
 				try {
 					synchronized (this.socket){
 						InputStream is = socket.getInputStream();
 						Board b = mh.unmarshal(is);
-						gm.updateBoard(b);
+						if (!this.gm.getBoard().equals(b) && !this.firstUpdate){
+							this.gm.updateBoard(b);
+						}
 					}
 				} catch (SocketTimeoutException e){
 					try {

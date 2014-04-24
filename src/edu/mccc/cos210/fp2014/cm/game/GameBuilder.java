@@ -64,7 +64,6 @@ public class GameBuilder {
 			gm.addObserver(np);
 			new Thread(np).start();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -82,7 +81,6 @@ public class GameBuilder {
 			np = NetworkPlayer.GetJoinNetwork(gm, a);
 			c.setGameView(setupGameView(c, gm, np));
 			gm.addObserver(np);
-			new Thread(np).start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
