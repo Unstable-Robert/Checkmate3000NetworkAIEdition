@@ -60,7 +60,6 @@ public class LocalPlayer extends Player {
 					default:
 						break;
 					}
-					PossibleTile tile = new PossibleTile(p.getX(), p.getY(), newPiece, p);
 					gm.getBoard().removePiece(p);
 					gm.getBoard().addPiece(newPiece);
 					gm.updateBoard(gm.getBoard());
