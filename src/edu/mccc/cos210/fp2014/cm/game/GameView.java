@@ -54,6 +54,9 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 			}
 		});
 		add(resignButton);
+		if(gm.isCheckMate()){
+			System.out.println("checkmate");
+		}
 	}
 	public void addPlayer(Player p){
 		this.players.add(p);
