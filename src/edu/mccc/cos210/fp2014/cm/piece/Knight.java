@@ -17,6 +17,7 @@ public class Knight extends Piece {
 	public Knight(int x, int y, boolean c, int iD, boolean s){
 		super(x,y,c,iD,s);
 	}
+    public Knight(Piece p){super(p);}
 	public Knight clone(){
 		return new Knight(this.getX(), 
 				this.getY(), 

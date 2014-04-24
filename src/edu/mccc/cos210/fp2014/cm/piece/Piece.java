@@ -40,6 +40,9 @@ public abstract class Piece implements Cloneable {
 		this(x, y, c, iD);
 		this.selected = s;
 	}
+    public Piece(Piece p){
+        this(p.getX(),p.getY(),p.isWhite(),p.getUID());
+    }
 	/**
 	 * Gets possible tiles that this piece can move on the given board.
 	 * @param board the board that is checked for possible moves

@@ -16,23 +16,34 @@ public class Pawn extends Piece {
 	private boolean hasMoved;
 	@XmlElement
 	private boolean possibleToPassant;
+    @XmlElement
+    private boolean hasPromoted;
 	public Pawn(int x, int y, boolean c, int iD){
 		super(x,y,c,iD);
 		this.hasMoved = false;
 		this.possibleToPassant = false;
+        this.hasPromoted = false;
 	}
 	public Pawn(int x, int y, boolean c, int iD, boolean s){
 		super(x,y,c,iD,s);
 		this.selected = s;
 		this.hasMoved = false;
 		this.possibleToPassant = false;
+        this.hasPromoted = false;
 	}
 	public Pawn(int x, int y, boolean c, int iD, boolean s, boolean moved, boolean passant){
 		super(x,y,c,iD,s);
 		this.selected = s;
 		this.hasMoved = moved;
 		this.possibleToPassant = passant;
+        this.hasPromoted = false;
 	}
+    public Pawn(Piece p){
+        super(p);
+        this.hasPromoted = false;
+    }
+    public boolean isPromoted(){return this.hasPromoted;}
+    public void  setHasPromoted(boolean p) {this.hasPromoted = p;}
 	/**
 	 * Whether or not the pawn has just moved forward two spaces and can be taken en passant.
 	 */
@@ -51,6 +62,19 @@ public class Pawn extends Piece {
 	private void setMoved(){
 		this.hasMoved = true;
 	}
+
+    /**
+     * Weather or not the pawn is in a position to be promoted
+     */
+    public boolean canPromote(){
+        if (this.isWhite()){
+            if (this.getY() == 7) return true;
+        }
+        else {
+            if (this.getY() == 0) return true;
+        }
+        return false;
+    }
 	@Override
 	public Pawn clone(){
 		return new Pawn(this.getX(), 

@@ -26,6 +26,7 @@ public class King extends Piece {
 		super(x,y,c,iD,s);
 		this.canCastle = castle;
 	}
+    public King(Piece p){super(p);}
 	/**
 	 * Sees if the king can castle to the left.
 	 * Returns true if the king has not moved, there are no pieces in the way, 

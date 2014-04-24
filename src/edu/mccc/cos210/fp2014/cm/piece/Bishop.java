@@ -16,6 +16,7 @@ public class Bishop extends Piece {
 	public Bishop(int x, int y, boolean c, int iD, boolean s){
 		super(x,y,c,iD,s);
 	}
+    public Bishop(Piece p){super(p);}
 	@Override
 	public Bishop clone(){
 		return new Bishop(this.getX(), 

@@ -17,6 +17,7 @@ public class Queen extends Piece {
 	public Queen(int x, int y, boolean c, int iD, boolean s){
 		super(x,y,c,iD,s);
 	}
+    public Queen(Piece p){super(p);}
 	@Override
 	public Queen clone(){
 		return new Queen(this.getX(), 

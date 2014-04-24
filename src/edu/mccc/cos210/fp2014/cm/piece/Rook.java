@@ -26,6 +26,7 @@ public class Rook extends Piece {
 		super(x,y,c,iD,s);
 		this.canCastle = castle;
 	}
+    public Rook(Piece p){super(p);}
 	/**
 	 * This returns true if the rook has not moved and false if it has.
 	 */
