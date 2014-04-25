@@ -25,3 +25,4 @@ org.eclipse.jdt.core.prefs
 Checkmate3000NetworkAIEdition.iml
 
 .idea/uiDesigner.xml
+.idea/libraries/_mylyn.xml
