@@ -2,6 +2,8 @@ package edu.mccc.cos210.fp2014.cm.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Font;
+import java.awt.font.FontRenderContext;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -22,9 +24,51 @@ public class JoinView extends SettingsView implements ActionListener {
 	public JoinView(Checkmate c) {
 		super(c);
 		
+		JLabel titleLabel = new JLabel("JOIN GAME");
+		titleLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 40));
+		titleLabel.setSize(240, 50);
+		titleLabel.setLocation(
+			c.getWidth() / 2 - titleLabel.getWidth() / 2, 
+			(int)(c.getHeight() * 0.30)
+		);
+		add(titleLabel);
+					
+		JLabel enemyIpLabel = new JLabel("Opponent's IP Address:");
+		enemyIpLabel.setSize(140, 20);
+		enemyIpLabel.setLocation(
+			c.getWidth() / 2 - enemyIpLabel.getWidth() / 2,
+			(int)(c.getHeight() * 0.60)
+		);
+		add(enemyIpLabel);
+		this.ipTextField = new JTextField();
+		ipTextField.setSize(250, 20);
+		ipTextField.setLocation(
+			c.getWidth() / 2 - ipTextField.getWidth() / 2,
+			(int)(c.getHeight() * 0.65)
+		);
+		add(ipTextField);
+		
+		//displays your ip
+		String ipAddress = "UNKNOWN";
+		try {
+			ipAddress = InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e){}
+		JLabel ipLabel = new JLabel("Your IP: " + ipAddress);
+		ipLabel.setSize(140,40);
+		ipLabel.setLocation(
+			c.getWidth() / 2 
+			- ipLabel.getWidth()/2,
+			 (int) (c.getHeight() * 0.55)
+		);
+		add(ipLabel);
+		
+		//backButton returns to previous screen
 		JButton backButton = new JButton("Back");
-		backButton.setSize(100,50);
-		backButton.setLocation((int)(c.getWidth() * 0.03),(int)(c.getHeight() * 0.05));
+		backButton.setSize(150,50);
+		backButton.setLocation(
+			c.getWidth() / 3 - backButton.getWidth() / 2,
+			(int)(c.getHeight() * 0.75)
+		);
 		backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
@@ -32,11 +76,16 @@ public class JoinView extends SettingsView implements ActionListener {
 			}
 		});
 		add(backButton);
-		
+
 		//joinButton starts the game with given settings
 		JButton joinButton = new JButton("Join Game");
-		joinButton.setSize(100,50);
-		joinButton.setLocation((int)(c.getWidth() * 0.78), (int)(c.getHeight() * 0.05));
+		joinButton.setSize(150,50);
+		joinButton.setLocation(
+			c.getWidth() * 2 / 3 - joinButton.getWidth() / 2
+			+ 100
+			- joinButton.getWidth(), 
+			(int)(c.getHeight() * 0.75)
+		);
 		joinButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
@@ -51,25 +100,6 @@ public class JoinView extends SettingsView implements ActionListener {
 			}
 		});
 		add(joinButton);
-		
-		JLabel enemyIpLabel = new JLabel("Opponent's IP Address:");
-		enemyIpLabel.setSize(250, 20);
-		enemyIpLabel.setLocation((int)(c.getWidth() * 0.25),(int)(c.getHeight() * 0.42));
-		add(enemyIpLabel);
-		this.ipTextField = new JTextField();
-		ipTextField.setSize(250, 20);
-		ipTextField.setLocation((int)(c.getWidth() * 0.35),(int)(c.getHeight() * 0.47));
-		add(ipTextField);
-		
-		//displays your ip
-		String ipAddress = "UNKNOWN";
-		try {
-			ipAddress = InetAddress.getLocalHost().getHostAddress();
-		} catch (UnknownHostException e){}
-		JLabel ipLabel = new JLabel("Your IP: " + ipAddress);
-		ipLabel.setSize(140,40);
-		ipLabel.setLocation((int)((c.getWidth() * 0.5) - ipLabel.getWidth()/2), (int) (c.getHeight() * 0.60));
-		add(ipLabel);
 	}
 	protected void setSettings() {
 		this.address = ipTextField.getText();

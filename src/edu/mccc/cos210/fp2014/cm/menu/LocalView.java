@@ -2,7 +2,8 @@ package edu.mccc.cos210.fp2014.cm.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.Font;
+import java.awt.font.FontRenderContext;
 import javax.swing.*;
 
 import edu.mccc.cos210.fp2014.cm.game.GameBuilder;
@@ -23,16 +24,126 @@ public class LocalView extends SettingsView implements ActionListener {
 	private final int TIME_MAX = 180;
 	private JSpinner timeSpinner;
 	private JCheckBox checkbox;
+	private JLabel timeLabel;
+	private JLabel minLabel;
 	private JRadioButton whiteRadio;
 	private JComboBox<String> p1;
 	private JComboBox<String> p2;
 	public LocalView(Checkmate c) {
 		super(c);
 
+		JLabel titleLabel = new JLabel("LOCAL GAME");
+		titleLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 40));
+		titleLabel.setSize(275, 50);
+		titleLabel.setLocation(
+			c.getWidth() / 2 - titleLabel.getWidth() / 2, 
+			(int)(c.getHeight() * 0.30)
+		);
+		add(titleLabel);
+		
+		JLabel player1 = new JLabel("White Player");
+		player1.setSize(100,40);
+		player1.setLocation(
+			c.getWidth() / 3 - player1.getWidth() / 2,
+			(int)(c.getHeight() * 0.40)
+		);
+		add(player1);
+		JLabel player2 = new JLabel("Black Player");
+		player2.setSize(100,40);
+		player2.setLocation(
+			c.getWidth() * 2 / 3 - player2.getWidth() / 2,
+			(int)(c.getHeight() * 0.40)
+		);
+		add(player2);		
+				
+		//dropdown for AIs
+		this.p1 = new JComboBox<String>();
+		p1.addItem("Human");
+		p1.addItem("Easy AI");
+		p1.addItem("Medium AI");
+		p1.addItem("Hard AI");
+		p1.setSize(100, 30);
+		p1.setLocation(
+			c.getWidth() / 3 - player1.getWidth() / 2,
+			(int)(c.getHeight() * 0.45)
+		);
+		add(p1);
+		this.p2 = new JComboBox<String>();
+		p2.addItem("Human");
+		p2.addItem("Easy AI");
+		p2.addItem("Medium AI");
+		p2.addItem("Hard AI");
+		p2.setSize(100, 30);
+		p2.setLocation(
+			c.getWidth() * 2 / 3 - player2.getWidth() / 2,
+			(int)(c.getHeight() * 0.45)
+		);
+		add(p2);
+		
+		JLabel timedGame = new JLabel("Timed Game?");
+		timedGame.setSize(80,10);
+		timedGame.setLocation(
+			c.getWidth() / 3 - player1.getWidth() / 2,
+			(int)(c.getHeight() * 0.55)
+		);
+		add(timedGame);	
+		
+		//Checkbox whether game is timed or not
+		this.checkbox = new JCheckBox();
+		checkbox.setSize(14,13);
+		checkbox.setLocation(
+			c.getWidth() / 3 + timedGame.getWidth() + 10,
+			(int)(c.getHeight() * 0.55)
+		);
+		checkbox.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				if (gameType == GameType.TIMED_GAME){
+					gameType = GameType.NORMAL;
+				} else {
+					gameType = GameType.TIMED_GAME;
+				}
+				
+				timeSpinner.setEnabled(gameType == GameType.TIMED_GAME);
+						
+			}
+		});
+		add(checkbox);
+		
+		//if game is timed on is display timer settings
+		JLabel timeLabel = new JLabel("Time");
+		timeLabel.setSize(40,20);
+		timeLabel.setLocation(
+			c.getWidth() / 3 - player1.getWidth() / 2,
+			(int)(c.getHeight() * 0.65)
+		);
+		add(timeLabel);
+		this.timeSpinner = new JSpinner(new SpinnerNumberModel(TIME_MIN, TIME_MIN, TIME_MAX, 1));
+		timeSpinner.setSize(40,20);
+		timeSpinner.setLocation(
+			c.getWidth() / 3 - player1.getWidth() / 2
+			+ timeLabel.getWidth() + 20,
+			(int)(c.getHeight() * 0.65)
+		);
+		timeSpinner.setEnabled(false);
+		add(timeSpinner);
+		JLabel minLabel = new JLabel("Minutes");
+		minLabel.setSize(55,20);
+		minLabel.setLocation(
+			c.getWidth() / 3 - player1.getWidth() / 2 
+			+ timeLabel.getWidth() + 20 
+			+ timeSpinner.getWidth() + 20,
+			(int)(c.getHeight() * 0.65)	
+		);		
+		add(minLabel);
+		
 		//backButton returns to previous screen
 		JButton backButton = new JButton("Back");
-		backButton.setSize(100,50);
-		backButton.setLocation((int)(c.getWidth() * 0.03),(int)(c.getHeight() * 0.05));
+		backButton.setSize(150,50);
+		backButton.setLocation(
+			c.getWidth() / 3 - player1.getWidth() / 2,
+			(int)(c.getHeight() * 0.75)
+		);
 		backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
@@ -43,8 +154,13 @@ public class LocalView extends SettingsView implements ActionListener {
 
 		//startButton starts the game with given settings
 		JButton startButton = new JButton("Start Game");
-		startButton.setSize(100,50);
-		startButton.setLocation((int)(c.getWidth() * 0.78), (int)(c.getHeight() * 0.05));
+		startButton.setSize(150,50);
+		startButton.setLocation(
+			c.getWidth() * 2 / 3 - player2.getWidth() / 2
+			+ p2.getWidth()
+			- startButton.getWidth(), 
+			(int)(c.getHeight() * 0.75)
+		);
 		startButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
@@ -54,68 +170,6 @@ public class LocalView extends SettingsView implements ActionListener {
 			}
 		});
 		add(startButton);
-		
-		//Checkbox whether game is timed or not
-		this.checkbox = new JCheckBox();
-		checkbox.setSize(100,40);
-		checkbox.setLocation((int) (c.getWidth() * 0.28), (int) (c.getHeight() * 0.25));
-		checkbox.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
-				if (gameType == GameType.TIMED_GAME){
-					gameType = GameType.NORMAL;
-				} else {
-					gameType = GameType.TIMED_GAME;
-				}
-				timeSpinner.setEnabled(gameType == GameType.TIMED_GAME);
-			}
-		});
-		add(checkbox);
-		JLabel timedGame = new JLabel("Timed Game?");
-		timedGame.setSize(100,40);
-		timedGame.setLocation((int)(c.getWidth() * 0.1),(int)(c.getHeight() * 0.25));
-		add(timedGame);
-		
-		//dropdown for AIs
-		this.p1 = new JComboBox<String>();
-		p1.addItem("Human");
-		p1.addItem("Easy AI");
-		p1.addItem("Medium AI");
-		p1.addItem("Hard AI");
-		p1.setSize(100, 30);
-		p1.setLocation((int)(c.getWidth() * .1), (int) (c.getHeight() * .2));
-		add(p1);
-		this.p2 = new JComboBox<String>();
-		p2.addItem("Human");
-		p2.addItem("Easy AI");
-		p2.addItem("Medium AI");
-		p2.addItem("Hard AI");
-		p2.setSize(100, 30);
-		p2.setLocation((int)(c.getWidth() * .3), (int) (c.getHeight() * .2));
-		add(p2);
-		JLabel player1 = new JLabel("White Player");
-		player1.setSize(100,40);
-		player1.setLocation((int)(c.getWidth() * 0.1),(int)(c.getHeight() * 0.15));
-		add(player1);
-		JLabel player2 = new JLabel("Black Player");
-		player2.setSize(100,40);
-		player2.setLocation((int)(c.getWidth() * 0.3),(int)(c.getHeight() * 0.15));
-		add(player2);
-		
-		//if game is timed on is display timer settings
-		JLabel timeLabel = new JLabel("Time");
-		timeLabel.setSize(40,20);
-		timeLabel.setLocation((int)(c.getWidth() * 0.1),(int)(c.getHeight() * 0.42));
-		add(timeLabel);
-		this.timeSpinner = new JSpinner(new SpinnerNumberModel(TIME_MIN, TIME_MIN, TIME_MAX, 1));
-		timeSpinner.setSize(40,20);
-		timeSpinner.setLocation((int)(c.getWidth() * 0.18),(int)(c.getHeight() * 0.42));
-		timeSpinner.setEnabled(false);
-		add(timeSpinner);
-		JLabel minLabel = new JLabel("Minutes");
-		minLabel.setSize(55,20);
-		minLabel.setLocation((int)(c.getWidth() * 0.3),(int)(c.getHeight() * 0.42));
-		add(minLabel);
 	}
 	protected void setSettings() {
 		if (this.checkbox.isSelected()){
