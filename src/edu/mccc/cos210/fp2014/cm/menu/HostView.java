@@ -42,7 +42,7 @@ public class HostView extends SettingsView implements ActionListener {
 		
 		
 		JLabel timedGame = new JLabel("Timed Game?");
-		timedGame.setSize(80,10);
+		timedGame.setSize(100,10);
 		timedGame.setLocation(
 			c.getWidth() / 3 - timedGame.getWidth() / 2,
 			(int)(c.getHeight() * 0.45)
@@ -51,7 +51,7 @@ public class HostView extends SettingsView implements ActionListener {
 		
 		//Checkbox whether game is timed or not
 		this.checkbox = new JCheckBox();
-		checkbox.setSize(14,13);
+		checkbox.setSize(24,15);
 		checkbox.setLocation(
 			c.getWidth() / 3 + timedGame.getWidth() + 10,
 			(int)(c.getHeight() * 0.45)

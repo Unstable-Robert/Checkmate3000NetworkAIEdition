@@ -21,7 +21,7 @@ public class GameOverView extends SettingsView implements ActionListener {
 			WinnerLabel = new JLabel("Black Wins!!!");
 		}
 		WinnerLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 40));
-		WinnerLabel.setSize(250, 50);
+		WinnerLabel.setSize(300, 50);
 		WinnerLabel.setLocation(
 			c.getWidth() / 2 - WinnerLabel.getWidth() / 2, 
 			(int)(c.getHeight() * 0.20)

@@ -19,7 +19,7 @@ public class MainMenuView extends SettingsView implements ActionListener  {
 		
 		// Use Font class to make this bigger.
 		JLabel titleLabel = new JLabel("Checkmate 3000 Network AI Edition");
-		titleLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 40));
+		titleLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 35));
 		titleLabel.setSize(635, 50);
 		titleLabel.setLocation(
 			c.getWidth() / 2 - titleLabel.getWidth() / 2, 

@@ -34,7 +34,7 @@ public class JoinView extends SettingsView implements ActionListener {
 		add(titleLabel);
 					
 		JLabel enemyIpLabel = new JLabel("Opponent's IP Address:");
-		enemyIpLabel.setSize(140, 20);
+		enemyIpLabel.setSize(160, 20);
 		enemyIpLabel.setLocation(
 			c.getWidth() / 2 - enemyIpLabel.getWidth() / 2,
 			(int)(c.getHeight() * 0.60)
