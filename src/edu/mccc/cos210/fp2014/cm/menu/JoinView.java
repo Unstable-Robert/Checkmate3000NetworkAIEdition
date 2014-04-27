@@ -2,6 +2,7 @@ package edu.mccc.cos210.fp2014.cm.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.FontRenderContext;
 import java.io.BufferedReader;
@@ -28,6 +29,7 @@ public class JoinView extends SettingsView implements ActionListener {
 		super(c);
 		
 		JLabel titleLabel = new JLabel("JOIN GAME");
+		titleLabel.setForeground(Color.WHITE);
 		titleLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 40));
 		titleLabel.setSize(240, 50);
 		titleLabel.setLocation(
@@ -37,6 +39,7 @@ public class JoinView extends SettingsView implements ActionListener {
 		add(titleLabel);
 					
 		JLabel enemyIpLabel = new JLabel("Opponent's IP Address:");
+		enemyIpLabel.setForeground(Color.WHITE);
 		enemyIpLabel.setSize(160, 20);
 		enemyIpLabel.setLocation(
 			c.getWidth() / 2 - enemyIpLabel.getWidth() / 2,
@@ -61,7 +64,12 @@ public class JoinView extends SettingsView implements ActionListener {
             ipAddress = in.readLine();
 		} catch (IOException e){}
 		JLabel ipLabel = new JLabel("Your IP: " + ipAddress);
+<<<<<<< HEAD
 		ipLabel.setSize(160,40);
+=======
+		ipLabel.setForeground(Color.WHITE);
+		ipLabel.setSize(140,40);
+>>>>>>> 9eff9c0ab7c273d332cfbc7b5cf9b1c38e79f666
 		ipLabel.setLocation(
 			c.getWidth() / 2
 			- ipLabel.getWidth()/2,

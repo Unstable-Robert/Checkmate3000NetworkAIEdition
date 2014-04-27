@@ -2,8 +2,10 @@ package edu.mccc.cos210.fp2014.cm.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.FontRenderContext;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,6 +21,7 @@ public class MainMenuView extends SettingsView implements ActionListener  {
 		
 		// Use Font class to make this bigger.
 		JLabel titleLabel = new JLabel("Checkmate 3000 Network AI Edition");
+		titleLabel.setForeground(Color.WHITE);
 		titleLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 35));
 		titleLabel.setSize(635, 50);
 		titleLabel.setLocation(

@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
+import edu.mccc.cos210.fp2014.cm.menu.SettingsView;
 import edu.mccc.cos210.fp2014.cm.piece.*;
 import edu.mccc.cos210.fp2014.cm.player.Player;
 
@@ -26,19 +27,18 @@ import edu.mccc.cos210.fp2014.cm.player.Player;
  * JPanel view of the board.
  * Also handles click actions and player selection.
  */
-public class GameView extends JPanel implements Observer, ActionListener, MouseListener{
+public class GameView extends SettingsView implements Observer, ActionListener, MouseListener{
 	private static final long serialVersionUID = 1L;
-	private Checkmate myCheckmate;
 	private GameModel gm;
 	private ArrayList<Player> players;
 	private List<PossibleTile> pTiles = new ArrayList<PossibleTile>();
 	private BufferedImage image;
 	private JButton resignButton;
 	public GameView(Checkmate c) {
-		myCheckmate = c;
+		super(c);
 		players = new ArrayList<Player>();
 		this.addMouseListener(this);
-		setBackground(new Color(137, 207, 240));
+		//setBackground(new Color(137, 207, 240));
 	}
 	public GameView(Checkmate c, GameModel model) {
 		this(c);
@@ -46,7 +46,7 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 		image = loadImage();
 		resignButton = new JButton("Resign");
 		resignButton.setSize(100,50);
-		resignButton.setLocation((int)(c.getWidth() * 0.05), (int)(c.getHeight() * 0.95));
+		resignButton.setLocation((int)(c.getWidth() * 0.05), (int)(c.getHeight() * 0.1));
 		resignButton.setVisible(true);
 		resignButton.addActionListener(new ActionListener() {
 			@Override
@@ -112,7 +112,7 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 	 * Draws board, pieces, times, whose turn it is.
 	 */
 	@Override
-	protected void paintComponent(Graphics g) {
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g.create();
 		
@@ -139,7 +139,6 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 		if (gm.getBoard().isWhiteTurn()) {
 			g2d.drawString("White's Turn", myCheckmate.getWidth() * .02f, myCheckmate.getHeight() * .05f);
 		} else {
-			g2d.setPaint(Color.BLACK);
 			g2d.drawString("Black's Turn", myCheckmate.getWidth() * .02f, myCheckmate.getHeight() * .05f);
 		}
 		
