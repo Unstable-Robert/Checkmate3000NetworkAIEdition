@@ -29,12 +29,12 @@ public class NetworkPlayer extends Player implements Runnable {
 	private InetAddress address;
 	
 	public NetworkPlayer(GameModel gm, Boolean color, InetAddress a) throws IOException{
-		super(gm, true);
+		super(gm, color);
 		mh = new MarshalHandler();
 		this.address = a;
 	}
 	public static NetworkPlayer GetHostNetwork(GameModel gm, InetAddress a)throws IOException{
-		NetworkPlayer np = new NetworkPlayer(gm, false, a);
+		NetworkPlayer np = new NetworkPlayer(gm, true, a);
 		np.setServerSocket(new ServerSocket(7531));
 		np.firstUpdate = true;
 		return np;
@@ -91,7 +91,6 @@ public class NetworkPlayer extends Player implements Runnable {
 					InputStream is = socket.getInputStream();
 					Board b = mh.unmarshal(is);
 					this.gm.updateBoard(b);
-					is.reset();
 				} catch (SocketTimeoutException e){
 					e.printStackTrace();
 				}

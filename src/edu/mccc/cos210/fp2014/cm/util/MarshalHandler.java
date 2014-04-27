@@ -33,17 +33,17 @@ public class MarshalHandler {
 			e.printStackTrace();
 		}
 	}
-	public Board unmarshal(InputStream in) {
+	public synchronized Board unmarshal(InputStream in) {
 		try {
 			Unmarshaller um = this.jc.createUnmarshaller();
-			Files.copy(in, Paths.get("unmarshaltest.xml"));
+			//Files.copy(in, Paths.get("unmarshaltest.xml"));
 			Board b = (Board) um.unmarshal(in);
 			return b;
 		} catch (JAXBException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		}// catch (IOException e) {
+			//e.printStackTrace();
+		//}
 		return null;
 	}
 	/**
@@ -51,7 +51,7 @@ public class MarshalHandler {
 	 * @param b The board object to marshal
 	 * @return The outputstream which represents the board object.
 	 */
-	public void marshal(Board b, OutputStream os) {
+	public synchronized void marshal(Board b, OutputStream os) {
 		try {
 			Marshaller m = this.jc.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
