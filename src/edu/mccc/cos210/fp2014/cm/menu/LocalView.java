@@ -2,8 +2,10 @@ package edu.mccc.cos210.fp2014.cm.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.FontRenderContext;
+
 import javax.swing.*;
 
 import edu.mccc.cos210.fp2014.cm.game.GameBuilder;
@@ -34,6 +36,7 @@ public class LocalView extends SettingsView implements ActionListener {
 
 		JLabel titleLabel = new JLabel("LOCAL GAME");
 		titleLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 40));
+		titleLabel.setForeground(Color.WHITE);
 		titleLabel.setSize(275, 50);
 		titleLabel.setLocation(
 			c.getWidth() / 2 - titleLabel.getWidth() / 2, 
@@ -42,6 +45,7 @@ public class LocalView extends SettingsView implements ActionListener {
 		add(titleLabel);
 		
 		JLabel player1 = new JLabel("White Player");
+		player1.setForeground(Color.WHITE);
 		player1.setSize(100,40);
 		player1.setLocation(
 			c.getWidth() / 3 - player1.getWidth() / 2,
@@ -49,6 +53,7 @@ public class LocalView extends SettingsView implements ActionListener {
 		);
 		add(player1);
 		JLabel player2 = new JLabel("Black Player");
+		player2.setForeground(Color.WHITE);
 		player2.setSize(100,40);
 		player2.setLocation(
 			c.getWidth() * 2 / 3 - player2.getWidth() / 2,
@@ -81,6 +86,7 @@ public class LocalView extends SettingsView implements ActionListener {
 		add(p2);
 		
 		JLabel timedGame = new JLabel("Timed Game?");
+		timedGame.setForeground(Color.WHITE);
 		timedGame.setSize(100,10);
 		timedGame.setLocation(
 			c.getWidth() / 3 - player1.getWidth() / 2,
@@ -110,6 +116,7 @@ public class LocalView extends SettingsView implements ActionListener {
 		
 		//if game is timed on is display timer settings
 		JLabel timeLabel = new JLabel("Time");
+		timeLabel.setForeground(Color.WHITE);
 		timeLabel.setSize(40,20);
 		timeLabel.setLocation(
 			c.getWidth() / 3 - player1.getWidth() / 2,
@@ -125,6 +132,7 @@ public class LocalView extends SettingsView implements ActionListener {
 		);
 		add(timeSpinner);
 		JLabel minLabel = new JLabel("Minutes");
+		minLabel.setForeground(Color.WHITE);
 		minLabel.setSize(55,20);
 		minLabel.setLocation(
 			c.getWidth() / 3 - player1.getWidth() / 2 

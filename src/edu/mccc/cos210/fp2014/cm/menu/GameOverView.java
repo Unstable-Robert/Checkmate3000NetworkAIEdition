@@ -2,8 +2,10 @@ package edu.mccc.cos210.fp2014.cm.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.FontRenderContext;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,6 +20,7 @@ public class GameOverView extends SettingsView implements ActionListener {
 		} else {
 			winnerLabel = new JLabel("Black Wins!!!");
 		}
+		winnerLabel.setForeground(Color.WHITE);
 		winnerLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 40));
 		winnerLabel.setSize(300, 50);
 		winnerLabel.setLocation(

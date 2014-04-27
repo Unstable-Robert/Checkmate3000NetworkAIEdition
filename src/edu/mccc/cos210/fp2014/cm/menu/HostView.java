@@ -2,6 +2,7 @@ package edu.mccc.cos210.fp2014.cm.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.FontRenderContext;
 import java.io.IOException;
@@ -32,6 +33,7 @@ public class HostView extends SettingsView implements ActionListener {
 		super(c);
 		
 		JLabel titleLabel = new JLabel("HOST GAME");
+		titleLabel.setForeground(Color.WHITE);
 		titleLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 40));
 		titleLabel.setSize(240, 50);
 		titleLabel.setLocation(
@@ -42,6 +44,7 @@ public class HostView extends SettingsView implements ActionListener {
 		
 		
 		JLabel timedGame = new JLabel("Timed Game?");
+		timedGame.setForeground(Color.WHITE);
 		timedGame.setSize(100,10);
 		timedGame.setLocation(
 			c.getWidth() / 3 - timedGame.getWidth() / 2,
@@ -71,6 +74,7 @@ public class HostView extends SettingsView implements ActionListener {
 		
 		//if game is timed on is display timer settings
 		JLabel timeLabel = new JLabel("Time");
+		timeLabel.setForeground(Color.WHITE);
 		timeLabel.setSize(40,20);
 		timeLabel.setLocation(
 			c.getWidth() / 3 - timedGame.getWidth() / 2,
@@ -86,6 +90,7 @@ public class HostView extends SettingsView implements ActionListener {
 		);
 		add(timeSpinner);
 		JLabel minLabel = new JLabel("Minutes");
+		minLabel.setForeground(Color.WHITE);
 		minLabel.setSize(55,20);
 		minLabel.setLocation(
 			c.getWidth() / 3 - timedGame.getWidth() / 2 
@@ -101,6 +106,7 @@ public class HostView extends SettingsView implements ActionListener {
 			ipAddress = InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e){}
 		JLabel ipLabel = new JLabel("Your IP: " + ipAddress);
+		ipLabel.setForeground(Color.WHITE);
 		ipLabel.setSize(140,40);
 		ipLabel.setLocation(
 			c.getWidth() / 3 - timedGame.getWidth() / 2,
@@ -109,6 +115,7 @@ public class HostView extends SettingsView implements ActionListener {
 		add(ipLabel);
 		
 		JLabel enemyIpLabel = new JLabel("Opponent's IP Address:");
+		enemyIpLabel.setForeground(Color.WHITE);
 		enemyIpLabel.setSize(225, 20);
 		enemyIpLabel.setLocation(
 			c.getWidth() / 3 - timedGame.getWidth() / 2,

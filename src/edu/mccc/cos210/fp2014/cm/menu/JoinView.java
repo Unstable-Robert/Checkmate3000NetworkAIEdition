@@ -2,6 +2,7 @@ package edu.mccc.cos210.fp2014.cm.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.FontRenderContext;
 import java.io.IOException;
@@ -25,6 +26,7 @@ public class JoinView extends SettingsView implements ActionListener {
 		super(c);
 		
 		JLabel titleLabel = new JLabel("JOIN GAME");
+		titleLabel.setForeground(Color.WHITE);
 		titleLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 40));
 		titleLabel.setSize(240, 50);
 		titleLabel.setLocation(
@@ -34,6 +36,7 @@ public class JoinView extends SettingsView implements ActionListener {
 		add(titleLabel);
 					
 		JLabel enemyIpLabel = new JLabel("Opponent's IP Address:");
+		enemyIpLabel.setForeground(Color.WHITE);
 		enemyIpLabel.setSize(160, 20);
 		enemyIpLabel.setLocation(
 			c.getWidth() / 2 - enemyIpLabel.getWidth() / 2,
@@ -54,6 +57,7 @@ public class JoinView extends SettingsView implements ActionListener {
 			ipAddress = InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e){}
 		JLabel ipLabel = new JLabel("Your IP: " + ipAddress);
+		ipLabel.setForeground(Color.WHITE);
 		ipLabel.setSize(140,40);
 		ipLabel.setLocation(
 			c.getWidth() / 2 
