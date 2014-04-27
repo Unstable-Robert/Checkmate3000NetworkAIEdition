@@ -24,6 +24,7 @@ public abstract class SettingsView extends JPanel implements ActionListener {
 		super();
 		myCheckmate = c;
 		setLayout(null);
+		this.setDoubleBuffered(true);
 		//setBackground(new Color(137, 207, 240));
 	}
 	@Override
@@ -36,6 +37,5 @@ public abstract class SettingsView extends JPanel implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    
 	}
 }
