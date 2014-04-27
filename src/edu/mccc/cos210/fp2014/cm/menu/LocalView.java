@@ -20,7 +20,7 @@ public class LocalView extends SettingsView implements ActionListener {
 	private Difficulty difficulty1;
 	private Difficulty difficulty2;
 	private boolean color;
-    private final int TIME_MIN = 0;
+    private final int TIME_MIN = 1;
 	private final int TIME_MAX = 180;
 	private JSpinner timeSpinner;
 	private JCheckBox checkbox;
@@ -89,7 +89,7 @@ public class LocalView extends SettingsView implements ActionListener {
 		add(timedGame);	
 		
 		//Checkbox whether game is timed or not
-		this.checkbox = new JCheckBox();
+		this.checkbox = new JCheckBox("", true);
 		checkbox.setSize(24,15);
 		checkbox.setLocation(
 			c.getWidth() / 3 + timedGame.getWidth() + 10,
@@ -98,14 +98,12 @@ public class LocalView extends SettingsView implements ActionListener {
 		checkbox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				if (gameType == GameType.TIMED_GAME){
-					gameType = GameType.NORMAL;
-				} else {
+				if (gameType == GameType.NORMAL){
 					gameType = GameType.TIMED_GAME;
+				} else {
+					gameType = GameType.NORMAL;
 				}
-				
 				timeSpinner.setEnabled(gameType == GameType.TIMED_GAME);
-						
 			}
 		});
 		add(checkbox);
@@ -118,14 +116,13 @@ public class LocalView extends SettingsView implements ActionListener {
 			(int)(c.getHeight() * 0.65)
 		);
 		add(timeLabel);
-		this.timeSpinner = new JSpinner(new SpinnerNumberModel(TIME_MIN, TIME_MIN, TIME_MAX, 1));
+		this.timeSpinner = new JSpinner(new SpinnerNumberModel(5, TIME_MIN, TIME_MAX, 1));
 		timeSpinner.setSize(40,20);
 		timeSpinner.setLocation(
 			c.getWidth() / 3 - player1.getWidth() / 2
 			+ timeLabel.getWidth() + 20,
 			(int)(c.getHeight() * 0.65)
 		);
-		timeSpinner.setEnabled(false);
 		add(timeSpinner);
 		JLabel minLabel = new JLabel("Minutes");
 		minLabel.setSize(55,20);
