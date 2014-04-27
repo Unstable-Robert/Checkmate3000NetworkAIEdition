@@ -36,7 +36,7 @@ public class MarshalHandler {
 	public Board unmarshal(InputStream in) {
 		try {
 			Unmarshaller um = this.jc.createUnmarshaller();
-			Files.copy(in, Paths.get("/Users/collinscangarella/Documents/cm/Checkmate3000NetworkAIEdition/unmarshaltest.xml"));
+			Files.copy(in, Paths.get("unmarshaltest.xml"));
 			Board b = (Board) um.unmarshal(in);
 			return b;
 		} catch (JAXBException e) {
