@@ -4,8 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Font;
 import java.awt.font.FontRenderContext;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
+import java.net.URL;
 import java.net.UnknownHostException;
 
 import javax.swing.*;
@@ -51,17 +54,21 @@ public class JoinView extends SettingsView implements ActionListener {
 		//displays your ip
 		String ipAddress = "UNKNOWN";
 		try {
-			ipAddress = InetAddress.getLocalHost().getHostAddress();
-		} catch (UnknownHostException e){}
+            URL ip = new URL("http://checkip.amazonaws.com");
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+                    ip.openStream()));
+
+            ipAddress = in.readLine();
+		} catch (IOException e){}
 		JLabel ipLabel = new JLabel("Your IP: " + ipAddress);
-		ipLabel.setSize(140,40);
+		ipLabel.setSize(160,40);
 		ipLabel.setLocation(
-			c.getWidth() / 2 
+			c.getWidth() / 2
 			- ipLabel.getWidth()/2,
 			 (int) (c.getHeight() * 0.55)
 		);
 		add(ipLabel);
-		
+
 		//backButton returns to previous screen
 		JButton backButton = new JButton("Back");
 		backButton.setSize(150,50);
