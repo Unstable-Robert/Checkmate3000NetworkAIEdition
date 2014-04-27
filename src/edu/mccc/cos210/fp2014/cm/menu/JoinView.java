@@ -64,12 +64,8 @@ public class JoinView extends SettingsView implements ActionListener {
             ipAddress = in.readLine();
 		} catch (IOException e){}
 		JLabel ipLabel = new JLabel("Your IP: " + ipAddress);
-<<<<<<< HEAD
 		ipLabel.setSize(160,40);
-=======
 		ipLabel.setForeground(Color.WHITE);
-		ipLabel.setSize(140,40);
->>>>>>> 9eff9c0ab7c273d332cfbc7b5cf9b1c38e79f666
 		ipLabel.setLocation(
 			c.getWidth() / 2
 			- ipLabel.getWidth()/2,
