@@ -36,14 +36,14 @@ public class MarshalHandler {
 	public Board unmarshal(InputStream in) {
 		try {
 			Unmarshaller um = this.jc.createUnmarshaller();
-			//Files.copy(in, Paths.get("/Users/collinscangarella/Documents/cm/Checkmate3000NetworkAIEdition/unmarshaltest.txt"));
+			Files.copy(in, Paths.get("/Users/collinscangarella/Documents/cm/Checkmate3000NetworkAIEdition/unmarshaltest.xml"));
 			Board b = (Board) um.unmarshal(in);
 			return b;
 		} catch (JAXBException e) {
 			e.printStackTrace();
-		} //catch (IOException e) {
-			//e.printStackTrace();
-		//}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	/**
@@ -54,6 +54,7 @@ public class MarshalHandler {
 	public void marshal(Board b, OutputStream os) {
 		try {
 			Marshaller m = this.jc.createMarshaller();
+			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			m.marshal(b, os);
 		} catch (JAXBException e) {
 			e.printStackTrace();
