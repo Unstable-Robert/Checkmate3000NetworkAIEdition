@@ -46,7 +46,7 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 		image = loadImage();
 		resignButton = new JButton("Resign");
 		resignButton.setSize(100,50);
-		resignButton.setLocation((int)(c.getWidth() * 0.05), (int)(c.getHeight() * 0.95));
+		resignButton.setLocation((int)(c.getWidth() * 0.05), (int)(c.getHeight() * 0.1));
 		resignButton.setVisible(true);
 		resignButton.addActionListener(new ActionListener() {
 			@Override
@@ -139,7 +139,6 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 		if (gm.getBoard().isWhiteTurn()) {
 			g2d.drawString("White's Turn", myCheckmate.getWidth() * .02f, myCheckmate.getHeight() * .05f);
 		} else {
-			g2d.setPaint(Color.BLACK);
 			g2d.drawString("Black's Turn", myCheckmate.getWidth() * .02f, myCheckmate.getHeight() * .05f);
 		}
 		
