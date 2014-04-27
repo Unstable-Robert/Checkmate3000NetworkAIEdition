@@ -76,14 +76,16 @@ public class Checkmate extends JFrame implements Observer {
 	}
 	public GameModel getGameModel() {
 		return gm;
-	}		
+	}
+	public void endGame(boolean whiteWon) {
+		cardPanel.add(new GameOverView(whiteWon, this), GAMEOVER);
+		cards.show(cardPanel, GAMEOVER);
+	}
 	@Override
 	public void update(Observable o, Object arg) {
 		if (this.gm.isCheckMate()){
-			//setGameView (new GameOverView(!gm.getBoard().isWhiteTurn()));
-			cardPanel.add(new GameOverView(this), GAMEOVER);
-			cards.show(cardPanel, GAMEOVER);
-			
+			boolean isWhiteTurn = this.getGameModel().getBoard().isWhiteTurn();
+			endGame(isWhiteTurn);
 		}
 	}
 }

@@ -33,6 +33,7 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 	private ArrayList<Player> players;
 	private List<PossibleTile> pTiles = new ArrayList<PossibleTile>();
 	private BufferedImage image;
+	private JButton resignButton;
 	public GameView(Checkmate c) {
 		myCheckmate = c;
 		players = new ArrayList<Player>();
@@ -43,14 +44,15 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 		this(c);
 		this.gm = model;
 		image = loadImage();
-		JButton resignButton = new JButton("Resign");
+		resignButton = new JButton("Resign");
 		resignButton.setSize(100,50);
 		resignButton.setLocation((int)(c.getWidth() * 0.05), (int)(c.getHeight() * 0.95));
 		resignButton.setVisible(true);
 		resignButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				myCheckmate.setView(Checkmate.MAIN_MENU);
+				boolean isWhiteTurn = gm.getBoard().isWhiteTurn();
+				myCheckmate.endGame(isWhiteTurn);
 			}
 		});
 		add(resignButton);
@@ -171,6 +173,7 @@ public class GameView extends JPanel implements Observer, ActionListener, MouseL
 				pt.getY() * 60 + 60
 			);
 		}
+		this.paintChildren(g);
 		g2d.dispose();
 	}
 	@Override
