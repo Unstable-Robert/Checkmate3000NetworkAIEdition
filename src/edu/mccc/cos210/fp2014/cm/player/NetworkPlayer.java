@@ -39,12 +39,14 @@ public class NetworkPlayer extends Player implements Runnable {
 		NetworkPlayer np = new NetworkPlayer(gm, true, a);
 		np.setServerSocket(new ServerSocket(7531));
 		np.updatedByNetwork = false;
+		(new Thread(np)).start();
 		return np;
 	}
 	public static NetworkPlayer GetJoinNetwork(GameModel gm, InetAddress a) throws IOException{
 		NetworkPlayer np = new NetworkPlayer(gm, false, a);
 		np.setSocket(new Socket(a, 7531));
 		np.updatedByNetwork = true;
+		(new Thread(np)).start();
 		return np;
 	}
 	private void setServerSocket(ServerSocket ss){
@@ -68,7 +70,8 @@ public class NetworkPlayer extends Player implements Runnable {
 			if(!this.updatedByNetwork){
 				OutputStream os = socket.getOutputStream();
 				mh.marshal(this.gm.getBoard(), os);
-				//os.flush();
+				os.flush();
+				this.socket.shutdownOutput();
 			}
 		}catch (IOException e) {
 			e.printStackTrace();
@@ -84,14 +87,16 @@ public class NetworkPlayer extends Player implements Runnable {
 		try {
 			if (this.ss != null){
 				this.socket = this.ss.accept();
-				update(this.gm, this.gm.getBoard());
-			} 
+				this.update(this.gm, null);
+			}
 			while (true){
 				try {
 					InputStream is = socket.getInputStream();
-					Board b = mh.unmarshal(is);
-					this.updatedByNetwork = true;
-					this.gm.updateBoard(b);
+					while (is.available() > 0){
+						Board b = mh.unmarshal(is);
+						this.updatedByNetwork = true;
+						this.gm.updateBoard(b);
+					}
 				} catch (SocketTimeoutException e){
 					e.printStackTrace();
 				} catch (JAXBException e) {

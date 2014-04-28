@@ -54,7 +54,6 @@ public class GameBuilder {
 		try {
 			np = NetworkPlayer.GetHostNetwork(gm, a);
 			c.setGameView(setupGameView(c, gm, np));
-			new Thread(np).start();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -72,7 +71,6 @@ public class GameBuilder {
 		try {
 			np = NetworkPlayer.GetJoinNetwork(gm, a);
 			c.setGameView(setupGameView(c, gm, np));
-			new Thread(np).start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
