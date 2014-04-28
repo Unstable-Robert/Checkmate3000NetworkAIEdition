@@ -45,7 +45,7 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 		this.gm = model;
 		image = loadImage();
 		resignButton = new JButton("Resign");
-		resignButton.setSize(100,50);
+		resignButton.setSize(100, 50);
 		resignButton.setLocation((int)(c.getWidth() * 0.05), (int)(c.getHeight() * 0.1));
 		resignButton.setVisible(true);
 		resignButton.addActionListener(new ActionListener() {
@@ -172,6 +172,22 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 				pt.getY() * 60 + 60
 			);
 		}
+		g2d.setPaint(Color.WHITE);
+		int blackTime = gm.getBoard().getBlackTime();
+		int whiteTime = gm.getBoard().getWhiteTime();
+		g2d.drawString("Black Time", myCheckmate.getWidth() * 0.81f, myCheckmate.getHeight() * 0.05f);
+		// use string formatter here instead of this mess
+		g2d.drawString(
+			blackTime / 60 + ":" + (blackTime % 60 < 10 ? "0" : "") + blackTime % 60, 
+			myCheckmate.getWidth() * 0.85f, 
+			myCheckmate.getHeight() * 0.10f
+		);
+		g2d.drawString("White Time", myCheckmate.getWidth() * 0.81f, myCheckmate.getHeight() * 0.20f);
+		g2d.drawString(
+			whiteTime / 60 + ":" + (whiteTime % 60 < 10 ? "0" : "") + whiteTime % 60, 
+			myCheckmate.getWidth() * 0.85f, 
+			myCheckmate.getHeight() * 0.25f
+		);
 		this.paintChildren(g);
 		g2d.dispose();
 	}

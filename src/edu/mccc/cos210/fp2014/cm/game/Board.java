@@ -118,12 +118,11 @@ public class Board implements Cloneable{
 		this.metaInfo.setWhiteTime(i);
 		this.metaInfo.setBlackTime(i);
 	}
-	public int getTime(){
-		if (this.whiteTurn){
-			return this.metaInfo.getWhiteTime();
-		} else {
-			return this.metaInfo.getBlackTime();
-		}
+	public int getWhiteTime(){
+		return this.metaInfo.getWhiteTime();
+	}
+	public int getBlackTime() {
+		return this.metaInfo.getBlackTime();
 	}
 	/**
 	 * This changes which player is taking their turn.

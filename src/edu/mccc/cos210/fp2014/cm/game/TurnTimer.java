@@ -11,8 +11,8 @@ public class TurnTimer extends TimerTask {
 	private int blackTime, whiteTime;
 	public TurnTimer(GameModel gm, int i) {
 		this.model = gm;
-		this.blackTime = i;// * 60;
-		this.whiteTime = i;// * 60;
+		this.blackTime = i * 60;
+		this.whiteTime = i * 60;
 	}
 	@Override
 	public void run() {

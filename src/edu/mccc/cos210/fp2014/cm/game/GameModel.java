@@ -29,7 +29,7 @@ public class GameModel extends Observable {
 		this(b);
 		this.timer = new Timer();
 		this.timer.scheduleAtFixedRate(new TurnTimer(this, i), 1000L, 1000L);
-		this.board.updateBothTimes(i);
+		this.board.updateBothTimes(i * 60);
 	}
 	/**
 	 * Gets a copy of the current board.
