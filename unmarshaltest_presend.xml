@@ -281,9 +281,9 @@
     <movesSincePieceTaken>0</movesSincePieceTaken>
     <whiteTurn>true</whiteTurn>
     <metaInfo>
-        <gameType>TIMED_GAME</gameType>
-        <whiteTime>300000</whiteTime>
-        <blackTime>300000</blackTime>
+        <gameType>NORMAL</gameType>
+        <whiteTime>0</whiteTime>
+        <blackTime>0</blackTime>
         <whiteScore>0.0</whiteScore>
         <blackScore>0.0</blackScore>
         <numPossibleMoves>0</numPossibleMoves>

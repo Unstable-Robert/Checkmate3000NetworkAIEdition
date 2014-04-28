@@ -82,4 +82,7 @@ public class GameModel extends Observable {
 		timer.cancel();
 		return true;
 	}
+	public void cancelTimer() {
+		timer.cancel();
+	}
 }

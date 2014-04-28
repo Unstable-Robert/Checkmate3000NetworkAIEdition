@@ -52,13 +52,11 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				boolean isWhiteTurn = gm.getBoard().isWhiteTurn();
+				gm.cancelTimer();
 				myCheckmate.endGame(isWhiteTurn);
 			}
 		});
 		add(resignButton);
-		if(gm.isCheckMate()){
-			System.out.println("checkmate");
-		}
 	}
 	public void addPlayer(Player p){
 		this.players.add(p);
