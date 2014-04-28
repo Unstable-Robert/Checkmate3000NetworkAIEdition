@@ -1,5 +1,6 @@
 package edu.mccc.cos210.fp2014.cm.util;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,31 +34,31 @@ public class MarshalHandler {
 			e.printStackTrace();
 		}
 	}
-	public synchronized Board unmarshal(InputStream in) {
-		try {
+	public synchronized Board unmarshal(InputStream in) throws JAXBException{
 			Unmarshaller um = this.jc.createUnmarshaller();
 			//Files.copy(in, Paths.get("unmarshaltest.xml"));
 			Board b = (Board) um.unmarshal(in);
 			return b;
-		} catch (JAXBException e) {
-			e.printStackTrace();
-		}// catch (IOException e) {
+		// catch (IOException e) {
 			//e.printStackTrace();
+			//return null;
 		//}
-		return null;
 	}
 	/**
 	 * Marshals a board object into an OutputStream.
 	 * @param b The board object to marshal
 	 * @return The outputstream which represents the board object.
 	 */
-	public synchronized void marshal(Board b, OutputStream os) {
-		try {
+	public synchronized void marshal(Board b, OutputStream os) throws JAXBException {
 			Marshaller m = this.jc.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			//FileOutputStream fos = new FileOutputStream(Paths.get("unmarshaltest_presend.xml").toFile());
+			//m.marshal(b, fos);
 			m.marshal(b, os);
-		} catch (JAXBException e) {
-			e.printStackTrace();
-		}
+			//fos.flush();
+			//fos.close();
+		// catch (IOException e) {
+			//e.printStackTrace();
+		//}
 	}
 }

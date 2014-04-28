@@ -9,6 +9,8 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.Observable;
 
+import javax.xml.bind.JAXBException;
+
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.game.GameModel;
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
@@ -22,13 +24,13 @@ import edu.mccc.cos210.fp2014.cm.util.MarshalHandler;
  * state.
  */
 public class NetworkPlayer extends Player implements Runnable {
-	private boolean firstUpdate;
+	private boolean updatedByNetwork;
 	private ServerSocket ss;
 	private Socket socket;
 	private MarshalHandler mh;
 	private InetAddress address;
 	
-	public NetworkPlayer(GameModel gm, Boolean color, InetAddress a) throws IOException{
+	private NetworkPlayer(GameModel gm, Boolean color, InetAddress a) throws IOException{
 		super(gm, color);
 		mh = new MarshalHandler();
 		this.address = a;
@@ -36,13 +38,13 @@ public class NetworkPlayer extends Player implements Runnable {
 	public static NetworkPlayer GetHostNetwork(GameModel gm, InetAddress a)throws IOException{
 		NetworkPlayer np = new NetworkPlayer(gm, true, a);
 		np.setServerSocket(new ServerSocket(7531));
-		np.firstUpdate = true;
+		np.updatedByNetwork = false;
 		return np;
 	}
 	public static NetworkPlayer GetJoinNetwork(GameModel gm, InetAddress a) throws IOException{
 		NetworkPlayer np = new NetworkPlayer(gm, false, a);
 		np.setSocket(new Socket(a, 7531));
-		np.firstUpdate = false;
+		np.updatedByNetwork = true;
 		return np;
 	}
 	private void setServerSocket(ServerSocket ss){
@@ -51,12 +53,11 @@ public class NetworkPlayer extends Player implements Runnable {
 	private void setSocket(Socket s){
 		this.socket = s;
 	}
-	/**
-	 * Updates the model if the local individual or networked individual make a move.
-	 */
 	@Override
-	public boolean updateModel(Piece piece, PossibleTile pt) {
-		return super.updateModel(piece, pt);
+	public boolean updateModel(Piece piece, PossibleTile pt){
+		boolean success = super.updateModel(piece, pt);
+		this.updatedByNetwork = false;
+		return success;
 	}
 	/**
 	 * Sends a marshalled board object to the other player if the board has been updated.
@@ -64,15 +65,14 @@ public class NetworkPlayer extends Player implements Runnable {
 	@Override
 	public void update(Observable o, Object arg) {
 		try {
-			if(this.isWhite != this.gm.getBoard().isWhiteTurn() || 
-					this.gm.hasTimer() ||
-					this.firstUpdate){
+			if(!this.updatedByNetwork){
 				OutputStream os = socket.getOutputStream();
 				mh.marshal(this.gm.getBoard(), os);
-				os.flush();
-				firstUpdate = false;
+				//os.flush();
 			}
 		}catch (IOException e) {
+			e.printStackTrace();
+		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
 	}
@@ -90,12 +90,14 @@ public class NetworkPlayer extends Player implements Runnable {
 				try {
 					InputStream is = socket.getInputStream();
 					Board b = mh.unmarshal(is);
+					this.updatedByNetwork = true;
 					this.gm.updateBoard(b);
 				} catch (SocketTimeoutException e){
 					e.printStackTrace();
+				} catch (JAXBException e) {
+					e.printStackTrace();
 				}
 			}
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

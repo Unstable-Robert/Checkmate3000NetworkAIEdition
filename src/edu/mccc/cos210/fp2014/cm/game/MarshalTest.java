@@ -15,13 +15,13 @@ public class MarshalTest {
 
 	public static void main(String[] args) {
 		try {
-			GameModel gm1 = new GameModel(null);
-			NetworkPlayer np1 = NetworkPlayer.GetHostNetwork(new GameModel(), InetAddress.getByName("127.0.0.1"));
-			NetworkPlayer np2 = NetworkPlayer.GetJoinNetwork(gm1, InetAddress.getByName("127.0.0.1"));
+			GameModel gm1 = new GameModel();
+			GameModel gm2 = new GameModel(null);
+			NetworkPlayer np1 = NetworkPlayer.GetHostNetwork(gm1, InetAddress.getByName("127.0.0.1"));
+			NetworkPlayer np2 = NetworkPlayer.GetJoinNetwork(gm2, InetAddress.getByName("127.0.0.1"));
 			(new Thread(np1)).start();
 			(new Thread(np2)).start();
-			np1.update(new GameModel(), null);
-			Board b = gm1.getBoard();
+			Board b = gm2.getBoard();
 			b.addPiece(new Pawn());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
