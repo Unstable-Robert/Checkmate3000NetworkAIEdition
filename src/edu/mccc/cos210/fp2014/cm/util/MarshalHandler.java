@@ -1,5 +1,7 @@
 package edu.mccc.cos210.fp2014.cm.util;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -29,9 +31,16 @@ public class MarshalHandler {
 			e.printStackTrace();
 		}
 	}
-	public Board unmarshal(InputStream in) throws JAXBException{
+	public Board unmarshal(InputStream in) throws JAXBException, IOException{
 			Unmarshaller um = this.jc.createUnmarshaller();
-			Board b = (Board) um.unmarshal(new UncloseableInputStream(in));
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			byte buffer[] = new byte[1024];
+			for(int i; (i=in.read(buffer)) != -1; )
+			{
+			  baos.write(buffer, 0, i);
+			}
+			ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+			Board b = (Board) um.unmarshal(bais);
 			return b;
 	}
 	/**
@@ -43,6 +52,7 @@ public class MarshalHandler {
 			Marshaller m = this.jc.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			m.marshal(b, os);
+			
 	}
 	public int bof(){
 		return XMLStreamConstants.START_DOCUMENT;

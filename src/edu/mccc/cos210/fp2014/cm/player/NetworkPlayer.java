@@ -57,9 +57,8 @@ public class NetworkPlayer extends Player implements Runnable {
 	}
 	@Override
 	public boolean updateModel(Piece piece, PossibleTile pt){
-		boolean success = super.updateModel(piece, pt);
 		this.updatedByNetwork = false;
-		return success;
+		return super.updateModel(piece, pt);
 	}
 	/**
 	 * Sends a marshalled board object to the other player if the board has been updated.
@@ -67,11 +66,10 @@ public class NetworkPlayer extends Player implements Runnable {
 	@Override
 	public void update(Observable o, Object arg) {
 		try {
-			if(!this.updatedByNetwork){
+			if(!this.updatedByNetwork){ 
 				OutputStream os = socket.getOutputStream();
 				mh.marshal(this.gm.getBoard(), os);
 				os.flush();
-				this.socket.shutdownOutput();
 			}
 		}catch (IOException e) {
 			e.printStackTrace();
@@ -87,7 +85,7 @@ public class NetworkPlayer extends Player implements Runnable {
 		try {
 			if (this.ss != null){
 				this.socket = this.ss.accept();
-				this.update(this.gm, null);
+				this.update(gm, null);
 			}
 			while (true){
 				try {

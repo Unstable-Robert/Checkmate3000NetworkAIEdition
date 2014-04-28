@@ -99,6 +99,8 @@ public class GameBuilder {
 	private static GameView setupGameView(Checkmate c, GameModel gm, Player p1, Player p2){
 		GameView gv = new GameView(c, gm);
 		gm.addObserver(gv);
+		gm.addObserver(p1);
+		gm.addObserver(p2);
 		gv.addPlayer(p1);
 		gv.addPlayer(p2);
 		return gv;
@@ -106,6 +108,7 @@ public class GameBuilder {
 	private static GameView setupGameView(Checkmate c, GameModel gm, Player p1){
 		GameView gv = new GameView(c, gm);
 		gm.addObserver(gv);
+		gm.addObserver(p1);
 		gv.addPlayer(p1);
 		return gv;
 	}

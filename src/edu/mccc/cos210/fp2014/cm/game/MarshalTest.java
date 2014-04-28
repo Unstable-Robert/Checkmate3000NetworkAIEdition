@@ -19,8 +19,6 @@ public class MarshalTest {
 			GameModel gm2 = new GameModel(null);
 			NetworkPlayer np1 = NetworkPlayer.GetHostNetwork(gm1, InetAddress.getByName("127.0.0.1"));
 			NetworkPlayer np2 = NetworkPlayer.GetJoinNetwork(gm2, InetAddress.getByName("127.0.0.1"));
-			(new Thread(np1)).start();
-			(new Thread(np2)).start();
 			Board b = gm2.getBoard();
 			b.addPiece(new Pawn());
 		} catch (IOException e) {
