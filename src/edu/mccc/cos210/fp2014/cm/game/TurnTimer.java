@@ -30,5 +30,6 @@ public class TurnTimer extends TimerTask {
 				model.gameExpired();
 			}
 		}
+		model.updateBoard(b);
 	}
 }

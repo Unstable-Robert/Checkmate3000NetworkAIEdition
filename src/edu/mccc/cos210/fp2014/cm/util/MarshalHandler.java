@@ -35,9 +35,10 @@ public class MarshalHandler {
 			Unmarshaller um = this.jc.createUnmarshaller();
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			byte buffer[] = new byte[1024];
-			for(int i; (i=in.read(buffer)) != -1; )
+			while (in.available() > 0)//for(int i; (i=in.read(buffer)) != -1; )
 			{
-			  baos.write(buffer, 0, i);
+				int i = in.read(buffer);
+				baos.write(buffer, 0, i);
 			}
 			ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
 			Board b = (Board) um.unmarshal(bais);
