@@ -86,11 +86,6 @@ public class GameBuilder {
 			GameTimer gt = new GameTimer();
 			gm = new GameModel(t, gt, b);
 			gm.addObserver(gt);
-		} else if (g.equals(GameType.TIMED_TURN)){
-			b = new Board(g, t);
-			TurnTimer tt = new TurnTimer();
-			gm = new GameModel(t, tt, b);
-			gm.addObserver(tt);
 		} else {
 			b = new Board(g);
 			gm = new GameModel(b);
