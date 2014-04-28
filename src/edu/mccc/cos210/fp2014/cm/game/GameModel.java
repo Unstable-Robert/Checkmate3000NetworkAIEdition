@@ -1,11 +1,10 @@
 package edu.mccc.cos210.fp2014.cm.game;
 
+import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.util.GameType;
 
 import java.util.Observable;
 import java.util.Timer;
-
-import edu.mccc.cos210.fp2014.cm.piece.Piece;
 
 /**
  * This model holds internal information about the state of the game.
@@ -14,25 +13,23 @@ import edu.mccc.cos210.fp2014.cm.piece.Piece;
 public class GameModel extends Observable {
 	private Board board;
 	private Timer timer;
-	private TimerEvent timerEvent;
 	/**
 	 * Default public constructor.
 	 */
 	public GameModel() {
 		this.board = new Board(GameType.NORMAL);
 	}
-	public GameModel(int i, TimerEvent te) {
+	public GameModel(int i) {
 		this();
 	}
 	public GameModel(Board b) {
 		this.board = b;
 	}
-	public GameModel(int i, TimerEvent te, Board b){
+	public GameModel(int i, boolean isTimed, Board b){
 		this(b);
 		this.timer = new Timer();
-		this.timerEvent = te;
-		this.board.updateBothTimes(i * 60 * 1000);
-		this.timer.schedule(te, 0, this.board.getTime());
+		this.timer.scheduleAtFixedRate(new TurnTimer(this, i), 1000L, 1000L);
+		this.board.updateBothTimes(i);
 	}
 	/**
 	 * Gets a copy of the current board.
@@ -61,6 +58,12 @@ public class GameModel extends Observable {
 	 * Called when one game timer expires.
 	 */
 	public void gameExpired() {
+		timer.cancel();
+		if (board.isWhiteTurn()) {
+			System.out.println("Black wins!!!");
+		} else {
+			System.out.println("White wins!!!");
+		}
 	}
 	public boolean hasTimer(){
 		return this.timer != null;
@@ -68,7 +71,7 @@ public class GameModel extends Observable {
 	/**
 	 * Returns true if the game is over.
 	 */
-	public boolean isCheckMate(){
+	public boolean isCheckMate() {
 		for (Piece p : this.board.getPieces()){
 			if (p.isWhite() == this.board.isWhiteTurn()) {
 				if (!p.getPossibleTiles(this.board).isEmpty()){
@@ -76,6 +79,7 @@ public class GameModel extends Observable {
 				}
 			}
 		}
+		timer.cancel();
 		return true;
 	}
 }

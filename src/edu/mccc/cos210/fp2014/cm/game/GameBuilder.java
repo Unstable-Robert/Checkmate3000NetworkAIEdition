@@ -83,9 +83,8 @@ public class GameBuilder {
 		Board b;
 		if (g.equals(GameType.TIMED_GAME)){
 			b = new Board(g, t);
-			GameTimer gt = new GameTimer();
-			gm = new GameModel(t, gt, b);
-			gm.addObserver(gt);
+			gm = new GameModel(t, true, b);
+			//gm.addObserver(gt);
 		} else {
 			b = new Board(g);
 			gm = new GameModel(b);

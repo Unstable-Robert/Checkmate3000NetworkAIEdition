@@ -21,7 +21,6 @@ public class Meta implements Cloneable {
 	private double blackScore;
 	private int numPossibleMoves;
 	public Meta (){
-		
 	}
 	public Meta(GameType g) {
 		this.gameType = g;
