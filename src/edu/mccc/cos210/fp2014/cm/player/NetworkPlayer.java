@@ -6,7 +6,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -32,12 +31,10 @@ public class NetworkPlayer extends Player implements Runnable {
 	private ServerSocket ss;
 	private Socket socket;
 	private MarshalHandler mh;
-	private InetAddress address;
 	
 	private NetworkPlayer(GameModel gm, Boolean color, InetAddress a) throws IOException{
 		super(gm, color);
 		mh = new MarshalHandler();
-		this.address = a;
 	}
 	public static NetworkPlayer GetHostNetwork(GameModel gm, InetAddress a)throws IOException{
 		NetworkPlayer np = new NetworkPlayer(gm, true, a);

@@ -79,7 +79,9 @@ public class GameModel extends Observable {
 				}
 			}
 		}
-		timer.cancel();
+		if (this.hasTimer()){
+			this.cancelTimer();
+		}
 		return true;
 	}
 	public void cancelTimer() {
