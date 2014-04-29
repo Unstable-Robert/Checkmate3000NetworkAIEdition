@@ -1,4 +1,182 @@
- xsi:type="bishop">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<board>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="rook">
+        <xLoc>0</xLoc>
+        <yLoc>7</yLoc>
+        <isWhite>true</isWhite>
+        <uID>0</uID>
+        <selected>false</selected>
+        <canCastle>true</canCastle>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="knight">
+        <xLoc>1</xLoc>
+        <yLoc>7</yLoc>
+        <isWhite>true</isWhite>
+        <uID>1</uID>
+        <selected>false</selected>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bishop">
+        <xLoc>2</xLoc>
+        <yLoc>7</yLoc>
+        <isWhite>true</isWhite>
+        <uID>2</uID>
+        <selected>false</selected>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="queen">
+        <xLoc>3</xLoc>
+        <yLoc>7</yLoc>
+        <isWhite>true</isWhite>
+        <uID>3</uID>
+        <selected>false</selected>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="king">
+        <xLoc>4</xLoc>
+        <yLoc>7</yLoc>
+        <isWhite>true</isWhite>
+        <uID>4</uID>
+        <selected>false</selected>
+        <canCastle>true</canCastle>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bishop">
+        <xLoc>5</xLoc>
+        <yLoc>7</yLoc>
+        <isWhite>true</isWhite>
+        <uID>5</uID>
+        <selected>false</selected>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="knight">
+        <xLoc>6</xLoc>
+        <yLoc>7</yLoc>
+        <isWhite>true</isWhite>
+        <uID>6</uID>
+        <selected>false</selected>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="rook">
+        <xLoc>7</xLoc>
+        <yLoc>7</yLoc>
+        <isWhite>true</isWhite>
+        <uID>7</uID>
+        <selected>false</selected>
+        <canCastle>true</canCastle>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="pawn">
+        <xLoc>0</xLoc>
+        <yLoc>6</yLoc>
+        <isWhite>true</isWhite>
+        <uID>8</uID>
+        <selected>false</selected>
+        <hasMoved>false</hasMoved>
+        <possibleToPassant>false</possibleToPassant>
+        <hasPromoted>false</hasPromoted>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="pawn">
+        <xLoc>1</xLoc>
+        <yLoc>6</yLoc>
+        <isWhite>true</isWhite>
+        <uID>9</uID>
+        <selected>false</selected>
+        <hasMoved>false</hasMoved>
+        <possibleToPassant>false</possibleToPassant>
+        <hasPromoted>false</hasPromoted>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="pawn">
+        <xLoc>2</xLoc>
+        <yLoc>6</yLoc>
+        <isWhite>true</isWhite>
+        <uID>10</uID>
+        <selected>false</selected>
+        <hasMoved>false</hasMoved>
+        <possibleToPassant>false</possibleToPassant>
+        <hasPromoted>false</hasPromoted>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="pawn">
+        <xLoc>3</xLoc>
+        <yLoc>6</yLoc>
+        <isWhite>true</isWhite>
+        <uID>11</uID>
+        <selected>false</selected>
+        <hasMoved>false</hasMoved>
+        <possibleToPassant>false</possibleToPassant>
+        <hasPromoted>false</hasPromoted>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="pawn">
+        <xLoc>4</xLoc>
+        <yLoc>6</yLoc>
+        <isWhite>true</isWhite>
+        <uID>12</uID>
+        <selected>false</selected>
+        <hasMoved>false</hasMoved>
+        <possibleToPassant>false</possibleToPassant>
+        <hasPromoted>false</hasPromoted>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="pawn">
+        <xLoc>5</xLoc>
+        <yLoc>6</yLoc>
+        <isWhite>true</isWhite>
+        <uID>13</uID>
+        <selected>false</selected>
+        <hasMoved>false</hasMoved>
+        <possibleToPassant>false</possibleToPassant>
+        <hasPromoted>false</hasPromoted>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="pawn">
+        <xLoc>6</xLoc>
+        <yLoc>6</yLoc>
+        <isWhite>true</isWhite>
+        <uID>14</uID>
+        <selected>false</selected>
+        <hasMoved>false</hasMoved>
+        <possibleToPassant>false</possibleToPassant>
+        <hasPromoted>false</hasPromoted>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="pawn">
+        <xLoc>7</xLoc>
+        <yLoc>6</yLoc>
+        <isWhite>true</isWhite>
+        <uID>15</uID>
+        <selected>false</selected>
+        <hasMoved>false</hasMoved>
+        <possibleToPassant>false</possibleToPassant>
+        <hasPromoted>false</hasPromoted>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="rook">
+        <xLoc>0</xLoc>
+        <yLoc>0</yLoc>
+        <isWhite>false</isWhite>
+        <uID>16</uID>
+        <selected>false</selected>
+        <canCastle>true</canCastle>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="knight">
+        <xLoc>1</xLoc>
+        <yLoc>0</yLoc>
+        <isWhite>false</isWhite>
+        <uID>17</uID>
+        <selected>false</selected>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bishop">
+        <xLoc>2</xLoc>
+        <yLoc>0</yLoc>
+        <isWhite>false</isWhite>
+        <uID>18</uID>
+        <selected>false</selected>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="queen">
+        <xLoc>3</xLoc>
+        <yLoc>0</yLoc>
+        <isWhite>false</isWhite>
+        <uID>19</uID>
+        <selected>false</selected>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="king">
+        <xLoc>4</xLoc>
+        <yLoc>0</yLoc>
+        <isWhite>false</isWhite>
+        <uID>20</uID>
+        <selected>false</selected>
+        <canCastle>true</canCastle>
+    </piece>
+    <piece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="bishop">
         <xLoc>5</xLoc>
         <yLoc>0</yLoc>
         <isWhite>false</isWhite>

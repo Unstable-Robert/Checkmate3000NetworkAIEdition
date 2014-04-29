@@ -1,5 +1,9 @@
 package edu.mccc.cos210.fp2014.cm.player;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -67,9 +71,8 @@ public class NetworkPlayer extends Player implements Runnable {
 	public void update(Observable o, Object arg) {
 		try {
 			if(!this.updatedByNetwork){ 
-				OutputStream os = socket.getOutputStream();
-				mh.marshal(this.gm.getBoard(), os);
-				os.flush();
+				DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+				writeMessage(this.gm.getBoard(), dos);
 			}
 		}catch (IOException e) {
 			e.printStackTrace();
@@ -90,8 +93,10 @@ public class NetworkPlayer extends Player implements Runnable {
 			while (true){
 				try {
 					InputStream is = socket.getInputStream();
-					while (is.available() > 0){
-						Board b = mh.unmarshal(is);
+					if (is.available()>0){
+						DataInputStream dis = new DataInputStream(is);
+						ByteArrayInputStream bais = readMessage(dis);
+						Board b = mh.unmarshal(bais);
 						this.updatedByNetwork = true;
 						this.gm.updateBoard(b);
 					}
@@ -105,4 +110,18 @@ public class NetworkPlayer extends Player implements Runnable {
 			e.printStackTrace();
 		}
 	}
+	private void writeMessage(Board b, DataOutputStream dos) throws JAXBException, IOException{
+	    ByteArrayOutputStream bout = new ByteArrayOutputStream();
+	    mh.marshal(b, bout);
+	    byte[] msgBytes = bout.toByteArray();
+	    dos.writeInt(msgBytes.length);
+	    dos.write(msgBytes);
+		dos.flush();
+	}
+	private ByteArrayInputStream readMessage(DataInputStream dis) throws IOException {
+        int size = dis.readInt();
+        byte[] ba = new byte[size];
+        dis.readFully(ba);
+        return new ByteArrayInputStream(ba);
+    }
 }

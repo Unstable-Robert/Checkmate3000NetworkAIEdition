@@ -2,6 +2,7 @@ package edu.mccc.cos210.fp2014.cm.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -35,17 +36,9 @@ public class MarshalHandler {
 			e.printStackTrace();
 		}
 	}
-	public Board unmarshal(InputStream in) throws JAXBException, IOException{
+	public Board unmarshal(ByteArrayInputStream bais) throws JAXBException, IOException{
 			Unmarshaller um = this.jc.createUnmarshaller();
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			byte buffer[] = new byte[in.available()];
-			while (in.available() > 0)
-			{
-				int i = in.read(buffer);
-				baos.write(buffer, 0, i);
-			}
-			ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-			Files.copy(in, Paths.get("unmarshaltest.xml"));
+			//Files.copy(bais, Paths.get("unmarshaltest.xml"));
 			Board b = (Board) um.unmarshal(bais);
 			return b;
 	}
@@ -54,12 +47,12 @@ public class MarshalHandler {
 	 * @param b The board object to marshal
 	 * @return The outputstream which represents the board object.
 	 */
-	public void marshal(Board b, OutputStream os) throws JAXBException, IOException {
+	public void marshal(Board b, ByteArrayOutputStream bout) throws JAXBException, IOException {
 			Marshaller m = this.jc.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			FileOutputStream fos = new FileOutputStream(Paths.get("unmarshaltest_presend.xml").toFile());
-			m.marshal(b, fos);
-			m.marshal(b, os);
+			//FileOutputStream fos = new FileOutputStream(Paths.get("unmarshaltest_presend.xml").toFile());
+			//m.marshal(b, fos);
+			m.marshal(b, bout);
 			
 	}
 }
