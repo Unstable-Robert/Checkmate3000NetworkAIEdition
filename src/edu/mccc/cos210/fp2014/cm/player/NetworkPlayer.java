@@ -90,7 +90,7 @@ public class NetworkPlayer extends Player implements Runnable {
 			while (true){
 				try {
 					InputStream is = socket.getInputStream();
-					if (is.available()>0){
+					if (is.available() > 0){
 						DataInputStream dis = new DataInputStream(is);
 						ByteArrayInputStream bais = readMessage(dis);
 						Board b = mh.unmarshal(bais);
@@ -121,4 +121,7 @@ public class NetworkPlayer extends Player implements Runnable {
         dis.readFully(ba);
         return new ByteArrayInputStream(ba);
     }
+	public void setUpdatedByNetwork(boolean b) {
+		this.updatedByNetwork = b;
+	}
 }

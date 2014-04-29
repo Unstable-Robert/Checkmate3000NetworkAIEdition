@@ -1,7 +1,8 @@
 package edu.mccc.cos210.fp2014.cm.game;
 
-import java.util.Observable;
 import java.util.TimerTask;
+
+import edu.mccc.cos210.fp2014.cm.player.NetworkPlayer;
 
 /**
  * The TimerEvent used when players track their turn time.
@@ -9,6 +10,7 @@ import java.util.TimerTask;
 public class TurnTimer extends TimerTask {
 	private GameModel model;
 	private int blackTime, whiteTime;
+	private NetworkPlayer player;
 	public TurnTimer(GameModel gm, int i) {
 		this.model = gm;
 		this.blackTime = i * 60;
@@ -30,6 +32,12 @@ public class TurnTimer extends TimerTask {
 				model.gameExpired();
 			}
 		}
+		updatePlayer();
 		model.updateBoard(b);
+	}
+	private void updatePlayer(){
+		if (this.player != null){
+			this.player.setUpdatedByNetwork(false);
+		}
 	}
 }
