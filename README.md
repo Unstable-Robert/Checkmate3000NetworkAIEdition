@@ -5,10 +5,10 @@ Insert chess pun here
 
 ####ToDo:
 	Add Tie conditions
-	Make game timer end game upon completion
 	start AI Player Classes
 
 ####Changelog:
+	Ended timer ends game
 	Networked code finished.
 	Added Pawn promotion.
 	Implemented piece lazy tiles methods.
