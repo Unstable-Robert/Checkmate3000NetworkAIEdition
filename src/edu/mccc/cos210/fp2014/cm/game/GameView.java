@@ -23,6 +23,7 @@ import edu.mccc.cos210.fp2014.cm.menu.SettingsView;
 import edu.mccc.cos210.fp2014.cm.piece.*;
 import edu.mccc.cos210.fp2014.cm.player.NetworkPlayer;
 import edu.mccc.cos210.fp2014.cm.player.Player;
+import edu.mccc.cos210.fp2014.cm.util.GameType;
 
 /**
  * JPanel view of the board.
@@ -200,21 +201,23 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 			);
 		}
 		g2d.setPaint(Color.WHITE);
-		int blackTime = gm.getBoard().getBlackTime();
-		int whiteTime = gm.getBoard().getWhiteTime();
-		g2d.drawString("Black Time", myCheckmate.getWidth() * 0.81f, myCheckmate.getHeight() * 0.05f);
-		// use string formatter here instead of this mess
-		g2d.drawString(
-			blackTime / 60 + ":" + (blackTime % 60 < 10 ? "0" : "") + blackTime % 60, 
-			myCheckmate.getWidth() * 0.85f, 
-			myCheckmate.getHeight() * 0.10f
-		);
-		g2d.drawString("White Time", myCheckmate.getWidth() * 0.81f, myCheckmate.getHeight() * 0.20f);
-		g2d.drawString(
-			whiteTime / 60 + ":" + (whiteTime % 60 < 10 ? "0" : "") + whiteTime % 60, 
-			myCheckmate.getWidth() * 0.85f, 
-			myCheckmate.getHeight() * 0.25f
-		);
+		if (this.gm.getBoard().getMetaInfo().getGameType().equals(GameType.TIMED_GAME)){
+			int blackTime = gm.getBoard().getBlackTime();
+			int whiteTime = gm.getBoard().getWhiteTime();
+			g2d.drawString("Black Time", myCheckmate.getWidth() * 0.81f, myCheckmate.getHeight() * 0.05f);
+			// use string formatter here instead of this mess
+			g2d.drawString(
+				blackTime / 60 + ":" + (blackTime % 60 < 10 ? "0" : "") + blackTime % 60, 
+				myCheckmate.getWidth() * 0.85f, 
+				myCheckmate.getHeight() * 0.10f
+			);
+			g2d.drawString("White Time", myCheckmate.getWidth() * 0.81f, myCheckmate.getHeight() * 0.20f);
+			g2d.drawString(
+				whiteTime / 60 + ":" + (whiteTime % 60 < 10 ? "0" : "") + whiteTime % 60, 
+				myCheckmate.getWidth() * 0.85f, 
+				myCheckmate.getHeight() * 0.25f
+			);
+		}
 		this.paintChildren(g);
 		g2d.dispose();
 	}
