@@ -1,8 +1,9 @@
 package edu.mccc.cos210.fp2014.cm.game;
 
-import edu.mccc.cos210.fp2014.cm.piece.Piece;
+import edu.mccc.cos210.fp2014.cm.piece.*;
 import edu.mccc.cos210.fp2014.cm.util.GameType;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Timer;
 
@@ -109,7 +110,38 @@ public class GameModel extends Observable {
 		moveRule = 0;
 	}
 	public boolean canDraw() {
-		System.out.println(moveRule);
 		return moveRule % 50 == 0 && moveRule != 0;
+	}
+	public boolean mustDraw() {
+		ArrayList<Piece> pieces = this.getBoard().getPieces();
+		switch (pieces.size()) {
+		case 2:
+			return true;
+		case 3:
+			for (Piece p : pieces) {
+				if (p instanceof Bishop) {
+					return true;
+				} else if (p instanceof Knight) {
+					return true;
+				}
+			}
+			break;
+		case 4:
+			ArrayList<Piece> bishops = new ArrayList<Piece>();
+			for (Piece p : pieces) {
+				if (p instanceof Bishop) {
+					bishops.add(p);
+				}
+				if (bishops.size() == 2) {
+					if (bishops.get(0).isWhite() == bishops.get(1).isWhite()) {
+						return true;
+					}
+				}
+			}
+			break;
+		default:
+			return false;
+		}
+		return false;
 	}
 }

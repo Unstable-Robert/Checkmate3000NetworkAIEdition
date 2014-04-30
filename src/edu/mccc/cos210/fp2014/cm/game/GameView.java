@@ -127,6 +127,9 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 	public void update(Observable o, Object arg) {
 		drawButton.setVisible(this.gm.canDraw());
 		this.paintComponent(this.getGraphics());
+		if (this.gm.mustDraw()) {
+			myCheckmate.setView(Checkmate.DRAW);
+		}
 	}
 	/**
 	 * Checks if the resign button was pressed.
