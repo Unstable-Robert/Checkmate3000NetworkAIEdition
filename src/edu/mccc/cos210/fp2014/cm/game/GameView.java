@@ -38,7 +38,6 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 		super(c);
 		players = new ArrayList<Player>();
 		this.addMouseListener(this);
-		//setBackground(new Color(137, 207, 240));
 	}
 	public GameView(Checkmate c, GameModel model) {
 		this(c);
@@ -265,7 +264,7 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 						if (pTiles.size() == 0) {
 							piece.setSelected(false);
 						}
-						this.gm.updateBoard(b);
+						this.gm.updateBoard(b, false);
 					}
 				}
 			}

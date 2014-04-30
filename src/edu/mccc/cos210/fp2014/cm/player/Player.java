@@ -48,7 +48,7 @@ public abstract class Player implements Observer{
 			if (pt.hasPieceToRemove()){
 				b.removePiece(pt.getRemovePiece());
 			}
-			gm.updateBoard(b);
+			gm.updateBoard(b, false);
 			return true;
 		}
 		return false;
@@ -84,7 +84,7 @@ public abstract class Player implements Observer{
 			clone1.setSelected(false);
 			b.addPiece(clone1);
 			b.addPiece(clone2);
-			gm.updateBoard(b);
+			gm.updateBoard(b, false);
 			return true;
 		}
 		return false;

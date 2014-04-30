@@ -61,7 +61,7 @@ public class LocalPlayer extends Player {
 					}
 					gm.getBoard().removePiece(p);
 					gm.getBoard().addPiece(newPiece);
-					gm.updateBoard(gm.getBoard());
+					gm.updateBoard(gm.getBoard(), false);
 				}
 			}
 		}

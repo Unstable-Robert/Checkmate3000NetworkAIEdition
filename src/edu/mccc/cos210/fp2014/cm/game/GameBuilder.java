@@ -40,6 +40,7 @@ public class GameBuilder {
 			AiPlayer aip2 = new AiPlayer(gm, false, d2);
 			c.setGameView(setupGameView(c, gm, aip1, aip2));
 		}
+		gm.startTimer();
 	}
 	/**
 	 * Builds a networked game for the host player.
@@ -82,18 +83,17 @@ public class GameBuilder {
 		if (g.equals(GameType.TIMED_GAME)){
 			b = new Board(g, t);
 			gm = new GameModel(t, true, b);
-			//gm.addObserver(gt);
 		} else {
 			b = new Board(g);
 			gm = new GameModel(b);
 		}
-		gm.updateBoard(b);
+		gm.updateBoard(b, false);
 		return gm;
 	}
 	private static GameModel setupGameType(){
 		Board b = new Board();
 		GameModel gm = new GameModel(b);
-		gm.updateBoard(b);
+		gm.updateBoard(b, false);
 		return gm;
 	}
 	private static GameView setupGameView(Checkmate c, GameModel gm, Player p1, Player p2){

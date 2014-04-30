@@ -10,7 +10,6 @@ import edu.mccc.cos210.fp2014.cm.player.NetworkPlayer;
 public class TurnTimer extends TimerTask {
 	private GameModel model;
 	private int blackTime, whiteTime;
-	private NetworkPlayer player;
 	public TurnTimer(GameModel gm, int i) {
 		this.model = gm;
 		this.blackTime = i * 60;
@@ -32,12 +31,6 @@ public class TurnTimer extends TimerTask {
 				model.gameExpired();
 			}
 		}
-		updatePlayer();
-		model.updateBoard(b);
-	}
-	private void updatePlayer(){
-		if (this.player != null){
-			this.player.setUpdatedByNetwork(false);
-		}
+		model.updateBoard(b, false);
 	}
 }

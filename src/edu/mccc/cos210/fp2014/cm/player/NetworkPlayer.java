@@ -27,7 +27,6 @@ import edu.mccc.cos210.fp2014.cm.util.MarshalHandler;
  * state.
  */
 public class NetworkPlayer extends Player implements Runnable {
-	private boolean updatedByNetwork;
 	private ServerSocket ss;
 	private Socket socket;
 	private MarshalHandler mh;
@@ -39,14 +38,12 @@ public class NetworkPlayer extends Player implements Runnable {
 	public static NetworkPlayer GetHostNetwork(GameModel gm, InetAddress a)throws IOException{
 		NetworkPlayer np = new NetworkPlayer(gm, true, a);
 		np.setServerSocket(new ServerSocket(7531));
-		np.updatedByNetwork = false;
 		(new Thread(np)).start();
 		return np;
 	}
 	public static NetworkPlayer GetJoinNetwork(GameModel gm, InetAddress a) throws IOException{
 		NetworkPlayer np = new NetworkPlayer(gm, false, a);
 		np.setSocket(new Socket(a, 7531));
-		np.updatedByNetwork = true;
 		(new Thread(np)).start();
 		return np;
 	}
@@ -58,7 +55,6 @@ public class NetworkPlayer extends Player implements Runnable {
 	}
 	@Override
 	public boolean updateModel(Piece piece, PossibleTile pt){
-		this.updatedByNetwork = false;
 		return super.updateModel(piece, pt);
 	}
 	/**
@@ -67,13 +63,13 @@ public class NetworkPlayer extends Player implements Runnable {
 	@Override
 	public void update(Observable o, Object arg) {
 		try {
-			if(!this.updatedByNetwork){ 
+			if(!this.gm.isTimedUpdate()){ 
 				DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
 				writeMessage(this.gm.getBoard(), dos);
 			}
 		}catch (IOException e) {
 			e.printStackTrace();
-		} catch (JAXBException e) {
+		}catch (JAXBException e) {
 			e.printStackTrace();
 		}
 	}
@@ -85,6 +81,7 @@ public class NetworkPlayer extends Player implements Runnable {
 		try {
 			if (this.ss != null){
 				this.socket = this.ss.accept();
+				this.gm.startTimer();
 				this.update(gm, null);
 			}
 			while (true){
@@ -94,8 +91,7 @@ public class NetworkPlayer extends Player implements Runnable {
 						DataInputStream dis = new DataInputStream(is);
 						ByteArrayInputStream bais = readMessage(dis);
 						Board b = mh.unmarshal(bais);
-						this.updatedByNetwork = true;
-						this.gm.updateBoard(b);
+						this.gm.updateBoard(b, true);
 					}
 				} catch (SocketTimeoutException e){
 					e.printStackTrace();
@@ -121,7 +117,4 @@ public class NetworkPlayer extends Player implements Runnable {
         dis.readFully(ba);
         return new ByteArrayInputStream(ba);
     }
-	public void setUpdatedByNetwork(boolean b) {
-		this.updatedByNetwork = b;
-	}
 }

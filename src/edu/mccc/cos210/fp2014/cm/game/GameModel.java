@@ -13,6 +13,8 @@ import java.util.Timer;
 public class GameModel extends Observable {
 	private Board board;
 	private Timer timer;
+	private boolean isTimedUpdate;
+	private int totalTime;
 	/**
 	 * Default public constructor.
 	 */
@@ -27,9 +29,14 @@ public class GameModel extends Observable {
 	}
 	public GameModel(int i, boolean isTimed, Board b){
 		this(b);
+		this.totalTime = i;
 		this.timer = new Timer();
-		this.timer.scheduleAtFixedRate(new TurnTimer(this, i), 1000L, 1000L);
-		this.board.updateBothTimes(i * 60);
+		this.board.updateBothTimes(this.totalTime * 60);
+	}
+	public void startTimer(){
+		if (timer != null){
+			this.timer.scheduleAtFixedRate(new TurnTimer(this, this.totalTime), 1000L, 1000L);
+		}
 	}
 	/**
 	 * Gets a copy of the current board.
@@ -42,10 +49,14 @@ public class GameModel extends Observable {
 	 * Updates the board.
 	 * @param b The new board.
 	 */
-	public void updateBoard(Board b) {
+	public void updateBoard(Board b, boolean timedUpdate) {
+		this.isTimedUpdate = timedUpdate;
 		this.board = b;
 		this.setChanged();
 		this.notifyObservers();
+	}
+	public boolean isTimedUpdate(){
+		return this.isTimedUpdate;
 	}
 	/**
 	 * Called at the end of each turn, by the player or an expired timer.
