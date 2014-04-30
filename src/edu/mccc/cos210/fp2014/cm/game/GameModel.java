@@ -85,20 +85,28 @@ public class GameModel extends Observable {
 	 * Returns true if the game is over.
 	 */
 	public boolean isCheckMate() {
+		if ((this.board.getBlackTime() == 0 || this.board.getWhiteTime() == 0) &&
+				this.hasTimer()){
+			this.cancelTimer();
+			return true;
+		}
+		boolean possibleCheckmate = false;
 		for (Piece p : this.board.getPieces()){
 			if (p.isWhite() == this.board.isWhiteTurn()) {
-				if (!p.getPossibleTiles(this.board).isEmpty()){
+				if (!p.getPossibleTiles(this.board).isEmpty()) {
 					return false;	
 				}
+				if (p instanceof King){
+					King k = (King) p;
+					possibleCheckmate = k.inCheck(this.board);
+				}
 			}
+					
 		}
-		if (this.hasTimer()){
+		if (possibleCheckmate && this.hasTimer()){
 			this.cancelTimer();
-			if (this.board.getBlackTime() == 0 || this.board.getWhiteTime() == 0){
-				return true;
-			}
 		}
-		return true;
+		return possibleCheckmate;
 	}
 	public void cancelTimer() {
 		timer.cancel();
@@ -114,16 +122,17 @@ public class GameModel extends Observable {
 		return moveRule % 50 == 0 && moveRule != 0;
 	}
 	public boolean mustDraw() {
+		boolean draw = false;
 		ArrayList<Piece> pieces = this.getBoard().getPieces();
 		switch (pieces.size()) {
 		case 2:
-			return true;
+			draw = true;
 		case 3:
 			for (Piece p : pieces) {
 				if (p instanceof Bishop) {
-					return true;
+					draw = true;
 				} else if (p instanceof Knight) {
-					return true;
+					draw = true;
 				}
 			}
 			break;
@@ -135,14 +144,29 @@ public class GameModel extends Observable {
 				}
 				if (bishops.size() == 2) {
 					if (bishops.get(0).isWhite() == bishops.get(1).isWhite()) {
-						return true;
+						draw = true;
 					}
 				}
 			}
 			break;
 		default:
-			return false;
+			break;
 		}
-		return false;
+		for (Piece p : this.board.getPieces()){
+			if (p.isWhite() == this.board.isWhiteTurn()) {
+				if (!p.getPossibleTiles(this.board).isEmpty()) {
+					return false;	
+				}
+				if (p instanceof King){
+					King k = (King) p;
+					draw = !k.inCheck(this.board);
+				}
+			}
+					
+		}
+		if (draw) {
+			this.cancelTimer();
+		}
+		return draw;
 	}
 }

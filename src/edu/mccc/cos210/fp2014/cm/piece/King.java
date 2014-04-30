@@ -79,7 +79,7 @@ public class King extends Piece {
 		}
 		return true;
 	}
-	private boolean inCheck(Board b){
+	public boolean inCheck(Board b){
 		for (Piece p : b.getPieces()){
 			if(p.isWhite() != this.isWhite() && !(p instanceof King)){
 				for(PossibleTile move : p.getLazyTiles(b)){
