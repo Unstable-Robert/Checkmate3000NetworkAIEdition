@@ -136,7 +136,14 @@ public class HostView extends SettingsView implements ActionListener {
 			(int)(c.getHeight() * 0.65)
 		);
 		add(ipTextField);
-
+		JLabel colorLabel = new JLabel("Host is White");
+		colorLabel.setForeground(Color.WHITE);
+		colorLabel.setSize(200, 20);
+		colorLabel.setLocation(
+				c.getWidth() / 3 - timedGame.getWidth() / 2,
+				(int)(c.getHeight() * 0.7)
+			);
+		add(colorLabel);
 		//backButton returns to previous screen
 		JButton backButton = new JButton("Back");
 		backButton.setSize(150,50);

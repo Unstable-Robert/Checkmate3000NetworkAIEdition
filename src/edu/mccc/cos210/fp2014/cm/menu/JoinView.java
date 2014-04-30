@@ -72,7 +72,15 @@ public class JoinView extends SettingsView implements ActionListener {
 			 (int) (c.getHeight() * 0.55)
 		);
 		add(ipLabel);
-
+		JLabel colorLabel = new JLabel("Guest is Black");
+		colorLabel.setForeground(Color.WHITE);
+		colorLabel.setSize(100, 20);
+		colorLabel.setLocation(
+				c.getWidth() / 2
+				- colorLabel.getWidth()/2,
+				 (int) (c.getHeight() * 0.7)
+			);
+		add(colorLabel);
 		//backButton returns to previous screen
 		JButton backButton = new JButton("Back");
 		backButton.setSize(150,50);
