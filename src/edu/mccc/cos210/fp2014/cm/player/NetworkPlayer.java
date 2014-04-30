@@ -108,6 +108,9 @@ public class NetworkPlayer extends Player implements Runnable {
 						DataInputStream dis = new DataInputStream(is);
 						ByteArrayInputStream bais = readMessage(dis);
 						Board b = mh.unmarshal(bais);
+						if (b == null){
+							
+						}
 						this.gm.updateBoard(b, true);
 					}
 				} catch (SocketTimeoutException e){

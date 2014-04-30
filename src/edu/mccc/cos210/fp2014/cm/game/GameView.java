@@ -53,7 +53,7 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 				boolean isWhiteTurn = gm.getBoard().isWhiteTurn();
 				if (gm.hasTimer()){
 					gm.cancelTimer();
-				}
+				} 
 				myCheckmate.endGame(isWhiteTurn);
 			}
 		});

@@ -26,9 +26,11 @@ public class LocalPlayer extends Player {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		Board b = this.checkPawnPromotion();
-		if (b != null){
-			gm.updateBoard(b, false);
+		if (this.gm.getBoard() != null){
+			Board b = this.checkPawnPromotion();
+			if (b != null){
+				gm.updateBoard(b, false);
+			}
 		}
 	}
 }
