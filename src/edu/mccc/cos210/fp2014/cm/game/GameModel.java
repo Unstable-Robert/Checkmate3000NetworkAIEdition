@@ -110,6 +110,7 @@ public class GameModel extends Observable {
 		moveRule = 0;
 	}
 	public boolean canDraw() {
+		System.out.println(moveRule);
 		return moveRule % 50 == 0 && moveRule != 0;
 	}
 	public boolean mustDraw() {
