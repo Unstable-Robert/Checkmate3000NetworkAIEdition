@@ -5,7 +5,7 @@ Insert chess pun here
 
 ####ToDo:
 	Add Tie conditions
-	error handling and cleanup with networked play
+	Make game timer end game upon completion
 	start AI Player Classes
 
 ####Changelog:
