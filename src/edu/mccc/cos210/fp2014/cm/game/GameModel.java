@@ -14,18 +14,20 @@ public class GameModel extends Observable {
 	private Board board;
 	private Timer timer;
 	private boolean isNetworkUpdate;
-	private int totalTime;
+	private int totalTime, moveRule;
 	/**
 	 * Default public constructor.
 	 */
 	public GameModel() {
 		this.board = new Board(GameType.NORMAL);
+		this.moveRule = 0;
 	}
 	public GameModel(int i) {
 		this();
 	}
 	public GameModel(Board b) {
 		this.board = b;
+		this.moveRule = 0;
 	}
 	public GameModel(int i, boolean isTimed, Board b){
 		this(b);
@@ -82,9 +84,6 @@ public class GameModel extends Observable {
 	 * Returns true if the game is over.
 	 */
 	public boolean isCheckMate() {
-		if (this.board.getBlackTime() == 0 || this.board.getWhiteTime() == 0){
-			return true;
-		}
 		for (Piece p : this.board.getPieces()){
 			if (p.isWhite() == this.board.isWhiteTurn()) {
 				if (!p.getPossibleTiles(this.board).isEmpty()){
@@ -94,10 +93,23 @@ public class GameModel extends Observable {
 		}
 		if (this.hasTimer()){
 			this.cancelTimer();
+			if (this.board.getBlackTime() == 0 || this.board.getWhiteTime() == 0){
+				return true;
+			}
 		}
 		return true;
 	}
 	public void cancelTimer() {
 		timer.cancel();
+	}
+	public void increaseMoveRule() {
+		moveRule++;
+	}
+	public void resetMoveRule() {
+		moveRule = 0;
+	}
+	public boolean canDraw() {
+		System.out.println(moveRule);
+		return moveRule % 50 == 0 && moveRule != 0;
 	}
 }

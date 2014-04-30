@@ -61,6 +61,11 @@ public abstract class Player implements Observer{
 			b.addPiece(clone);
 			if (pt.hasPieceToRemove()){
 				b.removePiece(pt.getRemovePiece());
+				this.gm.resetMoveRule();
+			} else if (piece instanceof Pawn) {
+				this.gm.resetMoveRule();
+			} else {
+				this.gm.increaseMoveRule();
 			}
 			gm.updateBoard(b, false);
 			return true;

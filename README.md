@@ -6,6 +6,8 @@ Insert chess pun here
 ####ToDo:
 	Add Tie conditions
 	start AI Player Classes
+	extraneous GameModel constructors?
+	replays
 
 ####Changelog:
 	Ended timer ends game

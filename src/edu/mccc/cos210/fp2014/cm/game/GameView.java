@@ -34,7 +34,7 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 	private ArrayList<Player> players;
 	private List<PossibleTile> pTiles = new ArrayList<PossibleTile>();
 	private BufferedImage image;
-	private JButton resignButton;
+	private JButton resignButton, drawButton;
 	public GameView(Checkmate c) {
 		super(c);
 		players = new ArrayList<Player>();
@@ -44,31 +44,49 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 		this(c);
 		this.gm = model;
 		image = loadImage();
+		
 		resignButton = new JButton("Resign");
 		resignButton.setSize(100, 50);
-		resignButton.setLocation((int)(c.getWidth() * 0.05), (int)(c.getHeight() * 0.1));
+		resignButton.setLocation((int)(c.getWidth() * 0.05), (int)(c.getHeight() * 0.10));
 		resignButton.setVisible(true);
 		resignButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				boolean isWhiteTurn = gm.getBoard().isWhiteTurn();
-				for (Player p : players){
-					if (p instanceof NetworkPlayer){
-						NetworkPlayer np = (NetworkPlayer) p;
-						np.setCloseResponsibility(false);
-						np.closeSockets();
-						isWhiteTurn = np.isWhite();
-					}
-				}
-				if (gm.hasTimer()){
-					gm.cancelTimer();
-				} 
+				boolean isWhiteTurn = cleanUp();
 				myCheckmate.endGame(isWhiteTurn);
 			}
 		});
 		add(resignButton);
+		
+		drawButton = new JButton("Draw");
+		drawButton.setSize(100, 50);
+		drawButton.setLocation((int)(c.getWidth() * 0.05), (int)(c.getHeight() * 0.25));
+		drawButton.setVisible(false);
+		drawButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				cleanUp();
+				myCheckmate.setView(Checkmate.DRAW);
+			}
+		});
+		add(drawButton);
 	}
-	public void addPlayer(Player p){
+	private boolean cleanUp() {
+		boolean isWhiteTurn = gm.getBoard().isWhiteTurn();
+		for (Player p : players) {
+			if (p instanceof NetworkPlayer) {
+				NetworkPlayer np = (NetworkPlayer) p;
+				np.setCloseResponsibility(false);
+				np.closeSockets();
+				isWhiteTurn = np.isWhite();
+			}
+		}
+		if (gm.hasTimer()) {
+			gm.cancelTimer();
+		}
+		return isWhiteTurn;
+	}
+	public void addPlayer(Player p) {
 		this.players.add(p);
 	}
 	private BufferedImage loadImage() {
@@ -107,10 +125,11 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
+		drawButton.setVisible(this.gm.canDraw());
 		this.paintComponent(this.getGraphics());
 	}
 	/**
-	 * Checks is the resign button was pressed.
+	 * Checks if the resign button was pressed.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {

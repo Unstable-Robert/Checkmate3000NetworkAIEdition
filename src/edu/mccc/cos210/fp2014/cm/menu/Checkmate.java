@@ -24,6 +24,7 @@ public class Checkmate extends JFrame implements Observer {
 	public static final String JOIN = "join";
 	public static final String GAME = "game";
 	public static final String GAMEOVER = "game over";
+	public static final String DRAW = "draw";
 	private CardLayout cards;
 	private JPanel cardPanel;
 	private GameModel gm;
@@ -39,6 +40,7 @@ public class Checkmate extends JFrame implements Observer {
 		cardPanel.add(new LocalView(this), LOCAL);
 		cardPanel.add(new HostView(this), HOST);
 		cardPanel.add(new JoinView(this), JOIN);
+		cardPanel.add(new DrawView(this), DRAW);
 		//cardPanel.add(new GameOverView(this), GAMEOVER);
 		//cardPanel.add(new GameView(this, new GameModel()), GAME);
 		add(cardPanel);
