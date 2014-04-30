@@ -38,11 +38,13 @@ public class NetworkPlayer extends Player implements Runnable {
 	private Socket socket;
 	private MarshalHandler mh;
 	private boolean active;
+	private boolean closeResponsibilities;
 	
 	private NetworkPlayer(GameModel gm, Checkmate c, Boolean color, InetAddress a) throws IOException{
 		super(gm, c, color);
 		this.mh = new MarshalHandler();
 		this.active = true;
+		this.closeResponsibilities = true;
 	}
 	public static NetworkPlayer GetHostNetwork(GameModel gm, Checkmate c, InetAddress a)throws IOException{
 		NetworkPlayer np = new NetworkPlayer(gm, c, true, a);
@@ -117,10 +119,8 @@ public class NetworkPlayer extends Player implements Runnable {
 						}
 						this.gm.updateBoard(b, true);
 					}
-				} catch (IOException e){
+				} catch (Exception e){
 					unreachablePlayer();				
-				} catch (JAXBException e) {
-					e.printStackTrace();
 				}
 			}
 		} catch (IOException e) {
@@ -129,10 +129,12 @@ public class NetworkPlayer extends Player implements Runnable {
 	}
 	private void unreachablePlayer() {
 		this.closeSockets();
-		if (gm.hasTimer()){
-			gm.cancelTimer();
-		} 
-		myCheckmate.endGame(this.isWhite);		
+		if (this.closeResponsibilities){
+			if (gm.hasTimer()){
+				gm.cancelTimer();
+			} 
+			myCheckmate.endGame(!this.isWhite());	
+		}
 	}
 	private void writeMessage(Board b, DataOutputStream dos) throws JAXBException, IOException, SocketException{
 	    ByteArrayOutputStream bout = new ByteArrayOutputStream();
@@ -158,5 +160,8 @@ public class NetworkPlayer extends Player implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	public void setCloseResponsibility(boolean b) {
+		this.closeResponsibilities = b;
 	}
 }
