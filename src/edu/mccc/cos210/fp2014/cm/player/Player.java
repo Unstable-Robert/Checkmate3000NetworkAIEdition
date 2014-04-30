@@ -1,13 +1,24 @@
 package edu.mccc.cos210.fp2014.cm.player;
 
+import java.awt.GridLayout;
+import java.util.Observable;
 import java.util.Observer;
+
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.game.GameModel;
+import edu.mccc.cos210.fp2014.cm.piece.Bishop;
 import edu.mccc.cos210.fp2014.cm.piece.King;
+import edu.mccc.cos210.fp2014.cm.piece.Knight;
 import edu.mccc.cos210.fp2014.cm.piece.Pawn;
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
+import edu.mccc.cos210.fp2014.cm.piece.Queen;
+import edu.mccc.cos210.fp2014.cm.piece.Rook;
 
 /**
  * Abstract player class.
@@ -88,5 +99,46 @@ public abstract class Player implements Observer{
 			return true;
 		}
 		return false;
+	}
+	public Board checkPawnPromotion(){
+		for (Piece p : this.gm.getBoard().getPieces()) {
+			if (p instanceof Pawn){
+				Pawn pawn = (Pawn) p;
+				if (pawn.canPromote() && !pawn.isPromoted()) {
+					pawn.setHasPromoted(true);
+					JPanel panel = new JPanel(new GridLayout(2, 1));
+					JLabel label = new JLabel("What would you like to promote your pawn to?");
+					JComboBox<String> selection = new JComboBox<String>(new String[]{"Queen","Knight","Bishop","Rook"});
+					String[] options = new String[]{"OK"};
+					panel.add(label);
+					panel.add(selection);
+					JOptionPane.showOptionDialog(null, panel, "Pawn Promotion",
+								  JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+								  null, options, options[0]);
+					Piece newPiece = null;
+					switch (selection.getSelectedIndex()) {
+					case 0:
+						newPiece = new Queen(p);
+						break;
+					case 1:
+						newPiece = new Knight(p);
+						break;
+					case 2:
+						newPiece = new Bishop(p);
+						break;
+					case 3:
+						newPiece = new Rook(p);
+						break;
+					default:
+						break;
+					}
+					Board bClone = gm.getBoard().clone();
+					bClone.removePiece(p);
+					bClone.addPiece(newPiece);
+					return bClone;
+				}
+			}
+		}
+		return null;
 	}
 }

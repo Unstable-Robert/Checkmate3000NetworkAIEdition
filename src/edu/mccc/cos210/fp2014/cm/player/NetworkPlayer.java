@@ -62,6 +62,10 @@ public class NetworkPlayer extends Player implements Runnable {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
+		Board b = this.checkPawnPromotion();
+		if (b != null){
+			this.gm.updateBoard(b, false);
+		}
 		try {
 			if(!this.gm.isTimedUpdate()){ 
 				DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
@@ -71,6 +75,8 @@ public class NetworkPlayer extends Player implements Runnable {
 			e.printStackTrace();
 		}catch (JAXBException e) {
 			e.printStackTrace();
+		} catch (NullPointerException e){
+			
 		}
 	}
 	/**
