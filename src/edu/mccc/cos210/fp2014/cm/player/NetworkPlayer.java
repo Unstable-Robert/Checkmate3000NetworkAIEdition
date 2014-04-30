@@ -78,7 +78,7 @@ public class NetworkPlayer extends Player implements Runnable {
 			this.gm.updateBoard(b, false);
 		}
 		try {
-			if(!this.gm.isTimedUpdate()){ 
+			if(!this.gm.isNetworkUpdate()){ 
 				DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
 				writeMessage(this.gm.getBoard(), dos);
 			}

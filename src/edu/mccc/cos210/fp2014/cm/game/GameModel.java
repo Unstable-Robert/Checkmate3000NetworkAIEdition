@@ -13,7 +13,7 @@ import java.util.Timer;
 public class GameModel extends Observable {
 	private Board board;
 	private Timer timer;
-	private boolean isTimedUpdate;
+	private boolean isNetworkUpdate;
 	private int totalTime;
 	/**
 	 * Default public constructor.
@@ -50,19 +50,18 @@ public class GameModel extends Observable {
 	 * @param b The new board.
 	 */
 	public void updateBoard(Board b, boolean timedUpdate) {
-		this.isTimedUpdate = timedUpdate;
+		this.isNetworkUpdate = timedUpdate;
 		this.board = b;
 		this.setChanged();
 		this.notifyObservers();
 	}
-	public boolean isTimedUpdate(){
-		return this.isTimedUpdate;
+	public boolean isNetworkUpdate(){
+		return this.isNetworkUpdate;
 	}
 	/**
 	 * Called at the end of each turn, by the player or an expired timer.
 	 */
 	public void nextTurn() {
-		//reschedule timer, if applicable
 		this.board.nextTurn();
 	}
 	/**
@@ -83,6 +82,9 @@ public class GameModel extends Observable {
 	 * Returns true if the game is over.
 	 */
 	public boolean isCheckMate() {
+		if (this.board.getBlackTime() == 0 || this.board.getWhiteTime() == 0){
+			return true;
+		}
 		for (Piece p : this.board.getPieces()){
 			if (p.isWhite() == this.board.isWhiteTurn()) {
 				if (!p.getPossibleTiles(this.board).isEmpty()){
