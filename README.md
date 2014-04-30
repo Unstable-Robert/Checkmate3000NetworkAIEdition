@@ -4,17 +4,12 @@ Checkmate3000NetworkAIEdition
 Insert chess pun here
 
 ####ToDo:
-	Add timer responsibilities.
-	Implement Game over View
-	Finish up with Network Player class
-	and start AI Player Classes
-	GameView draw timers.
-	Remove RadioButtons from LocalView (I disagree, they're still being used for AI games - we may want to make them inaccessible if there are two or zero human players).
-	Menus look nice.
-	GameView.resignButton causes you to lose the game.
-	Check if piece can move before selecting it. Save list of possible moves when checking so it doesn't need to check again to draw possible tiles?
+	Add Tie conditions
+	error handling and cleanup with networked play
+	start AI Player Classes
 
 ####Changelog:
+	Networked code finished.
 	Added Pawn promotion.
 	Implemented piece lazy tiles methods.
 	Added code for Marshaler and Networked Player
