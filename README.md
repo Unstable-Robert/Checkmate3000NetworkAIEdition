@@ -4,7 +4,6 @@ Checkmate3000NetworkAIEdition
 Insert chess pun here
 
 ####ToDo:
-	Stalemates
 	Threefold Repetition Draw
 	start AI Player Classes
 	extraneous GameModel constructors?
