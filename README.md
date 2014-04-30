@@ -6,7 +6,6 @@ Insert chess pun here
 ####ToDo:
 	Threefold Repetition Draw
 	start AI Player Classes
-	extraneous GameModel constructors?
 	replays
 
 ####Changelog:

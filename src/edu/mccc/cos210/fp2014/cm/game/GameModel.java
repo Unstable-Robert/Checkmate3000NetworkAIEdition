@@ -19,13 +19,6 @@ public class GameModel extends Observable {
 	/**
 	 * Default public constructor.
 	 */
-	public GameModel() {
-		this.board = new Board(GameType.NORMAL);
-		this.moveRule = 0;
-	}
-	public GameModel(int i) {
-		this();
-	}
 	public GameModel(Board b) {
 		this.board = b;
 		this.moveRule = 0;
