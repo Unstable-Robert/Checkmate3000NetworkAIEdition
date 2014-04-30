@@ -1,7 +1,12 @@
 package edu.mccc.cos210.fp2014.cm.game;
 
+import java.awt.GridLayout;
 import java.io.IOException;
 import java.net.InetAddress;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
 import edu.mccc.cos210.fp2014.cm.player.*;
@@ -73,8 +78,13 @@ public class GameBuilder {
 			np = NetworkPlayer.GetJoinNetwork(gm, a);
 			c.setGameView(setupGameView(c, gm, np));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JPanel panel = new JPanel(new GridLayout(2, 1));
+			JLabel label = new JLabel("It looks like your host isn't ready, please wait.");
+			String[] options = new String[]{"OK"};
+			panel.add(label);
+			JOptionPane.showOptionDialog(null, panel, "Waiting for Another Player",
+						  JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+						  null, options, options[0]);
 		}
 	}
 	private static GameModel setupGameType(GameType g, int t) {

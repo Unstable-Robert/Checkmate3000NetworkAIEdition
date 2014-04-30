@@ -1,5 +1,6 @@
 package edu.mccc.cos210.fp2014.cm.player;
 
+import java.awt.GridLayout;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -12,6 +13,10 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.Observable;
 
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.xml.bind.JAXBException;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
@@ -76,7 +81,13 @@ public class NetworkPlayer extends Player implements Runnable {
 		}catch (JAXBException e) {
 			e.printStackTrace();
 		} catch (NullPointerException e){
-			
+			JPanel panel = new JPanel(new GridLayout(2, 1));
+			JLabel label = new JLabel("Wait up, nobody's connected yet!");
+			String[] options = new String[]{"OK"};
+			panel.add(label);
+			JOptionPane.showOptionDialog(null, panel, "Waiting for Another Player",
+						  JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+						  null, options, options[0]);
 		}
 	}
 	/**
