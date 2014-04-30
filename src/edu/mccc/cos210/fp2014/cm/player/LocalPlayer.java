@@ -4,6 +4,7 @@ import java.util.Observable;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.game.GameModel;
+import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
 import edu.mccc.cos210.fp2014.cm.piece.*;
 
 /**
@@ -11,8 +12,8 @@ import edu.mccc.cos210.fp2014.cm.piece.*;
  * Updates the model when the view is updated.
  */
 public class LocalPlayer extends Player {
-	public LocalPlayer(GameModel gm, boolean b) {
-		super(gm, b);
+	public LocalPlayer(GameModel gm, Checkmate c, boolean b) {
+		super(gm, c, b);
 	}
 	/**
 	 * Updates the model.

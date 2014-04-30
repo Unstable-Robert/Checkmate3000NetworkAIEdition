@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
 import edu.mccc.cos210.fp2014.cm.menu.SettingsView;
 import edu.mccc.cos210.fp2014.cm.piece.*;
+import edu.mccc.cos210.fp2014.cm.player.NetworkPlayer;
 import edu.mccc.cos210.fp2014.cm.player.Player;
 
 /**
@@ -54,6 +55,13 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 				if (gm.hasTimer()){
 					gm.cancelTimer();
 				} 
+				for (Player p : players){
+					if (p instanceof NetworkPlayer){
+						NetworkPlayer np = (NetworkPlayer) p;
+						np.closeSockets();
+						isWhiteTurn = np.isWhite();
+					}
+				}
 				myCheckmate.endGame(isWhiteTurn);
 			}
 		});

@@ -4,6 +4,7 @@ import java.util.Observable;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.game.GameModel;
+import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
 import edu.mccc.cos210.fp2014.cm.player.intelligence.Intelligence;
@@ -20,8 +21,8 @@ public class AiPlayer extends Player implements Runnable{
 	private GamePart gamePart;
 	private GameModel gm;
 	private Difficulty difficulty;
-	public AiPlayer(GameModel gm, boolean b, Difficulty d) {
-		super(gm, b);
+	public AiPlayer(GameModel gm, Checkmate c, boolean b, Difficulty d) {
+		super(gm, c, b);
 		this.difficulty = d;
 	}
 	/**

@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.game.GameModel;
+import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
 import edu.mccc.cos210.fp2014.cm.piece.Bishop;
 import edu.mccc.cos210.fp2014.cm.piece.King;
 import edu.mccc.cos210.fp2014.cm.piece.Knight;
@@ -28,9 +29,11 @@ import edu.mccc.cos210.fp2014.cm.piece.Rook;
 public abstract class Player implements Observer{
 	protected GameModel gm;
 	protected boolean isWhite;
+	protected Checkmate myCheckmate;
 	public Player(){
 	}
-	public Player(GameModel gm, boolean isWhite){
+	public Player(GameModel gm, Checkmate c, boolean isWhite){
+		this.myCheckmate = c;
 		this.gm = gm;
 		this.isWhite = isWhite;
 	}
@@ -140,5 +143,8 @@ public abstract class Player implements Observer{
 			}
 		}
 		return null;
+	}
+	public boolean isWhite(){
+		return this.isWhite;
 	}
 }

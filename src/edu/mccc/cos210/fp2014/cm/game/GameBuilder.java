@@ -29,20 +29,20 @@ public class GameBuilder {
 		c.setGameModel(gm);
 		gm.addObserver(c);
 		if (d1 == Difficulty.HUMAN && d2 == Difficulty.HUMAN) {
-			LocalPlayer lp1 = new LocalPlayer(gm, true);
-			LocalPlayer lp2 = new LocalPlayer(gm, false);
+			LocalPlayer lp1 = new LocalPlayer(gm, c, true);
+			LocalPlayer lp2 = new LocalPlayer(gm, c, false);
 			c.setGameView(setupGameView(c, gm, lp1, lp2));
 		} else if (d1 == Difficulty.HUMAN && d2 != Difficulty.HUMAN){
-			LocalPlayer lp = new LocalPlayer(gm, true);
-			AiPlayer aip = new AiPlayer(gm, false, d2);
+			LocalPlayer lp = new LocalPlayer(gm, c, true);
+			AiPlayer aip = new AiPlayer(gm, c, false, d2);
 			c.setGameView(setupGameView(c, gm, lp, aip));
 		} else if (d1 != Difficulty.HUMAN && d2 == Difficulty.HUMAN){
-			LocalPlayer lp = new LocalPlayer(gm, false);
-			AiPlayer aip = new AiPlayer(gm, true, d1);
+			LocalPlayer lp = new LocalPlayer(gm, c, false);
+			AiPlayer aip = new AiPlayer(gm, c, true, d1);
 			c.setGameView(setupGameView(c, gm, lp, aip));
 		}else {
-			AiPlayer aip1 = new AiPlayer(gm, true, d1);
-			AiPlayer aip2 = new AiPlayer(gm, false, d2);
+			AiPlayer aip1 = new AiPlayer(gm, c, true, d1);
+			AiPlayer aip2 = new AiPlayer(gm, c, false, d2);
 			c.setGameView(setupGameView(c, gm, aip1, aip2));
 		}
 		gm.startTimer();
@@ -58,7 +58,7 @@ public class GameBuilder {
 		gm.addObserver(c);
 		NetworkPlayer np;
 		try {
-			np = NetworkPlayer.GetHostNetwork(gm, a);
+			np = NetworkPlayer.GetHostNetwork(gm, c, a);
 			c.setGameView(setupGameView(c, gm, np));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -75,7 +75,7 @@ public class GameBuilder {
 		gm.addObserver(c);
 		NetworkPlayer np;
 		try {
-			np = NetworkPlayer.GetJoinNetwork(gm, a);
+			np = NetworkPlayer.GetJoinNetwork(gm, c, a);
 			c.setGameView(setupGameView(c, gm, np));
 		} catch (IOException e) {
 			JPanel panel = new JPanel(new GridLayout(2, 1));

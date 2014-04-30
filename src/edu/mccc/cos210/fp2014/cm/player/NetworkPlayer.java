@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.Observable;
 
@@ -21,6 +22,7 @@ import javax.xml.bind.JAXBException;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.game.GameModel;
+import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
 import edu.mccc.cos210.fp2014.cm.util.MarshalHandler;
@@ -35,19 +37,21 @@ public class NetworkPlayer extends Player implements Runnable {
 	private ServerSocket ss;
 	private Socket socket;
 	private MarshalHandler mh;
+	private boolean active;
 	
-	private NetworkPlayer(GameModel gm, Boolean color, InetAddress a) throws IOException{
-		super(gm, color);
-		mh = new MarshalHandler();
+	private NetworkPlayer(GameModel gm, Checkmate c, Boolean color, InetAddress a) throws IOException{
+		super(gm, c, color);
+		this.mh = new MarshalHandler();
+		this.active = true;
 	}
-	public static NetworkPlayer GetHostNetwork(GameModel gm, InetAddress a)throws IOException{
-		NetworkPlayer np = new NetworkPlayer(gm, true, a);
+	public static NetworkPlayer GetHostNetwork(GameModel gm, Checkmate c, InetAddress a)throws IOException{
+		NetworkPlayer np = new NetworkPlayer(gm, c, true, a);
 		np.setServerSocket(new ServerSocket(7531));
 		(new Thread(np)).start();
 		return np;
 	}
-	public static NetworkPlayer GetJoinNetwork(GameModel gm, InetAddress a) throws IOException{
-		NetworkPlayer np = new NetworkPlayer(gm, false, a);
+	public static NetworkPlayer GetJoinNetwork(GameModel gm, Checkmate c, InetAddress a) throws IOException{
+		NetworkPlayer np = new NetworkPlayer(gm, c, false, a);
 		np.setSocket(new Socket(a, 7531));
 		(new Thread(np)).start();
 		return np;
@@ -77,7 +81,7 @@ public class NetworkPlayer extends Player implements Runnable {
 				writeMessage(this.gm.getBoard(), dos);
 			}
 		}catch (IOException e) {
-			e.printStackTrace();
+			unreachablePlayer();
 		}catch (JAXBException e) {
 			e.printStackTrace();
 		} catch (NullPointerException e){
@@ -101,7 +105,7 @@ public class NetworkPlayer extends Player implements Runnable {
 				this.gm.startTimer();
 				this.update(gm, null);
 			}
-			while (true){
+			while (this.active){
 				try {
 					InputStream is = socket.getInputStream();
 					if (is.available() > 0){
@@ -113,17 +117,24 @@ public class NetworkPlayer extends Player implements Runnable {
 						}
 						this.gm.updateBoard(b, true);
 					}
-				} catch (SocketTimeoutException e){
-					e.printStackTrace();
+				} catch (IOException e){
+					unreachablePlayer();				
 				} catch (JAXBException e) {
 					e.printStackTrace();
 				}
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			
 		}
 	}
-	private void writeMessage(Board b, DataOutputStream dos) throws JAXBException, IOException{
+	private void unreachablePlayer() {
+		this.closeSockets();
+		if (gm.hasTimer()){
+			gm.cancelTimer();
+		} 
+		myCheckmate.endGame(this.isWhite);		
+	}
+	private void writeMessage(Board b, DataOutputStream dos) throws JAXBException, IOException, SocketException{
 	    ByteArrayOutputStream bout = new ByteArrayOutputStream();
 	    mh.marshal(b, bout);
 	    byte[] msgBytes = bout.toByteArray();
@@ -137,4 +148,15 @@ public class NetworkPlayer extends Player implements Runnable {
         dis.readFully(ba);
         return new ByteArrayInputStream(ba);
     }
+	public void closeSockets() {
+		try {
+			this.active = false;
+			this.socket.close();
+			if (this.ss != null) {
+				this.ss.close();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
