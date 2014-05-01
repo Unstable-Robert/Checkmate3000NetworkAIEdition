@@ -7,6 +7,7 @@ Insert chess pun here
 	Threefold Repetition Draw
 	start AI Player Classes
 	replays
+	add chat
 
 ####Changelog:
 	Ended timer ends game
