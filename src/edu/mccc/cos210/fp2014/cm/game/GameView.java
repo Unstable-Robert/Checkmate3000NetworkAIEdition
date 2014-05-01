@@ -15,8 +15,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.imageio.*;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+//import javax.swing.JButton;
+//import javax.swing.JPanel;
+import javax.swing.*;
 
 import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
 import edu.mccc.cos210.fp2014.cm.menu.SettingsView;
@@ -35,7 +36,9 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 	private ArrayList<Player> players;
 	private List<PossibleTile> pTiles = new ArrayList<PossibleTile>();
 	private BufferedImage image;
-	private JButton resignButton, drawButton;
+	private JButton resignButton, drawButton, sendButton;
+	private JTextField sendTF;
+	private JLabel chatLabel;
 	public GameView(Checkmate c) {
 		super(c);
 		players = new ArrayList<Player>();
@@ -57,8 +60,7 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 				myCheckmate.endGame(isWhiteTurn);
 			}
 		});
-		add(resignButton);
-		
+		add(resignButton);		
 		drawButton = new JButton("Draw");
 		drawButton.setSize(100, 50);
 		drawButton.setLocation((int)(c.getWidth() * 0.05), (int)(c.getHeight() * 0.25));
@@ -71,6 +73,46 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 			}
 		});
 		add(drawButton);
+		chatLabel = new JLabel("chat Text here");
+		chatLabel.setForeground(Color.BLACK);
+		chatLabel.setVerticalTextPosition(JLabel.BOTTOM);
+		chatLabel.setVerticalAlignment(JLabel.BOTTOM);
+		chatLabel.setSize(360,150);
+		chatLabel.setLocation(
+			(int)(c.getWidth() * 0.05), 
+			(int)(c.getHeight() * 0.65)
+		);
+		//chatLabel.setOpaque(true);
+		chatLabel.setBackground(Color.WHITE);
+		add(chatLabel);
+	
+		sendTF = new JTextField();
+		sendTF.setSize(250,20);
+		sendTF.setLocation(
+			(int)(c.getWidth() * 0.05), 
+			(int)(c.getHeight() * 0.90)
+		);
+		add(sendTF);
+		sendButton = new JButton("send");
+		sendButton.setSize(100, 20);
+		sendButton.setLocation(
+			(int)(c.getWidth() * 0.05 + sendTF.getWidth() + 10),
+			(int)(c.getHeight() * 0.90)
+		);
+		sendButton.setVisible(true);
+		sendButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				setChatLabel(getSentText());
+			}
+		});
+		add(sendButton);
+	}
+	public void setChatLabel(String s) {
+		chatLabel.setText(s);
+	}
+	public String getSentText() {
+		return sendTF.getText();
 	}
 	private boolean cleanUp() {
 		boolean isWhiteTurn = gm.getBoard().isWhiteTurn();

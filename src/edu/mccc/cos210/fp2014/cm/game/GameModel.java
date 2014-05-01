@@ -120,6 +120,7 @@ public class GameModel extends Observable {
 		switch (pieces.size()) {
 		case 2:
 			draw = true;
+			break;
 		case 3:
 			for (Piece p : pieces) {
 				if (p instanceof Bishop) {
