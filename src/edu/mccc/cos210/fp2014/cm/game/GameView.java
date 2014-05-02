@@ -173,6 +173,31 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 		if (this.gm.mustDraw()) {
 			myCheckmate.setView(Checkmate.DRAW);
 		}
+		if (this.gm.isCheckMate()){
+			boolean isWhiteTurn = myCheckmate.getGameModel().getBoard().isWhiteTurn();
+			//myCheckmate.endGame(isWhiteTurn);
+			JPanel panel = new JPanel(new GridLayout(2, 1));
+			JLabel label;
+			if(myCheckmate.getGameModel().getBoard().isWhiteTurn()) {
+				label = new JLabel("Black Wins!!");
+			} else {
+				label = new JLabel("White Wins!!");
+			}
+			String[] options = new String[]{"OK","Save Game Log"};
+			panel.add(label);
+			int gameOverAction = JOptionPane.showOptionDialog(
+				null, panel, "Game Over",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+			        null, options, options[0]
+			);
+			if (gameOverAction == JOptionPane.OK_OPTION) {
+				myCheckmate.setView(Checkmate.MAIN_MENU);	
+			} else {
+				//save log
+				System.out.println("Save the log");
+				myCheckmate.setView(Checkmate.MAIN_MENU);
+			}
+		}
 	}
 	/**
 	 * Checks if the resign button was pressed.

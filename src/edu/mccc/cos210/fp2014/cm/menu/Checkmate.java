@@ -87,9 +87,5 @@ public class Checkmate extends JFrame implements Observer {
 	}
 	@Override
 	public void update(Observable o, Object arg) {
-		if (this.gm.isCheckMate()){
-			boolean isWhiteTurn = this.getGameModel().getBoard().isWhiteTurn();
-			endGame(isWhiteTurn);
-		}
 	}
 }
