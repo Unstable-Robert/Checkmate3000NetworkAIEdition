@@ -44,12 +44,12 @@ public class Board implements Cloneable{
         this.moves = "";
 	}
 	public Board(GameType g) {
-		super();
+		this();
 		this.metaInfo = new Meta(g);
 		setUpPieces();
 	}
 	public Board(GameType g, int t){
-		super();
+		this();
 		this.metaInfo = new Meta(g, t);
 		setUpPieces();
 	}

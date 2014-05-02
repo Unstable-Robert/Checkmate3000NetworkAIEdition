@@ -50,7 +50,6 @@ public class GameOverView extends SettingsView implements ActionListener {
                 saveWindow.showSaveDialog(GameOverView.this);
                 try(FileWriter fw = new FileWriter(saveWindow.getSelectedFile()+".c3")) {
                     fw.write(moves);
-                    fw.close();
                 } catch (java.io.IOException a){
                     System.out.println(a);
                 }
