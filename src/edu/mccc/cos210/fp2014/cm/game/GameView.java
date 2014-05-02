@@ -15,8 +15,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.imageio.*;
-//import javax.swing.JButton;
-//import javax.swing.JPanel;
 import javax.swing.*;
 
 import edu.mccc.cos210.fp2014.cm.menu.Checkmate;

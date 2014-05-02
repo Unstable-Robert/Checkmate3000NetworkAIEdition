@@ -2,6 +2,7 @@ package edu.mccc.cos210.fp2014.cm.menu;
 
 import edu.mccc.cos210.fp2014.cm.game.GameModel;
 import edu.mccc.cos210.fp2014.cm.game.GameView;
+import edu.mccc.cos210.fp2014.cm.game.LogView;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -26,6 +27,7 @@ public class Checkmate extends JFrame implements Observer {
 	public static final String GAME = "game";
 	public static final String GAMEOVER = "game over";
 	public static final String DRAW = "draw";
+	public static final String LOG = "log";
 	private CardLayout cards;
 	private JPanel cardPanel;
 	private GameModel gm;
@@ -43,6 +45,7 @@ public class Checkmate extends JFrame implements Observer {
 		cardPanel.add(new HostView(this), HOST);
 		cardPanel.add(new JoinView(this), JOIN);
 		cardPanel.add(new DrawView(this), DRAW);
+		cardPanel.add(new LogView(this), LOG);
 		//cardPanel.add(new GameOverView(this), GAMEOVER);
 		//cardPanel.add(new GameView(this, new GameModel()), GAME);
 		add(cardPanel);

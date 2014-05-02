@@ -27,12 +27,10 @@ public abstract class SettingsView extends JPanel implements ActionListener {
 		setLayout(null);
 		this.setDoubleBuffered(true);
 		try {
-			this.backgroundImage = ImageIO.read(new File("res//Chess-king.JPG"));
+			this.backgroundImage = ImageIO.read(new File("res/Chess-king.JPG"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//setBackground(new Color(137, 207, 240));
 	}
 	@Override
 	public void paintComponent(Graphics g){

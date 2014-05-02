@@ -1,19 +1,15 @@
 package edu.mccc.cos210.fp2014.cm.menu;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.font.FontRenderContext;
-import java.io.BufferedReader;
+import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.InetAddress;
-import java.net.URL;
-import java.net.UnknownHostException;
 
-import javax.swing.*;
+import javax.imageio.ImageIO;
+import javax.swing.Timer;
 
 /**
  * Splash screen.
@@ -21,21 +17,21 @@ import javax.swing.*;
 public class SplashView extends SettingsView {
 	private static final long serialVersionUID = 1L;
 	private Timer t;
+	private Image splashImage;
 	public SplashView(Checkmate c) {
 		super(c);
-		
-		JLabel titleLabel = new JLabel("Checkmate 3000 Network AI Edition");
-		titleLabel.setForeground(Color.WHITE);
-		titleLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 35));
-		titleLabel.setSize(635, 50);
-		titleLabel.setLocation(
-			c.getWidth() / 2 - titleLabel.getWidth() / 2, 
-			(int)(c.getHeight() * 0.35)
-		);
-		add(titleLabel);
-		
+		try {
+			this.splashImage = ImageIO.read(new File("res/splash.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		t = new Timer(3000, this);
 		t.start();
+	}
+	@Override
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+	    g.drawImage(splashImage, 0, 0, this);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
