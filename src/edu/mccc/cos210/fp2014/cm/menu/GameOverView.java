@@ -5,14 +5,13 @@ import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.FontRenderContext;
+import java.io.FileWriter;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class GameOverView extends SettingsView implements ActionListener {
 	private static final long serialVersionUID = 1L;
-	public GameOverView(boolean whiteWon, Checkmate c, String moves) {
+	public GameOverView(boolean whiteWon, Checkmate c, final String moves) {
 		super(c);
 		JLabel winnerLabel = new JLabel("");
 		if(!whiteWon) {
@@ -42,6 +41,26 @@ public class GameOverView extends SettingsView implements ActionListener {
 			}
 		});
 		add(mmButton);
+        JButton smButton = new JButton("Save Log");
+        smButton.setSize(150,50);
+        smButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser saveWindow = new JFileChooser();
+                saveWindow.showSaveDialog(GameOverView.this);
+                try(FileWriter fw = new FileWriter(saveWindow.getSelectedFile()+".c3")) {
+                    fw.write(moves);
+                    fw.close();
+                } catch (java.io.IOException a){
+                    System.out.println(a);
+                }
+            }
+        });
+        smButton.setLocation(
+                c.getWidth() / 2 - smButton.getWidth()/2,
+                (int)(c.getHeight() * 0.85)
+        );
+        add(smButton);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
