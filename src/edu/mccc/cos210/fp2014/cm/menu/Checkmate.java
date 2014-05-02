@@ -18,6 +18,7 @@ import javax.swing.JPanel;
  */
 public class Checkmate extends JFrame implements Observer {
 	private static final long serialVersionUID = 1L;
+	public static final String SPLASH = "splash";
 	public static final String MAIN_MENU = "main menu";
 	public static final String LOCAL = "local";
 	public static final String HOST = "host";
@@ -36,6 +37,7 @@ public class Checkmate extends JFrame implements Observer {
 		cards = new CardLayout();
 		cardPanel = new JPanel();
 		cardPanel.setLayout(cards);
+		cardPanel.add(new SplashView(this), SPLASH);
 		cardPanel.add(new MainMenuView(this), MAIN_MENU);
 		cardPanel.add(new LocalView(this), LOCAL);
 		cardPanel.add(new HostView(this), HOST);
@@ -44,7 +46,7 @@ public class Checkmate extends JFrame implements Observer {
 		//cardPanel.add(new GameOverView(this), GAMEOVER);
 		//cardPanel.add(new GameView(this, new GameModel()), GAME);
 		add(cardPanel);
-		cards.show(cardPanel, MAIN_MENU);
+		cards.show(cardPanel, SPLASH);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent we) {
