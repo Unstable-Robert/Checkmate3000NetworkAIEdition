@@ -20,6 +20,7 @@ public class Meta implements Cloneable {
 	private double whiteScore;
 	private double blackScore;
 	private int numPossibleMoves;
+    private int turnNum;
 	public Meta (){
 	}
 	public Meta(GameType g) {
@@ -27,19 +28,21 @@ public class Meta implements Cloneable {
 		this.whiteScore = 0;
 		this.blackScore = 0;
 		this.numPossibleMoves = 0;
+        this.turnNum = 1;
 	}
 	public Meta(GameType g, int t){
 		this(g);
 		this.whiteTime = t;
 		this.blackTime = t;
 	}
-	public Meta(GameType gt, int wT, int bT, double wS, double bS, int nPM){
+	public Meta(GameType gt, int wT, int bT, double wS, double bS, int nPM, int tn){
 		this.gameType = gt;
 		this.whiteTime = wT;
 		this.blackTime = bT;
 		this.whiteScore = wS;
 		this.blackScore = bS;
 		this.numPossibleMoves = nPM;
+        this.turnNum = tn;
 	}
 	public GameType getGameType(){
 		return this.gameType;
@@ -74,12 +77,19 @@ public class Meta implements Cloneable {
 	public void setPossibleMoves(int m){
 		this.numPossibleMoves = m;
 	}
+    public int getNumTurns(){
+        return this.turnNum;
+    }
+    public void increaseTurn(){
+        this.turnNum++;
+    }
 	public Meta clone(){
 		return new Meta(this.getGameType(),
 				this.getWhiteTime(),
 				this.getBlackTime(),
 				this.getWhiteScore(),
 				this.getBlackScore(),
-				this.getPossibleMoves());
+				this.getPossibleMoves(),
+                this.getNumTurns());
 	}
 }

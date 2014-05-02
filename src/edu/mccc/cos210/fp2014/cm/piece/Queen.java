@@ -93,4 +93,8 @@ public class Queen extends Piece {
 		}
 		return possibleTiles;
 	}
+    @Override
+    public String locToString (){
+        return "Q" + String.valueOf(Character.toChars(65+this.getX())) + (Math.abs(this.getY() - 8));
+    }
 }

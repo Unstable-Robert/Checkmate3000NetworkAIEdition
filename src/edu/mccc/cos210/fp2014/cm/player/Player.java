@@ -62,12 +62,21 @@ public abstract class Player implements Observer{
 			if (pt.hasPieceToRemove()){
 				b.removePiece(pt.getRemovePiece());
 				this.gm.resetMoveRule();
+                if (piece instanceof Pawn){
+                    if (!((Pawn)clone).canPromote()){
+                        b.addMove(clone.locToString()+":");
+                    }
+                } else b.addMove(clone.locToString()+":");
 			} else if (piece instanceof Pawn) {
 				this.gm.resetMoveRule();
+                if (!((Pawn)clone).canPromote())
+                    b.addMove(clone.locToString());
 			} else {
 				this.gm.increaseMoveRule();
+                b.addMove(clone.locToString());
 			}
 			gm.updateBoard(b, false);
+            System.out.println(b.getMoves());
 			return true;
 		}
 		return false;
@@ -84,6 +93,7 @@ public abstract class Player implements Observer{
 			b.removePiece(p1);
 			b.removePiece(p2);
 			if (p1.getX() < p2.getX()) {
+                b.addMove("0-0");
 				if (p1 instanceof King){
 					clone1.setX(p2.getX() - 1);
 					clone2.setX(p1.getX() + 1);
@@ -92,6 +102,7 @@ public abstract class Player implements Observer{
 					clone2.setX(p1.getX() + 2);
 				}
 			} else {
+                b.addMove("0-0-0");
 				if (p1 instanceof King){
 					clone1.setX(p2.getX() + 2);
 					clone2.setX(p1.getX() - 1);
@@ -124,18 +135,23 @@ public abstract class Player implements Observer{
 								  JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
 								  null, options, options[0]);
 					Piece newPiece = null;
+                    String pie = "";
 					switch (selection.getSelectedIndex()) {
 					case 0:
 						newPiece = new Queen(p);
+                        pie = "Q";
 						break;
 					case 1:
 						newPiece = new Knight(p);
+                        pie = "N";
 						break;
 					case 2:
 						newPiece = new Bishop(p);
+                        pie = "B";
 						break;
 					case 3:
 						newPiece = new Rook(p);
+                        pie = "R";
 						break;
 					default:
 						break;
@@ -143,6 +159,7 @@ public abstract class Player implements Observer{
 					Board bClone = gm.getBoard().clone();
 					bClone.removePiece(p);
 					bClone.addPiece(newPiece);
+                    bClone.addMove(p.locToString()+"="+pie);
 					return bClone;
 				}
 			}

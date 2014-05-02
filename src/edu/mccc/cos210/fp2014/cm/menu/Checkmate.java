@@ -80,7 +80,7 @@ public class Checkmate extends JFrame implements Observer {
 		return gm;
 	}
 	public void endGame(boolean whiteWon) {
-		cardPanel.add(new GameOverView(whiteWon, this), GAMEOVER);
+		cardPanel.add(new GameOverView(whiteWon, this, gm.getBoard().getMoves()), GAMEOVER);
 		cards.show(cardPanel, GAMEOVER);
 	}
 	@Override

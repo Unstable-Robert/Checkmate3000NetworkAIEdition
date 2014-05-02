@@ -48,4 +48,8 @@ public class Knight extends Piece {
 		}
 		return lazyTiles;
 	}
+    @Override
+    public String locToString (){
+        return "N" + String.valueOf(Character.toChars(65+this.getX())) + (Math.abs(this.getY() - 8));
+    }
 }

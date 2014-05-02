@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 public class GameOverView extends SettingsView implements ActionListener {
 	private static final long serialVersionUID = 1L;
-	public GameOverView(boolean whiteWon, Checkmate c) {
+	public GameOverView(boolean whiteWon, Checkmate c, String moves) {
 		super(c);
 		JLabel winnerLabel = new JLabel("");
 		if(!whiteWon) {

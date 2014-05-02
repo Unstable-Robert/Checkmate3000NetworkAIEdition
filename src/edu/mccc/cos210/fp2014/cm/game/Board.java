@@ -26,6 +26,7 @@ public class Board implements Cloneable{
 	private boolean whiteTurn;
 	@XmlElement(name="metaInfo")
 	private Meta metaInfo;
+    private String moves;
 	/**
 	 * Constructor.
 	 * Saves possible tiles, pieces, moves, whose turn it is, and meta data.
@@ -36,6 +37,7 @@ public class Board implements Cloneable{
 		this.movesSincePieceTaken = 0;
 		this.whiteTurn = true;
 		this.metaInfo = new Meta();
+        this.moves = "";
 	}
 	public Board(GameType g) {
 		this.possibleTiles = new ArrayList<PossibleTile>();
@@ -43,6 +45,7 @@ public class Board implements Cloneable{
 		this.movesSincePieceTaken = 0;
 		this.whiteTurn = true;
 		this.metaInfo = new Meta(g);
+        this.moves = "";
 		setUpPieces();
 	}
 	public Board(GameType g, int t){
@@ -51,14 +54,16 @@ public class Board implements Cloneable{
 		this.movesSincePieceTaken = 0;
 		this.whiteTurn = true;
 		this.metaInfo = new Meta(g, t);
+        this.moves = "";
 		setUpPieces();
 	}
-	public Board(ArrayList<PossibleTile> tiles, ArrayList<Piece> p, int moves, boolean t, Meta meta) {
+	public Board(ArrayList<PossibleTile> tiles, ArrayList<Piece> p, int moves, boolean t, Meta meta, String move) {
 		this.possibleTiles = tiles;
 		this.pieces = p;
 		this.movesSincePieceTaken = moves;
 		this.whiteTurn = t;
 		this.metaInfo = meta;
+        this.moves = move;
 	}
 	private void setUpPieces(){
 		int id = 0;
@@ -206,6 +211,26 @@ public class Board implements Cloneable{
 		}
 		return null;
 	}
+
+    /**
+     * Gets the Log of all moves Taken
+     * @return String of Moves
+     */
+    public String getMoves(){
+        return this.moves;
+    }
+    /**
+     * Adds a Move to the Log
+     * @param s Move Taken
+     */
+    public void addMove(String s){
+        if (!whiteTurn){
+            this.moves = this.moves+getMetaInfo().getNumTurns()+". "+s+" ";
+        } else {
+            this.moves = this.moves+" "+s+" ";
+            getMetaInfo().increaseTurn();
+        }
+    }
 	public Board clone(){
 		ArrayList<Piece> newPieces = new ArrayList<Piece>();
 		ArrayList<PossibleTile> newTiles = new ArrayList<PossibleTile>();
@@ -216,6 +241,7 @@ public class Board implements Cloneable{
 				newPieces,
 				this.getNumMovesSinceLastPieceTaken(), 
 				this.whiteTurn,
-				this.getMetaInfo().clone());
+				this.getMetaInfo().clone(),
+                this.getMoves());
 	}
 }

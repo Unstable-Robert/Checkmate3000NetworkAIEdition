@@ -149,6 +149,9 @@ public abstract class Piece implements Cloneable {
 	protected boolean checkBounds(int x, int y){
 		return x >= 0 && x <= 7 && y >= 0 && y <= 7;
 	}
+    public String locToString (){
+        return String.valueOf(Character.toChars(65+this.getX())) + (Math.abs(this.getY() - 8));
+    }
 	protected boolean checkSameSpace(Piece p1, PossibleTile p2){
 		return (p1.getX() == p2.getX() && p1.getY() == p2.getY());
 	}
