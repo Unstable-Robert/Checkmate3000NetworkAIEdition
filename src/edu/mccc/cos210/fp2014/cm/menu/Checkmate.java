@@ -4,6 +4,8 @@ import edu.mccc.cos210.fp2014.cm.game.GameModel;
 import edu.mccc.cos210.fp2014.cm.game.GameView;
 import edu.mccc.cos210.fp2014.cm.game.LogView;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.CardLayout;
@@ -13,11 +15,12 @@ import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  * Runner class and main JFrame.
  */
-public class Checkmate extends JFrame implements Observer {
+public class Checkmate extends JFrame implements Observer, ActionListener {
 	private static final long serialVersionUID = 1L;
 	public static final String SPLASH = "splash";
 	public static final String MAIN_MENU = "main menu";
@@ -62,6 +65,9 @@ public class Checkmate extends JFrame implements Observer {
 				}
 			}
 		});
+		Timer t = new Timer(2000, this);
+		t.setRepeats(false);
+		t.start();
 		setVisible(true);
 	}
 	public static void main(String[] sa) {
@@ -82,11 +88,11 @@ public class Checkmate extends JFrame implements Observer {
 	public GameModel getGameModel() {
 		return gm;
 	}
-	/*public void endGame(boolean whiteWon) {
-		cardPanel.add(new GameOverView(whiteWon, this, gm.getBoard().getMoves() + (whiteWon ? "1-0":"0-1")), GAMEOVER);
-		cards.show(cardPanel, GAMEOVER);
-	}*/
 	@Override
 	public void update(Observable o, Object arg) {
+	}
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+		setView(Checkmate.MAIN_MENU);
 	}
 }

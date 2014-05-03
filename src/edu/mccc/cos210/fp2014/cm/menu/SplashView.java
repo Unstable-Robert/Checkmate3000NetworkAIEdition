@@ -9,14 +9,12 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.Timer;
 
 /**
  * Splash screen.
  */
 public class SplashView extends SettingsView {
 	private static final long serialVersionUID = 1L;
-	private Timer t;
 	private Image splashImage;
 	public SplashView(Checkmate c) {
 		super(c);
@@ -25,8 +23,6 @@ public class SplashView extends SettingsView {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		t = new Timer(3000, this);
-		t.start();
 	}
 	@Override
 	public void paintComponent(Graphics g){
@@ -35,7 +31,5 @@ public class SplashView extends SettingsView {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		t.stop();
-		myCheckmate.setView(Checkmate.MAIN_MENU);
 	}
 }
