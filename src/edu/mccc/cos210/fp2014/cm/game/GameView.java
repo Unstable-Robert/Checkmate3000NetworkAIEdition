@@ -59,16 +59,22 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		});
 		add(resignButton);		
 
+		
 		chatTextArea = new JTextArea("", 14, 26);
-		chatTextArea.setSize(135, 210);
-		chatTextArea.setLocation(
-			(int)(c.getWidth() * 0.02), 
-			(int)(c.getHeight() * 0.55)
-		);
 		chatTextArea.setEditable(false);
+		chatTextArea.setLineWrap(true);
 		//chatTextArea.setOpaque(true);
 		add(chatTextArea);
-	
+		JScrollPane scrollPane =  new JScrollPane(chatTextArea,
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
+                );
+		scrollPane.setLocation(
+				(int)(c.getWidth() * 0.02), 
+				(int)(c.getHeight() * 0.50)
+			);
+		scrollPane.setSize(135, 220);
+        add(scrollPane);
 		sendTF = new JTextField();
 		sendTF.setSize(250,20);
 		sendTF.setLocation(
