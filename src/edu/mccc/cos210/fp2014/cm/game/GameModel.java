@@ -166,7 +166,9 @@ public class GameModel extends Observable {
 					
 		}
 		if (draw) {
-			this.cancelTimer();
+			if(this.hasTimer()){
+				this.cancelTimer();
+			}
 		}
 		return draw;
 	}

@@ -118,7 +118,8 @@ public class NetworkPlayer extends Player implements Runnable {
 							Board b = mh.unmarshal(bais);
 							this.gm.updateBoard(b, true);
 						}catch (JAXBException e){
-							unreachablePlayer(Integer.parseInt(bais.toString()));				
+							unreachablePlayer();
+							this.gm.updateBoard(this.gm.getBoard(), false);
 						}
 					}
 				} catch (IOException e){
@@ -129,9 +130,8 @@ public class NetworkPlayer extends Player implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	private void unreachablePlayer(int i) {
+	private void unreachablePlayer() {
 		this.closeSockets();
-		this.gm.setWinner(i);
 		if (this.closeResponsibilities){
 			if (gm.hasTimer()){
 				gm.cancelTimer();
@@ -160,16 +160,6 @@ public class NetworkPlayer extends Player implements Runnable {
 			if (this.ss != null) {
 				this.ss.close();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	public void sendWinner(){
-		DataOutputStream os;
-		try {
-			os = new DataOutputStream(this.socket.getOutputStream());
-			os.writeInt(0);
-			os.writeInt(this.gm.getWinner());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
