@@ -28,7 +28,7 @@ import edu.mccc.cos210.fp2014.cm.util.GameType;
  * JPanel view of the board.
  * Also handles click actions and player selection.
  */
-public class GameView extends SettingsView implements Observer, ActionListener, MouseListener{
+public class GameView extends SettingsView implements Observer, MouseListener{
 	private static final long serialVersionUID = 1L;
 	private GameModel gm;
 	private ArrayList<Player> players;
@@ -113,13 +113,11 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 		return bi;
 	}
 	private void cleanUp() {
-		boolean isWhiteTurn = gm.getBoard().isWhiteTurn();
 		for (Player p : players) {
 			if (p instanceof NetworkPlayer) {
 				NetworkPlayer np = (NetworkPlayer) p;
 				np.setCloseResponsibility(false);
 				np.closeSockets();
-				isWhiteTurn = np.isWhite();
 			}
 		}
 		if (gm.hasTimer()) {
@@ -234,8 +232,6 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 			drawGame();
 		}
 		if (this.gm.isCheckMate()){
-			boolean isWhiteTurn = myCheckmate.getGameModel().getBoard().isWhiteTurn();
-			//myCheckmate.endGame(isWhiteTurn);
 			JPanel panel = new JPanel(new GridLayout(2, 1));
 			JLabel label;
 			if(myCheckmate.getGameModel().getBoard().isWhiteTurn()) {
@@ -246,12 +242,6 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 			panel.add(label);
 			endGame();
 		}
-	}
-	/**
-	 * Checks if the resign button was pressed.
-	 */
-	@Override
-	public void actionPerformed(ActionEvent e) {
 	}
 	/**
 	 * Draws game.

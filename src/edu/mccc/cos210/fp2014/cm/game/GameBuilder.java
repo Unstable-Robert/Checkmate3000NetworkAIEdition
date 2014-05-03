@@ -52,13 +52,13 @@ public class GameBuilder {
 	 * @param g The gametype of the game
 	 * @param t The time, if a timed game.
 	 */
-	public static void buildHostGame(Checkmate c, GameType g, int t, InetAddress a) {
+	public static void buildHostGame(Checkmate c, GameType g, int t) {
 		GameModel gm = setupGameType(g,t);
 		c.setGameModel(gm);
 		gm.addObserver(c);
 		NetworkPlayer np;
 		try {
-			np = NetworkPlayer.GetHostNetwork(gm, c, a);
+			np = NetworkPlayer.GetHostNetwork(gm, c);
 			c.setGameView(setupGameView(c, gm, np));
 		} catch (IOException e) {
 			e.printStackTrace();

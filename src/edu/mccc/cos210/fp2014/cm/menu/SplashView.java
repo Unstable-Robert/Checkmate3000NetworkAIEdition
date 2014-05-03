@@ -1,8 +1,5 @@
 package edu.mccc.cos210.fp2014.cm.menu;
 
-import java.awt.event.ActionEvent;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -28,8 +25,5 @@ public class SplashView extends SettingsView {
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 	    g.drawImage(splashImage, 0, 0, this);
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
 	}
 }

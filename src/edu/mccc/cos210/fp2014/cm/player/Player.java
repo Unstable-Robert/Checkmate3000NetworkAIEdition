@@ -1,7 +1,6 @@
 package edu.mccc.cos210.fp2014.cm.player;
 
 import java.awt.GridLayout;
-import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JComboBox;

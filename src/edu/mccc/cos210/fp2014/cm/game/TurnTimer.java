@@ -2,8 +2,6 @@ package edu.mccc.cos210.fp2014.cm.game;
 
 import java.util.TimerTask;
 
-import edu.mccc.cos210.fp2014.cm.player.NetworkPlayer;
-
 /**
  * The TimerEvent used when players track their turn time.
  */

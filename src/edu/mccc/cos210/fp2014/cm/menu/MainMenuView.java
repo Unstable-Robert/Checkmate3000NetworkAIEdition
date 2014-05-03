@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.font.FontRenderContext;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,7 +13,7 @@ import javax.swing.JOptionPane;
  * The main menu.
  * This menu allows a user to chose what type of game they want to play.
  */
-public class MainMenuView extends SettingsView implements ActionListener  {
+public class MainMenuView extends SettingsView {
 	private static final long serialVersionUID = 1L;
 	public MainMenuView(Checkmate c) {
 		super(c);
@@ -107,11 +106,5 @@ public class MainMenuView extends SettingsView implements ActionListener  {
 			}
 		});
 		add(quitButton);
-	}
-	/**
-	 * Changes the view based on what button you've pressed.
-	 */
-	@Override
-	public void actionPerformed(ActionEvent e) {
 	}
 }

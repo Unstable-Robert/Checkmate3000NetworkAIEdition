@@ -3,11 +3,8 @@ package edu.mccc.cos210.fp2014.cm.game;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.awt.Rectangle;
 import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,8 +20,6 @@ import javax.swing.*;
 import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
 import edu.mccc.cos210.fp2014.cm.menu.SettingsView;
 import edu.mccc.cos210.fp2014.cm.piece.*;
-import edu.mccc.cos210.fp2014.cm.player.NetworkPlayer;
-import edu.mccc.cos210.fp2014.cm.player.Player;
 import edu.mccc.cos210.fp2014.cm.util.GameType;
 
 /**
@@ -214,8 +209,5 @@ public class LogView extends SettingsView implements Observer {
 		}
 		this.paintChildren(g);
 		g2d.dispose();
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
 	}
 }

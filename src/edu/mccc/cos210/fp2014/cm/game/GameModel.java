@@ -1,7 +1,6 @@
 package edu.mccc.cos210.fp2014.cm.game;
 
 import edu.mccc.cos210.fp2014.cm.piece.*;
-import edu.mccc.cos210.fp2014.cm.util.GameType;
 
 import java.util.ArrayList;
 import java.util.Observable;

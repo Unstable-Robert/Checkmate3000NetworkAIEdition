@@ -4,34 +4,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.font.FontRenderContext;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
 import java.net.URL;
-import java.net.UnknownHostException;
 
 import javax.swing.*;
 
 import edu.mccc.cos210.fp2014.cm.game.GameBuilder;
-import edu.mccc.cos210.fp2014.cm.util.Difficulty;
 import edu.mccc.cos210.fp2014.cm.util.GameType;
 
 /**
  * Host network game menu.
  * Menu allows user to create settings for a hosted game.
  */
-public class HostView extends SettingsView implements ActionListener {
+public class HostView extends SettingsView {
 	private static final long serialVersionUID = 1L;
 	private GameType gameType;
 	private int time;
-	private String address;
     private final int TIME_MIN = 1;
 	private final int TIME_MAX = 180;
 	private JSpinner timeSpinner;
 	private JCheckBox checkbox;
-	private JTextField ipTextField;
 	public HostView(Checkmate c) {
 		super(c);
 		
@@ -121,21 +115,6 @@ public class HostView extends SettingsView implements ActionListener {
 		);
 		add(ipLabel);
 		
-		JLabel enemyIpLabel = new JLabel("Opponent's IP Address:");
-		enemyIpLabel.setForeground(Color.WHITE);
-		enemyIpLabel.setSize(225, 20);
-		enemyIpLabel.setLocation(
-			c.getWidth() / 3 - timedGame.getWidth() / 2,
-			(int)(c.getHeight() * 0.60)
-		);
-		add(enemyIpLabel);
-		this.ipTextField = new JTextField();
-		ipTextField.setSize(250, 20);
-		ipTextField.setLocation(
-			c.getWidth() / 3 - timedGame.getWidth() / 2,
-			(int)(c.getHeight() * 0.65)
-		);
-		add(ipTextField);
 		JLabel colorLabel = new JLabel("Host is White");
 		colorLabel.setForeground(Color.WHITE);
 		colorLabel.setSize(200, 20);
@@ -171,14 +150,9 @@ public class HostView extends SettingsView implements ActionListener {
 		hostButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-			try {
 				setSettings();
-				InetAddress inetAddress = InetAddress.getByName(address);
-				GameBuilder.buildHostGame(myCheckmate, gameType, time, inetAddress);
+				GameBuilder.buildHostGame(myCheckmate, gameType, time);
 				myCheckmate.setView(Checkmate.GAME);
-				} catch (IOException e){
-					e.printStackTrace();
-				}
 			}
 		});
 		add(hostButton);
@@ -193,12 +167,5 @@ public class HostView extends SettingsView implements ActionListener {
 			this.gameType = GameType.NORMAL;
 			this.time = 0;
 		}
-		this.address = ipTextField.getText();
-	}
-	/**
-	 * Allows user to change settings, start a hosted game, and return to the main menu.
-	 */
-	@Override
-	public void actionPerformed(ActionEvent e) {
 	}
 }

@@ -4,24 +4,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.font.FontRenderContext;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.InetAddress;
-import java.net.URL;
-import java.net.UnknownHostException;
 
 import javax.swing.*;
 
 import edu.mccc.cos210.fp2014.cm.game.GameBuilder;
-import edu.mccc.cos210.fp2014.cm.util.GameType;
 
 /**
  * Join network game menu.
  * Menu allows user to join a local game.
  */
-public class JoinView extends SettingsView implements ActionListener {
+public class JoinView extends SettingsView {
 	private static final long serialVersionUID = 1L;
 	private String address;
 	private JTextField ipTextField;
@@ -54,24 +48,6 @@ public class JoinView extends SettingsView implements ActionListener {
 		);
 		add(ipTextField);
 		
-		//displays your ip
-		String ipAddress = "UNKNOWN";
-		try {
-            URL ip = new URL("http://checkip.amazonaws.com");
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                    ip.openStream()));
-
-            ipAddress = in.readLine();
-		} catch (IOException e){}
-		JLabel ipLabel = new JLabel("Your IP: " + ipAddress);
-		ipLabel.setSize(160,40);
-		ipLabel.setForeground(Color.WHITE);
-		ipLabel.setLocation(
-			c.getWidth() / 2
-			- ipLabel.getWidth()/2,
-			 (int) (c.getHeight() * 0.55)
-		);
-		add(ipLabel);
 		JLabel colorLabel = new JLabel("Guest is Black");
 		colorLabel.setForeground(Color.WHITE);
 		colorLabel.setSize(100, 20);
@@ -122,11 +98,5 @@ public class JoinView extends SettingsView implements ActionListener {
 	}
 	protected void setSettings() {
 		this.address = ipTextField.getText();
-	}
-	/**
-	 * Allows user to enter the host's IP and return to the main menu.
-	 */
-	@Override
-	public void actionPerformed(ActionEvent e) {
 	}
 }

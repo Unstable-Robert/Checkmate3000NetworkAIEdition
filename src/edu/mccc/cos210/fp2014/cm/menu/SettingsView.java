@@ -1,7 +1,5 @@
 package edu.mccc.cos210.fp2014.cm.menu;
 
-import java.awt.event.ActionListener;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -14,7 +12,7 @@ import javax.swing.JPanel;
  * The class from which all menus extend from.
  * Includes common elements like closure behavior, background, etc.
  */
-public abstract class SettingsView extends JPanel implements ActionListener {
+public abstract class SettingsView extends JPanel {
 	private static final long serialVersionUID = 1L;
 	Image backgroundImage;
 	protected Checkmate myCheckmate;

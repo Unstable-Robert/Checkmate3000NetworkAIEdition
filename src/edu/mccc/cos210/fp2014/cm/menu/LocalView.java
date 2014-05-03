@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.font.FontRenderContext;
 
 import javax.swing.*;
 
@@ -15,20 +14,16 @@ import edu.mccc.cos210.fp2014.cm.util.GameType;
 /**
  * Local game menu.
  */
-public class LocalView extends SettingsView implements ActionListener {
+public class LocalView extends SettingsView {
 	private static final long serialVersionUID = 1L;
 	private GameType gameType;
 	private int time;
 	private Difficulty difficulty1;
 	private Difficulty difficulty2;
-	private boolean color;
     private final int TIME_MIN = 1;
 	private final int TIME_MAX = 180;
 	private JSpinner timeSpinner;
 	private JCheckBox checkbox;
-	private JLabel timeLabel;
-	private JLabel minLabel;
-	private JRadioButton whiteRadio;
 	private JComboBox<String> p1;
 	private JComboBox<String> p2;
 	public LocalView(Checkmate c) {
@@ -202,11 +197,5 @@ public class LocalView extends SettingsView implements ActionListener {
 		} else {
 			this.difficulty2 = Difficulty.HARD;
 		}
-	}
-	/**
-	 * Changes settings and allows user to start the game.
-	 */
-	@Override
-	public void actionPerformed(ActionEvent e) {
 	}
 }
