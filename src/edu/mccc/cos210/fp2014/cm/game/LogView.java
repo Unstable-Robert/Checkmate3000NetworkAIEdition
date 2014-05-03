@@ -125,7 +125,15 @@ public class LogView extends SettingsView implements Observer {
 		Pattern p = Pattern.compile("[0-9]+[.]|:");
 		Matcher m = p.matcher(s);
 		s = m.replaceAll("");
-		
+		String[] moves = s.split(" ");
+		for (int i = 0; i < moves.length; i++) {
+			if (i% 2 == 0) {
+				//white's move
+			} else {
+				//black's move
+			}
+			// check for enpassant, castle
+		}
 	}
 	private void drawPiece(Graphics2D g2d, int x, int y, int gridX, int gridY) {
 		g2d.drawImage(

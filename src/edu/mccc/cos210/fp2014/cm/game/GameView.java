@@ -35,7 +35,7 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 	private ArrayList<Player> players;
 	private List<PossibleTile> pTiles = new ArrayList<PossibleTile>();
 	private BufferedImage image;
-	private JButton resignButton, drawButton, sendButton;
+	private JButton resignButton, sendButton;
 	private JTextField sendTF;
 	private JLabel chatLabel;
 	public GameView(Checkmate c) {
@@ -59,17 +59,7 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 			}
 		});
 		add(resignButton);		
-		drawButton = new JButton("Draw");
-		drawButton.setSize(100, 50);
-		drawButton.setLocation((int)(c.getWidth() * 0.05), (int)(c.getHeight() * 0.25));
-		drawButton.setVisible(false);
-		drawButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
-				drawGame();
-			}
-		});
-		add(drawButton);
+
 		chatLabel = new JLabel("chat Text here");
 		chatLabel.setForeground(Color.BLACK);
 		chatLabel.setVerticalTextPosition(JLabel.BOTTOM);
@@ -90,6 +80,7 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 			(int)(c.getHeight() * 0.90)
 		);
 		add(sendTF);
+		
 		sendButton = new JButton("send");
 		sendButton.setSize(100, 20);
 		sendButton.setLocation(
@@ -229,7 +220,17 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		drawButton.setVisible(this.gm.canDraw());
+		if (this.gm.canDraw()) {
+			int wantsDraw = JOptionPane.showConfirmDialog(
+				myCheckmate,
+				"It is possible to declare this game as a tie. Would you like to end this game in a draw?",
+				"End game in a draw?",
+				JOptionPane.YES_NO_OPTION
+			);
+			if (wantsDraw == JOptionPane.YES_OPTION) {
+				drawGame();
+			}
+		}
 		this.paintComponent(this.getGraphics());
 		if (this.gm.mustDraw()) {
 			drawGame();

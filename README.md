@@ -8,8 +8,12 @@ Insert chess pun here
 	start AI Player Classes
 	add chat
 	Splash Screen gets stuck sometimes
+	Pressing canel when saving a log returns user to the game over option pane.
 
 ####Changelog:
+	added a draw game option pane
+	LogView added
+	removed GameOverView and DrawView
 	Ended timer ends game
 	Networked code finished.
 	Added Pawn promotion.
