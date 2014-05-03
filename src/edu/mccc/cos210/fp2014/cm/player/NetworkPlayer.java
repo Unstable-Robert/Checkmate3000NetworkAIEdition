@@ -121,12 +121,12 @@ public class NetworkPlayer extends Player implements Runnable {
 							unreachablePlayer(Integer.parseInt(bais.toString()));				
 						}
 					}
-				} catch (Exception e){
-					
+				} catch (IOException e){
+					e.printStackTrace();
 				}
 			}
 		} catch (IOException e) {
-			
+			e.printStackTrace();
 		}
 	}
 	private void unreachablePlayer(int i) {
