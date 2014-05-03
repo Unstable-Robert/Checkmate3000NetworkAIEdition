@@ -6,8 +6,6 @@ Insert chess pun here
 ####ToDo:
 	Threefold Repetition Draw
 	start AI Player Classes
-	add chat
-	Splash Screen gets stuck sometimes
 	Pressing canel when saving a log returns user to the game over option pane.
 	Chat JTextArea has scroll bar?
 
