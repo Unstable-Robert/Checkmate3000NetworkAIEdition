@@ -54,8 +54,7 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 		resignButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				boolean isWhiteTurn = cleanUp();
-				myCheckmate.endGame(isWhiteTurn);
+				endGame();
 			}
 		});
 		add(resignButton);		
@@ -66,8 +65,7 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 		drawButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				cleanUp();
-				myCheckmate.setView(Checkmate.DRAW);
+				drawGame();
 			}
 		});
 		add(drawButton);
@@ -112,21 +110,6 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 	public String getSentText() {
 		return sendTF.getText();
 	}
-	private boolean cleanUp() {
-		boolean isWhiteTurn = gm.getBoard().isWhiteTurn();
-		for (Player p : players) {
-			if (p instanceof NetworkPlayer) {
-				NetworkPlayer np = (NetworkPlayer) p;
-				np.setCloseResponsibility(false);
-				np.closeSockets();
-				isWhiteTurn = np.isWhite();
-			}
-		}
-		if (gm.hasTimer()) {
-			gm.cancelTimer();
-		}
-		return isWhiteTurn;
-	}
 	public void addPlayer(Player p) {
 		this.players.add(p);
 	}
@@ -140,6 +123,75 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 			ex.printStackTrace();
 		}
 		return bi;
+	}
+	private void cleanUp() {
+		boolean isWhiteTurn = gm.getBoard().isWhiteTurn();
+		for (Player p : players) {
+			if (p instanceof NetworkPlayer) {
+				NetworkPlayer np = (NetworkPlayer) p;
+				np.setCloseResponsibility(false);
+				np.closeSockets();
+				isWhiteTurn = np.isWhite();
+			}
+		}
+		if (gm.hasTimer()) {
+			gm.cancelTimer();
+		}
+	}
+	private void saveLog(boolean isWhiteTurn) {
+		String moves = this.gm.getBoard().getMoves() + (isWhiteTurn ? "0-1" : "1-0");
+		JFileChooser saveWindow = new JFileChooser(new File("logs"));
+		saveWindow.showSaveDialog(this);
+		try {
+			FileWriter fw = new FileWriter(saveWindow.getSelectedFile() + ".cm3");
+			fw.write(moves);
+		} catch (java.io.IOException ex){
+			ex.printStackTrace();
+		}
+	}
+	private void endGame() {
+		cleanUp();
+		String message = "Black won.";
+		boolean isWhiteTurn = gm.getBoard().isWhiteTurn();
+		if (isWhiteTurn) {
+			message = "White won.";
+		}
+		String[] options = new String[]{"Okay", "Save Game Log"};
+		int gameOverAction = JOptionPane.showOptionDialog(
+			this, message, "Game Over",
+			JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+			null, options, options[0]
+		);
+		if (gameOverAction == JOptionPane.OK_OPTION) {
+			myCheckmate.setView(Checkmate.MAIN_MENU);	
+		} else {
+			saveLog(isWhiteTurn);
+			myCheckmate.setView(Checkmate.MAIN_MENU);
+		}
+	}
+	private void drawGame() {
+		cleanUp();
+		String message = "The game ends in a draw.";
+		String[] options = new String[]{"Okay", "Save Game Log"};
+		int gameOverAction = JOptionPane.showOptionDialog(
+			this, message, "Game Over",
+			JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+			null, options, options[0]
+		);
+		if (gameOverAction == JOptionPane.OK_OPTION) {
+			myCheckmate.setView(Checkmate.MAIN_MENU);	
+		} else {
+			String moves = this.gm.getBoard().getMoves() + "1-1";
+			JFileChooser saveWindow = new JFileChooser(new File("logs"));
+			saveWindow.showSaveDialog(this);
+			try {
+				FileWriter fw = new FileWriter(saveWindow.getSelectedFile() + ".cm3");
+				fw.write(moves);
+			} catch (java.io.IOException ex){
+				ex.printStackTrace();
+			}
+			myCheckmate.setView(Checkmate.MAIN_MENU);
+		}
 	}
 	private void drawPiece(Graphics2D g2d, int x, int y, int gridX, int gridY) {
 		g2d.drawImage(
@@ -169,7 +221,7 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 		drawButton.setVisible(this.gm.canDraw());
 		this.paintComponent(this.getGraphics());
 		if (this.gm.mustDraw()) {
-			myCheckmate.setView(Checkmate.DRAW);
+			drawGame();
 		}
 		if (this.gm.isCheckMate()){
 			boolean isWhiteTurn = myCheckmate.getGameModel().getBoard().isWhiteTurn();
@@ -181,20 +233,8 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 			} else {
 				label = new JLabel("White Wins!!");
 			}
-			String[] options = new String[]{"OK","Save Game Log"};
 			panel.add(label);
-			int gameOverAction = JOptionPane.showOptionDialog(
-				null, panel, "Game Over",
-				JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-			        null, options, options[0]
-			);
-			if (gameOverAction == JOptionPane.OK_OPTION) {
-				myCheckmate.setView(Checkmate.MAIN_MENU);	
-			} else {
-				//save log
-				System.out.println("Save the log");
-				myCheckmate.setView(Checkmate.MAIN_MENU);
-			}
+			endGame();
 		}
 	}
 	/**

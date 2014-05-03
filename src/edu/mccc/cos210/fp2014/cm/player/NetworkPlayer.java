@@ -133,7 +133,7 @@ public class NetworkPlayer extends Player implements Runnable {
 			if (gm.hasTimer()){
 				gm.cancelTimer();
 			} 
-			myCheckmate.endGame(!this.isWhite());	
+			myCheckmate.setView(Checkmate.MAIN_MENU);	
 		}
 	}
 	private void writeMessage(Board b, DataOutputStream dos) throws JAXBException, IOException, SocketException{
