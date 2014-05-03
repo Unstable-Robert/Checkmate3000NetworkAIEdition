@@ -42,7 +42,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		players = new ArrayList<Player>();
 		this.addMouseListener(this);
 	}
-	public GameView(Checkmate c, GameModel model) {
+	public GameView(Checkmate c, GameModel model, boolean networked) {
 		this(c);
 		this.gm = model;
 		image = loadImage();
@@ -59,54 +59,55 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		});
 		add(resignButton);		
 
-		
-		chatTextArea = new JTextArea("", 14, 26);
-		chatTextArea.setEditable(false);
-		chatTextArea.setLineWrap(true);
-		//chatTextArea.setOpaque(true);
-		add(chatTextArea);
-		JScrollPane scrollPane =  new JScrollPane(chatTextArea,
-                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
-                );
-		scrollPane.setLocation(
+		if (networked){
+			chatTextArea = new JTextArea("", 14, 26);
+			chatTextArea.setEditable(false);
+			chatTextArea.setLineWrap(true);
+			//chatTextArea.setOpaque(true);
+			add(chatTextArea);
+			JScrollPane scrollPane =  new JScrollPane(chatTextArea,
+	                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+	                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
+	                );
+			scrollPane.setLocation(
+					(int)(c.getWidth() * 0.02), 
+					(int)(c.getHeight() * 0.50)
+				);
+			scrollPane.setSize(135, 220);
+	        add(scrollPane);
+			sendTF = new JTextField();
+			sendTF.setSize(250,20);
+			sendTF.setLocation(
 				(int)(c.getWidth() * 0.02), 
-				(int)(c.getHeight() * 0.50)
+				(int)(c.getHeight() * 0.90)
 			);
-		scrollPane.setSize(135, 220);
-        add(scrollPane);
-		sendTF = new JTextField();
-		sendTF.setSize(250,20);
-		sendTF.setLocation(
-			(int)(c.getWidth() * 0.02), 
-			(int)(c.getHeight() * 0.90)
-		);
-		add(sendTF);
-		
-		sendButton = new JButton("send");
-		sendButton.setSize(100, 20);
-		sendButton.setLocation(
-			(int)(c.getWidth() * 0.05 + sendTF.getWidth() + 10),
-			(int)(c.getHeight() * 0.90)
-		);
-		sendButton.setVisible(true);
-		sendButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
-				String color = "";
-				for (Player p : players){
-					if (p.isWhite()){
-						color = "White";
-					} else {
-						color = "Black";
+			add(sendTF);
+			
+			sendButton = new JButton("send");
+			sendButton.setSize(100, 20);
+			sendButton.setLocation(
+				(int)(c.getWidth() * 0.05 + sendTF.getWidth() + 10),
+				(int)(c.getHeight() * 0.90)
+			);
+			sendButton.setVisible(true);
+			sendButton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent ae) {
+					String color = "";
+					for (Player p : players){
+						if (p.isWhite()){
+							color = "White";
+						} else {
+							color = "Black";
+						}
+						break;
 					}
-					break;
+					gm.addMessage(new ChatMessage(color, getSentText()));
+					sendTF.setText("");
 				}
-				gm.addMessage(new ChatMessage(color, getSentText()));
-				sendTF.setText("");
-			}
-		});
-		add(sendButton);
+			});
+			add(sendButton);
+		}
 	}
 	public void setChatLabel(String s) {
 		chatTextArea.setText(s);
