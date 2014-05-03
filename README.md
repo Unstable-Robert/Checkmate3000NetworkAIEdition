@@ -9,6 +9,7 @@ Insert chess pun here
 	add chat
 	Splash Screen gets stuck sometimes
 	Pressing canel when saving a log returns user to the game over option pane.
+	Chat JTextArea has scroll bar?
 
 ####Changelog:
 	added a draw game option pane
