@@ -15,6 +15,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.imageio.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.*;
 
 import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
@@ -140,21 +141,27 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 	}
 	private void saveLog(boolean isWhiteTurn) {
 		String moves = this.gm.getBoard().getMoves() + (isWhiteTurn ? "0-1" : "1-0");
-		JFileChooser saveWindow = new JFileChooser(new File("logs"));
-		saveWindow.showSaveDialog(this);
+		System.out.println(moves);
+		JFileChooser fc = new JFileChooser(new File("logs"));
+		fc.setAcceptAllFileFilterUsed(false);
+		fc.setFileFilter(
+			new FileNameExtensionFilter("Checkmate 3000 Logs", "cm3")
+		);
+		fc.showSaveDialog(this);
 		try {
-			FileWriter fw = new FileWriter(saveWindow.getSelectedFile() + ".cm3");
+			FileWriter fw = new FileWriter(fc.getSelectedFile() + ".cm3");
 			fw.write(moves);
+			fw.close();
 		} catch (java.io.IOException ex){
 			ex.printStackTrace();
 		}
 	}
 	private void endGame() {
 		cleanUp();
-		String message = "Black won.";
+		String message = "White won.";
 		boolean isWhiteTurn = gm.getBoard().isWhiteTurn();
 		if (isWhiteTurn) {
-			message = "White won.";
+			message = "Black won.";
 		}
 		String[] options = new String[]{"Okay", "Save Game Log"};
 		int gameOverAction = JOptionPane.showOptionDialog(
@@ -182,10 +189,14 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 			myCheckmate.setView(Checkmate.MAIN_MENU);	
 		} else {
 			String moves = this.gm.getBoard().getMoves() + "1-1";
-			JFileChooser saveWindow = new JFileChooser(new File("logs"));
-			saveWindow.showSaveDialog(this);
+			JFileChooser fc = new JFileChooser(new File("logs"));
+			fc.setAcceptAllFileFilterUsed(false);
+			fc.setFileFilter(
+				new FileNameExtensionFilter("Checkmate 3000 Logs", "cm3")
+			);
+			fc.showSaveDialog(this);
 			try {
-				FileWriter fw = new FileWriter(saveWindow.getSelectedFile() + ".cm3");
+				FileWriter fw = new FileWriter(fc.getSelectedFile() + ".cm3");
 				fw.write(moves);
 			} catch (java.io.IOException ex){
 				ex.printStackTrace();

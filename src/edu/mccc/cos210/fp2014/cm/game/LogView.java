@@ -9,12 +9,15 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.Rectangle;
 import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.imageio.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.*;
 
 import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
@@ -59,7 +62,19 @@ public class LogView extends SettingsView implements Observer {
 		loadButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				
+				JFileChooser fc = new JFileChooser(new File("logs"));
+				fc.setAcceptAllFileFilterUsed(false);
+				fc.setFileFilter(
+					new FileNameExtensionFilter("Checkmate 3000 Logs", "cm3")
+				);
+				int result = fc.showOpenDialog(LogView.this);
+				if (result == JFileChooser.APPROVE_OPTION) {
+					try {
+						loadFile(fc.getSelectedFile());
+					} catch (Exception ex){
+						ex.printStackTrace();
+					}
+				}
 			}
 		});
 		add(loadButton);
@@ -102,6 +117,15 @@ public class LogView extends SettingsView implements Observer {
 			ex.printStackTrace();
 		}
 		return bi;
+	}
+	private void loadFile(File f) throws Exception {
+		BufferedReader br = new BufferedReader(new FileReader(f));
+		String s = br.readLine();
+		br.close();
+		Pattern p = Pattern.compile("[0-9]+[.]|:");
+		Matcher m = p.matcher(s);
+		s = m.replaceAll("");
+		
 	}
 	private void drawPiece(Graphics2D g2d, int x, int y, int gridX, int gridY) {
 		g2d.drawImage(

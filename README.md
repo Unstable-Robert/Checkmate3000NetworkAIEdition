@@ -6,8 +6,8 @@ Insert chess pun here
 ####ToDo:
 	Threefold Repetition Draw
 	start AI Player Classes
-	replays
 	add chat
+	Splash Screen gets stuck sometimes
 
 ####Changelog:
 	Ended timer ends game

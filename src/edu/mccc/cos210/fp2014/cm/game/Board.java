@@ -186,22 +186,22 @@ public class Board implements Cloneable{
 	public void addPiece(Piece p){
 		this.getPieces().add(p);
 	} 
-	public void clearSelected(){
-		for(Piece p : this.getPieces()){
+	public void clearSelected() {
+		for(Piece p : this.getPieces()) {
 			p.setSelected(false);
 		}
 	}
-	public boolean hasSelectedPiece(){
-		for (Piece p : this.getPieces()){
+	public boolean hasSelectedPiece() {
+		for (Piece p : this.getPieces()) {
 			if (p.isSelected()){
 				return true;
 			}
 		}
 		return false;
 	}
-	public Piece getSelectedPiece(){
-		for (Piece p : this.getPieces()){
-			if (p.isSelected()){
+	public Piece getSelectedPiece() {
+		for (Piece p : this.getPieces()) {
+			if (p.isSelected()) {
 				return p;
 			}
 		}
@@ -212,22 +212,22 @@ public class Board implements Cloneable{
      * Gets the Log of all moves Taken
      * @return String of Moves
      */
-    public String getMoves(){
+    public String getMoves() {
         return this.moves;
     }
     /**
      * Adds a Move to the Log
      * @param s Move Taken
      */
-    public void addMove(String s){
-        if (!whiteTurn){
+    public void addMove(String s) {
+        if (!whiteTurn) {
             this.moves = this.moves+getMetaInfo().getNumTurns()+". "+s+" ";
         } else {
             this.moves = this.moves+" "+s+" ";
             getMetaInfo().increaseTurn();
         }
     }
-	public Board clone(){
+	public Board clone() {
 		ArrayList<Piece> newPieces = new ArrayList<Piece>();
 		ArrayList<PossibleTile> newTiles = new ArrayList<PossibleTile>();
 		for(Piece p : this.getPieces()){
