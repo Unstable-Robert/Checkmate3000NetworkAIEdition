@@ -185,6 +185,8 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 			try {
 				FileWriter fw = new FileWriter(fc.getSelectedFile() + ".cm3");
 				fw.write(moves);
+				fw.flush();
+				fw.close();
 			} catch (java.io.IOException ex){
 				ex.printStackTrace();
 			}
