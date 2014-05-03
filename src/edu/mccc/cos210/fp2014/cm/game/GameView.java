@@ -37,7 +37,7 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 	private BufferedImage image;
 	private JButton resignButton, sendButton;
 	private JTextField sendTF;
-	private JLabel chatLabel;
+	private JTextArea chatTextArea;
 	public GameView(Checkmate c) {
 		super(c);
 		players = new ArrayList<Player>();
@@ -60,23 +60,20 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 		});
 		add(resignButton);		
 
-		chatLabel = new JLabel("chat Text here");
-		chatLabel.setForeground(Color.BLACK);
-		chatLabel.setVerticalTextPosition(JLabel.BOTTOM);
-		chatLabel.setVerticalAlignment(JLabel.BOTTOM);
-		chatLabel.setSize(360,150);
-		chatLabel.setLocation(
-			(int)(c.getWidth() * 0.05), 
-			(int)(c.getHeight() * 0.65)
+		chatTextArea = new JTextArea("chat Text here", 14, 26);
+		chatTextArea.setSize(135, 210);
+		chatTextArea.setLocation(
+			(int)(c.getWidth() * 0.02), 
+			(int)(c.getHeight() * 0.55)
 		);
-		//chatLabel.setOpaque(true);
-		chatLabel.setBackground(Color.WHITE);
-		add(chatLabel);
+		chatTextArea.setEditable(false);
+		//chatTextArea.setOpaque(true);
+		add(chatTextArea);
 	
 		sendTF = new JTextField();
 		sendTF.setSize(250,20);
 		sendTF.setLocation(
-			(int)(c.getWidth() * 0.05), 
+			(int)(c.getWidth() * 0.02), 
 			(int)(c.getHeight() * 0.90)
 		);
 		add(sendTF);
@@ -97,7 +94,7 @@ public class GameView extends SettingsView implements Observer, ActionListener, 
 		add(sendButton);
 	}
 	public void setChatLabel(String s) {
-		chatLabel.setText(s);
+		chatTextArea.setText(s);
 	}
 	public String getSentText() {
 		return sendTF.getText();
