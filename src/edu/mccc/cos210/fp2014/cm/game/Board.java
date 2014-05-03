@@ -104,6 +104,12 @@ public class Board implements Cloneable{
 			id++;
 		}
 	}
+	public void addMessage(ChatMessage cm){
+		this.messages.add(cm);
+	}
+	public ArrayList<ChatMessage> getMessages(){
+		return this.messages;
+	}
 	/**
 	 * This updates the timer that will be painted by GameView
 	 * @param i The number of seconds remaining on the clock for the current player's turn

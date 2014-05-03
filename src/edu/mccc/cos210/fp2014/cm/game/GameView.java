@@ -59,7 +59,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		});
 		add(resignButton);		
 
-		chatTextArea = new JTextArea("chat Text here", 14, 26);
+		chatTextArea = new JTextArea("", 14, 26);
 		chatTextArea.setSize(135, 210);
 		chatTextArea.setLocation(
 			(int)(c.getWidth() * 0.02), 
@@ -87,7 +87,17 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		sendButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				setChatLabel(getSentText());
+				String color = "";
+				for (Player p : players){
+					if (p.isWhite()){
+						color = "White";
+					} else {
+						color = "Black";
+					}
+					break;
+				}
+				gm.addMessage(new ChatMessage(color, getSentText()));
+				sendTF.setText("");
 			}
 		});
 		add(sendButton);
@@ -190,6 +200,16 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 			}
 			myCheckmate.setView(Checkmate.MAIN_MENU);
 		}
+	}
+	private void addChats(){
+		StringBuilder sb = new StringBuilder();
+		for(ChatMessage cm : this.gm.getBoard().getMessages()){
+			sb.append(cm.getFrom());
+			sb.append(": ");
+			sb.append(cm.getMessage());
+			sb.append("\n");
+		}
+		chatTextArea.setText(sb.toString());
 	}
 	private void drawPiece(Graphics2D g2d, int x, int y, int gridX, int gridY) {
 		g2d.drawImage(
@@ -325,6 +345,9 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 				myCheckmate.getWidth() * 0.85f, 
 				myCheckmate.getHeight() * 0.25f
 			);
+		}
+		if (chatTextArea != null){
+			addChats();
 		}
 		this.paintChildren(g);
 		g2d.dispose();

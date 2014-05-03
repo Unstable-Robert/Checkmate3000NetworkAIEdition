@@ -171,4 +171,10 @@ public class GameModel extends Observable {
 		}
 		return draw;
 	}
+	public void addMessage(ChatMessage cm){
+		this.isNetworkUpdate = false;
+		this.board.addMessage(cm);
+		this.setChanged();
+		this.notifyObservers();
+	}
 }
