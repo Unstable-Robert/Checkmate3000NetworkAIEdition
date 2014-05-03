@@ -7,6 +7,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -83,7 +84,7 @@ public class NetworkPlayer extends Player implements Runnable {
 				writeMessage(this.gm.getBoard(), dos);
 			}
 		}catch (IOException e) {
-			unreachablePlayer();
+			e.printStackTrace();
 		}catch (JAXBException e) {
 			e.printStackTrace();
 		} catch (NullPointerException e){
@@ -113,22 +114,24 @@ public class NetworkPlayer extends Player implements Runnable {
 					if (is.available() > 0){
 						DataInputStream dis = new DataInputStream(is);
 						ByteArrayInputStream bais = readMessage(dis);
-						Board b = mh.unmarshal(bais);
-						if (b == null){
-							
+						try {
+							Board b = mh.unmarshal(bais);
+							this.gm.updateBoard(b, true);
+						}catch (JAXBException e){
+							unreachablePlayer(Integer.parseInt(bais.toString()));				
 						}
-						this.gm.updateBoard(b, true);
 					}
 				} catch (Exception e){
-					unreachablePlayer();				
+					
 				}
 			}
 		} catch (IOException e) {
 			
 		}
 	}
-	private void unreachablePlayer() {
+	private void unreachablePlayer(int i) {
 		this.closeSockets();
+		this.gm.setWinner(i);
 		if (this.closeResponsibilities){
 			if (gm.hasTimer()){
 				gm.cancelTimer();
@@ -157,6 +160,16 @@ public class NetworkPlayer extends Player implements Runnable {
 			if (this.ss != null) {
 				this.ss.close();
 			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void sendWinner(){
+		DataOutputStream os;
+		try {
+			os = new DataOutputStream(this.socket.getOutputStream());
+			os.writeInt(0);
+			os.writeInt(this.gm.getWinner());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

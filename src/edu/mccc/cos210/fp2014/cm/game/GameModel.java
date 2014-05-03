@@ -16,6 +16,7 @@ public class GameModel extends Observable {
 	private Timer timer;
 	private boolean isNetworkUpdate;
 	private int totalTime, moveRule;
+	private int winner;
 	/**
 	 * Default public constructor.
 	 */
@@ -59,6 +60,12 @@ public class GameModel extends Observable {
 	 */
 	public void nextTurn() {
 		this.board.nextTurn();
+	}
+	public int getWinner(){
+		return this.winner;
+	}
+	public void setWinner(int w){
+		this.winner = w;
 	}
 	/**
 	 * Called when one game timer expires.
