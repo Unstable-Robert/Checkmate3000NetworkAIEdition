@@ -29,9 +29,11 @@ public class LogView extends SettingsView implements Observer {
 	private static final long serialVersionUID = 1L;
 	private Board board;
 	private List<String> moves = new ArrayList<String>();
+    private List<String> prevMoves = new ArrayList<String>();
 	private BufferedImage image;
 	private int turnNum;
     private int maxTurn;
+    private int[] removedPiece;
     private boolean whiteWon;
 	public LogView(Checkmate c) {
 		super(c);
@@ -85,13 +87,29 @@ public class LogView extends SettingsView implements Observer {
 			public void actionPerformed(ActionEvent ae) {
                 if (turnNum < maxTurn) {
                     NextTurn();
+                    repaint();
                 }
-				repaint();
+                if (turnNum == maxTurn){
+                    System.out.println(whiteWon);
+                    String message;
+                    if (whiteWon){
+                        message = "White Won!!";
+                    } else {
+                        message = "Black Won!!";
+                    }
+
+                    String[] options = new String[]{"Okay"};
+                    int gameOverAction = JOptionPane.showOptionDialog(
+                            null, message, "Game Over",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                            null, options, options[0]
+                    );
+                }
 			}
 		});
 		add(nextButton);
 		
-		JButton previousButton = new JButton("<");
+		final JButton previousButton = new JButton("<");
 		previousButton.setSize(45, 45);
 		previousButton.setLocation((int)(c.getWidth() * 0.40), (int)(c.getHeight() * 0.865));
 		previousButton.setVisible(true);
@@ -99,7 +117,11 @@ public class LogView extends SettingsView implements Observer {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				if (turnNum > 0) {
-					NextTurn();
+					PrevTurn();
+                    if (CheckedRemovedPiece()){
+                        PrevTurn();
+                        turnNum++;
+                    }
 					repaint();
 				}
 			}
@@ -112,15 +134,59 @@ public class LogView extends SettingsView implements Observer {
         int uid = Integer.parseInt(split[0]);
         int x = Integer.parseInt(Character.toString(split[1].charAt(0)));
         int y = Integer.parseInt(Character.toString(split[1].charAt(1)));
-        MovePiece(uid, x, y);
+        RemovePieceAt(x, y);
+        MovePieceTo(uid, x, y);
         turnNum++;
     }
-    private void MovePiece(int uid, int x, int y){
+    private void PrevTurn(){
+        String moving = prevMoves.remove(prevMoves.size()-1);
+        String[] split = moving.split(":");
+        int uid = Integer.parseInt(split[0]);
+        int x = Integer.parseInt(Character.toString(split[1].charAt(0)));
+        int y = Integer.parseInt(Character.toString(split[1].charAt(1)));
+        MovePieceBackTo(uid, x, y);
+        turnNum--;
+    }
+    private boolean RemovePieceAt(int x, int y){
+        for (Piece p : this.board.getPieces()){
+            if (p.getX() == x && p.getY() == y){
+                String oldPiece = (p.getUID()+":"+x+y);
+                prevMoves.add(oldPiece);
+                p.setLocation(-1, -2);
+                removedPiece[turnNum] = 1;
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean CheckedRemovedPiece(){
+        if (removedPiece[turnNum] == 1) return true;
+        return false;
+    }
+
+    private void MovePieceTo(int uid, int x, int y){
+        for (Piece p : this.board.getPieces()){
+            if (p.getUID() == uid){
+                String oldPiece = (uid+":"+p.getX()+p.getY());
+                p.setLocation(x,y);
+                prevMoves.add(oldPiece);
+            }
+        }
+    }
+    private void MovePieceBackTo(int uid, int x, int y){
         for (Piece p : this.board.getPieces()){
             if (p.getUID() == uid){
                 p.setLocation(x,y);
             }
         }
+    }
+    private void CleanUp(){
+        turnNum = 0;
+        maxTurn = 0;
+        board = new Board(GameType.NORMAL);
+        image = loadImage();
+        prevMoves = new ArrayList<String>();
+        moves = new ArrayList<String>();
     }
 	private BufferedImage loadImage() {
 		BufferedImage bi = null;
@@ -134,6 +200,8 @@ public class LogView extends SettingsView implements Observer {
 		return bi;
 	}
 	private void loadFile(File f) throws Exception {
+        CleanUp();
+        repaint();
 		BufferedReader br = new BufferedReader(new FileReader(f));
 		String s = br.readLine();
 		br.close();
@@ -145,6 +213,7 @@ public class LogView extends SettingsView implements Observer {
         s = s.replace(",","");
 		String[] move = s.split(" ");
         this.maxTurn = move.length-1;
+        removedPiece = new int[maxTurn];
 		for (int i = 0; i < move.length; i++) {
 			if (i % 2 == 0) {
 				//white's move
