@@ -90,7 +90,6 @@ public class LogView extends SettingsView implements Observer {
                     repaint();
                 }
                 if (turnNum == maxTurn){
-                    System.out.println(whiteWon);
                     String message;
                     if (whiteWon){
                         message = "White Won!!";
@@ -98,12 +97,28 @@ public class LogView extends SettingsView implements Observer {
                         message = "Black Won!!";
                     }
 
-                    String[] options = new String[]{"Okay"};
+                    String[] options = new String[]{"Okay","Load Another File"};
                     int gameOverAction = JOptionPane.showOptionDialog(
                             null, message, "Game Over",
                             JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                             null, options, options[0]
                     );
+                    if (gameOverAction == 1){
+                        System.out.print("Okay");
+                        JFileChooser fc = new JFileChooser(new File("logs"));
+                        fc.setAcceptAllFileFilterUsed(false);
+                        fc.setFileFilter(
+                                new FileNameExtensionFilter("Checkmate 3000 Logs", "cm3")
+                        );
+                        int result = fc.showOpenDialog(LogView.this);
+                        if (result == JFileChooser.APPROVE_OPTION) {
+                            try {
+                                loadFile(fc.getSelectedFile());
+                            } catch (Exception ex){
+                                ex.printStackTrace();
+                            }
+                        }
+                    }
                 }
 			}
 		});
