@@ -107,14 +107,13 @@ public class LogView extends SettingsView implements Observer {
 		add(previousButton);
 	}
     private void NextTurn(){
-        turnNum++;
         String moving = moves.get(turnNum);
         String[] split = moving.split(":");
         int uid = Integer.parseInt(split[0]);
         int x = Integer.parseInt(Character.toString(split[1].charAt(0)));
         int y = Integer.parseInt(Character.toString(split[1].charAt(1)));
         MovePiece(uid, x, y);
-
+        turnNum++;
     }
     private void MovePiece(int uid, int x, int y){
         for (Piece p : this.board.getPieces()){
