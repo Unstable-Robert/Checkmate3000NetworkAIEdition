@@ -69,7 +69,7 @@ public class SimpleEval extends EvaluationAlgorithm {
 				if (p instanceof Bishop){
 					myBishop++;
 				} else if (p instanceof King){
-					myKinging++;
+					myKing++;
 				} else if (p instanceof Knight){
 					myKnight++;
 				} else if (p instanceof Pawn){
