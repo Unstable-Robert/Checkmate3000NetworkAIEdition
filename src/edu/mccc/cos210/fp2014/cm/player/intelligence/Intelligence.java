@@ -23,7 +23,7 @@ public abstract class Intelligence {
 	}
 	public void setCurrentBoard(Board b) {
 		this.currentBoard = b;
-		Tree<Board> t = new Tree<Board>(b);
+		Tree<Board> t = new Tree<Board>(this.currentBoard);
 		this.search.setRoot(t);
 		this.eval.setRoot(t);
 	}
@@ -34,9 +34,10 @@ public abstract class Intelligence {
 	 * or trims the tree.
 	 * It then loops.
 	 */
-	public void searchAndEval(){
-		this.search.run();
-		this.eval.evaluate();
+	public void searchAndEval(Board b){
+		Tree<Board> t = new Tree<Board>(b);
+		this.search.search(t);
+		this.eval.evaluate(t);
 	}
 	/**
 	 * When a user makes a move, the possibilities that did not happen need to be removed.

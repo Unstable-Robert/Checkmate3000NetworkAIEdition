@@ -18,30 +18,49 @@ import edu.mccc.cos210.fp2014.cm.game.Board;
  */
 public class BruteSearch extends SearchAlgorithm implements Runnable {
 
-    private int depth;
     private int maxDepth;
     
     public BruteSearch(Board t, int md) {
         this.tree = new Tree<Board>(t);
         this.maxDepth = md;
-        this.depth = 0;
         this.threadPool = Executors.newFixedThreadPool(10);
         this.isFinished = false;
     }
     private BruteSearch(Tree<Board> t, int d, ExecutorService tp) {
         this.tree = t;
-        this.depth = d;
+        this.maxDepth = d;
         this.threadPool = tp;
     }
     /**
      * Creates new BruteSearch objects for all of the leaves in a tree.
      */
-    protected void search() {
-        if (this.depth < maxDepth) {
-            for (Tree<Board> b : tree.getLeaves()) {
-                this.threadPool.submit(new BruteSearch(b, this.depth + 1, this.threadPool));
-            }
+    protected void search(int depth, Tree<Board> b) {
+        if (depth < maxDepth) {
+    	    for (Piece p : b.getRoot().getPieces()) {
+    	    	if (p.isWhite() == b.getRoot().isWhiteTurn()) {
+    		        for (PossibleTile pt : p.getPossibleTiles(b.getRoot())) {
+    		            Piece newPiece = p.clone();
+    		            newPiece.setLocation(pt.getX(), pt.getY());
+    		            Board newBoard = b.getRoot().clone();
+    		            newBoard.removePiece(p);
+    		            newBoard.addPiece(newPiece);
+    		            if (pt.hasPieceToRemove()){
+    		                newBoard.removePiece(pt.getRemovePiece());
+    		            }
+    		            b.addLeaf(newBoard);
+    		            Tree<Board> leaf = b.getLeaf(newBoard);
+    		    	    search(depth + 1, leaf);
+    		        }
+    	    	}
+    	    }
+            //for (Tree<Board> b : tree.getLeaves()) {
+              //  this.threadPool.submit(new BruteSearch(b, this.depth + 1, this.threadPool));
+            //}
         }
+    }
+    public void search(Tree<Board> t){
+    	this.tree = t;
+    	this.search(0, t);
     }
     /**
      * This searches for all of the possible moves within a possible board and adds
@@ -50,23 +69,6 @@ public class BruteSearch extends SearchAlgorithm implements Runnable {
      */
     @Override
 	public void run() {
-		Board root = this.tree.getRoot();
-	    for (Piece p : root.getPieces()) {
-	    	if (p.isWhite() == root.isWhiteTurn()) {
-		        for (PossibleTile pt : p.getPossibleTiles(root)) {
-		            Piece newPiece = p.clone();
-		            newPiece.setLocation(pt.getX(), pt.getY());
-		            Board newBoard = root.clone();
-		            newBoard.removePiece(p);
-		            newBoard.addPiece(newPiece);
-		            if (pt.hasPieceToRemove()){
-		                newBoard.removePiece(pt.getRemovePiece());
-		            }
-		            tree.addLeaf(newBoard);
-		        }
-	    	}
-	    }
-	    search();
-	    this.isFinished = true;
+		
 	}
 }

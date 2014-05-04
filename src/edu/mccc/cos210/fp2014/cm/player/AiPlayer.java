@@ -25,7 +25,7 @@ public class AiPlayer extends Player implements Runnable{
 		super(gm, c, b);
 		this.isWhite = b;
 		this.difficulty = d;
-		this.intelligence = new BroadAndShallowIntel(128, this.isWhite);
+		this.intelligence = new BroadAndShallowIntel(2, this.isWhite);
 	}
 	/**
 	 * This takes a board parameter and returns the best move (as determined by the intelligence module).
@@ -33,8 +33,7 @@ public class AiPlayer extends Player implements Runnable{
 	 * @return The board with the new best move.
 	 */
 	public Board getMove(Board b) {
-		this.intelligence.setCurrentBoard(b);
-		this.intelligence.searchAndEval();
+		this.intelligence.searchAndEval(b);
 		Board board = this.intelligence.getBest();
 		board.nextTurn();
 		return board;
