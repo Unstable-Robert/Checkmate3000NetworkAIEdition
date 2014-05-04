@@ -53,7 +53,6 @@ public class AiPlayer extends Player implements Runnable{
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		
 		if(this.gm.getBoard().isWhiteTurn() == this.isWhite()){
 			this.gm.updateBoard(this.getMove(this.gm.getBoard()), false);
 		}
