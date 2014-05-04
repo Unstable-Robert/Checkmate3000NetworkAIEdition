@@ -27,6 +27,7 @@ public class BruteSearch extends SearchAlgorithm implements Runnable{
         this.maxDepth = md;
         this.depth = 0;
         this.threadPool = Executors.newFixedThreadPool(10);
+        this.isFinished = false;
     }
     private BruteSearch(Tree<Board> t, int d, ExecutorService tp) {
         this.tree = t;
@@ -68,5 +69,6 @@ public class BruteSearch extends SearchAlgorithm implements Runnable{
 	    	}
 	    }
 	    search();
+	    this.isFinished = true;
 	}
 }

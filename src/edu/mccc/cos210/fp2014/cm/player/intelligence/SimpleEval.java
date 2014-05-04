@@ -2,6 +2,9 @@ package edu.mccc.cos210.fp2014.cm.player.intelligence;
 
 public class SimpleEval extends EvaluationAlgorithm {
 
+	public SimpleEval(){
+		
+	}
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -13,5 +16,4 @@ public class SimpleEval extends EvaluationAlgorithm {
 		// TODO Auto-generated method stub
 
 	}
-
 }

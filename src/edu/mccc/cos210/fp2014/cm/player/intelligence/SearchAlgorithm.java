@@ -7,5 +7,10 @@ import java.util.concurrent.ExecutorService;
  */
 public abstract class SearchAlgorithm implements Runnable{
 	protected ExecutorService threadPool;
+    protected boolean isFinished;
+
 	protected abstract void search();
+	public boolean isFinished() {
+		return this.isFinished;
+	}
 }
