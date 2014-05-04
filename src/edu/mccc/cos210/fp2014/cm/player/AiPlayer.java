@@ -31,7 +31,8 @@ public class AiPlayer extends Player implements Runnable{
 	 * @return The board with the new best move.
 	 */
 	public Board getMove(Board b) {
-		return null;
+		this.intelligence.setCurrentBoard(b);
+		return this.intelligence.getBest();
 	}
 	/**
 	 * Updates the game model with it's move.
@@ -47,6 +48,9 @@ public class AiPlayer extends Player implements Runnable{
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
+		if(this.gm.getBoard().isWhiteTurn() == this.isWhite()){
+			this.gm.updateBoard(this.getMove(this.gm.getBoard()), false);
+		}
 	}
 	/**
 	 * Called when this object is created in order to start the search-eval loop.

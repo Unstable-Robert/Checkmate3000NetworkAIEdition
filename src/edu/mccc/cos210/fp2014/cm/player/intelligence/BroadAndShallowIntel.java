@@ -3,15 +3,20 @@ package edu.mccc.cos210.fp2014.cm.player.intelligence;
 import edu.mccc.cos210.fp2014.cm.game.Board;
 
 public class BroadAndShallowIntel extends Intelligence {
-
-	public BroadAndShallowIntel(Board b, int md){
-		this.search = new BruteSearch(b, md);
-		this.eval = new SimpleEval();
+	private int depth;
+	
+	public BroadAndShallowIntel(int n){
+		this.depth = n;
+	}
+	@Override
+	public void searchAndEval(){
+		this.search = new BruteSearch(this.currentBoard, this.depth);
+		this.eval = new SimpleEval(this.currentBoard,this.depth);
+		super.searchAndEval();
 	}
 	@Override
 	public Board getBest() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.eval.getBest();
 	}
 
 }
