@@ -1,5 +1,7 @@
 package edu.mccc.cos210.fp2014.cm.player.intelligence;
 
+import java.util.List;
+
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.piece.*;
 import edu.mccc.cos210.fp2014.cm.util.Tree;
@@ -25,14 +27,16 @@ public class SimpleEval extends EvaluationAlgorithm {
 			int bestValue;
 			if (b.isWhiteTurn()==this.isWhite){
 				bestValue = Integer.MIN_VALUE;
-				for(Tree<Board> t : tree.getLeaves()){
-					int value = evaluate(t);
+				List<Tree<Board>> t = tree.getLeaves();
+				for(int i = 0; i < t.size(); i++){
+					int value = evaluate(t.get(i));
 					bestValue = bestValue > value ? bestValue : value;
 				}
 			} else {
 				bestValue = Integer.MAX_VALUE;
-				for (Tree<Board> t : tree.getLeaves()){
-					int value = evaluate(t);
+				List<Tree<Board>> t = tree.getLeaves();
+				for(int i = 0; i < t.size(); i++){
+					int value = evaluate(t.get(i));
 					bestValue = bestValue < value ? bestValue : value; 
 				}
 			}
@@ -56,37 +60,46 @@ public class SimpleEval extends EvaluationAlgorithm {
 	@Override
 	public int getBoardValue(Board b) {
 		int value = 0;
+		int myKing = 0, myQueen = 0, myBishop = 0, myKnight = 0, myRook = 0, 
+			myPawn = 0, myMoves = 0;
+		int yourKing = 0, yourQueen = 0, yourBishop = 0, yourKnight = 0, 
+			yourRook = 0, yourPawn = 0, yourMoves = 0;
 		for (Piece p : b.getPieces()) {
 			if (isWhite == p.isWhite()){
 				if (p instanceof Bishop){
-					value += 3;
+					myBishop++;
 				} else if (p instanceof King){
-					
+					myKinging++;
 				} else if (p instanceof Knight){
-					value += 3;
+					myKnight++;
 				} else if (p instanceof Pawn){
-					value += 1;
+					myPawn++;
 				} else if (p instanceof Queen){
-					value += 10;
+					myQueen++;
 				} else if (p instanceof Rook){
-					value += 5;
-				} 
+					myRook++;
+				}
+				myMoves += p.getPossibleTiles(b).size();
 			} else {
 				if (p instanceof Bishop){
-					value -= 3;
+					yourBishop++;
 				} else if (p instanceof King){
-					
+					yourKing++;
 				} else if (p instanceof Knight){
-					value -= 3;
+					yourKnight++;
 				} else if (p instanceof Pawn){
-					value -= 1;
+					yourPawn++;
 				} else if (p instanceof Queen){
-					value -= 10;
+					yourQueen++;
 				} else if (p instanceof Rook){
-					value -= 5;
-				} 
+					yourRook++;
+				}
+				yourMoves += p.getPossibleTiles(b).size();
 			}
 		}
+		value = 200 * (myKing-yourKing) + 9 * (myQueen-yourQueen) + 5 * (myRook-yourRook) + 
+			3 * (myBishop-yourBishop + myKnight-yourKnight) + 1*(myPawn-yourPawn) + 
+			(int)(0.1*(myMoves-yourMoves));
 		return value;
 	}
 	
