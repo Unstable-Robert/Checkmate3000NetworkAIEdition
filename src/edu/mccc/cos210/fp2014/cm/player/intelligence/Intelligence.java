@@ -13,8 +13,8 @@ public abstract class Intelligence {
 	protected SearchAlgorithm search;
 	protected EvaluationAlgorithm eval;
 	protected Tree<Board> possibleBoards;
-	protected Board bestBoard;
 	protected Board currentBoard;
+	protected boolean isWhite;
 	/**
 	 * Gets the best board given the search and eval classes.
 	 */
@@ -23,6 +23,8 @@ public abstract class Intelligence {
 	}
 	public void setCurrentBoard(Board b) {
 		this.currentBoard = b;
+		this.search.setRoot(new Tree<Board>(b));
+		this.eval.setRoot(new Tree<Board>(b));
 	}
 	/**
 	 * This method searches and evaluates the current board in order to determine the best move.
@@ -32,18 +34,8 @@ public abstract class Intelligence {
 	 * It then loops.
 	 */
 	public void searchAndEval(){
-			try {
-				this.search.run();
-				while(!search.isFinished()){
-					Thread.sleep(100);
-				}
-				this.eval.run();
-				while(!eval.isFinished()){
-					Thread.sleep(100);
-				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+		this.search.run();
+		this.eval.evaluate(this.search.getTree());
 	}
 	/**
 	 * When a user makes a move, the possibilities that did not happen need to be removed.

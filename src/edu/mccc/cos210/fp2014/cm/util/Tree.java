@@ -10,6 +10,7 @@ import java.util.List;
 public class Tree<T> {
 	private TreeNode<T> root;
 	private ArrayList<Tree<T>> leaves;
+	private int score;
 	public Tree(T t){ 
 		this.root = new TreeNode<T>(t);
 		this.leaves = new ArrayList<Tree<T>>();
@@ -24,6 +25,12 @@ public class Tree<T> {
 	 */
 	public T getRoot() {
 		return this.root.getValue();
+	}
+	public void setScore(int s){
+		this.score = s;
+	}
+	public int getScore(){
+		return this.score;
 	}
 	/**
 	 * This returns a list of all of the leaves, possibilities stemming from our original root.

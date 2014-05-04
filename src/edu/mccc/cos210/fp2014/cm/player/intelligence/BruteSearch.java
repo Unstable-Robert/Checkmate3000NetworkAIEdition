@@ -19,7 +19,6 @@ import edu.mccc.cos210.fp2014.cm.game.Board;
 public class BruteSearch extends SearchAlgorithm implements Runnable{
 
     private int depth;
-    private Tree<Board> tree;
     private int maxDepth;
     
     public BruteSearch(Board t, int md) {
@@ -34,7 +33,6 @@ public class BruteSearch extends SearchAlgorithm implements Runnable{
         this.depth = d;
         this.threadPool = tp;
     }
-
     /**
      * Creates new BruteSearch objects for all of the leaves in a tree.
      */

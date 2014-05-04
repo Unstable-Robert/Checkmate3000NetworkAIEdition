@@ -7,6 +7,7 @@ import edu.mccc.cos210.fp2014.cm.game.GameModel;
 import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
+import edu.mccc.cos210.fp2014.cm.player.intelligence.BroadAndShallowIntel;
 import edu.mccc.cos210.fp2014.cm.player.intelligence.Intelligence;
 import edu.mccc.cos210.fp2014.cm.util.Difficulty;
 import edu.mccc.cos210.fp2014.cm.util.GamePart;
@@ -19,11 +20,12 @@ import edu.mccc.cos210.fp2014.cm.util.GamePart;
 public class AiPlayer extends Player implements Runnable{
 	private Intelligence intelligence;
 	private GamePart gamePart;
-	private GameModel gm;
 	private Difficulty difficulty;
 	public AiPlayer(GameModel gm, Checkmate c, boolean b, Difficulty d) {
 		super(gm, c, b);
+		this.isWhite = b;
 		this.difficulty = d;
+		this.intelligence = new BroadAndShallowIntel(2, this.isWhite);
 	}
 	/**
 	 * This takes a board parameter and returns the best move (as determined by the intelligence module).
@@ -32,7 +34,10 @@ public class AiPlayer extends Player implements Runnable{
 	 */
 	public Board getMove(Board b) {
 		this.intelligence.setCurrentBoard(b);
-		return this.intelligence.getBest();
+		this.intelligence.searchAndEval();
+		Board board = this.intelligence.getBest();
+		board.nextTurn();
+		return board;
 	}
 	/**
 	 * Updates the game model with it's move.
@@ -48,6 +53,7 @@ public class AiPlayer extends Player implements Runnable{
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
+		
 		if(this.gm.getBoard().isWhiteTurn() == this.isWhite()){
 			this.gm.updateBoard(this.getMove(this.gm.getBoard()), false);
 		}
