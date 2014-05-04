@@ -40,6 +40,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 	public GameView(Checkmate c) {
 		super(c);
 		players = new ArrayList<Player>();
+		this.setDoubleBuffered(true);
 		this.addMouseListener(this);
 	}
 	public GameView(Checkmate c, GameModel model, boolean networked) {

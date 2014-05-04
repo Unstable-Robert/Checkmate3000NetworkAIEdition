@@ -52,17 +52,19 @@ public class BruteSearch extends SearchAlgorithm implements Runnable{
 	public void run() {
     	Board root = this.tree.getRoot();
 	    for (Piece p : root.getPieces()) {
-	        for (PossibleTile pt : p.getPossibleTiles(root)) {
-	            Piece newPiece = p.clone();
-	            newPiece.setLocation(pt.getX(), pt.getY());
-	            Board newBoard = root.clone();
-	            newBoard.removePiece(p);
-	            newBoard.addPiece(newPiece);
-	            if (pt.hasPieceToRemove()){
-	                newBoard.removePiece(pt.getRemovePiece());
-	            }
-	            tree.addLeaf(newBoard);
-	        }
+	    	if (p.isWhite() == root.isWhiteTurn()) {
+		        for (PossibleTile pt : p.getPossibleTiles(root)) {
+		            Piece newPiece = p.clone();
+		            newPiece.setLocation(pt.getX(), pt.getY());
+		            Board newBoard = root.clone();
+		            newBoard.removePiece(p);
+		            newBoard.addPiece(newPiece);
+		            if (pt.hasPieceToRemove()){
+		                newBoard.removePiece(pt.getRemovePiece());
+		            }
+		            tree.addLeaf(newBoard);
+		        }
+	    	}
 	    }
 	    search();
 	}
