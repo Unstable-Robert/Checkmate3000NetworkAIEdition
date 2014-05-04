@@ -57,19 +57,35 @@ public class SimpleEval extends EvaluationAlgorithm {
 	public int getBoardValue(Board b) {
 		int value = 0;
 		for (Piece p : b.getPieces()) {
-			if (p instanceof Bishop){
-				value += 3;
-			} else if (p instanceof King){
-				
-			} else if (p instanceof Knight){
-				value += 3;
-			} else if (p instanceof Pawn){
-				value += 1;
-			} else if (p instanceof Queen){
-				value += 10;
-			} else if (p instanceof Rook){
-				value += 5;
-			} 
+			if (isWhite == p.isWhite()){
+				if (p instanceof Bishop){
+					value += 3;
+				} else if (p instanceof King){
+					
+				} else if (p instanceof Knight){
+					value += 3;
+				} else if (p instanceof Pawn){
+					value += 1;
+				} else if (p instanceof Queen){
+					value += 10;
+				} else if (p instanceof Rook){
+					value += 5;
+				} 
+			} else {
+				if (p instanceof Bishop){
+					value -= 3;
+				} else if (p instanceof King){
+					
+				} else if (p instanceof Knight){
+					value -= 3;
+				} else if (p instanceof Pawn){
+					value -= 1;
+				} else if (p instanceof Queen){
+					value -= 10;
+				} else if (p instanceof Rook){
+					value -= 5;
+				} 
+			}
 		}
 		return value;
 	}
