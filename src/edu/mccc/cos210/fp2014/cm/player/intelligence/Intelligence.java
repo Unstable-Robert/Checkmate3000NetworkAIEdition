@@ -15,11 +15,12 @@ public abstract class Intelligence {
 	protected Tree<Board> possibleBoards;
 	protected Board bestBoard;
 	protected Board currentBoard;
-	protected boolean bestBoardUpToDate;
 	/**
 	 * Gets the best board given the search and eval classes.
 	 */
-	public abstract Board getBest();
+	public Board getBest() {
+		return this.eval.getBest();
+	}
 	public void setCurrentBoard(Board b) {
 		this.currentBoard = b;
 	}
@@ -31,6 +32,18 @@ public abstract class Intelligence {
 	 * It then loops.
 	 */
 	public void searchAndEval(){
+			try {
+				this.search.run();
+				while(!search.isFinished()){
+					Thread.sleep(100);
+				}
+				this.eval.run();
+				while(!eval.isFinished()){
+					Thread.sleep(100);
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 	}
 	/**
 	 * When a user makes a move, the possibilities that did not happen need to be removed.
