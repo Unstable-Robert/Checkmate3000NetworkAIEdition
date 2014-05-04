@@ -23,8 +23,9 @@ public abstract class Intelligence {
 	}
 	public void setCurrentBoard(Board b) {
 		this.currentBoard = b;
-		this.search.setRoot(new Tree<Board>(b));
-		this.eval.setRoot(new Tree<Board>(b));
+		Tree<Board> t = new Tree<Board>(b);
+		this.search.setRoot(t);
+		this.eval.setRoot(t);
 	}
 	/**
 	 * This method searches and evaluates the current board in order to determine the best move.
@@ -35,7 +36,7 @@ public abstract class Intelligence {
 	 */
 	public void searchAndEval(){
 		this.search.run();
-		this.eval.evaluate(this.search.getTree());
+		this.eval.evaluate();
 	}
 	/**
 	 * When a user makes a move, the possibilities that did not happen need to be removed.

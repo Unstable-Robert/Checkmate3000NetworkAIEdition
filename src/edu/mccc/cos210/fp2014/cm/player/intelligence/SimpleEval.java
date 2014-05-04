@@ -38,7 +38,6 @@ public class SimpleEval extends EvaluationAlgorithm {
 			}
 			tree.setScore(bestValue);
 			this.isFinished = true;
-			this.tree = tree;
 			return bestValue;
 		}
 	}
