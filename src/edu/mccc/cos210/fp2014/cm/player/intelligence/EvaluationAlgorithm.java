@@ -15,8 +15,5 @@ public abstract class EvaluationAlgorithm implements Runnable {
 	public boolean isFinished() {
 		return this.isFinished;
 	}
-	public Board getBest() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract Board getBest();
 }
