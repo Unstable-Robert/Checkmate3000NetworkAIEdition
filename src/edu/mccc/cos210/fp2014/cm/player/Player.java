@@ -11,10 +11,7 @@ import javax.swing.JPanel;
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.game.GameModel;
 import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
-import edu.mccc.cos210.fp2014.cm.piece.King;
-import edu.mccc.cos210.fp2014.cm.piece.Pawn;
-import edu.mccc.cos210.fp2014.cm.piece.Piece;
-import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
+import edu.mccc.cos210.fp2014.cm.piece.*;
 
 /**
  * Abstract player class.

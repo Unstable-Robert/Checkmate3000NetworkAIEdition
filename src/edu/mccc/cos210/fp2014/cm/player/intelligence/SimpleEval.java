@@ -17,7 +17,6 @@ public class SimpleEval extends EvaluationAlgorithm {
 
 	@Override
 	protected int evaluate(Tree<Board> tree) {
-		this.tree = tree;
 		Board b = tree.getRoot();
 		if (tree.getLeaves().isEmpty()){
 			this.isFinished = true;
@@ -39,6 +38,7 @@ public class SimpleEval extends EvaluationAlgorithm {
 			}
 			tree.setScore(bestValue);
 			this.isFinished = true;
+			this.tree = tree;
 			return bestValue;
 		}
 	}
