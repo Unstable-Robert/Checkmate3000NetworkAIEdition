@@ -92,6 +92,7 @@ public class LocalView extends SettingsView {
 		//Checkbox whether game is timed or not
 		this.checkbox = new JCheckBox("", true);
 		checkbox.setSize(24,15);
+        checkbox.setBackground(new Color(10,10,10,0));
 		checkbox.setLocation(
 			c.getWidth() / 3 + timedGame.getWidth() + 10,
 			(int)(c.getHeight() * 0.55)
