@@ -3,6 +3,8 @@ package edu.mccc.cos210.fp2014.cm.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.mccc.cos210.fp2014.cm.game.Board;
+
 /**
  * A simple tree structure. Each root has several leaves, which are in turn trees as well.
  * This is our internal representation of possible boards from a given point in time.
@@ -76,5 +78,13 @@ public class Tree<T> {
 		public TreeNode<T> getParent() {
 			return parent;
 		}
+	}
+	public Tree<T> getLeaf(Board newBoard) {
+		for (Tree<T> leaf : this.getLeaves()){
+			if (newBoard.equals(leaf.getRoot())){
+				return leaf;
+			}
+		}
+		return null;
 	}
 }

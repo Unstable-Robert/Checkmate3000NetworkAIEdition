@@ -33,8 +33,7 @@ public class AiPlayer extends Player implements Runnable{
 	 * @return The board with the new best move.
 	 */
 	public Board getMove(Board b) {
-		this.intelligence.setCurrentBoard(b);
-		this.intelligence.searchAndEval();
+		this.intelligence.searchAndEval(b);
 		Board board = this.intelligence.getBest();
 		board.nextTurn();
 		return board;

@@ -65,7 +65,6 @@ public class SimpleEval extends EvaluationAlgorithm {
 		int yourKing = 0, yourQueen = 0, yourBishop = 0, yourKnight = 0, 
 			yourRook = 0, yourPawn = 0, yourMoves = 0;
 		for (Piece p : b.getPieces()) {
-			if (isWhite == p.isWhite()){
 				if (p instanceof Bishop){
 					myBishop++;
 				} else if (p instanceof King){
@@ -77,30 +76,8 @@ public class SimpleEval extends EvaluationAlgorithm {
 				} else if (p instanceof Queen){
 					myQueen++;
 				} else if (p instanceof Rook){
-					myRook++;
-				}
-				myMoves += p.getPossibleTiles(b).size();
-			} else {
-				if (p instanceof Bishop){
-					yourBishop++;
-				} else if (p instanceof King){
-					yourKing++;
-				} else if (p instanceof Knight){
-					yourKnight++;
-				} else if (p instanceof Pawn){
-					yourPawn++;
-				} else if (p instanceof Queen){
-					yourQueen++;
-				} else if (p instanceof Rook){
-					yourRook++;
-				}
-				yourMoves += p.getPossibleTiles(b).size();
 			}
 		}
-		value = 200 * (myKing-yourKing) + 9 * (myQueen-yourQueen) + 5 * (myRook-yourRook) + 
-			3 * (myBishop-yourBishop + myKnight-yourKnight) + 1*(myPawn-yourPawn) + 
-			(int)(0.1*(myMoves-yourMoves));
 		return value;
 	}
-	
 }

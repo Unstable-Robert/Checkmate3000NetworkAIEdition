@@ -13,7 +13,8 @@ public abstract class SearchAlgorithm implements Runnable{
     protected boolean isFinished;
     protected Tree<Board> tree;
 
-	protected abstract void search();
+	protected abstract void search(int depth, Tree<Board> b);
+	protected abstract void search(Tree<Board> b);
 	public boolean isFinished() {
 		return this.isFinished;
 	}
