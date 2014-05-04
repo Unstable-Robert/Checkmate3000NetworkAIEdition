@@ -12,6 +12,7 @@ public class BroadAndShallowIntel extends Intelligence {
 	public void searchAndEval(){
 		this.search = new BruteSearch(this.currentBoard, this.depth);
 		this.eval = new SimpleEval(this.currentBoard,this.depth);
+		super.searchAndEval();
 	}
 	@Override
 	public Board getBest() {
