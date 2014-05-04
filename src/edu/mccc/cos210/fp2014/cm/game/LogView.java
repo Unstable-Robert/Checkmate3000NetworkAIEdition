@@ -28,9 +28,11 @@ import edu.mccc.cos210.fp2014.cm.util.GameType;
 public class LogView extends SettingsView implements Observer {
 	private static final long serialVersionUID = 1L;
 	private Board board;
-	private List<PossibleTile> movesOrSomething = new ArrayList<PossibleTile>();
+	private List<String> moves = new ArrayList<String>();
 	private BufferedImage image;
 	private int turnNum;
+    private int maxTurn;
+    private boolean whiteWon;
 	public LogView(Checkmate c) {
 		super(c);
 		
@@ -81,7 +83,9 @@ public class LogView extends SettingsView implements Observer {
 		nextButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				turnNum++;
+                if (turnNum < maxTurn) {
+                    NextTurn();
+                }
 				repaint();
 			}
 		});
@@ -95,13 +99,30 @@ public class LogView extends SettingsView implements Observer {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				if (turnNum > 0) {
-					turnNum--;
+					NextTurn();
 					repaint();
 				}
 			}
 		});
 		add(previousButton);
 	}
+    private void NextTurn(){
+        turnNum++;
+        String moving = moves.get(turnNum);
+        String[] split = moving.split(":");
+        int uid = Integer.parseInt(split[0]);
+        int x = Integer.parseInt(Character.toString(split[1].charAt(0)));
+        int y = Integer.parseInt(Character.toString(split[1].charAt(1)));
+        MovePiece(uid, x, y);
+
+    }
+    private void MovePiece(int uid, int x, int y){
+        for (Piece p : this.board.getPieces()){
+            if (p.getUID() == uid){
+                p.setLocation(x,y);
+            }
+        }
+    }
 	private BufferedImage loadImage() {
 		BufferedImage bi = null;
 		try {
@@ -117,15 +138,27 @@ public class LogView extends SettingsView implements Observer {
 		BufferedReader br = new BufferedReader(new FileReader(f));
 		String s = br.readLine();
 		br.close();
-		Pattern p = Pattern.compile("[0-9]+[.]|:");
+		Pattern p = Pattern.compile("[0-9]+[.]");
 		Matcher m = p.matcher(s);
 		s = m.replaceAll("");
-		String[] moves = s.split(" ");
-		for (int i = 0; i < moves.length; i++) {
-			if (i% 2 == 0) {
+        s = s.replace("[","");
+        s = s.replace("]"," ");
+        s = s.replace(",","");
+		String[] move = s.split(" ");
+        this.maxTurn = move.length-1;
+		for (int i = 0; i < move.length; i++) {
+			if (i % 2 == 0) {
 				//white's move
+                if (move[i].contains("-")){
+                    if (move[i].contains("1-0")) whiteWon = true;
+                    if (move[i].contains("0-1")) whiteWon = false;
+                } else moves.add(move[i]);
 			} else {
 				//black's move
+                if (move[i].contains("-")){
+                    if (move[i].contains("1-0")) whiteWon = true;
+                    if (move[i].contains("0-1")) whiteWon = false;
+                } else moves.add(move[i]);
 			}
 			// check for enpassant, castle
 		}
