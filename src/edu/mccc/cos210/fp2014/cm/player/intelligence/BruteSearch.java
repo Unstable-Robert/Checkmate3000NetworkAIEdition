@@ -20,10 +20,11 @@ public class BruteSearch extends SearchAlgorithm implements Runnable {
 
     private int depth;
     private Tree<Board> tree;
-    private static final int MAXDEPTH = 5;
+    private int maxDepth;
     
-    public BruteSearch(Board t) {
+    public BruteSearch(Board t, int md) {
         this.tree = new Tree<Board>(t);
+        this.maxDepth = md;
         this.depth = 0;
         this.threadPool = Executors.newFixedThreadPool(10);
     }
@@ -37,7 +38,7 @@ public class BruteSearch extends SearchAlgorithm implements Runnable {
      * Creates new BruteSearch objects for all of the leaves in a tree.
      */
     protected void search() {
-        if (this.depth < MAXDEPTH) {
+        if (this.depth < maxDepth) {
             for (Tree<Board> b : tree.getLeaves()) {
                 this.threadPool.submit(new BruteSearch(b, this.depth + 1, this.threadPool));
             }

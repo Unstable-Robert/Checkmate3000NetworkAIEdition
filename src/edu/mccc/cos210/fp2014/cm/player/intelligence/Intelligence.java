@@ -20,7 +20,8 @@ public abstract class Intelligence {
 	 * Gets the best board given the search and eval classes.
 	 */
 	public abstract Board getBest();
-	public void setCurrentBoard() {
+	public void setCurrentBoard(Board b) {
+		this.currentBoard = b;
 	}
 	/**
 	 * This method searches and evaluates the current board in order to determine the best move.
@@ -36,5 +37,6 @@ public abstract class Intelligence {
 	 * This does so.
 	 */
 	protected void trimBoardTree(Board b) {
+		possibleBoards.trimTree(b);
 	}
 }
