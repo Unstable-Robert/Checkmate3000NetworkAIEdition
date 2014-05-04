@@ -15,7 +15,6 @@ public class TestEval extends EvaluationAlgorithm {
 	}
 	@Override
 	protected int evaluate(Tree<Board> tree) {
-		System.out.println("DOING SHIT");
 		Board b = tree.getRoot();
 		if (tree.getLeaves().isEmpty()) {
 			this.isFinished = true;
