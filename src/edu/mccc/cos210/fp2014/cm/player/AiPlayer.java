@@ -7,7 +7,7 @@ import edu.mccc.cos210.fp2014.cm.game.GameModel;
 import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
-import edu.mccc.cos210.fp2014.cm.player.intelligence.BroadAndShallowIntel;
+import edu.mccc.cos210.fp2014.cm.player.intelligence.TestIntel;
 import edu.mccc.cos210.fp2014.cm.player.intelligence.Intelligence;
 import edu.mccc.cos210.fp2014.cm.util.Difficulty;
 import edu.mccc.cos210.fp2014.cm.util.GamePart;
@@ -25,7 +25,20 @@ public class AiPlayer extends Player implements Runnable{
 		super(gm, c, b);
 		this.isWhite = b;
 		this.difficulty = d;
-		this.intelligence = new BroadAndShallowIntel(2, this.isWhite);
+		switch (this.difficulty) {
+		case EASY:
+			this.intelligence = new TestIntel(2, this.isWhite);
+			break;
+		case MEDIUM:
+			this.intelligence = new TestIntel(4, this.isWhite);
+			break;
+		case HARD:
+			this.intelligence = new TestIntel(8, this.isWhite);
+			break;
+		default:
+			this.intelligence = new TestIntel(2, this.isWhite);
+			break;
+		}
 	}
 	/**
 	 * This takes a board parameter and returns the best move (as determined by the intelligence module).
