@@ -16,7 +16,7 @@ import edu.mccc.cos210.fp2014.cm.game.Board;
  * When actually implemented, we should probably decide to search only one depth, then 
  * evaluate, etc. We should also use an AiTree instead of a tree for evaluation purposes.
  */
-public class BruteSearch extends SearchAlgorithm implements Runnable{
+public class BruteSearch extends SearchAlgorithm implements Runnable {
 
     private int depth;
     private int maxDepth;
@@ -50,7 +50,7 @@ public class BruteSearch extends SearchAlgorithm implements Runnable{
      */
     @Override
 	public void run() {
-    	Board root = this.tree.getRoot();
+		Board root = this.tree.getRoot();
 	    for (Piece p : root.getPieces()) {
 	    	if (p.isWhite() == root.isWhiteTurn()) {
 		        for (PossibleTile pt : p.getPossibleTiles(root)) {

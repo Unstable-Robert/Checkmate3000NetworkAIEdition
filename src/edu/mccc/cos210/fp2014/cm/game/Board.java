@@ -182,14 +182,14 @@ public class Board implements Cloneable{
 	public boolean isWhiteTurn() {
 		return this.whiteTurn;
 	}
-	public Meta getMetaInfo(){
+	public Meta getMetaInfo() {
 		return this.metaInfo;
 	}
     /**
      * Adds a piece to the board
      * @param p Piece being added to the board
      */
-	public void addPiece(Piece p){
+	public void addPiece(Piece p) {
 		this.getPieces().add(p);
 	} 
 	public void clearSelected() {
@@ -231,14 +231,15 @@ public class Board implements Cloneable{
 	public Board clone() {
 		ArrayList<Piece> newPieces = new ArrayList<Piece>();
 		ArrayList<PossibleTile> newTiles = new ArrayList<PossibleTile>();
-		for(Piece p : this.getPieces()){
+		for(Piece p : this.getPieces()) {
 			newPieces.add(p.clone());
 		}
 		return new Board(newTiles, 
-				newPieces,
-				this.getNumMovesSinceLastPieceTaken(), 
-				this.whiteTurn,
-				this.getMetaInfo().clone(),
-                this.getMoves());
+			newPieces,
+			this.getNumMovesSinceLastPieceTaken(), 
+			this.whiteTurn,
+			this.getMetaInfo().clone(),
+			this.getMoves()
+		);
 	}
 }
