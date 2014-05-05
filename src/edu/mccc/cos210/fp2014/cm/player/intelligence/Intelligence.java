@@ -38,7 +38,7 @@ public abstract class Intelligence {
 		Tree<Board> t = new Tree<Board>(b);
 		this.search.search(t);
 		this.eval.setRoot(t);
-		this.eval.evaluate();
+		this.eval.evaluate(t, true);
 	}
 	/**
 	 * When a user makes a move, the possibilities that did not happen need to be removed.

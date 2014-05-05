@@ -14,13 +14,8 @@ public abstract class EvaluationAlgorithm implements Runnable {
     protected boolean isFinished;
     protected Tree<Board> tree;
 
-	protected abstract int evaluate(Tree<Board> tree);
-	protected void evaluate(){
-		tree.setScore(
-			this.evaluate(this.tree)
-		);
-		this.isFinished = true;
-	}
+	protected abstract int evaluate(Tree<Board> tree, boolean maxPlayer);
+	
 	public boolean isFinished() {
 		return this.isFinished;
 	}
