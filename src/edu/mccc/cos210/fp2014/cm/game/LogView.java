@@ -27,19 +27,18 @@ import edu.mccc.cos210.fp2014.cm.util.GameType;
  */
 public class LogView extends SettingsView implements Observer {
 	private static final long serialVersionUID = 1L;
-	private Board board;
-	private List<String> moves = new ArrayList<String>();
-    private List<String> prevMoves = new ArrayList<String>();
+	private List<Board> moves;
 	private BufferedImage image;
 	private int turnNum;
-    private int maxTurn;
-    private int[] removedPiece;
-    private boolean whiteWon;
+	private int maxTurn;
+	private int[] removedPiece;
+	private boolean whiteWon;
 	public LogView(Checkmate c) {
 		super(c);
 		
 		turnNum = 0;
-		board = new Board(GameType.NORMAL);
+		moves = new ArrayList<Board>();
+		moves.add(new Board(GameType.NORMAL));
 		image = loadImage();
 		
 		JButton backButton = new JButton("Main Menu");
@@ -85,41 +84,10 @@ public class LogView extends SettingsView implements Observer {
 		nextButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-                if (turnNum < maxTurn) {
-                    NextTurn();
-                    repaint();
-                }
-                if (turnNum == maxTurn){
-                    String message;
-                    if (whiteWon){
-                        message = "White Won!!";
-                    } else {
-                        message = "Black Won!!";
-                    }
-
-                    String[] options = new String[]{"Okay", "Load Another File"};
-                    int gameOverAction = JOptionPane.showOptionDialog(
-                            null, message, "Game Over",
-                            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                            null, options, options[0]
-                    );
-                    if (gameOverAction == 1){
-                        System.out.print("Okay");
-                        JFileChooser fc = new JFileChooser(new File("logs"));
-                        fc.setAcceptAllFileFilterUsed(false);
-                        fc.setFileFilter(
-                                new FileNameExtensionFilter("Checkmate 3000 Logs", "cm3")
-                        );
-                        int result = fc.showOpenDialog(LogView.this);
-                        if (result == JFileChooser.APPROVE_OPTION) {
-                            try {
-                                loadFile(fc.getSelectedFile());
-                            } catch (Exception ex){
-                                ex.printStackTrace();
-                            }
-                        }
-                    }
-                }
+				if (turnNum < moves.size()) {
+					turnNum++;
+					repaint();
+				}
 			}
 		});
 		add(nextButton);
@@ -132,77 +100,13 @@ public class LogView extends SettingsView implements Observer {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				if (turnNum > 0) {
-					PrevTurn();
-                    if (CheckedRemovedPiece()){
-                        PrevTurn();
-                        turnNum++;
-                    }
+					turnNum--;
 					repaint();
 				}
 			}
 		});
 		add(previousButton);
 	}
-    private void NextTurn(){
-        String moving = moves.get(turnNum);
-        String[] split = moving.split(":");
-        int uid = Integer.parseInt(split[0]);
-        int x = Integer.parseInt(Character.toString(split[1].charAt(0)));
-        int y = Integer.parseInt(Character.toString(split[1].charAt(1)));
-        RemovePieceAt(x, y);
-        MovePieceTo(uid, x, y);
-        turnNum++;
-    }
-    private void PrevTurn(){
-        String moving = prevMoves.remove(prevMoves.size()-1);
-        String[] split = moving.split(":");
-        int uid = Integer.parseInt(split[0]);
-        int x = Integer.parseInt(Character.toString(split[1].charAt(0)));
-        int y = Integer.parseInt(Character.toString(split[1].charAt(1)));
-        MovePieceBackTo(uid, x, y);
-        turnNum--;
-    }
-    private boolean RemovePieceAt(int x, int y){
-        for (Piece p : this.board.getPieces()){
-            if (p.getX() == x && p.getY() == y){
-                String oldPiece = (p.getUID()+":"+x+y);
-                prevMoves.add(oldPiece);
-                p.setLocation(-1, -2);
-                removedPiece[turnNum] = 1;
-                return true;
-            }
-        }
-        return false;
-    }
-    private boolean CheckedRemovedPiece(){
-        if (removedPiece[turnNum] == 1) return true;
-        return false;
-    }
-
-    private void MovePieceTo(int uid, int x, int y){
-        for (Piece p : this.board.getPieces()){
-            if (p.getUID() == uid){
-                String oldPiece = (uid+":"+p.getX()+p.getY());
-                p.setLocation(x,y);
-                prevMoves.add(oldPiece);
-            }
-        }
-    }
-    private void MovePieceBackTo(int uid, int x, int y){
-        for (Piece p : this.board.getPieces()){
-            if (p.getUID() == uid){
-                p.setLocation(x,y);
-            }
-        }
-    }
-    private void CleanUp(){
-        turnNum = 0;
-        maxTurn = 0;
-        board = new Board(GameType.NORMAL);
-        image = loadImage();
-        prevMoves = new ArrayList<String>();
-        moves = new ArrayList<String>();
-    }
 	private BufferedImage loadImage() {
 		BufferedImage bi = null;
 		try {
@@ -215,35 +119,41 @@ public class LogView extends SettingsView implements Observer {
 		return bi;
 	}
 	private void loadFile(File f) throws Exception {
-        CleanUp();
-        repaint();
+		turnNum = 0;
+		moves = new ArrayList<Board>();
+		moves.add(new Board(GameType.NORMAL));
 		BufferedReader br = new BufferedReader(new FileReader(f));
 		String s = br.readLine();
 		br.close();
-		Pattern p = Pattern.compile("[0-9]+[.]");
-		Matcher m = p.matcher(s);
-		s = m.replaceAll("");
-        s = s.replace("[","");
-        s = s.replace("]"," ");
-        s = s.replace(",","");
-		String[] move = s.split(" ");
-        this.maxTurn = move.length-1;
-        removedPiece = new int[maxTurn];
-		for (int i = 0; i < move.length; i++) {
-			if (i % 2 == 0) {
-				//white's move
-                if (move[i].contains("-")){
-                    if (move[i].contains("1-0")) whiteWon = true;
-                    if (move[i].contains("0-1")) whiteWon = false;
-                } else moves.add(move[i]);
-			} else {
-				//black's move
-                if (move[i].contains("-")){
-                    if (move[i].contains("1-0")) whiteWon = true;
-                    if (move[i].contains("0-1")) whiteWon = false;
-                } else moves.add(move[i]);
+		String[] sArray = s.split(";");
+		String[] moveElements;
+		int uid, x, y;
+		ArrayList<Piece> pieces;
+		Piece originalPiece = null, newPiece = null, removedPiece;
+		for (int i = 0; i < sArray.length; i++) {
+			moveElements = sArray[i].split(",");
+			uid = Integer.parseInt(moveElements[0]);
+			x = Integer.parseInt(moveElements[1]);
+			y = Integer.parseInt(moveElements[2]);
+			pieces = moves.get(i).getPieces();
+			removedPiece = null;
+			for (Piece p : pieces) {
+				// if (p.isWhite() == (i % 2 == 1))
+				if (p.getUID() == uid) {
+					originalPiece = p;
+					newPiece = originalPiece.clone();
+				} else if (p.getX() == x && p.getY() == y) {
+					removedPiece = p;
+				}
 			}
-			// check for enpassant, castle
+			newPiece.setLocation(x, y);
+			Board newBoard = moves.get(i).clone();
+			newBoard.removePiece(originalPiece);
+			newBoard.addPiece(newPiece);
+			if (removedPiece != null){
+				newBoard.removePiece(removedPiece);
+			}
+			moves.add(newBoard);
 		}
 	}
 	private void drawPiece(Graphics2D g2d, int x, int y, int gridX, int gridY) {
@@ -296,11 +206,11 @@ public class LogView extends SettingsView implements Observer {
 		}
 		
 		g2d.setFont(new Font(g2d.getFont().toString(), Font.PLAIN, 28));
-		if (board.isWhiteTurn()) {
+		if (moves.get(turnNum).isWhiteTurn()) {
 			g2d.drawString("Turn " + turnNum, myCheckmate.getWidth() * .02f, myCheckmate.getHeight() * .05f);
 		}
 		
-		List<Piece> pieces = board.getPieces();
+		List<Piece> pieces = moves.get(turnNum).getPieces();
 		int gridX, gridY;
 		for (Piece p: pieces) {
 			if (p instanceof Pawn) {

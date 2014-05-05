@@ -7,7 +7,7 @@ public class TestIntel extends Intelligence {
 	public TestIntel(int n, boolean white) {
 		this.depth = n;
 		this.isWhite = white;
-		this.search = new TestSearch(this.currentBoard, this.depth);
+		this.search = new BruteSearch(this.currentBoard, this.depth);
 		this.eval = new TestEval(this.currentBoard, this.depth, this.isWhite);
 	}
 	@Override
