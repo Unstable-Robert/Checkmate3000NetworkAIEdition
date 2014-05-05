@@ -55,6 +55,9 @@ public class Tree<T> {
 	public void addLeaf(T t) {
 		this.leaves.add(new Tree<T>(t));
 	}
+	public void removeLeaf(Tree<T> t) {
+		this.leaves.remove(t);
+	}
 	/**
 	 * Trims the tree to the values passed into as a paramater
 	 * This removes all branches except the root t and any subsequent children if it has any.

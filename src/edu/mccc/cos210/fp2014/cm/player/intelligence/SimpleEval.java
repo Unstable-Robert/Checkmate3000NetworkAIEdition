@@ -13,7 +13,6 @@ public class SimpleEval extends EvaluationAlgorithm {
 	}
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 
 	}
 

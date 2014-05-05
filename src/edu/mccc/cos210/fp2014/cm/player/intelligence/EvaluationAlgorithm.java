@@ -16,7 +16,10 @@ public abstract class EvaluationAlgorithm implements Runnable {
 
 	protected abstract int evaluate(Tree<Board> tree);
 	protected void evaluate(){
-		this.evaluate(this.tree);
+		tree.setScore(
+			this.evaluate(this.tree)
+		);
+		this.isFinished = true;
 	}
 	public boolean isFinished() {
 		return this.isFinished;

@@ -15,31 +15,34 @@ public class TestEval extends EvaluationAlgorithm {
 	}
 	@Override
 	protected int evaluate(Tree<Board> tree) {
+		return evaluate(tree, Integer.MIN_VALUE, Integer.MAX_VALUE);
+	}
+	private int evaluate(Tree<Board> tree, int alpha, int beta) {
 		Board b = tree.getRoot();
 		if (tree.getLeaves().isEmpty()) {
 			this.isFinished = true;
-			return getBoardValue(b);
-		} else {
-			int bestValue;
-			if (b.isWhiteTurn()==this.isWhite) {
-				bestValue = Integer.MIN_VALUE;
-				List<Tree<Board>> t = tree.getLeaves();
-				for(int i = 0; i < t.size(); i++){
-					int value = evaluate(t.get(i));
-					bestValue = bestValue > value ? bestValue : value;
+			return getBoardValue(b) * (b.isWhiteTurn() == this.isWhite ? 1 : -1);
+		}
+		// Negascout Algorithm
+		List<Tree<Board>> t = tree.getLeaves();
+		int score;
+		for(int i = 0; i < t.size(); i++) {
+			if (i > 0) {
+				score = -evaluate(t.get(i), -alpha-1, alpha);
+				if (alpha < score && score < beta) {
+					score = -evaluate(t.get(i), -beta, -score);
 				}
 			} else {
-				bestValue = Integer.MAX_VALUE;
-				List<Tree<Board>> t = tree.getLeaves();
-				for(int i = 0; i < t.size(); i++){
-					int value = evaluate(t.get(i));
-					bestValue = bestValue < value ? bestValue : value; 
-				}
+				score = -evaluate(t.get(i), -beta, -alpha);
 			}
-			tree.setScore(bestValue);
-			this.isFinished = true;
-			return bestValue;
+			if (score > alpha) {
+				alpha = score;
+			}
+			if (alpha >= beta) {
+				tree.removeLeaf(t.get(i)); // I believe this line needs to be changed.
+			}
 		}
+		return alpha;
 	}
 	@Override
 	public Board getBest() {
@@ -95,9 +98,7 @@ public class TestEval extends EvaluationAlgorithm {
 					  9 * (myQueen - yourQueen) +
 					  5 * (myRook - yourRook) +
 					  3 * (myBishop - yourBishop + myKnight - yourKnight) +
-					      (myPawn - yourPawn);// +
-					//0.1 * (M-M') -
-					//0.5 * (D-D' + S-S' + I-I');
+					      (myPawn - yourPawn);
 		return value;
 	}
 }
