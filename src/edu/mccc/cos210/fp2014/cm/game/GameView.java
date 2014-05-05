@@ -143,7 +143,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		}
 	}
 	private void saveLog(boolean isWhiteTurn) {
-		String moves = this.gm.getBoard().getMoves() + (isWhiteTurn ? "0-1" : "1-0");
+		ArrayList<int[]> moves = this.gm.getBoard().getMoves();
 		System.out.println(moves);
 		JFileChooser fc = new JFileChooser(new File("logs"));
 		fc.setAcceptAllFileFilterUsed(false);
@@ -153,7 +153,13 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		fc.showSaveDialog(this);
 		try {
 			FileWriter fw = new FileWriter(fc.getSelectedFile() + ".cm3");
-			fw.write(moves);
+			for (int i = 0; i < moves.size(); i++) {
+				for (int j = 0; j < moves.get(i).length; j++) {
+					fw.write(Integer.toString(moves.get(i)[j]));
+					fw.write(",");
+				}
+				fw.write(";");
+			}
 			fw.close();
 		} catch (java.io.IOException ex){
 			ex.printStackTrace();

@@ -10,6 +10,7 @@ Insert chess pun here
 	Chat JTextArea has scroll bar?
 
 ####Changelog:
+	.cm3 log files are now formatted like this: "UID,X,Y,;nextUID,nextX,nextY,;"
 	added a draw game option pane
 	LogView added
 	removed GameOverView and DrawView

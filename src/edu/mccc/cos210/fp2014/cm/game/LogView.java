@@ -97,7 +97,7 @@ public class LogView extends SettingsView implements Observer {
                         message = "Black Won!!";
                     }
 
-                    String[] options = new String[]{"Okay","Load Another File"};
+                    String[] options = new String[]{"Okay", "Load Another File"};
                     int gameOverAction = JOptionPane.showOptionDialog(
                             null, message, "Game Over",
                             JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
