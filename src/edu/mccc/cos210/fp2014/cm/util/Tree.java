@@ -12,7 +12,7 @@ import edu.mccc.cos210.fp2014.cm.game.Board;
 public class Tree<T> {
 	private TreeNode<T> root;
 	private ArrayList<Tree<T>> leaves;
-	private int score;
+	private double score;
 	public Tree(T t){ 
 		this.root = new TreeNode<T>(t);
 		this.leaves = new ArrayList<Tree<T>>();
@@ -28,10 +28,10 @@ public class Tree<T> {
 	public T getRoot() {
 		return this.root.getValue();
 	}
-	public void setScore(int s){
+	public void setScore(double s){
 		this.score = s;
 	}
-	public int getScore(){
+	public double getScore(){
 		return this.score;
 	}
 	/**

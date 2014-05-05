@@ -14,7 +14,7 @@ public abstract class EvaluationAlgorithm implements Runnable {
     protected boolean isFinished;
     protected Tree<Board> tree;
 
-	protected abstract int evaluate(Tree<Board> tree, boolean maxPlayer);
+	protected abstract double evaluate(Tree<Board> tree, boolean maxPlayer);
 	
 	public boolean isFinished() {
 		return this.isFinished;
@@ -22,6 +22,15 @@ public abstract class EvaluationAlgorithm implements Runnable {
 	public void setRoot(Tree<Board> t){
     	this.tree = t;
     }
-	public abstract Board getBest();
-	public abstract int getBoardValue(Board b);
+	public Board getBest() {
+		Board best = null;
+		double bestScore = Integer.MIN_VALUE;
+		for (Tree<Board> b : this.tree.getLeaves()){
+			if (b.getScore() > bestScore){
+				best = b.getRoot();
+				bestScore = b.getScore();
+			}
+		}
+		return best;
+	}	public abstract double getBoardValue(Board b);
 }

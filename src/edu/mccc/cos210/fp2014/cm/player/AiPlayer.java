@@ -22,10 +22,12 @@ public class AiPlayer extends Player implements Runnable{
 	private Intelligence intelligence;
 	private GamePart gamePart;
 	private Difficulty difficulty;
+	private boolean moving;
 	public AiPlayer(GameModel gm, Checkmate c, boolean b, Difficulty d) {
 		super(gm, c, b);
 		this.isWhite = b;
 		this.difficulty = d;
+		moving = false;
 		switch (this.difficulty) {
 		case EASY:
 			this.intelligence = new BroadAndShallowIntel(2, this.isWhite);
@@ -57,6 +59,7 @@ public class AiPlayer extends Player implements Runnable{
 	 */
 	@Override
 	public boolean updateModel(Piece piece, PossibleTile pt){
+		super.updateModel(piece, pt);
 		return false;
 	}
 	/**
@@ -66,8 +69,10 @@ public class AiPlayer extends Player implements Runnable{
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		if(this.gm.getBoard().isWhiteTurn() == this.isWhite()){
+		if(this.gm.getBoard().isWhiteTurn() == this.isWhite() && !this.moving){
+			this.moving = true;
 			this.gm.updateBoard(this.getMove(this.gm.getBoard()), false);
+			this.moving = false;
 		}
 	}
 	/**
