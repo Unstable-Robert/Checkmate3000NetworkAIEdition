@@ -4,12 +4,17 @@ Checkmate3000NetworkAIEdition
 Insert chess pun here
 
 ####ToDo:
-	Threefold Repetition Draw
-	start AI Player Classes
 	Pressing canel when saving a log returns user to the game over option pane.
 	Chat JTextArea has scroll bar?
+	game log save AI moves
+	game log castling
+	game log en passant
+	game log pawn promotion
+	game log display who won
 
 ####Changelog:
+	Added three fold repetition.
+	Game log working more or less.
 	.cm3 log files are now formatted like this: "UID,X,Y,;nextUID,nextX,nextY,;"
 	added a draw game option pane
 	LogView added

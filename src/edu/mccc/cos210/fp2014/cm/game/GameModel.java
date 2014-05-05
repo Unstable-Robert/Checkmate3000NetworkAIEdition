@@ -117,6 +117,18 @@ public class GameModel extends Observable {
 		moveRule = 0;
 	}
 	public boolean canDraw() {
+		ArrayList<int[]> moves = board.getMoves();
+		if (moves.size() >= 5) {
+			int[] currentMove = moves.get(moves.size()-1);
+			int[] prevMove = moves.get(moves.size()-5);
+			if (
+				currentMove[0] == prevMove[0] &&
+				currentMove[1] == prevMove[1] &&
+				currentMove[2] == prevMove[2]
+			){
+				return true;
+			}
+		}
 		return moveRule % 50 == 0 && moveRule != 0;
 	}
 	public boolean mustDraw() {
