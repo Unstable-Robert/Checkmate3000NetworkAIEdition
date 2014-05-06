@@ -21,6 +21,10 @@ public abstract class Intelligence {
 	/**
 	 * Gets the best board given the search and eval classes.
 	 */
+	protected Intelligence(int n, boolean iw){
+		this.depth = n;
+		this.isWhite = iw;
+	}	
 	public Board getBest() {
 		return this.eval.getBest();
 	}

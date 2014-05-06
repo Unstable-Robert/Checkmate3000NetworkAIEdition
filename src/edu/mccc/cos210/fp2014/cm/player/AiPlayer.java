@@ -10,6 +10,7 @@ import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
 import edu.mccc.cos210.fp2014.cm.player.intelligence.BroadAndShallowIntel;
 import edu.mccc.cos210.fp2014.cm.player.intelligence.EarlyGameIntel;
 import edu.mccc.cos210.fp2014.cm.player.intelligence.Intelligence;
+import edu.mccc.cos210.fp2014.cm.player.intelligence.LateGameIntel;
 import edu.mccc.cos210.fp2014.cm.util.Difficulty;
 import edu.mccc.cos210.fp2014.cm.util.GamePart;
 
@@ -49,38 +50,32 @@ public class AiPlayer extends Player implements Runnable{
 		return board;
 	}
 	private void setIntelligence() {
-		if (this.gamePart == GamePart.BEGINNING){
-			switch (this.difficulty) {
+		int depth = 2;
+		switch (this.difficulty) {
 			case EASY:
-				this.intelligence = new EarlyGameIntel(3, this.isWhite);
+				depth = 3;
 				break;
 			case MEDIUM:
-				this.intelligence = new EarlyGameIntel(4, this.isWhite);
+				depth = 4;
 				break;
 			case HARD:
-				this.intelligence = new EarlyGameIntel(8, this.isWhite);
+				depth = 8;
+				break;
+			case HUMAN:
+				break;
+		}
+		switch(this.gamePart) {
+			case BEGINNING:
+				this.intelligence = new EarlyGameIntel(depth, this.isWhite);
+				break;
+			case MIDDLE:		
+				this.intelligence = new BroadAndShallowIntel(depth, this.isWhite);
+				break;
+			case END:
+				this.intelligence = new LateGameIntel(depth, this.isWhite);
 				break;
 			default:
-				this.intelligence = new EarlyGameIntel(2, this.isWhite);
 				break;
-			}
-		} else if (this.gamePart == GamePart.MIDDLE){
-			switch (this.difficulty) {
-			case EASY:
-				this.intelligence = new BroadAndShallowIntel(3, this.isWhite);
-				break;
-			case MEDIUM:
-				this.intelligence = new BroadAndShallowIntel(4, this.isWhite);
-				break;
-			case HARD:
-				this.intelligence = new BroadAndShallowIntel(8, this.isWhite);
-				break;
-			default:
-				this.intelligence = new BroadAndShallowIntel(2, this.isWhite);
-				break;
-			}
-		} else {
-			//add late game intel here
 		}
 	}
 	private boolean setGamePart(Board b) {
