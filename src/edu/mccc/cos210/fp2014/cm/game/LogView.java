@@ -185,6 +185,29 @@ public class LogView extends SettingsView implements Observer {
 					}
 				}
 			}
+			if (originalPiece instanceof King) {
+				if (originalPiece.getX() == 4) {
+					if (x == 6) {
+						for (Piece p : pieces) {
+							if (p instanceof Rook && p.isWhite() == originalPiece.isWhite() && p.getX() == 7) {
+								Piece rook = p.clone();
+								newBoard.removePiece(p);
+								rook.setX(5);
+								newBoard.addPiece(rook);
+							}
+						}
+					} else if (x == 2) {
+						for (Piece p : pieces) {
+							if (p instanceof Rook && p.isWhite() == originalPiece.isWhite() && p.getX() == 0) {
+								Piece rook = p.clone();
+								newBoard.removePiece(p);
+								rook.setX(3);
+								newBoard.addPiece(rook);
+							}
+						}
+					}
+				}
+			}
 			newPiece.setLocation(x, y);
 			ArrayList<PossibleTile> tiles = new ArrayList<PossibleTile>();
 			tiles.add(new PossibleTile(originalPiece.getX(), originalPiece.getY(), originalPiece));

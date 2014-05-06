@@ -109,7 +109,7 @@ public abstract class Player implements Observer{
 					b.addMove(new int[] {clone2.getUID(), clone2.getX(), clone2.getY()});
 				}
 			} else {
-				if (p1 instanceof King){
+				if (p1 instanceof King) {
 					tiles.add(new PossibleTile(clone1.getX(), clone1.getY(), clone1));
 					clone1.setX(p2.getX() + 2);
 					clone2.setX(p1.getX() - 1);
