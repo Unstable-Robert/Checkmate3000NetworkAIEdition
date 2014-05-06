@@ -70,7 +70,12 @@ public class LogView extends SettingsView implements Observer {
 					try {
 						loadFile(fc.getSelectedFile());
 					} catch (Exception ex){
-						ex.printStackTrace();
+						JOptionPane.showMessageDialog(
+							myCheckmate,
+							"The file you have chosen is not a valid Checkmate 3000 game log.",
+							"Invalid Checkmate 3000 Game Log",
+							JOptionPane.WARNING_MESSAGE
+						);
 					}
 				}
 			}
@@ -138,7 +143,6 @@ public class LogView extends SettingsView implements Observer {
 			pieces = moves.get(i).getPieces();
 			removedPiece = null;
 			for (Piece p : pieces) {
-				// if (p.isWhite() == (i % 2 == 1))
 				if (p.getUID() == uid) {
 					originalPiece = p;
 					newPiece = originalPiece.clone();
@@ -148,6 +152,10 @@ public class LogView extends SettingsView implements Observer {
 			}
 			newPiece.setLocation(x, y);
 			Board newBoard = moves.get(i).clone();
+			ArrayList<PossibleTile> tiles = new ArrayList<PossibleTile>();
+			tiles.add(new PossibleTile(originalPiece.getX(), originalPiece.getY(), originalPiece));
+			tiles.add(new PossibleTile(newPiece.getX(), newPiece.getY(), newPiece));
+			newBoard.setPrevTiles(tiles);
 			newBoard.removePiece(originalPiece);
 			newBoard.addPiece(newPiece);
 			if (removedPiece != null){
@@ -169,6 +177,14 @@ public class LogView extends SettingsView implements Observer {
 			gridY + 60,
 			null
 		);
+	}
+	private void drawPrevTile(Graphics2D g2d, int x, int y) {
+		g2d.setColor(new Color(0.85f, 0.30f, 0.30f, 0.25f));
+		Rectangle2D s = new Rectangle2D.Double(x, y, 60, 60);
+		g2d.fill(s);
+		g2d.setColor(new Color(0.85f, 0.30f, 0.30f));
+		g2d.setStroke(new BasicStroke(3));
+		g2d.draw(s);
 	}
 	/**
 	 * Updates the view when the model updates.
@@ -208,6 +224,13 @@ public class LogView extends SettingsView implements Observer {
 			g2d.drawString("Turn " + turnNum, myCheckmate.getWidth() * .035f, myCheckmate.getHeight() * .06f);
 		}
 		
+		for (PossibleTile pt : moves.get(turnNum).getPrevTiles()) {
+			drawPrevTile(
+				g2d, 
+				pt.getX() * 60 + 160, 
+				pt.getY() * 60 + 60
+			);
+		}
 		List<Piece> pieces = moves.get(turnNum).getPieces();
 		int gridX, gridY;
 		for (Piece p: pieces) {
