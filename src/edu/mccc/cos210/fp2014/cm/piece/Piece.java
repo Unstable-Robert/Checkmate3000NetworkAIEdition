@@ -26,6 +26,8 @@ public abstract class Piece implements Cloneable {
 	protected int uID;
 	@XmlElement
 	protected boolean selected;
+	@XmlElement
+	protected int numMoves;
 	/**
 	 * Constructor to be implemented by subclasses which gets a list of possible moves.
 	 */
@@ -59,6 +61,12 @@ public abstract class Piece implements Cloneable {
 		}
 		return finalTiles;
 	}	
+	public void setNumMoves(int i){
+		this.numMoves = i;
+	}
+	public int getNumMoves(){
+		return this.numMoves;
+	}
 	/**
 	 * Checks for possible moves, regardless of whether or not a move causes
 	 * a the player to go into check.

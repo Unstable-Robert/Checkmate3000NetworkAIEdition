@@ -9,8 +9,8 @@ public class BroadAndShallowIntel extends Intelligence {
 		this.depth = n;
 		this.isWhite = iw;
 		this.search = new BruteSearch(this.currentBoard, this.depth);
-		this.eval = new SimpleEval(this.currentBoard,this.depth, this.isWhite);
-		//this.eval = new SimpleEvalWithNumMoves(this.currentBoard,this.depth, this.isWhite);
+		//this.eval = new SimpleEval(this.currentBoard,this.depth, this.isWhite);
+		this.eval = new SimpleEvalWithNumMoves(this.currentBoard,this.depth, this.isWhite);
 	}
 	@Override
 	public Board getBest() {

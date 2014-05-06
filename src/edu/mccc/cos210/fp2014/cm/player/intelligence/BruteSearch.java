@@ -38,6 +38,7 @@ public class BruteSearch extends SearchAlgorithm implements Runnable {
         if (depth < maxDepth) {
     	    for (Piece p : b.getRoot().getPieces()) {
     	    	if (p.isWhite() == b.getRoot().isWhiteTurn()) {
+    	    		int count = 0;
     		        for (PossibleTile pt : p.getPossibleTiles(b.getRoot())) {
     		            Piece newPiece = p.clone();
     		            newPiece.setLocation(pt.getX(), pt.getY());
@@ -50,7 +51,9 @@ public class BruteSearch extends SearchAlgorithm implements Runnable {
     		            b.addLeaf(newBoard);
     		            Tree<Board> leaf = b.getLeaf(newBoard);
     		    	    search(depth + 1, leaf);
+    		    	    count ++;
     		        }
+    		        p.setNumMoves(count);
     	    	}
     	    }
             //for (Tree<Board> b : tree.getLeaves()) {

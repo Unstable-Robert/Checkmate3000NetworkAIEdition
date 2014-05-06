@@ -47,7 +47,9 @@ public class SimpleEvalWithNumMoves extends SimpleEval {
 					value = value - 5;
 				}
 			}
-			value = value + .1 * (double) p.getPossibleTiles(b).size();
+			if (!(p instanceof Queen)){
+				value = value + .1 * (double) p.getNumMoves();
+			}
 		}
 		return value;
 	}
