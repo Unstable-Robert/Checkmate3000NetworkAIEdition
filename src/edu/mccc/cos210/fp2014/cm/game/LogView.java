@@ -69,6 +69,12 @@ public class LogView extends SettingsView implements Observer {
 				if (result == JFileChooser.APPROVE_OPTION) {
 					try {
 						loadFile(fc.getSelectedFile());
+						JOptionPane.showMessageDialog(
+							myCheckmate, 
+							"File successfully loaded.", 
+							"File Loaded", 
+							JOptionPane.DEFAULT_OPTION
+						);
 					} catch (Exception ex){
 						JOptionPane.showMessageDialog(
 							myCheckmate,
@@ -124,9 +130,8 @@ public class LogView extends SettingsView implements Observer {
 		return bi;
 	}
 	private void loadFile(File f) throws Exception {
-		turnNum = 0;
-		moves = new ArrayList<Board>();
-		moves.add(new Board(GameType.NORMAL));
+		ArrayList<Board> newMoves = new ArrayList<Board>();
+		newMoves.add(new Board(GameType.NORMAL));
 		BufferedReader br = new BufferedReader(new FileReader(f));
 		String s = br.readLine();
 		br.close();
@@ -140,7 +145,7 @@ public class LogView extends SettingsView implements Observer {
 			uid = Integer.parseInt(moveElements[0]);
 			x = Integer.parseInt(moveElements[1]);
 			y = Integer.parseInt(moveElements[2]);
-			pieces = moves.get(i).getPieces();
+			pieces = newMoves.get(i).getPieces();
 			removedPiece = null;
 			for (Piece p : pieces) {
 				if (p.getUID() == uid) {
@@ -151,7 +156,7 @@ public class LogView extends SettingsView implements Observer {
 				}
 			}
 			newPiece.setLocation(x, y);
-			Board newBoard = moves.get(i).clone();
+			Board newBoard = newMoves.get(i).clone();
 			ArrayList<PossibleTile> tiles = new ArrayList<PossibleTile>();
 			tiles.add(new PossibleTile(originalPiece.getX(), originalPiece.getY(), originalPiece));
 			tiles.add(new PossibleTile(newPiece.getX(), newPiece.getY(), newPiece));
@@ -161,8 +166,11 @@ public class LogView extends SettingsView implements Observer {
 			if (removedPiece != null){
 				newBoard.removePiece(removedPiece);
 			}
-			moves.add(newBoard);
+			newMoves.add(newBoard);
 		}
+		turnNum = 0;
+		moves = newMoves;
+		repaint();
 	}
 	private void drawPiece(Graphics2D g2d, int x, int y, int gridX, int gridY) {
 		g2d.drawImage(

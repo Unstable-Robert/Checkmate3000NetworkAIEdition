@@ -154,7 +154,6 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 	}
 	private void saveLog(boolean isWhiteTurn) {
 		ArrayList<int[]> moves = this.gm.getBoard().getMoves();
-		System.out.println(moves);
 		JFileChooser fc = new JFileChooser(new File("logs"));
 		fc.setAcceptAllFileFilterUsed(false);
 		fc.setFileFilter(
@@ -207,21 +206,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		if (gameOverAction == JOptionPane.OK_OPTION) {
 			myCheckmate.setView(Checkmate.MAIN_MENU);	
 		} else {
-			String moves = this.gm.getBoard().getMoves() + "1-1";
-			JFileChooser fc = new JFileChooser(new File("logs"));
-			fc.setAcceptAllFileFilterUsed(false);
-			fc.setFileFilter(
-				new FileNameExtensionFilter("Checkmate 3000 Logs", "cm3")
-			);
-			fc.showSaveDialog(this);
-			try {
-				FileWriter fw = new FileWriter(fc.getSelectedFile() + ".cm3");
-				fw.write(moves);
-				fw.flush();
-				fw.close();
-			} catch (java.io.IOException ex){
-				ex.printStackTrace();
-			}
+			saveLog(gm.getBoard().isWhiteTurn());
 			myCheckmate.setView(Checkmate.MAIN_MENU);
 		}
 	}
@@ -438,7 +423,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 						}
 					}
 				}
-			}else if (possibleTile != null) {
+			} else if (possibleTile != null) {
 				if (this.gm.getBoard().hasSelectedPiece()){
 					Piece p = this.gm.getBoard().getSelectedPiece();
 					p.setSelected(false);
@@ -455,10 +440,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 					repaint();
 				} else {
 					Board b = this.gm.getBoard();
-					if (
-						(b.isWhiteTurn() && piece.isWhite()) ||
-						(!b.isWhiteTurn() && !piece.isWhite()) 
-					){
+					if (b.isWhiteTurn() == piece.isWhite()) {
 						b.clearSelected();
 						piece.setSelected(true);
 						pTiles = b.getPossibleTiles();
