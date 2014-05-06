@@ -77,7 +77,6 @@ public class SimpleEval extends EvaluationAlgorithm {
 					value = value - 5;
 				}
 			}
-			value = value + .1 * (double) p.getPossibleTiles(b).size();
 		}
 		return value;
 	}

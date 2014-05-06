@@ -8,7 +8,6 @@ import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
 import edu.mccc.cos210.fp2014.cm.player.intelligence.BroadAndShallowIntel;
-import edu.mccc.cos210.fp2014.cm.player.intelligence.TestIntel;
 import edu.mccc.cos210.fp2014.cm.player.intelligence.Intelligence;
 import edu.mccc.cos210.fp2014.cm.util.Difficulty;
 import edu.mccc.cos210.fp2014.cm.util.GamePart;
