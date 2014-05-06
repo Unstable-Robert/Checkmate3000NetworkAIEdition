@@ -1,9 +1,9 @@
 package edu.mccc.cos210.fp2014.cm.player.intelligence;
 
-import edu.mccc.cos210.fp2014.cm.game.Board;
+import edu.mccc.cos210.fp2014.cm.player.intelligence.evaluate.SimpleEvalWithNumMoves;
+import edu.mccc.cos210.fp2014.cm.player.intelligence.search.BruteSearch;
 
 public class BroadAndShallowIntel extends Intelligence {
-	private int depth;
 	
 	public BroadAndShallowIntel(int n, boolean iw){
 		this.depth = n;
@@ -12,9 +12,4 @@ public class BroadAndShallowIntel extends Intelligence {
 		//this.eval = new SimpleEval(this.currentBoard,this.depth, this.isWhite);
 		this.eval = new SimpleEvalWithNumMoves(this.currentBoard,this.depth, this.isWhite);
 	}
-	@Override
-	public Board getBest() {
-		return this.eval.getBest();
-	}
-
 }

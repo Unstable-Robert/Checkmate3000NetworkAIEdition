@@ -8,6 +8,7 @@ import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
 import edu.mccc.cos210.fp2014.cm.player.intelligence.BroadAndShallowIntel;
+import edu.mccc.cos210.fp2014.cm.player.intelligence.EarlyGameIntel;
 import edu.mccc.cos210.fp2014.cm.player.intelligence.Intelligence;
 import edu.mccc.cos210.fp2014.cm.util.Difficulty;
 import edu.mccc.cos210.fp2014.cm.util.GamePart;
@@ -22,25 +23,15 @@ public class AiPlayer extends Player implements Runnable{
 	private GamePart gamePart;
 	private Difficulty difficulty;
 	private boolean moving;
+	private int numMoves;
 	public AiPlayer(GameModel gm, Checkmate c, boolean b, Difficulty d) {
 		super(gm, c, b);
 		this.isWhite = b;
 		this.difficulty = d;
 		moving = false;
-		switch (this.difficulty) {
-		case EASY:
-			this.intelligence = new BroadAndShallowIntel(3, this.isWhite);
-			break;
-		case MEDIUM:
-			this.intelligence = new BroadAndShallowIntel(4, this.isWhite);
-			break;
-		case HARD:
-			this.intelligence = new BroadAndShallowIntel(8, this.isWhite);
-			break;
-		default:
-			this.intelligence = new BroadAndShallowIntel(2, this.isWhite);
-			break;
-		}
+		this.numMoves = 0;
+		this.gamePart = GamePart.BEGINNING;
+		setIntelligence();
 	}
 	/**
 	 * This takes a board parameter and returns the best move (as determined by the intelligence module).
@@ -48,10 +39,68 @@ public class AiPlayer extends Player implements Runnable{
 	 * @return The board with the new best move.
 	 */
 	public Board getMove(Board b) {
+		if (setGamePart(b)){
+			setIntelligence();
+		}
 		this.intelligence.searchAndEval(b);
 		Board board = this.intelligence.getBest();
 		board.nextTurn();
+		this.numMoves += 2;
 		return board;
+	}
+	private void setIntelligence() {
+		if (this.gamePart == GamePart.BEGINNING){
+			switch (this.difficulty) {
+			case EASY:
+				this.intelligence = new EarlyGameIntel(3, this.isWhite);
+				break;
+			case MEDIUM:
+				this.intelligence = new EarlyGameIntel(4, this.isWhite);
+				break;
+			case HARD:
+				this.intelligence = new EarlyGameIntel(8, this.isWhite);
+				break;
+			default:
+				this.intelligence = new EarlyGameIntel(2, this.isWhite);
+				break;
+			}
+		} else if (this.gamePart == GamePart.MIDDLE){
+			switch (this.difficulty) {
+			case EASY:
+				this.intelligence = new BroadAndShallowIntel(3, this.isWhite);
+				break;
+			case MEDIUM:
+				this.intelligence = new BroadAndShallowIntel(4, this.isWhite);
+				break;
+			case HARD:
+				this.intelligence = new BroadAndShallowIntel(8, this.isWhite);
+				break;
+			default:
+				this.intelligence = new BroadAndShallowIntel(2, this.isWhite);
+				break;
+			}
+		} else {
+			//add late game intel here
+		}
+	}
+	private boolean setGamePart(Board b) {
+		GamePart oldGamePart = this.gamePart;
+		if (this.numMoves < 10){
+			this.gamePart = GamePart.BEGINNING;
+		} else {
+			int count = 0;
+			for (Piece p : b.getPieces()){
+				if (p.isWhite() == this.isWhite){
+					count++;
+				}
+			}
+			if (count > 6){
+				this.gamePart = GamePart.MIDDLE;
+			} else {
+				this.gamePart = GamePart.END;
+			}
+		}
+		return this.gamePart == oldGamePart;
 	}
 	/**
 	 * Updates the game model with it's move.

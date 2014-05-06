@@ -1,49 +1,18 @@
-package edu.mccc.cos210.fp2014.cm.player.intelligence;
-
-import java.util.List;
+package edu.mccc.cos210.fp2014.cm.player.intelligence.evaluate;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.piece.*;
-import edu.mccc.cos210.fp2014.cm.util.Tree;
 
 public class SimpleEval extends EvaluationAlgorithm {
 
 	public SimpleEval(Board b, int d, boolean iW){
-		this.isWhite = iW;
+		super(b, d, iW);
 	}
 	@Override
 	public void run() {
 
 	}
 
-	@Override
-	protected double evaluate(Tree<Board> tree, boolean maxPlayer) {
-		Board b = tree.getRoot();
-		if (tree.getLeaves().isEmpty()){
-			this.isFinished = true;
-			return getBoardValue(b);
-		}else {
-			double bestValue;
-			if (maxPlayer){
-				bestValue = Integer.MIN_VALUE;
-				List<Tree<Board>> t = tree.getLeaves();
-				for(int i = 0; i < t.size(); i++){
-					double value = evaluate(t.get(i), false);
-					bestValue = bestValue > value ? bestValue : value;
-				}
-			} else {
-				bestValue = Integer.MAX_VALUE;
-				List<Tree<Board>> t = tree.getLeaves();
-				for(int i = 0; i < t.size(); i++){
-					double value = evaluate(t.get(i), true);
-					bestValue = bestValue < value ? bestValue : value; 
-				}
-			}
-			tree.setScore(bestValue);
-			this.isFinished = true;
-			return bestValue;
-		}
-	}
 	@Override
 	public double getBoardValue(Board b) {
 		double value = 0;
