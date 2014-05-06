@@ -30,6 +30,8 @@ public class Board implements Cloneable{
     private ArrayList<int[]> moves;
 	@XmlElement(name="messages")
 	private ArrayList<ChatMessage> messages;
+	@XmlElement(name="prevTiles")
+	private ArrayList<PossibleTile> prevTiles;
 	/**
 	 * Constructor.
 	 * Saves possible tiles, pieces, moves, whose turn it is, and meta data.
@@ -42,6 +44,7 @@ public class Board implements Cloneable{
 		this.whiteTurn = true;
 		this.metaInfo = new Meta();
         this.moves = new ArrayList<int[]>();
+		prevTiles = new ArrayList<PossibleTile>();
 	}
 	public Board(GameType g) {
 		this();
@@ -60,6 +63,7 @@ public class Board implements Cloneable{
 		this.whiteTurn = t;
 		this.metaInfo = meta;
         this.moves = moveList;
+		prevTiles = new ArrayList<PossibleTile>();
 	}
 	private void setUpPieces(){
 		int id = 0;
@@ -130,6 +134,12 @@ public class Board implements Cloneable{
 	}
 	public int getBlackTime() {
 		return this.metaInfo.getBlackTime();
+	}
+	public void setPrevTiles(ArrayList<PossibleTile> pts) {
+		prevTiles = pts;
+	}
+	public ArrayList<PossibleTile> getPrevTiles() {
+		return prevTiles;
 	}
 	/**
 	 * This changes which player is taking their turn.

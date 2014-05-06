@@ -255,6 +255,14 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		Rectangle2D s = new Rectangle2D.Double(x, y, 60, 60);
 		g2d.draw(s);
 	}
+	private void drawPrevTile(Graphics2D g2d, int x, int y) {
+		g2d.setColor(new Color(0.85f, 0.30f, 0.30f, 0.25f));
+		Rectangle2D s = new Rectangle2D.Double(x, y, 60, 60);
+		g2d.fill(s);
+		g2d.setColor(new Color(0.85f, 0.30f, 0.30f));
+		g2d.setStroke(new BasicStroke(3));
+		g2d.draw(s);
+	}
 	/**
 	 * Updates the view when the model updates.
 	 */
@@ -299,12 +307,10 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		Rectangle2D r = new Rectangle2D.Double(155, 55, 490, 490);
 		g2d.setPaint(Color.BLACK);
 		g2d.fill(r);
-		
 		r = new Rectangle2D.Double(160, 60, 480, 480);
 		GradientPaint gp = new GradientPaint(0, 0, Color.DARK_GRAY, 350, 480, Color.GRAY);
 		g2d.setPaint(gp);
 		g2d.fill(r);
-		
 		g2d.setPaint(Color.WHITE);
 		for (int y = 0; y < 8; y++) {
 			for (int x = 0; x < 8; x++) {
@@ -322,6 +328,13 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		}
 		g2d.drawString(playersTurn, myCheckmate.getWidth() * .035f, myCheckmate.getHeight() * .06f);
 		
+		for (PossibleTile pt : gm.getBoard().getPrevTiles()) {
+			drawPrevTile(
+				g2d, 
+				pt.getX() * 60 + 160, 
+				pt.getY() * 60 + 60
+			);
+		}
 		List<Piece> pieces = gm.getBoard().getPieces();
 		int gridX, gridY;
 		for (Piece p: pieces) {

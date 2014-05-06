@@ -1,6 +1,7 @@
 package edu.mccc.cos210.fp2014.cm.player;
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Observer;
 
 import javax.swing.JComboBox;
@@ -22,8 +23,6 @@ public abstract class Player implements Observer{
 	protected GameModel gm;
 	protected boolean isWhite;
 	protected Checkmate myCheckmate;
-	public Player() {
-	}
 	public Player(GameModel gm, Checkmate c, boolean isWhite) {
 		this.myCheckmate = c;
 		this.gm = gm;
@@ -39,11 +38,14 @@ public abstract class Player implements Observer{
 				pawn.setPossibleToPassant(false);
 			}
 		}
-		Board b = gm.getBoard();
+		Board b = this.gm.getBoard();
 		if (
 			b.isWhiteTurn() == piece.isWhite() &&
 			b.isWhiteTurn() == this.isWhite
 		){
+			ArrayList<PossibleTile> tiles = new ArrayList<PossibleTile>();
+			tiles.add(new PossibleTile(piece.getX(), piece.getY(), piece));
+			tiles.add(pt);
 			b.nextTurn();
 			b.removePiece(piece);
 			Piece clone = pt.getOriginalPiece();
@@ -70,8 +72,8 @@ public abstract class Player implements Observer{
 				this.gm.increaseMoveRule();
 				b.addMove(new int[] {clone.getUID(), pt.getX(), pt.getY()});
 			}
-			gm.updateBoard(b, false);
-            System.out.println(b.getMoves());
+			this.gm.getBoard().setPrevTiles(tiles);
+			this.gm.updateBoard(b, false);
 			return true;
 		}
 		return false;
