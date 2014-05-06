@@ -29,7 +29,7 @@ public class AiPlayer extends Player implements Runnable{
 		moving = false;
 		switch (this.difficulty) {
 		case EASY:
-			this.intelligence = new BroadAndShallowIntel(2, this.isWhite);
+			this.intelligence = new BroadAndShallowIntel(3, this.isWhite);
 			break;
 		case MEDIUM:
 			this.intelligence = new BroadAndShallowIntel(4, this.isWhite);
