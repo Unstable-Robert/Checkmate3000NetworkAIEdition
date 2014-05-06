@@ -45,10 +45,7 @@ public class Checkmate extends JFrame implements Observer, ActionListener {
 		cardPanel.add(new LocalView(this), LOCAL);
 		cardPanel.add(new HostView(this), HOST);
 		cardPanel.add(new JoinView(this), JOIN);
-		//cardPanel.add(new DrawView(this), DRAW);
 		cardPanel.add(new LogView(this), LOG);
-		//cardPanel.add(new GameOverView(this), GAMEOVER);
-		//cardPanel.add(new GameView(this, new GameModel()), GAME);
 		add(cardPanel);
 		cards.show(cardPanel, SPLASH);
 		addWindowListener(new WindowAdapter() {

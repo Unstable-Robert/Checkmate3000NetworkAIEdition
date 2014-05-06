@@ -21,8 +21,8 @@ public class MainMenuView extends SettingsView {
 		// Use Font class to make this bigger.
 		JLabel titleLabel = new JLabel("Checkmate 3000 Network AI Edition");
 		titleLabel.setForeground(Color.WHITE);
-		titleLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 35));
-		titleLabel.setSize(635, 50);
+		titleLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 42));
+		titleLabel.setSize(680, 50);
 		titleLabel.setLocation(
 			c.getWidth() / 2 - titleLabel.getWidth() / 2, 
 			(int)(c.getHeight() * 0.200)
@@ -33,7 +33,7 @@ public class MainMenuView extends SettingsView {
 		localButton.setSize(150, 35);
 		localButton.setLocation(
 			c.getWidth() / 2 - localButton.getWidth() / 2, 
-			(int)(c.getHeight() * 0.500)
+			(int)(c.getHeight() * 0.480)
 		);
 		localButton.addActionListener(new ActionListener() {
 			@Override
@@ -47,7 +47,7 @@ public class MainMenuView extends SettingsView {
 		hostButton.setSize(150, 35);
 		hostButton.setLocation(
 			c.getWidth() / 2 - hostButton.getWidth() / 2, 
-			(int)(c.getHeight() * 0.575)
+			(int)(c.getHeight() * 0.555)
 		);
 		hostButton.addActionListener(new ActionListener() {
 			@Override
@@ -61,7 +61,7 @@ public class MainMenuView extends SettingsView {
 		joinButton.setSize(150, 35);
 		joinButton.setLocation(
 			c.getWidth() / 2 - joinButton.getWidth() / 2, 
-			(int)(c.getHeight() * 0.650)
+			(int)(c.getHeight() * 0.630)
 		);
 		joinButton.addActionListener(new ActionListener() {
 			@Override
@@ -75,7 +75,7 @@ public class MainMenuView extends SettingsView {
 		logButton.setSize(150, 35);
 		logButton.setLocation(
 			c.getWidth() / 2 - logButton.getWidth() / 2, 
-			(int)(c.getHeight() * 0.725)
+			(int)(c.getHeight() * 0.705)
 		);
 		logButton.addActionListener(new ActionListener() {
 			@Override
@@ -89,7 +89,7 @@ public class MainMenuView extends SettingsView {
 		quitButton.setSize(150, 35);
 		quitButton.setLocation(
 			c.getWidth() / 2 - quitButton.getWidth() / 2, 
-			(int)(c.getHeight() * 0.800)
+			(int)(c.getHeight() * 0.780)
 		);
 		quitButton.addActionListener(new ActionListener() {
 			@Override

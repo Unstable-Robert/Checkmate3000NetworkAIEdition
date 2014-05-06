@@ -28,41 +28,41 @@ public class JoinView extends SettingsView {
 		titleLabel.setSize(240, 50);
 		titleLabel.setLocation(
 			c.getWidth() / 2 - titleLabel.getWidth() / 2, 
-			(int)(c.getHeight() * 0.30)
+			(int)(c.getHeight() * 0.275)
 		);
 		add(titleLabel);
 					
-		JLabel enemyIpLabel = new JLabel("Opponent's IP Address:");
+		JLabel enemyIpLabel = new JLabel("Enter Opponent's IP Address:");
 		enemyIpLabel.setForeground(Color.WHITE);
-		enemyIpLabel.setSize(160, 20);
+		enemyIpLabel.setSize(170, 20);
 		enemyIpLabel.setLocation(
 			c.getWidth() / 2 - enemyIpLabel.getWidth() / 2,
-			(int)(c.getHeight() * 0.60)
+			(int)(c.getHeight() * 0.415)
 		);
 		add(enemyIpLabel);
 		this.ipTextField = new JTextField();
 		ipTextField.setSize(250, 20);
 		ipTextField.setLocation(
 			c.getWidth() / 2 - ipTextField.getWidth() / 2,
-			(int)(c.getHeight() * 0.65)
+			(int)(c.getHeight() * 0.455)
 		);
 		add(ipTextField);
 		
-		JLabel colorLabel = new JLabel("Guest is Black");
+		JLabel colorLabel = new JLabel("Guest Plays Black");
 		colorLabel.setForeground(Color.WHITE);
-		colorLabel.setSize(100, 20);
+		colorLabel.setSize(105, 20);
 		colorLabel.setLocation(
 				c.getWidth() / 2
 				- colorLabel.getWidth()/2,
-				 (int) (c.getHeight() * 0.7)
+				 (int) (c.getHeight() * 0.560)
 			);
 		add(colorLabel);
 		//backButton returns to previous screen
 		JButton backButton = new JButton("Back");
 		backButton.setSize(150,50);
 		backButton.setLocation(
-			c.getWidth() / 3 - backButton.getWidth() / 2,
-			(int)(c.getHeight() * 0.75)
+			c.getWidth() / 3 - backButton.getWidth() / 2 + 25,
+			(int)(c.getHeight() * 0.645)
 		);
 		backButton.addActionListener(new ActionListener() {
 			@Override
@@ -76,10 +76,8 @@ public class JoinView extends SettingsView {
 		JButton joinButton = new JButton("Join Game");
 		joinButton.setSize(150,50);
 		joinButton.setLocation(
-			c.getWidth() * 2 / 3 - joinButton.getWidth() / 2
-			+ 100
-			- joinButton.getWidth(), 
-			(int)(c.getHeight() * 0.75)
+			c.getWidth() * 2 / 3 - joinButton.getWidth() / 2 - 25, 
+			(int)(c.getHeight() * 0.645)
 		);
 		joinButton.addActionListener(new ActionListener() {
 			@Override

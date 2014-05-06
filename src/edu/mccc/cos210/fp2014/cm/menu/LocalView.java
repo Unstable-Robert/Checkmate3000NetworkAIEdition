@@ -35,7 +35,7 @@ public class LocalView extends SettingsView {
 		titleLabel.setSize(275, 50);
 		titleLabel.setLocation(
 			c.getWidth() / 2 - titleLabel.getWidth() / 2, 
-			(int)(c.getHeight() * 0.30)
+			(int)(c.getHeight() * 0.225)
 		);
 		add(titleLabel);
 		
@@ -44,7 +44,7 @@ public class LocalView extends SettingsView {
 		player1.setSize(100,40);
 		player1.setLocation(
 			c.getWidth() / 3 - player1.getWidth() / 2,
-			(int)(c.getHeight() * 0.40)
+			(int)(c.getHeight() * 0.325)
 		);
 		add(player1);
 		JLabel player2 = new JLabel("Black Player");
@@ -52,7 +52,7 @@ public class LocalView extends SettingsView {
 		player2.setSize(100,40);
 		player2.setLocation(
 			c.getWidth() * 2 / 3 - player2.getWidth() / 2,
-			(int)(c.getHeight() * 0.40)
+			(int)(c.getHeight() * 0.325)
 		);
 		add(player2);		
 				
@@ -65,7 +65,7 @@ public class LocalView extends SettingsView {
 		p1.setSize(100, 30);
 		p1.setLocation(
 			c.getWidth() / 3 - player1.getWidth() / 2,
-			(int)(c.getHeight() * 0.45)
+			(int)(c.getHeight() * 0.375)
 		);
 		add(p1);
 		this.p2 = new JComboBox<String>();
@@ -76,7 +76,7 @@ public class LocalView extends SettingsView {
 		p2.setSize(100, 30);
 		p2.setLocation(
 			c.getWidth() * 2 / 3 - player2.getWidth() / 2,
-			(int)(c.getHeight() * 0.45)
+			(int)(c.getHeight() * 0.375)
 		);
 		add(p2);
 		
@@ -85,7 +85,7 @@ public class LocalView extends SettingsView {
 		timedGame.setSize(100,10);
 		timedGame.setLocation(
 			c.getWidth() / 3 - player1.getWidth() / 2,
-			(int)(c.getHeight() * 0.55)
+			(int)(c.getHeight() * 0.475)
 		);
 		add(timedGame);	
 		
@@ -95,7 +95,7 @@ public class LocalView extends SettingsView {
         checkbox.setBackground(new Color(10,10,10,0));
 		checkbox.setLocation(
 			c.getWidth() / 3 + timedGame.getWidth() + 10,
-			(int)(c.getHeight() * 0.55)
+			(int)(c.getHeight() * 0.475)
 		);
 		checkbox.addActionListener(new ActionListener() {
 			@Override
@@ -116,7 +116,7 @@ public class LocalView extends SettingsView {
 		timeLabel.setSize(40,20);
 		timeLabel.setLocation(
 			c.getWidth() / 3 - player1.getWidth() / 2,
-			(int)(c.getHeight() * 0.65)
+			(int)(c.getHeight() * 0.575)
 		);
 		add(timeLabel);
 		this.timeSpinner = new JSpinner(new SpinnerNumberModel(5, TIME_MIN, TIME_MAX, 1));
@@ -124,7 +124,7 @@ public class LocalView extends SettingsView {
 		timeSpinner.setLocation(
 			c.getWidth() / 3 - player1.getWidth() / 2
 			+ timeLabel.getWidth() + 20,
-			(int)(c.getHeight() * 0.65)
+			(int)(c.getHeight() * 0.575)
 		);
 		add(timeSpinner);
 		JLabel minLabel = new JLabel("Minutes");
@@ -134,7 +134,7 @@ public class LocalView extends SettingsView {
 			c.getWidth() / 3 - player1.getWidth() / 2 
 			+ timeLabel.getWidth() + 20 
 			+ timeSpinner.getWidth() + 20,
-			(int)(c.getHeight() * 0.65)	
+			(int)(c.getHeight() * 0.575)	
 		);		
 		add(minLabel);
 		
@@ -143,7 +143,7 @@ public class LocalView extends SettingsView {
 		backButton.setSize(150,50);
 		backButton.setLocation(
 			c.getWidth() / 3 - player1.getWidth() / 2,
-			(int)(c.getHeight() * 0.75)
+			(int)(c.getHeight() * 0.675)
 		);
 		backButton.addActionListener(new ActionListener() {
 			@Override
@@ -160,7 +160,7 @@ public class LocalView extends SettingsView {
 			c.getWidth() * 2 / 3 - player2.getWidth() / 2
 			+ p2.getWidth()
 			- startButton.getWidth(), 
-			(int)(c.getHeight() * 0.75)
+			(int)(c.getHeight() * 0.675)
 		);
 		startButton.addActionListener(new ActionListener() {
 			@Override

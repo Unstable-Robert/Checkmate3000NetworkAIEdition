@@ -43,7 +43,7 @@ public class LogView extends SettingsView implements Observer {
 		
 		JButton backButton = new JButton("Main Menu");
 		backButton.setSize(100, 50);
-		backButton.setLocation((int)(c.getWidth() * 0.05), (int)(c.getHeight() * 0.10));
+		backButton.setLocation((int)(c.getWidth() * 0.035), (int)(c.getHeight() * 0.10));
 		backButton.setVisible(true);
 		backButton.addActionListener(new ActionListener() {
 			@Override
@@ -55,7 +55,7 @@ public class LogView extends SettingsView implements Observer {
 		
 		JButton loadButton = new JButton("Load Log");
 		loadButton.setSize(100, 50);
-		loadButton.setLocation((int)(c.getWidth() * 0.05), (int)(c.getHeight() * 0.20));
+		loadButton.setLocation((int)(c.getWidth() * 0.035), (int)(c.getHeight() * 0.20));
 		loadButton.setVisible(true);
 		loadButton.addActionListener(new ActionListener() {
 			@Override
@@ -84,7 +84,7 @@ public class LogView extends SettingsView implements Observer {
 		nextButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				if (turnNum < moves.size()) {
+				if (turnNum < moves.size()-1) {
 					turnNum++;
 					repaint();
 				}
@@ -189,12 +189,10 @@ public class LogView extends SettingsView implements Observer {
 		Rectangle2D r = new Rectangle2D.Double(155, 55, 490, 490);
 		g2d.setPaint(Color.BLACK);
 		g2d.fill(r);
-		
 		r = new Rectangle2D.Double(160, 60, 480, 480);
 		GradientPaint gp = new GradientPaint(0, 0, Color.DARK_GRAY, 350, 480, Color.GRAY);
 		g2d.setPaint(gp);
 		g2d.fill(r);
-		
 		g2d.setPaint(Color.WHITE);
 		for (int y = 0; y < 8; y++) {
 			for (int x = 0; x < 8; x++) {
@@ -207,7 +205,7 @@ public class LogView extends SettingsView implements Observer {
 		
 		g2d.setFont(new Font(g2d.getFont().toString(), Font.PLAIN, 28));
 		if (moves.get(turnNum).isWhiteTurn()) {
-			g2d.drawString("Turn " + turnNum, myCheckmate.getWidth() * .02f, myCheckmate.getHeight() * .05f);
+			g2d.drawString("Turn " + turnNum, myCheckmate.getWidth() * .035f, myCheckmate.getHeight() * .06f);
 		}
 		
 		List<Piece> pieces = moves.get(turnNum).getPieces();

@@ -35,7 +35,7 @@ public class HostView extends SettingsView {
 		titleLabel.setSize(240, 50);
 		titleLabel.setLocation(
 			c.getWidth() / 2 - titleLabel.getWidth() / 2, 
-			(int)(c.getHeight() * 0.30)
+			(int)(c.getHeight() * 0.225)
 		);
 		add(titleLabel);
 		
@@ -45,7 +45,7 @@ public class HostView extends SettingsView {
 		timedGame.setSize(100,10);
 		timedGame.setLocation(
 			c.getWidth() / 3 - timedGame.getWidth() / 2,
-			(int)(c.getHeight() * 0.45)
+			(int)(c.getHeight() * 0.350)
 		);
 		add(timedGame);	
 		
@@ -55,7 +55,7 @@ public class HostView extends SettingsView {
 		checkbox.setSize(24,15);
 		checkbox.setLocation(
 			c.getWidth() / 3 + timedGame.getWidth() + 10,
-			(int)(c.getHeight() * 0.45)
+			(int)(c.getHeight() * 0.350)
 		);
 		checkbox.addActionListener(new ActionListener() {
 			@Override
@@ -76,7 +76,7 @@ public class HostView extends SettingsView {
 		timeLabel.setSize(40,20);
 		timeLabel.setLocation(
 			c.getWidth() / 3 - timedGame.getWidth() / 2,
-			(int)(c.getHeight() * 0.50)
+			(int)(c.getHeight() * 0.425)
 		);
 		add(timeLabel);
 		this.timeSpinner = new JSpinner(new SpinnerNumberModel(5, TIME_MIN, TIME_MAX, 1));
@@ -84,7 +84,7 @@ public class HostView extends SettingsView {
 		timeSpinner.setLocation(
 			c.getWidth() / 3 - timedGame.getWidth() / 2
 			+ timeLabel.getWidth() + 20,
-			(int)(c.getHeight() * 0.50)
+			(int)(c.getHeight() * 0.425)
 		);
 		add(timeSpinner);
 		JLabel minLabel = new JLabel("Minutes");
@@ -94,7 +94,7 @@ public class HostView extends SettingsView {
 			c.getWidth() / 3 - timedGame.getWidth() / 2 
 			+ timeLabel.getWidth() + 20 
 			+ timeSpinner.getWidth() + 20,
-			(int)(c.getHeight() * 0.50)	
+			(int)(c.getHeight() * 0.425)	
 		);		
 		add(minLabel);
 
@@ -112,16 +112,16 @@ public class HostView extends SettingsView {
 		ipLabel.setForeground(Color.WHITE);
 		ipLabel.setLocation(
 			c.getWidth() / 3 - timedGame.getWidth() / 2,
-			(int) (c.getHeight() * 0.55)
+			(int) (c.getHeight() * 0.500)
 		);
 		add(ipLabel);
 		
-		JLabel colorLabel = new JLabel("Host is White");
+		JLabel colorLabel = new JLabel("Host Plays White");
 		colorLabel.setForeground(Color.WHITE);
 		colorLabel.setSize(200, 20);
 		colorLabel.setLocation(
 				c.getWidth() / 3 - timedGame.getWidth() / 2,
-				(int)(c.getHeight() * 0.7)
+				(int)(c.getHeight() * 0.600)
 			);
 		add(colorLabel);
 		//backButton returns to previous screen
@@ -129,7 +129,7 @@ public class HostView extends SettingsView {
 		backButton.setSize(150,50);
 		backButton.setLocation(
 			c.getWidth() / 3 - timedGame.getWidth() / 2,
-			(int)(c.getHeight() * 0.75)
+			(int)(c.getHeight() * 0.675)
 		);
 		backButton.addActionListener(new ActionListener() {
 			@Override
@@ -146,7 +146,7 @@ public class HostView extends SettingsView {
 			c.getWidth() * 2 / 3 - timedGame.getWidth() / 2
 			+ 100
 			- hostButton.getWidth(), 
-			(int)(c.getHeight() * 0.75)
+			(int)(c.getHeight() * 0.675)
 		);
 		hostButton.addActionListener(new ActionListener() {
 			@Override

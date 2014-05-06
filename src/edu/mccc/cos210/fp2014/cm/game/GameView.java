@@ -50,7 +50,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		
 		resignButton = new JButton("Resign");
 		resignButton.setSize(100, 50);
-		resignButton.setLocation((int)(c.getWidth() * 0.05), (int)(c.getHeight() * 0.10));
+		resignButton.setLocation((int)(c.getWidth() * 0.035), (int)(c.getHeight() * 0.10));
 		resignButton.setVisible(true);
 		resignButton.addActionListener(new ActionListener() {
 			@Override
@@ -306,11 +306,11 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		}
 		
 		g2d.setFont(new Font(g2d.getFont().toString(), Font.PLAIN, 28));
+		String playersTurn = "Black's Turn";
 		if (gm.getBoard().isWhiteTurn()) {
-			g2d.drawString("White's Turn", myCheckmate.getWidth() * .02f, myCheckmate.getHeight() * .05f);
-		} else {
-			g2d.drawString("Black's Turn", myCheckmate.getWidth() * .02f, myCheckmate.getHeight() * .05f);
+			playersTurn = "White's Turn";
 		}
+		g2d.drawString(playersTurn, myCheckmate.getWidth() * .035f, myCheckmate.getHeight() * .06f);
 		
 		List<Piece> pieces = gm.getBoard().getPieces();
 		int gridX, gridY;
@@ -346,12 +346,12 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		if (this.gm.getBoard().getMetaInfo().getGameType().equals(GameType.TIMED_GAME)){
 			int blackTime = gm.getBoard().getBlackTime();
 			int whiteTime = gm.getBoard().getWhiteTime();
-			g2d.drawString("Black Time", myCheckmate.getWidth() * 0.81f, myCheckmate.getHeight() * 0.05f);
+			g2d.drawString("Black Time", myCheckmate.getWidth() * 0.81f, myCheckmate.getHeight() * 0.06f);
 			// use string formatter here instead of this mess
 			g2d.drawString(
 				blackTime / 60 + ":" + (blackTime % 60 < 10 ? "0" : "") + blackTime % 60, 
 				myCheckmate.getWidth() * 0.85f, 
-				myCheckmate.getHeight() * 0.10f
+				myCheckmate.getHeight() * 0.11f
 			);
 			g2d.drawString("White Time", myCheckmate.getWidth() * 0.81f, myCheckmate.getHeight() * 0.20f);
 			g2d.drawString(
