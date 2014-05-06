@@ -1,7 +1,4 @@
-package edu.mccc.cos210.fp2014.cm.player.intelligence;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+package edu.mccc.cos210.fp2014.cm.player.intelligence.search;
 
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
@@ -17,19 +14,9 @@ import edu.mccc.cos210.fp2014.cm.game.Board;
  * evaluate, etc. We should also use an AiTree instead of a tree for evaluation purposes.
  */
 public class BruteSearch extends SearchAlgorithm implements Runnable {
-
-    private int maxDepth;
     
     public BruteSearch(Board t, int md) {
-        this.tree = new Tree<Board>(t);
-        this.maxDepth = md;
-        this.threadPool = Executors.newFixedThreadPool(10);
-        this.isFinished = false;
-    }
-    private BruteSearch(Tree<Board> t, int d, ExecutorService tp) {
-        this.tree = t;
-        this.maxDepth = d;
-        this.threadPool = tp;
+        super(t, md);
     }
     /**
      * Creates new BruteSearch objects for all of the leaves in a tree.
@@ -38,6 +25,7 @@ public class BruteSearch extends SearchAlgorithm implements Runnable {
         if (depth < maxDepth) {
     	    for (Piece p : b.getRoot().getPieces()) {
     	    	if (p.isWhite() == b.getRoot().isWhiteTurn()) {
+    	    		int count = 0;
     		        for (PossibleTile pt : p.getPossibleTiles(b.getRoot())) {
     		            Piece newPiece = p.clone();
     		            newPiece.setLocation(pt.getX(), pt.getY());
@@ -50,7 +38,9 @@ public class BruteSearch extends SearchAlgorithm implements Runnable {
     		            b.addLeaf(newBoard);
     		            Tree<Board> leaf = b.getLeaf(newBoard);
     		    	    search(depth + 1, leaf);
+    		    	    count ++;
     		        }
+    		        p.setNumMoves(count);
     	    	}
     	    }
             //for (Tree<Board> b : tree.getLeaves()) {

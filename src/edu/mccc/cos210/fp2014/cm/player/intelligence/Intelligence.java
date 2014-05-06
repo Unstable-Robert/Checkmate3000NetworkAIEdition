@@ -1,6 +1,8 @@
 package edu.mccc.cos210.fp2014.cm.player.intelligence;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
+import edu.mccc.cos210.fp2014.cm.player.intelligence.evaluate.EvaluationAlgorithm;
+import edu.mccc.cos210.fp2014.cm.player.intelligence.search.SearchAlgorithm;
 import edu.mccc.cos210.fp2014.cm.util.Tree;
 
 /**
@@ -15,9 +17,14 @@ public abstract class Intelligence {
 	protected Tree<Board> possibleBoards;
 	protected Board currentBoard;
 	protected boolean isWhite;
+	protected int depth;
 	/**
 	 * Gets the best board given the search and eval classes.
 	 */
+	protected Intelligence(int n, boolean iw){
+		this.depth = n;
+		this.isWhite = iw;
+	}	
 	public Board getBest() {
 		return this.eval.getBest();
 	}

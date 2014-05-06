@@ -1,4 +1,4 @@
-package edu.mccc.cos210.fp2014.cm.player.intelligence;
+package edu.mccc.cos210.fp2014.cm.player.intelligence.evaluate;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.piece.Bishop;
@@ -9,7 +9,7 @@ import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.piece.Queen;
 import edu.mccc.cos210.fp2014.cm.piece.Rook;
 
-public class SimpleEvalWithNumMoves extends SimpleEval {
+public class SimpleEvalWithNumMoves extends EvaluationAlgorithm {
 	public SimpleEvalWithNumMoves(Board b, int d, boolean iW) {
 		super(b, d, iW);
 	}
@@ -47,8 +47,13 @@ public class SimpleEvalWithNumMoves extends SimpleEval {
 					value = value - 5;
 				}
 			}
-			value = value + .1 * (double) p.getPossibleTiles(b).size();
+			value = value + .1 * (double) p.getNumMoves();
+			
 		}
 		return value;
+	}
+	@Override
+	public void run(){
+		
 	}
 }
