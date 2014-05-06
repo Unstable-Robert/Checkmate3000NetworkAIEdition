@@ -137,26 +137,55 @@ public class LogView extends SettingsView implements Observer {
 		br.close();
 		String[] sArray = s.split(";");
 		String[] moveElements;
-		int uid, x, y;
+		int uid, x, y, specialInfo;
 		ArrayList<Piece> pieces;
-		Piece originalPiece = null, newPiece = null, removedPiece;
+		Piece originalPiece = null, newPiece = null, removedPiece = null;
 		for (int i = 0; i < sArray.length; i++) {
+			specialInfo = -1;
 			moveElements = sArray[i].split(",");
 			uid = Integer.parseInt(moveElements[0]);
 			x = Integer.parseInt(moveElements[1]);
 			y = Integer.parseInt(moveElements[2]);
+			if (moveElements.length == 4) {
+				specialInfo = Integer.parseInt(moveElements[3]);
+			}
+			Board newBoard = newMoves.get(i).clone();
 			pieces = newMoves.get(i).getPieces();
 			removedPiece = null;
 			for (Piece p : pieces) {
 				if (p.getUID() == uid) {
 					originalPiece = p;
-					newPiece = originalPiece.clone();
+					if (specialInfo < -1) {
+						switch (specialInfo) {
+						case -100:
+							newPiece = new Queen(originalPiece.clone());
+							break;
+						case -200:
+							newPiece = new Knight(originalPiece.clone());
+							break;
+						case -300:
+							newPiece = new Bishop(originalPiece.clone());
+							break;
+						case -400:
+							newPiece = new Rook(originalPiece.clone());
+							break;
+						default:
+							newPiece = originalPiece.clone();
+							break;
+						}
+					} else {
+						newPiece = originalPiece.clone();
+					}
 				} else if (p.getX() == x && p.getY() == y) {
 					removedPiece = p;
 				}
+				if (specialInfo >= 0) {
+					if (p.getUID() == specialInfo) {
+						removedPiece = p;
+					}
+				}
 			}
 			newPiece.setLocation(x, y);
-			Board newBoard = newMoves.get(i).clone();
 			ArrayList<PossibleTile> tiles = new ArrayList<PossibleTile>();
 			tiles.add(new PossibleTile(originalPiece.getX(), originalPiece.getY(), originalPiece));
 			tiles.add(new PossibleTile(newPiece.getX(), newPiece.getY(), newPiece));

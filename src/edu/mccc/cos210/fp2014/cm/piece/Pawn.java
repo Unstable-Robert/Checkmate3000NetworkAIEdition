@@ -48,8 +48,12 @@ public class Pawn extends Piece {
         super(p);
         this.hasPromoted = false;
     }
-    public boolean isPromoted(){return this.hasPromoted;}
-    public void  setHasPromoted(boolean p) {this.hasPromoted = p;}
+    public boolean isPromoted(){
+		return this.hasPromoted;
+	}
+    public void  setHasPromoted(boolean p) {
+		this.hasPromoted = p;
+	}
 	/**
 	 * Whether or not the pawn has just moved forward two spaces and can be taken en passant.
 	 */
@@ -74,10 +78,13 @@ public class Pawn extends Piece {
      */
     public boolean canPromote(){
         if (this.isWhite()){
-            if (this.getY() == 0) return true;
-        }
-        else {
-            if (this.getY() == 7) return true;
+            if (this.getY() == 0) {
+				return true;
+			}
+        } else {
+            if (this.getY() == 7) {
+				return true;
+			}
         }
         return false;
     }

@@ -33,7 +33,7 @@ public abstract class Player implements Observer{
 	 */
 	public boolean updateModel(Piece piece, PossibleTile pt) {
 		for (Piece p : this.gm.getBoard().getPieces()) {
-			if (p instanceof Pawn){
+			if (p instanceof Pawn) {
 				Pawn pawn = (Pawn) p;
 				pawn.setPossibleToPassant(false);
 			}
@@ -42,7 +42,7 @@ public abstract class Player implements Observer{
 		if (
 			b.isWhiteTurn() == piece.isWhite() &&
 			b.isWhiteTurn() == this.isWhite
-		){
+		) {
 			ArrayList<PossibleTile> tiles = new ArrayList<PossibleTile>();
 			tiles.add(new PossibleTile(piece.getX(), piece.getY(), piece));
 			tiles.add(pt);
@@ -54,23 +54,27 @@ public abstract class Player implements Observer{
 			clone.setSelected(false);
 			b.addPiece(clone);
 			if (pt.hasPieceToRemove()) {
-				b.removePiece(pt.getRemovePiece());
+				Piece removedPiece = pt.getRemovePiece();
+				b.removePiece(removedPiece);
  				this.gm.resetMoveRule();
-				if (piece instanceof Pawn){
-					if (!((Pawn)clone).canPromote()){
-						b.addMove(new int[] {clone.getUID(), pt.getX(), pt.getY()});
-					}
-				} else if (piece instanceof Pawn) {
+				if (piece instanceof Pawn) {
 					this.gm.resetMoveRule();
-					if (!((Pawn)clone).canPromote()) {
-						b.addMove(new int[] {clone.getUID(), pt.getX(), pt.getY()});
+					if (!((Pawn)clone).canPromote()){
+						b.addMove(new int[] {clone.getUID(), pt.getX(), pt.getY(), removedPiece.getUID()});
 					}
 				} else {
 					b.addMove(new int[] {clone.getUID(), pt.getX(), pt.getY()});
 				}
 			} else {
-				this.gm.increaseMoveRule();
-				b.addMove(new int[] {clone.getUID(), pt.getX(), pt.getY()});
+				if (piece instanceof Pawn) {
+					this.gm.resetMoveRule();
+					if (!((Pawn)clone).canPromote()){
+						b.addMove(new int[] {clone.getUID(), pt.getX(), pt.getY()});
+					}
+				} else {
+					this.gm.increaseMoveRule();
+					b.addMove(new int[] {clone.getUID(), pt.getX(), pt.getY()});
+				}
 			}
 			this.gm.getBoard().setPrevTiles(tiles);
 			this.gm.updateBoard(b, false);
@@ -91,30 +95,32 @@ public abstract class Player implements Observer{
 			b.removePiece(p1);
 			b.removePiece(p2);
 			if (p1.getX() < p2.getX()) {
-                b.addMove(new int[] {clone1.getUID(), clone1.getX(), clone1.getY()});
 				if (p1 instanceof King) {
 					tiles.add(new PossibleTile(clone1.getX(), clone1.getY(), clone1));
 					clone1.setX(p2.getX() - 1);
 					clone2.setX(p1.getX() + 1);
 					tiles.add(new PossibleTile(clone1.getX(), clone1.getY(), clone1));
+					b.addMove(new int[] {clone1.getUID(), clone1.getX(), clone1.getY()});
 				} else {
 					tiles.add(new PossibleTile(clone2.getX(), clone2.getY(), clone2));
 					clone1.setX(p2.getX() - 1);
 					clone2.setX(p1.getX() + 2);
 					tiles.add(new PossibleTile(clone2.getX(), clone2.getY(), clone2));
+					b.addMove(new int[] {clone2.getUID(), clone2.getX(), clone2.getY()});
 				}
 			} else {
-                b.addMove(new int[] {clone1.getUID(), clone1.getX(), clone1.getY()});
 				if (p1 instanceof King){
 					tiles.add(new PossibleTile(clone1.getX(), clone1.getY(), clone1));
 					clone1.setX(p2.getX() + 2);
 					clone2.setX(p1.getX() - 1);
 					tiles.add(new PossibleTile(clone1.getX(), clone1.getY(), clone1));
+					b.addMove(new int[] {clone1.getUID(), clone1.getX(), clone1.getY()});
 				} else {
 					tiles.add(new PossibleTile(clone2.getX(), clone2.getY(), clone2));
 					clone1.setX(p2.getX() + 1);
 					clone2.setX(p1.getX() - 1);
 					tiles.add(new PossibleTile(clone2.getX(), clone2.getY(), clone2));
+					b.addMove(new int[] {clone2.getUID(), clone2.getX(), clone2.getY()});
 				}
 			}
 			clone1.setSelected(false);
@@ -134,7 +140,9 @@ public abstract class Player implements Observer{
 					pawn.setHasPromoted(true);
 					JPanel panel = new JPanel(new GridLayout(2, 1));
 					JLabel label = new JLabel("What would you like to promote your pawn to?");
-					JComboBox<String> selection = new JComboBox<String>(new String[]{"Queen","Knight","Bishop","Rook"});
+					JComboBox<String> selection = new JComboBox<String>(
+						new String[]{"Queen", "Knight", "Bishop", "Rook"}
+					);
 					String[] options = new String[]{"OK"};
 					panel.add(label);
 					panel.add(selection);
@@ -146,28 +154,32 @@ public abstract class Player implements Observer{
 							null, options, options[0]
 						);
 					}
+					Board bClone = gm.getBoard().clone();
 					Piece newPiece = null;
 					switch (selection.getSelectedIndex()) {
 					case 0:
 						newPiece = new Queen(p);
+						bClone.addMove(new int[] {newPiece.getUID(), newPiece.getX(), newPiece.getY(), -100});
 						break;
 					case 1:
 						newPiece = new Knight(p);
+						bClone.addMove(new int[] {newPiece.getUID(), newPiece.getX(), newPiece.getY(), -200});
 						break;
 					case 2:
 						newPiece = new Bishop(p);
+						bClone.addMove(new int[] {newPiece.getUID(), newPiece.getX(), newPiece.getY(), -300});
 						break;
 					case 3:
 						newPiece = new Rook(p);
+						bClone.addMove(new int[] {newPiece.getUID(), newPiece.getX(), newPiece.getY(), -400});
 						break;
 					default:
 						newPiece = p;
+						bClone.addMove(new int[] {newPiece.getUID(), newPiece.getX(), newPiece.getY()});
 						break;
 					}
-					Board bClone = gm.getBoard().clone();
 					bClone.removePiece(p);
 					bClone.addPiece(newPiece);
-                    bClone.addMove(new int[] {newPiece.getUID(), newPiece.getX(), newPiece.getY()});
 					bClone.setPrevTiles(gm.getBoard().getPrevTiles());
 					return bClone;
 				}
