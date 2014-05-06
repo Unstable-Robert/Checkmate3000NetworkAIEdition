@@ -104,10 +104,10 @@ public class Board implements Cloneable{
 			id++;
 		}
 	}
-	public void addMessage(ChatMessage cm){
+	public void addMessage(ChatMessage cm) {
 		this.messages.add(cm);
 	}
-	public ArrayList<ChatMessage> getMessages(){
+	public ArrayList<ChatMessage> getMessages() {
 		return this.messages;
 	}
 	/**
@@ -121,11 +121,11 @@ public class Board implements Cloneable{
 			this.metaInfo.setBlackTime(i);
 		}
 	}
-	public void updateBothTimes(int i){
+	public void updateBothTimes(int i) {
 		this.metaInfo.setWhiteTime(i);
 		this.metaInfo.setBlackTime(i);
 	}
-	public int getWhiteTime(){
+	public int getWhiteTime() {
 		return this.metaInfo.getWhiteTime();
 	}
 	public int getBlackTime() {

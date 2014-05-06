@@ -55,7 +55,16 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		resignButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				endGame();
+				String otherPlayer = gm.getBoard().isWhiteTurn() ? "black" : "white";
+				int wantsResign = JOptionPane.showConfirmDialog(
+					myCheckmate,
+					"Are you sure you want to resign and let " + otherPlayer + " win?",
+					"Let " + otherPlayer + " win?",
+					JOptionPane.YES_NO_OPTION
+				);
+				if (wantsResign == JOptionPane.YES_OPTION) {
+					endGame();
+				}
 			}
 		});
 		add(resignButton);		
@@ -66,16 +75,17 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 			chatTextArea.setLineWrap(true);
 			//chatTextArea.setOpaque(true);
 			add(chatTextArea);
-			JScrollPane scrollPane =  new JScrollPane(chatTextArea,
-	                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-	                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
-	                );
+			JScrollPane scrollPane =  new JScrollPane(
+				chatTextArea,
+				ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
+			);
 			scrollPane.setLocation(
-					(int)(c.getWidth() * 0.02), 
-					(int)(c.getHeight() * 0.50)
-				);
+				(int)(c.getWidth() * 0.02), 
+				(int)(c.getHeight() * 0.50)
+			);
 			scrollPane.setSize(135, 220);
-	        add(scrollPane);
+		   add(scrollPane);
 			sendTF = new JTextField();
 			sendTF.setSize(250,20);
 			sendTF.setLocation(
@@ -425,7 +435,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 						}
 					}
 				}
-			}else if (piece != null) {
+			} else if (piece != null) {
 				if (this.gm.getBoard().hasSelectedPiece()){
 					Piece p = this.gm.getBoard().getSelectedPiece();
 					p.setSelected(false);
