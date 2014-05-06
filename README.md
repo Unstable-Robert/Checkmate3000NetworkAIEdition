@@ -4,8 +4,8 @@ Checkmate3000NetworkAIEdition
 Insert chess pun here
 
 ####ToDo:
+	add win, lose, draw enum for netgames
 	Pressing canel when saving a log returns user to the game over option pane.
-	Chat JTextArea has scroll bar?
 	game log save AI moves
 	game log castling
 	game log en passant

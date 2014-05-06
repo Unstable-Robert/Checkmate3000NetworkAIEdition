@@ -1,4 +1,5 @@
 /bin
+/test
 .classpath
 .project
 .DS_Store

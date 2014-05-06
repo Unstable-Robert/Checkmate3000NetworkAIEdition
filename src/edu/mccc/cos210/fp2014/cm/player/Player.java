@@ -84,6 +84,7 @@ public abstract class Player implements Observer{
 			b.isWhiteTurn() == p1.isWhite() &&
 			b.isWhiteTurn() == this.isWhite
 		){
+			ArrayList<PossibleTile> tiles = new ArrayList<PossibleTile>();
 			b.nextTurn();
 			Piece clone1 = p1.clone();
 			Piece clone2 = p2.clone();
@@ -92,25 +93,34 @@ public abstract class Player implements Observer{
 			if (p1.getX() < p2.getX()) {
                 b.addMove(new int[] {clone1.getUID(), clone1.getX(), clone1.getY()});
 				if (p1 instanceof King) {
+					tiles.add(new PossibleTile(clone1.getX(), clone1.getY(), clone1));
 					clone1.setX(p2.getX() - 1);
 					clone2.setX(p1.getX() + 1);
+					tiles.add(new PossibleTile(clone1.getX(), clone1.getY(), clone1));
 				} else {
+					tiles.add(new PossibleTile(clone2.getX(), clone2.getY(), clone2));
 					clone1.setX(p2.getX() - 1);
 					clone2.setX(p1.getX() + 2);
+					tiles.add(new PossibleTile(clone2.getX(), clone2.getY(), clone2));
 				}
 			} else {
                 b.addMove(new int[] {clone1.getUID(), clone1.getX(), clone1.getY()});
 				if (p1 instanceof King){
+					tiles.add(new PossibleTile(clone1.getX(), clone1.getY(), clone1));
 					clone1.setX(p2.getX() + 2);
 					clone2.setX(p1.getX() - 1);
+					tiles.add(new PossibleTile(clone1.getX(), clone1.getY(), clone1));
 				} else {
+					tiles.add(new PossibleTile(clone2.getX(), clone2.getY(), clone2));
 					clone1.setX(p2.getX() + 1);
 					clone2.setX(p1.getX() - 1);
+					tiles.add(new PossibleTile(clone2.getX(), clone2.getY(), clone2));
 				}
 			}
 			clone1.setSelected(false);
 			b.addPiece(clone1);
 			b.addPiece(clone2);
+			this.gm.getBoard().setPrevTiles(tiles);
 			gm.updateBoard(b, false);
 			return true;
 		}
@@ -128,9 +138,14 @@ public abstract class Player implements Observer{
 					String[] options = new String[]{"OK"};
 					panel.add(label);
 					panel.add(selection);
-					JOptionPane.showOptionDialog(null, panel, "Pawn Promotion",
-								  JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
-								  null, options, options[0]);
+					int hasClosed = JOptionPane.CLOSED_OPTION;
+					while (hasClosed == JOptionPane.CLOSED_OPTION) {
+						hasClosed = JOptionPane.showOptionDialog(
+							null, panel, "Pawn Promotion",
+							JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+							null, options, options[0]
+						);
+					}
 					Piece newPiece = null;
 					switch (selection.getSelectedIndex()) {
 					case 0:
@@ -146,12 +161,14 @@ public abstract class Player implements Observer{
 						newPiece = new Rook(p);
 						break;
 					default:
+						newPiece = p;
 						break;
 					}
 					Board bClone = gm.getBoard().clone();
 					bClone.removePiece(p);
 					bClone.addPiece(newPiece);
                     bClone.addMove(new int[] {newPiece.getUID(), newPiece.getX(), newPiece.getY()});
+					bClone.setPrevTiles(gm.getBoard().getPrevTiles());
 					return bClone;
 				}
 			}

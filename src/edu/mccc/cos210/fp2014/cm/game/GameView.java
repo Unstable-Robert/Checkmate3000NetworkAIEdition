@@ -188,11 +188,11 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 			JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
 			null, options, options[0]
 		);
-		if (gameOverAction == JOptionPane.OK_OPTION) {
-			myCheckmate.setView(Checkmate.MAIN_MENU);	
-		} else {
+		if (gameOverAction == 1) {
 			saveLog(isWhiteTurn);
 			myCheckmate.setView(Checkmate.MAIN_MENU);
+		} else {
+			myCheckmate.setView(Checkmate.MAIN_MENU);	
 		}
 	}
 	private void drawGame() {
