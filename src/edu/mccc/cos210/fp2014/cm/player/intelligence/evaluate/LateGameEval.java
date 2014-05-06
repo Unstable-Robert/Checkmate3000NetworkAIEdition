@@ -30,11 +30,11 @@ public class LateGameEval extends EvaluationAlgorithm {
 					if (p instanceof Bishop){
 						value = value + 3;
 					} else if (p instanceof King){
-						value = value + 200 + getLocationVal(p);
+						value = value + 200 + getKingVal(p);
 					} else if (p instanceof Knight){
 						value = value + 3;
 					} else if (p instanceof Pawn){
-						value = value + 1;
+						value = value + 1 + getPawnVal(p);
 					} else if (p instanceof Queen){
 						value = value + 9;
 					} else if (p instanceof Rook){
@@ -44,28 +44,25 @@ public class LateGameEval extends EvaluationAlgorithm {
 				if (p instanceof Bishop){
 					value = value - 3;
 				} else if (p instanceof King){
-					value = value - 200 - getLocationVal(p);
+					value = value - 200 - getKingVal(p);
 				} else if (p instanceof Knight){
 					value = value - 3;
 				} else if (p instanceof Pawn){
-					value = value - 1;
+					value = value - 1 - getPawnVal(p);
 				} else if (p instanceof Queen){
 					value = value - 9;
 				} else if (p instanceof Rook){
 					value = value - 5;
 				}
 			}
-			if (!(p instanceof Queen)){
-				value = value + .1 * (double) p.getNumMoves();
-			}
 		}
 		return value;
 	}
 
-	private int getLocationVal(Piece p) {
-		return getAxisVal(p.getX() + getAxisVal(p.getY()));
+	private int getKingVal(Piece p) {
+		return getKingAxisVal(p.getX() + getKingAxisVal(p.getY()));
 	}
-	private int getAxisVal(int loc){
+	private int getKingAxisVal(int loc){
 		switch(loc){
 			case 0:
 			case 7:
@@ -81,6 +78,13 @@ public class LateGameEval extends EvaluationAlgorithm {
 				return 4;
 			default:
 				return 0;
+		}
+	}
+	private int getPawnVal(Piece p) {
+		if (p.isWhite()){
+			return -p.getY() + 7;
+		} else {
+			return p.getY();
 		}
 	}
 }

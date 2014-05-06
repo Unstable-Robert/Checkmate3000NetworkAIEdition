@@ -28,6 +28,7 @@ public class EarlyGameEval extends EvaluationAlgorithm {
 		double value = 0;
 		for (Piece p : b.getPieces()) {
 			if (p.isWhite() == this.isWhite){
+					value = value + getLocationVal(p);
 					if (p instanceof Bishop){
 						value = value + 3;
 					} else if (p instanceof King){
@@ -48,6 +49,7 @@ public class EarlyGameEval extends EvaluationAlgorithm {
 						value = value + 5;
 				}
 			} else {
+				value = value - getLocationVal(p);
 				if (p instanceof Bishop){
 					value = value - 3;
 				} else if (p instanceof King){
@@ -68,5 +70,25 @@ public class EarlyGameEval extends EvaluationAlgorithm {
 		}
 		return value;
 	}
-
+	private int getLocationVal(Piece p) {
+		return getAxisVal(p.getX() + getAxisVal(p.getY()));
+	}
+	private int getAxisVal(int loc){
+		switch(loc){
+			case 0:
+			case 7:
+				return -2;
+			case 1:
+			case 6:
+				return -1;
+			case 2:
+			case 5:
+				return 1;
+			case 3:
+			case 4:
+				return 2;
+			default:
+				return 0;
+		}
+	}
 }

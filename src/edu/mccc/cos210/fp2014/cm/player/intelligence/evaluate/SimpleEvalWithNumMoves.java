@@ -47,9 +47,8 @@ public class SimpleEvalWithNumMoves extends EvaluationAlgorithm {
 					value = value - 5;
 				}
 			}
-			if (!(p instanceof Queen)){
-				value = value + .1 * (double) p.getNumMoves();
-			}
+			value = value + .1 * (double) p.getNumMoves();
+			
 		}
 		return value;
 	}
