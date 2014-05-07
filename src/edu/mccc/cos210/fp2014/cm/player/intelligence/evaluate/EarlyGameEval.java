@@ -70,20 +70,20 @@ public class EarlyGameEval extends EvaluationAlgorithm {
 		}
 		return value;
 	}
-	private int getLocationVal(Piece p) {
-		return getAxisVal(p.getX() + getAxisVal(p.getY()));
+	private double getLocationVal(Piece p) {
+		return getAxisVal(p.getX()) + getAxisVal(p.getY());
 	}
-	private int getAxisVal(int loc){
+	private double getAxisVal(int loc){
 		switch(loc){
 			case 0:
 			case 7:
-				return -2;
+				return -1;
 			case 1:
 			case 6:
-				return -1;
+				return -.5;
 			case 2:
 			case 5:
-				return 1;
+				return .5;
 			case 3:
 			case 4:
 				return 2;
