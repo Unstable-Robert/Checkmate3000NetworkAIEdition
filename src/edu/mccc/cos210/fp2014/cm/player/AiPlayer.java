@@ -7,6 +7,8 @@ import edu.mccc.cos210.fp2014.cm.game.GameModel;
 import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
+import edu.mccc.cos210.fp2014.cm.player.intelligence.BestOptionsEarlyGameIntel;
+import edu.mccc.cos210.fp2014.cm.player.intelligence.BestOptionsIntel;
 import edu.mccc.cos210.fp2014.cm.player.intelligence.BroadAndShallowIntel;
 import edu.mccc.cos210.fp2014.cm.player.intelligence.EarlyGameIntel;
 import edu.mccc.cos210.fp2014.cm.player.intelligence.Intelligence;
@@ -51,32 +53,51 @@ public class AiPlayer extends Player implements Runnable{
 	}
 	private void setIntelligence() {
 		int depth = 2;
-		switch (this.difficulty) {
-			case EASY:
-				depth = 3;
-				break;
-			case MEDIUM:
-				depth = 3;
-				break;
-			case HARD:
-				depth = 8;
-				break;
-			case HUMAN:
-				break;
-		}
+		
 		switch(this.gamePart) {
 			case BEGINNING:
-				this.intelligence = new EarlyGameIntel(depth, this.isWhite);
-				break;
-			case MIDDLE:		
-				if (this.difficulty == Difficulty.EASY){
-					this.intelligence = new BroadAndShallowIntel(depth, this.isWhite);
-				} else {
-					this.intelligence = new BroadAndShallowIntel(depth, this.isWhite);
+				switch (this.difficulty) {
+				case EASY:
+					this.intelligence = new EarlyGameIntel(3, this.isWhite);
+					break;
+				case MEDIUM:
+					this.intelligence = new BestOptionsEarlyGameIntel(3, this.isWhite);
+					break;
+				case HARD:
+					this.intelligence = new BestOptionsEarlyGameIntel(6, this.isWhite);
+					break;
+				case HUMAN:
+					break;
 				}
 				break;
+			case MIDDLE:	
+				switch (this.difficulty) {
+				case EASY:
+					this.intelligence = new BroadAndShallowIntel(3, this.isWhite);
+					break;
+				case MEDIUM:
+					this.intelligence = new BestOptionsIntel(3, this.isWhite);
+					break;
+				case HARD:
+					this.intelligence = new BestOptionsIntel(6, this.isWhite);
+					break;
+				case HUMAN:
+					break;
+				}
 			case END:
-				this.intelligence = new LateGameIntel(depth, this.isWhite);
+				switch (this.difficulty) {
+				case EASY:
+					this.intelligence = new LateGameIntel(3, this.isWhite);
+					break;
+				case MEDIUM:
+					this.intelligence = new LateGameIntel(3, this.isWhite);
+					break;
+				case HARD:
+					this.intelligence = new LateGameIntel(6, this.isWhite);
+					break;
+				case HUMAN:
+					break;
+				}
 				break;
 			default:
 				break;
