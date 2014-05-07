@@ -56,7 +56,7 @@ public class AiPlayer extends Player implements Runnable{
 				depth = 3;
 				break;
 			case MEDIUM:
-				depth = 4;
+				depth = 3;
 				break;
 			case HARD:
 				depth = 8;
@@ -69,7 +69,11 @@ public class AiPlayer extends Player implements Runnable{
 				this.intelligence = new EarlyGameIntel(depth, this.isWhite);
 				break;
 			case MIDDLE:		
-				this.intelligence = new BroadAndShallowIntel(depth, this.isWhite);
+				if (this.difficulty == Difficulty.EASY){
+					this.intelligence = new BroadAndShallowIntel(depth, this.isWhite);
+				} else {
+					this.intelligence = new BroadAndShallowIntel(depth, this.isWhite);
+				}
 				break;
 			case END:
 				this.intelligence = new LateGameIntel(depth, this.isWhite);
