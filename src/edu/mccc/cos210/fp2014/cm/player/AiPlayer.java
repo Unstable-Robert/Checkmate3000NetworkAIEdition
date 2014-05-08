@@ -61,10 +61,10 @@ public class AiPlayer extends Player implements Runnable{
 					this.intelligence = new EarlyGameIntel(3, this.isWhite);
 					break;
 				case MEDIUM:
-					this.intelligence = new BestOptionsEarlyGameIntel(3, this.isWhite);
+					this.intelligence = new BestOptionsEarlyGameIntel(2, this.isWhite);
 					break;
 				case HARD:
-					this.intelligence = new BestOptionsEarlyGameIntel(6, this.isWhite);
+					this.intelligence = new BestOptionsEarlyGameIntel(3, this.isWhite);
 					break;
 				case HUMAN:
 					break;
@@ -76,10 +76,10 @@ public class AiPlayer extends Player implements Runnable{
 					this.intelligence = new BroadAndShallowIntel(3, this.isWhite);
 					break;
 				case MEDIUM:
-					this.intelligence = new BestOptionsIntel(3, this.isWhite);
+					this.intelligence = new BestOptionsIntel(2, this.isWhite);
 					break;
 				case HARD:
-					this.intelligence = new BestOptionsIntel(6, this.isWhite);
+					this.intelligence = new BestOptionsIntel(3, this.isWhite);
 					break;
 				case HUMAN:
 					break;
@@ -91,10 +91,10 @@ public class AiPlayer extends Player implements Runnable{
 					this.intelligence = new LateGameIntel(3, this.isWhite);
 					break;
 				case MEDIUM:
-					this.intelligence = new LateGameIntel(3, this.isWhite);
+					this.intelligence = new LateGameIntel(2, this.isWhite);
 					break;
 				case HARD:
-					this.intelligence = new LateGameIntel(6, this.isWhite);
+					this.intelligence = new LateGameIntel(3, this.isWhite);
 					break;
 				case HUMAN:
 					break;

@@ -65,7 +65,7 @@ public class EarlyGameEval extends EvaluationAlgorithm {
 				}
 			}
 			if (!(p instanceof Queen)){
-				value = value + .1 * (double) p.getNumMoves();
+				value = value + .05 * (double) p.getNumMoves();
 			}
 		}
 		return value;

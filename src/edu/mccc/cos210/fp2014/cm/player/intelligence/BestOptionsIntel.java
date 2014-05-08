@@ -16,12 +16,11 @@ public class BestOptionsIntel extends Intelligence {
 	@Override
 	public void searchAndEval(Board b){
 		Tree<Board> t = new Tree<Board>(b);
-		this.search.search(t);
-		this.eval.setRoot(t);
-		this.eval.evaluate(t, true);
-		t = this.eval.getSeveralBest(5);
-		this.search.search(t);
-		this.eval.setRoot(t);
-		this.eval.evaluate(t, true);	
+		for (int i = 0; i < 3; i++) {
+			this.search.search(t);
+			this.eval.setRoot(t);
+			this.eval.evaluate(t, true);
+			t = this.eval.getSeveralBest(10);
+		}
 	}
 }

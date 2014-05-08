@@ -61,14 +61,15 @@ public abstract class EvaluationAlgorithm implements Runnable {
 		for (Tree<Board> b : this.tree.getLeaves()){
 			if (b.getScore() > bestScore){
 				best.clear();
-				best.add(b.getRoot());
 				bestScore = b.getScore();
+				best.add(b.getRoot());
 			} else if (b.getScore() == bestScore) {
 				best.add(b.getRoot());
 			}
 		}
 		return best.get(new Random().nextInt(best.size()));
-	}	public abstract double getBoardValue(Board b);
+	}	
+	public abstract double getBoardValue(Board b);
 	public Tree<Board> getSeveralBest(int i) {
 		Tree<Board> intermediate = new Tree<Board>(this.tree.getRoot());
 		for(Tree<Board> t : this.tree.getLeaves()){

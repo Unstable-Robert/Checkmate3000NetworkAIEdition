@@ -47,7 +47,7 @@ public class SimpleEvalWithNumMoves extends EvaluationAlgorithm {
 					value = value - 5;
 				}
 			}
-			value = value + .1 * (double) p.getNumMoves();
+			value = value + .05 * (double) p.getNumMoves();
 			
 		}
 		return value;
