@@ -53,16 +53,6 @@ public class BruteSearch extends SearchAlgorithm implements Runnable {
 						} else {
 							newBoard.addMove(new int[] {newPiece.getUID(), pt.getX(), pt.getY()});*/
 						}
-						System.out.print("{");
-						for (int[] iArray : newBoard.getMoves()) {
-							System.out.print("[");
-							for (int i : iArray) {
-								System.out.print(i + ", ");
-							}
-							System.out.print("]");
-						}
-						System.out.println("}");
-						System.out.println();
 						newBoard.setPrevTiles(tiles);
 						b.addLeaf(newBoard);
 						Tree<Board> leaf = b.getLeaf(newBoard);

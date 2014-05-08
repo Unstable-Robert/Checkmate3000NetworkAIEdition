@@ -118,16 +118,16 @@ public class Board implements Cloneable{
 	 * This updates the timer that will be painted by GameView
 	 * @param i The number of seconds remaining on the clock for the current player's turn
 	 */
-	public void updateTime(int i) {
-		if (this.whiteTurn){
-			this.metaInfo.setWhiteTime(i);
-		} else {
-			this.metaInfo.setBlackTime(i);
-		}
+	public void updateWhiteTime(int i) {
+		this.metaInfo.setWhiteTime(i);
+	}
+	public void updateBlackTime(int i) {
+		this.metaInfo.setBlackTime(i);
 	}
 	public void updateBothTimes(int i) {
 		this.metaInfo.setWhiteTime(i);
 		this.metaInfo.setBlackTime(i);
+		System.out.println(this.metaInfo.getBlackTime());
 	}
 	public int getWhiteTime() {
 		return this.metaInfo.getWhiteTime();
