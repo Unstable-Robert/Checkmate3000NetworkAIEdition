@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import edu.mccc.cos210.fp2014.cm.piece.*;
+import edu.mccc.cos210.fp2014.cm.util.GameResult;
 import edu.mccc.cos210.fp2014.cm.util.GameType;
 
 /**
@@ -32,6 +33,8 @@ public class Board implements Cloneable{
 	private ArrayList<ChatMessage> messages;
 	@XmlElement(name="prevTiles")
 	private ArrayList<PossibleTile> prevTiles;
+    @XmlElement(name="winner")
+    private GameResult winner;
 	/**
 	 * Constructor.
 	 * Saves possible tiles, pieces, moves, whose turn it is, and meta data.
@@ -44,6 +47,7 @@ public class Board implements Cloneable{
 		this.whiteTurn = true;
 		this.metaInfo = new Meta();
         this.moves = new ArrayList<int[]>();
+        this.winner = GameResult.GameRunning;
 		prevTiles = new ArrayList<PossibleTile>();
 	}
 	public Board(GameType g) {
@@ -56,13 +60,14 @@ public class Board implements Cloneable{
 		this.metaInfo = new Meta(g, t);
 		setUpPieces();
 	}
-	public Board(ArrayList<PossibleTile> tiles, ArrayList<Piece> p, int m, boolean t, Meta meta, ArrayList<int[]> moveList) {
+	public Board(ArrayList<PossibleTile> tiles, ArrayList<Piece> p, int m, boolean t, Meta meta, ArrayList<int[]> moveList, GameResult win) {
 		this.possibleTiles = tiles;
 		this.pieces = p;
 		this.movesSincePieceTaken = m;
 		this.whiteTurn = t;
 		this.metaInfo = meta;
         this.moves = moveList;
+        this.winner = win;
 		prevTiles = new ArrayList<PossibleTile>();
 	}
 	private void setUpPieces(){
@@ -135,6 +140,12 @@ public class Board implements Cloneable{
 	public int getBlackTime() {
 		return this.metaInfo.getBlackTime();
 	}
+    public GameResult getWinner(){
+        return this.winner;
+    }
+    public void setWinner(GameResult gr){
+        this.winner = gr;
+    }
 	public void setPrevTiles(ArrayList<PossibleTile> pts) {
 		prevTiles = pts;
 	}
@@ -201,7 +212,7 @@ public class Board implements Cloneable{
      */
 	public void addPiece(Piece p) {
 		this.getPieces().add(p);
-	} 
+	}
 	public void clearSelected() {
 		for(Piece p : this.getPieces()) {
 			p.setSelected(false);
@@ -244,12 +255,13 @@ public class Board implements Cloneable{
 		for(Piece p : this.getPieces()) {
 			newPieces.add(p.clone());
 		}
-		return new Board(newTiles, 
+		return new Board(newTiles,
 			newPieces,
-			this.getNumMovesSinceLastPieceTaken(), 
+			this.getNumMovesSinceLastPieceTaken(),
 			this.whiteTurn,
 			this.getMetaInfo().clone(),
-			this.getMoves()
+			this.getMoves(),
+            this.getWinner()
 		);
 	}
 }

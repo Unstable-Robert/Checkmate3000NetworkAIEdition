@@ -1,5 +1,6 @@
 package edu.mccc.cos210.fp2014.cm.game;
 
+import edu.mccc.cos210.fp2014.cm.util.GameResult;
 import edu.mccc.cos210.fp2014.cm.piece.*;
 
 import java.util.ArrayList;
@@ -15,7 +16,6 @@ public class GameModel extends Observable {
 	private Timer timer;
 	private boolean isNetworkUpdate;
 	private int totalTime, moveRule;
-	private int winner;
 	/**
 	 * Default public constructor.
 	 */
@@ -32,6 +32,7 @@ public class GameModel extends Observable {
 	public void startTimer(){
 		if (timer != null){
 			this.timer.scheduleAtFixedRate(new TurnTimer(this, this.totalTime), 1000L, 1000L);
+            System.out.println("timerStarted");
 		}
 	}
 	/**
@@ -54,17 +55,22 @@ public class GameModel extends Observable {
 	public boolean isNetworkUpdate(){
 		return this.isNetworkUpdate;
 	}
+
+    /**
+     * Gets the winner of the game
+     * @return GameResult
+     */
+    public GameResult getWinner(){
+        return this.board.getWinner();
+    }
+    public void setWinner(GameResult w){
+        this.board.setWinner(w);
+    }
 	/**
 	 * Called at the end of each turn, by the player or an expired timer.
 	 */
 	public void nextTurn() {
 		this.board.nextTurn();
-	}
-	public int getWinner(){
-		return this.winner;
-	}
-	public void setWinner(int w){
-		this.winner = w;
 	}
 	/**
 	 * Called when one game timer expires.
@@ -93,14 +99,14 @@ public class GameModel extends Observable {
 		for (Piece p : this.board.getPieces()){
 			if (p.isWhite() == this.board.isWhiteTurn()) {
 				if (!p.getPossibleTiles(this.board).isEmpty()) {
-					return false;	
+					return false;
 				}
 				if (p instanceof King){
 					King k = (King) p;
 					possibleCheckmate = k.inCheck(this.board);
 				}
 			}
-					
+
 		}
 		if (possibleCheckmate && this.hasTimer()){
 			this.cancelTimer();
@@ -166,19 +172,20 @@ public class GameModel extends Observable {
 		for (Piece p : this.board.getPieces()){
 			if (p.isWhite() == this.board.isWhiteTurn()) {
 				if (!p.getPossibleTiles(this.board).isEmpty()) {
-					return false;	
+					return false;
 				}
 				if (p instanceof King){
 					King k = (King) p;
 					draw = !k.inCheck(this.board);
 				}
 			}
-					
+
 		}
 		if (draw) {
 			if(this.hasTimer()){
 				this.cancelTimer();
 			}
+            getBoard().setWinner(GameResult.DrawGame);
 		}
 		return draw;
 	}

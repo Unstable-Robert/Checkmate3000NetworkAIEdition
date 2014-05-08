@@ -21,6 +21,7 @@ import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
 import edu.mccc.cos210.fp2014.cm.menu.SettingsView;
 import edu.mccc.cos210.fp2014.cm.piece.*;
 import edu.mccc.cos210.fp2014.cm.util.GameType;
+import edu.mccc.cos210.fp2014.cm.util.GameResult;
 
 /**
  * JPanel view of the a logged game
@@ -33,14 +34,15 @@ public class LogView extends SettingsView implements Observer {
 	private int maxTurn;
 	private int[] removedPiece;
 	private boolean whiteWon;
+    private GameResult winner;
 	public LogView(Checkmate c) {
 		super(c);
-		
+
 		turnNum = 0;
 		moves = new ArrayList<Board>();
 		moves.add(new Board(GameType.NORMAL));
 		image = loadImage();
-		
+
 		JButton backButton = new JButton("Main Menu");
 		backButton.setSize(100, 50);
 		backButton.setLocation((int)(c.getWidth() * 0.035), (int)(c.getHeight() * 0.10));
@@ -52,7 +54,7 @@ public class LogView extends SettingsView implements Observer {
 			}
 		});
 		add(backButton);
-		
+
 		JButton loadButton = new JButton("Load Log");
 		loadButton.setSize(100, 50);
 		loadButton.setLocation((int)(c.getWidth() * 0.035), (int)(c.getHeight() * 0.20));
@@ -70,9 +72,9 @@ public class LogView extends SettingsView implements Observer {
 					try {
 						loadFile(fc.getSelectedFile());
 						JOptionPane.showMessageDialog(
-							myCheckmate, 
-							"File successfully loaded.", 
-							"File Loaded", 
+							myCheckmate,
+							"File successfully loaded.",
+							"File Loaded",
 							JOptionPane.DEFAULT_OPTION
 						);
 					} catch (Exception ex){
@@ -87,7 +89,7 @@ public class LogView extends SettingsView implements Observer {
 			}
 		});
 		add(loadButton);
-		
+
 		JButton nextButton = new JButton(">");
 		nextButton.setSize(45, 45);
 		nextButton.setLocation((int)(c.getWidth() * 0.55), (int)(c.getHeight() * 0.865));
@@ -95,14 +97,65 @@ public class LogView extends SettingsView implements Observer {
 		nextButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
+                boolean endGameVis = false;
 				if (turnNum < moves.size()-1) {
 					turnNum++;
 					repaint();
 				}
+                if (turnNum == moves.size()-1 && !endGameVis){
+                    String message = "";
+                    switch(winner){
+                        case WhiteWon:
+                            message = "White Won!!";
+                            break;
+                        case BlackWon:
+                            message = "Black Won!!";
+                            break;
+                        case DrawGame:
+                            message = "The game ended in a draw.";
+                            break;
+                    }
+                    String[] options = new String[]{"Load New Log", "Reset", "Okay"};
+                    int gameOverAction = JOptionPane.showOptionDialog(
+                        null, message, "Log Over",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                        null, options, options[0]
+                    );
+                    if (gameOverAction == 1){
+                        turnNum = 0;
+                        repaint();
+                    }
+                    if (gameOverAction == 0){
+                        JFileChooser fc = new JFileChooser(new File("logs"));
+                        fc.setAcceptAllFileFilterUsed(false);
+                        fc.setFileFilter(
+                            new FileNameExtensionFilter("Checkmate 3000 Logs", "cm3")
+                        );
+                        int result = fc.showOpenDialog(LogView.this);
+                        if (result == JFileChooser.APPROVE_OPTION) {
+                            try {
+                                loadFile(fc.getSelectedFile());
+                                JOptionPane.showMessageDialog(
+                                    myCheckmate,
+                                    "File successfully loaded.",
+                                    "File Loaded",
+                                    JOptionPane.DEFAULT_OPTION
+                                );
+                            } catch (Exception ex){
+                                JOptionPane.showMessageDialog(
+                                    myCheckmate,
+                                    "The file you have chosen is not a valid Checkmate 3000 game log.",
+                                    "Invalid Checkmate 3000 Game Log",
+                                    JOptionPane.WARNING_MESSAGE
+                                );
+                            }
+                        }
+                    }
+                }
 			}
 		});
 		add(nextButton);
-		
+
 		final JButton previousButton = new JButton("<");
 		previousButton.setSize(45, 45);
 		previousButton.setLocation((int)(c.getWidth() * 0.40), (int)(c.getHeight() * 0.865));
@@ -135,7 +188,10 @@ public class LogView extends SettingsView implements Observer {
 		BufferedReader br = new BufferedReader(new FileReader(f));
 		String s = br.readLine();
 		br.close();
-		String[] sArray = s.split(";");
+		String[] sArray1 = s.split(";");
+        this.winner = GameResult.fromInt(Integer.parseInt(Character.toString(sArray1[sArray1.length-1].charAt(0))));
+        String[] sArray = new String[sArray1.length-1];
+        for (int x = 0; x < sArray1.length-1; x++) sArray[x] = sArray1[x];
 		String[] moveElements;
 		int uid, x, y, specialInfo;
 		ArrayList<Piece> pieces;
@@ -261,7 +317,7 @@ public class LogView extends SettingsView implements Observer {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g.create();
-		
+
 		Rectangle2D r = new Rectangle2D.Double(155, 55, 490, 490);
 		g2d.setPaint(Color.BLACK);
 		g2d.fill(r);
@@ -278,16 +334,16 @@ public class LogView extends SettingsView implements Observer {
 				}
 			}
 		}
-		
+
 		g2d.setFont(new Font(g2d.getFont().toString(), Font.PLAIN, 28));
 		if (moves.get(turnNum).isWhiteTurn()) {
 			g2d.drawString("Turn " + turnNum, myCheckmate.getWidth() * .035f, myCheckmate.getHeight() * .06f);
 		}
-		
+
 		for (PossibleTile pt : moves.get(turnNum).getPrevTiles()) {
 			drawPrevTile(
-				g2d, 
-				pt.getX() * 60 + 160, 
+				g2d,
+				pt.getX() * 60 + 160,
 				pt.getY() * 60 + 60
 			);
 		}

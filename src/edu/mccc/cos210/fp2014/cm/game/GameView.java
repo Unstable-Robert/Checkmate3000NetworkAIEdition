@@ -22,6 +22,7 @@ import edu.mccc.cos210.fp2014.cm.menu.SettingsView;
 import edu.mccc.cos210.fp2014.cm.piece.*;
 import edu.mccc.cos210.fp2014.cm.player.NetworkPlayer;
 import edu.mccc.cos210.fp2014.cm.player.Player;
+import edu.mccc.cos210.fp2014.cm.util.GameResult;
 import edu.mccc.cos210.fp2014.cm.util.GameType;
 
 /**
@@ -37,6 +38,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 	private JButton resignButton, sendButton;
 	private JTextField sendTF;
 	private JTextArea chatTextArea;
+    private boolean isDrawVisable;
 	public GameView(Checkmate c) {
 		super(c);
 		players = new ArrayList<Player>();
@@ -47,7 +49,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		this(c);
 		this.gm = model;
 		image = loadImage();
-		
+
 		resignButton = new JButton("Resign");
 		resignButton.setSize(100, 50);
 		resignButton.setLocation((int)(c.getWidth() * 0.035), (int)(c.getHeight() * 0.10));
@@ -67,7 +69,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 				}
 			}
 		});
-		add(resignButton);		
+		add(resignButton);
 
 		if (networked){
 			chatTextArea = new JTextArea("", 14, 26);
@@ -81,7 +83,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
 			);
 			scrollPane.setLocation(
-				(int)(c.getWidth() * 0.02), 
+				(int)(c.getWidth() * 0.02),
 				(int)(c.getHeight() * 0.50)
 			);
 			scrollPane.setSize(135, 220);
@@ -89,11 +91,11 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 			sendTF = new JTextField();
 			sendTF.setSize(250,20);
 			sendTF.setLocation(
-				(int)(c.getWidth() * 0.02), 
+				(int)(c.getWidth() * 0.02),
 				(int)(c.getHeight() * 0.90)
 			);
 			add(sendTF);
-			
+
 			sendButton = new JButton("send");
 			sendButton.setSize(100, 20);
 			sendButton.setLocation(
@@ -154,6 +156,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 	}
 	private void saveLog(boolean isWhiteTurn) {
 		ArrayList<int[]> moves = this.gm.getBoard().getMoves();
+        moves.add(new int[] {this.gm.getBoard().getWinner().getValue()});
 		JFileChooser fc = new JFileChooser(new File("logs"));
 		fc.setAcceptAllFileFilterUsed(false);
 		fc.setFileFilter(
@@ -177,10 +180,13 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 	private void endGame() {
 		cleanUp();
 		String message = "White won.";
+        this.gm.getBoard().setWinner(GameResult.WhiteWon);
 		boolean isWhiteTurn = gm.getBoard().isWhiteTurn();
 		if (isWhiteTurn) {
 			message = "Black won.";
+            this.gm.getBoard().setWinner(GameResult.BlackWon);
 		}
+        System.out.println(this.gm.getBoard().getWinner());
 		String[] options = new String[]{"Okay", "Save Game Log"};
 		int gameOverAction = JOptionPane.showOptionDialog(
 			this, message, "Game Over",
@@ -191,7 +197,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 			saveLog(isWhiteTurn);
 			myCheckmate.setView(Checkmate.MAIN_MENU);
 		} else {
-			myCheckmate.setView(Checkmate.MAIN_MENU);	
+			myCheckmate.setView(Checkmate.MAIN_MENU);
 		}
 	}
 	private void drawGame() {
@@ -204,7 +210,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 			null, options, options[0]
 		);
 		if (gameOverAction == JOptionPane.OK_OPTION) {
-			myCheckmate.setView(Checkmate.MAIN_MENU);	
+			myCheckmate.setView(Checkmate.MAIN_MENU);
 		} else {
 			saveLog(gm.getBoard().isWhiteTurn());
 			myCheckmate.setView(Checkmate.MAIN_MENU);
@@ -253,7 +259,8 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		if (this.gm.canDraw()) {
+		if (this.gm.canDraw() && (!isDrawVisable)) {
+            isDrawVisable = true;
 			int wantsDraw = JOptionPane.showConfirmDialog(
 				myCheckmate,
 				"It is possible to declare this game as a tie. Would you like to end this game in a draw?",
@@ -261,7 +268,9 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 				JOptionPane.YES_NO_OPTION
 			);
 			if (wantsDraw == JOptionPane.YES_OPTION) {
+                this.gm.getBoard().setWinner(GameResult.DrawGame);
 				drawGame();
+                isDrawVisable = false;
 			}
 		}
 		this.paintComponent(this.getGraphics());
@@ -273,8 +282,10 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 			JLabel label;
 			if(myCheckmate.getGameModel().getBoard().isWhiteTurn()) {
 				label = new JLabel("Black Wins!!");
+                this.gm.getBoard().setWinner(GameResult.BlackWon);
 			} else {
 				label = new JLabel("White Wins!!");
+                this.gm.getBoard().setWinner(GameResult.WhiteWon);
 			}
 			panel.add(label);
 			endGame();
@@ -288,7 +299,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g.create();
-		
+
 		Rectangle2D r = new Rectangle2D.Double(155, 55, 490, 490);
 		g2d.setPaint(Color.BLACK);
 		g2d.fill(r);
@@ -305,18 +316,18 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 				}
 			}
 		}
-		
+
 		g2d.setFont(new Font(g2d.getFont().toString(), Font.PLAIN, 28));
 		String playersTurn = "Black's Turn";
 		if (gm.getBoard().isWhiteTurn()) {
 			playersTurn = "White's Turn";
 		}
 		g2d.drawString(playersTurn, myCheckmate.getWidth() * .035f, myCheckmate.getHeight() * .06f);
-		
+
 		for (PossibleTile pt : gm.getBoard().getPrevTiles()) {
 			drawPrevTile(
-				g2d, 
-				pt.getX() * 60 + 160, 
+				g2d,
+				pt.getX() * 60 + 160,
 				pt.getY() * 60 + 60
 			);
 		}
@@ -345,8 +356,8 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		}
 		for (PossibleTile pt : pTiles){
 			drawPossibleTile(
-				g2d, 
-				pt.getX() * 60 + 160, 
+				g2d,
+				pt.getX() * 60 + 160,
 				pt.getY() * 60 + 60
 			);
 		}
@@ -357,14 +368,14 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 			g2d.drawString("Black Time", myCheckmate.getWidth() * 0.81f, myCheckmate.getHeight() * 0.06f);
 			// use string formatter here instead of this mess
 			g2d.drawString(
-				blackTime / 60 + ":" + (blackTime % 60 < 10 ? "0" : "") + blackTime % 60, 
-				myCheckmate.getWidth() * 0.85f, 
+				blackTime / 60 + ":" + (blackTime % 60 < 10 ? "0" : "") + blackTime % 60,
+				myCheckmate.getWidth() * 0.85f,
 				myCheckmate.getHeight() * 0.11f
 			);
 			g2d.drawString("White Time", myCheckmate.getWidth() * 0.81f, myCheckmate.getHeight() * 0.20f);
 			g2d.drawString(
-				whiteTime / 60 + ":" + (whiteTime % 60 < 10 ? "0" : "") + whiteTime % 60, 
-				myCheckmate.getWidth() * 0.85f, 
+				whiteTime / 60 + ":" + (whiteTime % 60 < 10 ? "0" : "") + whiteTime % 60,
+				myCheckmate.getWidth() * 0.85f,
 				myCheckmate.getHeight() * 0.25f
 			);
 		}
@@ -389,9 +400,9 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		PossibleTile possibleTile = null;
 		for (Piece p : this.gm.getBoard().getPieces()){
 			if (
-				x > (p.getX() + 1) * 60 + 100 && 
+				x > (p.getX() + 1) * 60 + 100 &&
 				x < (p.getX() + 2) * 60 + 100 &&
-				y > (p.getY() + 1) * 60 && 
+				y > (p.getY() + 1) * 60 &&
 				y < (p.getY() + 2) * 60
 			) {
 				found = true;
@@ -401,9 +412,9 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		}
 		for (PossibleTile pt : this.gm.getBoard().getPossibleTiles()){
 			if (
-				x > (pt.getX() + 1) * 60 + 100 && 
+				x > (pt.getX() + 1) * 60 + 100 &&
 				x < (pt.getX() + 2) * 60 + 100 &&
-				y > (pt.getY() + 1) * 60 && 
+				y > (pt.getY() + 1) * 60 &&
 				y < (pt.getY() + 2) * 60
 			) {
 				found = true;
