@@ -64,4 +64,21 @@ public abstract class EvaluationAlgorithm implements Runnable {
 		}
 		return best;
 	}	public abstract double getBoardValue(Board b);
+	public Tree<Board> getSeveralBest(int i) {
+		Tree<Board> intermediate = new Tree<Board>(this.tree.getRoot());
+		for(Tree<Board> t : this.tree.getLeaves()){
+			intermediate.addLeaf(t.getRoot());
+			if (intermediate.getLeaves().size() > i){
+				Tree<Board> lowest = null;
+				int lowestInt = Integer.MAX_VALUE;
+				for (Tree<Board> remove : intermediate.getLeaves()){
+					if (remove.getScore() < lowestInt){
+						lowest = remove;
+					}
+				}
+				intermediate.removeLeaf(lowest);
+			}
+		}
+		return intermediate;
+	}
 }

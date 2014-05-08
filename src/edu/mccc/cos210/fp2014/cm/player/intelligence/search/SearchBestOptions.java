@@ -2,28 +2,21 @@ package edu.mccc.cos210.fp2014.cm.player.intelligence.search;
 
 import java.util.ArrayList;
 
+import edu.mccc.cos210.fp2014.cm.game.Board;
 import edu.mccc.cos210.fp2014.cm.piece.Pawn;
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
 import edu.mccc.cos210.fp2014.cm.piece.Queen;
 import edu.mccc.cos210.fp2014.cm.util.Tree;
-import edu.mccc.cos210.fp2014.cm.game.Board;
 
-/**
- * Search algorithm test.
- * testing concept, all of this needs to be rewritten
- * This is a very stupid brute search algorithm. It iterates through all possible moves
- * with a MAXDEPTH and saves them in a Tree<Board>.
- * When actually implemented, we should probably decide to search only one depth, then 
- * evaluate, etc. We should also use an AiTree instead of a tree for evaluation purposes.
- */
-public class BruteSearch extends SearchAlgorithm implements Runnable {
-	public BruteSearch(Board t, int md) {
-		super(t, md);
+public class SearchBestOptions extends SearchAlgorithm {
+	public SearchBestOptions(Board t, int md) {
+		super(t, md);	
 	}
-	/**
-	 * Creates new BruteSearch objects for all of the leaves in a tree.
-	 */
+	@Override
+	public void run() {
+	}
+	@Override
 	protected void search(int depth, Tree<Board> b) {
 		ArrayList<PossibleTile> tiles;
 		if (depth < maxDepth) {
@@ -61,23 +54,22 @@ public class BruteSearch extends SearchAlgorithm implements Runnable {
 						b.addLeaf(newBoard);
 						Tree<Board> leaf = b.getLeaf(newBoard);
 						search(depth + 1, leaf);
-						count ++;
+						count++;
 					}
 					p.setNumMoves(count);
 				}
 			}
 		}
 	}
-	public void search(Tree<Board> t){
-		this.tree = t;
-		this.search(0, t);
-	}
-	/**
-	 * This searches for all of the possible moves within a possible board and adds
-	 * these possibilities as leaves of that board.
-	 * It then searches that tree.
-	 */
 	@Override
-	public void run() {
+	public void search(Tree<Board> t) {
+		if (t.hasLeaves()){
+			for (Tree<Board> b : t.getLeaves()){
+				search(b);
+			}
+		} else {
+			this.tree = t;
+			this.search(0, t);
+		}
 	}
 }

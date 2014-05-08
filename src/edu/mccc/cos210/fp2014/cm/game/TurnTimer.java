@@ -18,17 +18,17 @@ public class TurnTimer extends TimerTask {
 		Board b = model.getBoard();
 		if ( b.isWhiteTurn() ) {
 			whiteTime--;
-			b.updateTime(whiteTime);
 			if (whiteTime <= 0) {
 				model.gameExpired();
 			}
 		} else {
 			blackTime--;
-			b.updateTime(blackTime);
 			if (blackTime <= 0) {
 				model.gameExpired();
 			}
 		}
+		b.updateBlackTime(blackTime);
+		b.updateWhiteTime(whiteTime);
 		model.updateBoard(b, false);
 	}
 }

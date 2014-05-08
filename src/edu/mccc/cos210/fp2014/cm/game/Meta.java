@@ -20,7 +20,7 @@ public class Meta implements Cloneable {
 	private double blackScore;
 	private int numPossibleMoves;
     private int turnNum;
-	public Meta (){
+	public Meta () {
 	}
 	public Meta(GameType g) {
 		this.gameType = g;
@@ -29,12 +29,12 @@ public class Meta implements Cloneable {
 		this.numPossibleMoves = 0;
         this.turnNum = 1;
 	}
-	public Meta(GameType g, int t){
+	public Meta(GameType g, int t) {
 		this(g);
 		this.whiteTime = t;
 		this.blackTime = t;
 	}
-	public Meta(GameType gt, int wT, int bT, double wS, double bS, int nPM, int tn){
+	public Meta(GameType gt, int wT, int bT, double wS, double bS, int nPM, int tn) {
 		this.gameType = gt;
 		this.whiteTime = wT;
 		this.blackTime = bT;
@@ -43,46 +43,46 @@ public class Meta implements Cloneable {
 		this.numPossibleMoves = nPM;
         this.turnNum = tn;
 	}
-	public GameType getGameType(){
+	public GameType getGameType() {
 		return this.gameType;
 	}
-	public int getWhiteTime(){
+	public int getWhiteTime() {
 		return this.whiteTime;
 	}
-	public int getBlackTime(){
+	public int getBlackTime() {
 		return this.blackTime;
 	}
-	public void setWhiteTime(int t){
+	public void setWhiteTime(int t) {
 		this.whiteTime = t;
 	}
-	public void setBlackTime(int t){
+	public void setBlackTime(int t) {
 		this.blackTime = t;
 	}
-	public double getWhiteScore(){
+	public double getWhiteScore() {
 		return this.whiteScore;
 	}
-	public double getBlackScore(){
+	public double getBlackScore() {
 		return this.blackScore;
 	}
-	public void setWhiteScore (double s){
+	public void setWhiteScore (double s) {
 		this.whiteScore = s;
 	}
-	public void setBlackScore(double s){
+	public void setBlackScore(double s) {
 		this.blackScore = s;
 	}
-	public int getPossibleMoves(){
+	public int getPossibleMoves() {
 		return this.numPossibleMoves;
 	}
-	public void setPossibleMoves(int m){
+	public void setPossibleMoves(int m) {
 		this.numPossibleMoves = m;
 	}
-    public int getNumTurns(){
+    public int getNumTurns() {
         return this.turnNum;
     }
-    public void increaseTurn(){
+    public void increaseTurn() {
         this.turnNum++;
     }
-	public Meta clone(){
+	public Meta clone() {
 		return new Meta(this.getGameType(),
 				this.getWhiteTime(),
 				this.getBlackTime(),
