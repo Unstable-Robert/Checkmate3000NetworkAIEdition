@@ -1,6 +1,8 @@
 package edu.mccc.cos210.fp2014.cm.player.intelligence.evaluate;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 
 import edu.mccc.cos210.fp2014.cm.game.Board;
@@ -54,15 +56,18 @@ public abstract class EvaluationAlgorithm implements Runnable {
 		}
 	}
 	public Board getBest() {
-		Board best = null;
+		ArrayList<Board> best = new ArrayList<Board>();
 		double bestScore = Integer.MIN_VALUE;
 		for (Tree<Board> b : this.tree.getLeaves()){
 			if (b.getScore() > bestScore){
-				best = b.getRoot();
+				best.clear();
+				best.add(b.getRoot());
 				bestScore = b.getScore();
+			} else if (b.getScore() == bestScore) {
+				best.add(b.getRoot());
 			}
 		}
-		return best;
+		return best.get(new Random().nextInt(best.size()));
 	}	public abstract double getBoardValue(Board b);
 	public Tree<Board> getSeveralBest(int i) {
 		Tree<Board> intermediate = new Tree<Board>(this.tree.getRoot());
