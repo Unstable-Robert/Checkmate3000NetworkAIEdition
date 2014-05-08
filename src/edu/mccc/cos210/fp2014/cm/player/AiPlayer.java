@@ -42,7 +42,7 @@ public class AiPlayer extends Player implements Runnable{
 	 * @return The board with the new best move.
 	 */
 	public Board getMove(Board b) {
-		if (setGamePart(b)){
+		if (setGamePart(b)) {
 			setIntelligence();
 		}
 		this.intelligence.searchAndEval(b);
@@ -84,6 +84,7 @@ public class AiPlayer extends Player implements Runnable{
 				case HUMAN:
 					break;
 				}
+				break;
 			case END:
 				switch (this.difficulty) {
 				case EASY:

@@ -178,7 +178,7 @@ public class Board implements Cloneable{
 		return this.pieces;
 	}
 	public ArrayList<PossibleTile> getPossibleTiles(){
-		if (this.hasSelectedPiece()){
+		if (this.hasSelectedPiece()) {
 			Piece p = this.getSelectedPiece();
 			this.possibleTiles = p.getPossibleTiles(this);
 		} else {
@@ -223,7 +223,6 @@ public class Board implements Cloneable{
 		}
 		return null;
 	}
-
     /**
      * Gets the Log of all moves Taken
      * @return String of Moves
