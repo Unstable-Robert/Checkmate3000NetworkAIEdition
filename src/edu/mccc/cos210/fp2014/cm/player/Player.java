@@ -134,7 +134,7 @@ public abstract class Player implements Observer{
 	}
 	public Board checkPawnPromotion() {
 		for (Piece p : this.gm.getBoard().getPieces()) {
-			if (p instanceof Pawn){
+			if (p instanceof Pawn && p.isWhite() == isWhite){
 				Pawn pawn = (Pawn) p;
 				if (pawn.canPromote() && !pawn.isPromoted()) {
 					pawn.setHasPromoted(true);

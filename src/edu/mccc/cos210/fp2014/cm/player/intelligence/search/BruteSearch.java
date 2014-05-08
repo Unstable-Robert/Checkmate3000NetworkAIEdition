@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import edu.mccc.cos210.fp2014.cm.piece.Pawn;
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
+import edu.mccc.cos210.fp2014.cm.piece.Queen;
 import edu.mccc.cos210.fp2014.cm.util.Tree;
 import edu.mccc.cos210.fp2014.cm.game.Board;
 
@@ -35,6 +36,9 @@ public class BruteSearch extends SearchAlgorithm implements Runnable {
 						tiles.add(pt);
 						Piece newPiece = p.clone();
 						newPiece.setLocation(pt.getX(), pt.getY());
+						if (newPiece instanceof Pawn && ((Pawn) newPiece).canPromote()) {
+							newPiece = new Queen(newPiece);
+						}
 						Board newBoard = b.getRoot().clone();
 						newBoard.removePiece(p);
 						newBoard.addPiece(newPiece);

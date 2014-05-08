@@ -69,14 +69,14 @@ public class Pawn extends Piece {
 	private boolean hasMoved() {
 		return this.hasMoved;
 	}
-	private void setMoved(){
+	private void setMoved() {
 		this.hasMoved = true;
 	}
 
     /**
      * Weather or not the pawn is in a position to be promoted
      */
-    public boolean canPromote(){
+    public boolean canPromote() {
         if (this.isWhite()){
             if (this.getY() == 0) {
 				return true;
@@ -89,7 +89,7 @@ public class Pawn extends Piece {
         return false;
     }
 	@Override
-	public Pawn clone(){
+	public Pawn clone() {
 		return new Pawn(this.getX(), 
 				this.getY(), 
 				this.isWhite(), 
