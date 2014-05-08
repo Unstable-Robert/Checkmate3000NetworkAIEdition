@@ -1,7 +1,5 @@
 package edu.mccc.cos210.fp2014.cm.util;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.EnumSet;
 
 /**
@@ -19,7 +17,6 @@ public enum GameResult {
         return value;
     }
     public static GameResult fromInt(int val){
-        System.out.println(val);
         for (GameResult gr : list){
             if (gr.getValue() == val){
                 return gr;
