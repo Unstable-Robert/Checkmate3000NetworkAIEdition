@@ -10,8 +10,8 @@ import edu.mccc.cos210.fp2014.cm.util.GameType;
  * Various board info.
  * A list of information relevant to each board, including gametype, time left over, scores (for the AI).
  */
- @XmlRootElement(name="Meta")
- @XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name="Meta")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Meta implements Cloneable {
 	private GameType gameType;
 	private int whiteTime;
@@ -19,7 +19,7 @@ public class Meta implements Cloneable {
 	private double whiteScore;
 	private double blackScore;
 	private int numPossibleMoves;
-    private int turnNum;
+	private int turnNum;
 	public Meta () {
 	}
 	public Meta(GameType g) {
@@ -27,7 +27,7 @@ public class Meta implements Cloneable {
 		this.whiteScore = 0;
 		this.blackScore = 0;
 		this.numPossibleMoves = 0;
-        this.turnNum = 1;
+		this.turnNum = 1;
 	}
 	public Meta(GameType g, int t) {
 		this(g);
@@ -41,7 +41,7 @@ public class Meta implements Cloneable {
 		this.whiteScore = wS;
 		this.blackScore = bS;
 		this.numPossibleMoves = nPM;
-        this.turnNum = tn;
+		this.turnNum = tn;
 	}
 	public GameType getGameType() {
 		return this.gameType;
@@ -76,12 +76,12 @@ public class Meta implements Cloneable {
 	public void setPossibleMoves(int m) {
 		this.numPossibleMoves = m;
 	}
-    public int getNumTurns() {
-        return this.turnNum;
-    }
-    public void increaseTurn() {
-        this.turnNum++;
-    }
+	public int getNumTurns() {
+		return this.turnNum;
+	}
+	public void increaseTurn() {
+		this.turnNum++;
+	}
 	public Meta clone() {
 		return new Meta(this.getGameType(),
 				this.getWhiteTime(),
@@ -89,6 +89,6 @@ public class Meta implements Cloneable {
 				this.getWhiteScore(),
 				this.getBlackScore(),
 				this.getPossibleMoves(),
-                this.getNumTurns());
+				this.getNumTurns());
 	}
 }

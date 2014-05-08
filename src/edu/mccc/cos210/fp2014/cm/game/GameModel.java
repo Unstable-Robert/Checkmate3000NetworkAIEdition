@@ -29,10 +29,9 @@ public class GameModel extends Observable {
 		this.timer = new Timer();
 		this.board.updateBothTimes(this.totalTime * 60);
 	}
-	public void startTimer(){
-		if (timer != null){
+	public void startTimer() {
+		if (timer != null) {
 			this.timer.scheduleAtFixedRate(new TurnTimer(this, this.totalTime), 1000L, 1000L);
-            System.out.println("timerStarted");
 		}
 	}
 	/**
@@ -52,20 +51,20 @@ public class GameModel extends Observable {
 		this.setChanged();
 		this.notifyObservers();
 	}
-	public boolean isNetworkUpdate(){
+	public boolean isNetworkUpdate() {
 		return this.isNetworkUpdate;
 	}
 
-    /**
-     * Gets the winner of the game
-     * @return GameResult
-     */
-    public GameResult getWinner(){
-        return this.board.getWinner();
-    }
-    public void setWinner(GameResult w){
-        this.board.setWinner(w);
-    }
+	/**
+	 * Gets the winner of the game
+	 * @return GameResult
+	 */
+	public GameResult getWinner() {
+		return this.board.getWinner();
+	}
+	public void setWinner(GameResult w) {
+		this.board.setWinner(w);
+	}
 	/**
 	 * Called at the end of each turn, by the player or an expired timer.
 	 */
@@ -77,38 +76,35 @@ public class GameModel extends Observable {
 	 */
 	public void gameExpired() {
 		timer.cancel();
-		if (board.isWhiteTurn()) {
-			System.out.println("Black wins!!!");
-		} else {
-			System.out.println("White wins!!!");
-		}
 	}
-	public boolean hasTimer(){
+	public boolean hasTimer() {
 		return this.timer != null;
 	}
 	/**
 	 * Returns true if the game is over.
 	 */
 	public boolean isCheckMate() {
-		if ((this.board.getBlackTime() == 0 || this.board.getWhiteTime() == 0) &&
-				this.hasTimer()){
+		if (
+			(this.board.getBlackTime() == 0 || this.board.getWhiteTime() == 0) && 
+			this.hasTimer()
+		) {
 			this.cancelTimer();
 			return true;
 		}
 		boolean possibleCheckmate = false;
-		for (Piece p : this.board.getPieces()){
+		for (Piece p : this.board.getPieces()) {
 			if (p.isWhite() == this.board.isWhiteTurn()) {
 				if (!p.getPossibleTiles(this.board).isEmpty()) {
 					return false;
 				}
-				if (p instanceof King){
+				if (p instanceof King) {
 					King k = (King) p;
 					possibleCheckmate = k.inCheck(this.board);
 				}
 			}
 
 		}
-		if (possibleCheckmate && this.hasTimer()){
+		if (possibleCheckmate && this.hasTimer()) {
 			this.cancelTimer();
 		}
 		return possibleCheckmate;
@@ -131,7 +127,7 @@ public class GameModel extends Observable {
 				currentMove[0] == prevMove[0] &&
 				currentMove[1] == prevMove[1] &&
 				currentMove[2] == prevMove[2]
-			){
+			) {
 				return true;
 			}
 		}
@@ -169,27 +165,26 @@ public class GameModel extends Observable {
 		default:
 			break;
 		}
-		for (Piece p : this.board.getPieces()){
+		for (Piece p : this.board.getPieces()) {
 			if (p.isWhite() == this.board.isWhiteTurn()) {
 				if (!p.getPossibleTiles(this.board).isEmpty()) {
 					return false;
 				}
-				if (p instanceof King){
+				if (p instanceof King) {
 					King k = (King) p;
 					draw = !k.inCheck(this.board);
 				}
 			}
-
 		}
 		if (draw) {
-			if(this.hasTimer()){
+			if (this.hasTimer()) {
 				this.cancelTimer();
 			}
-            getBoard().setWinner(GameResult.DrawGame);
+			getBoard().setWinner(GameResult.DrawGame);
 		}
 		return draw;
 	}
-	public void addMessage(ChatMessage cm){
+	public void addMessage(ChatMessage cm) {
 		this.isNetworkUpdate = false;
 		this.board.addMessage(cm);
 		this.setChanged();

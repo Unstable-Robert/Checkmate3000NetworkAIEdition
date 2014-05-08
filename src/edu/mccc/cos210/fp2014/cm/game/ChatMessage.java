@@ -9,16 +9,16 @@ public class ChatMessage {
 	private String from;
 	@XmlElement(name="message")
 	private String message;
-	public ChatMessage(){	
+	public ChatMessage() {	
 	}
-	public ChatMessage(String f, String m){
+	public ChatMessage(String f, String m) {
 		this.from = f;
 		this.message = m;
 	}
-	public String getFrom(){
+	public String getFrom() {
 		return this.from;
 	}
-	public String getMessage(){
+	public String getMessage() {
 		return this.message;
 	}
 }

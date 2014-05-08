@@ -29,7 +29,7 @@ import edu.mccc.cos210.fp2014.cm.util.GameType;
  * JPanel view of the board.
  * Also handles click actions and player selection.
  */
-public class GameView extends SettingsView implements Observer, MouseListener{
+public class GameView extends SettingsView implements Observer, MouseListener {
 	private static final long serialVersionUID = 1L;
 	private GameModel gm;
 	private ArrayList<Player> players;
@@ -38,7 +38,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 	private JButton resignButton, sendButton;
 	private JTextField sendTF;
 	private JTextArea chatTextArea;
-    private boolean isDrawVisable;
+	private boolean isDrawVisable;
 	public GameView(Checkmate c) {
 		super(c);
 		players = new ArrayList<Player>();
@@ -71,7 +71,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		});
 		add(resignButton);
 
-		if (networked){
+		if (networked) {
 			chatTextArea = new JTextArea("", 14, 26);
 			chatTextArea.setEditable(false);
 			chatTextArea.setLineWrap(true);
@@ -87,7 +87,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 				(int)(c.getHeight() * 0.50)
 			);
 			scrollPane.setSize(135, 220);
-		   add(scrollPane);
+			add(scrollPane);
 			sendTF = new JTextField();
 			sendTF.setSize(250,20);
 			sendTF.setLocation(
@@ -107,8 +107,8 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 				@Override
 				public void actionPerformed(ActionEvent ae) {
 					String color = "";
-					for (Player p : players){
-						if (p.isWhite()){
+					for (Player p : players) {
+						if (p.isWhite()) {
 							color = "White";
 						} else {
 							color = "Black";
@@ -156,7 +156,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 	}
 	private void saveLog(boolean isWhiteTurn) {
 		ArrayList<int[]> moves = this.gm.getBoard().getMoves();
-        moves.add(new int[] {this.gm.getBoard().getWinner().getValue()});
+		moves.add(new int[] {this.gm.getBoard().getWinner().getValue()});
 		JFileChooser fc = new JFileChooser(new File("logs"));
 		fc.setAcceptAllFileFilterUsed(false);
 		fc.setFileFilter(
@@ -173,20 +173,19 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 				fw.write(";");
 			}
 			fw.close();
-		} catch (java.io.IOException ex){
+		} catch (java.io.IOException ex) {
 			ex.printStackTrace();
 		}
 	}
 	private void endGame() {
 		cleanUp();
 		String message = "White won.";
-        this.gm.getBoard().setWinner(GameResult.WhiteWon);
+		this.gm.getBoard().setWinner(GameResult.WhiteWon);
 		boolean isWhiteTurn = gm.getBoard().isWhiteTurn();
 		if (isWhiteTurn) {
 			message = "Black won.";
-            this.gm.getBoard().setWinner(GameResult.BlackWon);
+			this.gm.getBoard().setWinner(GameResult.BlackWon);
 		}
-        System.out.println(this.gm.getBoard().getWinner());
 		String[] options = new String[]{"Okay", "Save Game Log"};
 		int gameOverAction = JOptionPane.showOptionDialog(
 			this, message, "Game Over",
@@ -260,7 +259,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 	@Override
 	public void update(Observable o, Object arg) {
 		if (this.gm.canDraw() && (!isDrawVisable)) {
-            isDrawVisable = true;
+			isDrawVisable = true;
 			int wantsDraw = JOptionPane.showConfirmDialog(
 				myCheckmate,
 				"It is possible to declare this game as a tie. Would you like to end this game in a draw?",
@@ -268,24 +267,24 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 				JOptionPane.YES_NO_OPTION
 			);
 			if (wantsDraw == JOptionPane.YES_OPTION) {
-                this.gm.getBoard().setWinner(GameResult.DrawGame);
+				this.gm.getBoard().setWinner(GameResult.DrawGame);
 				drawGame();
-                isDrawVisable = false;
+				isDrawVisable = false;
 			}
 		}
 		this.paintComponent(this.getGraphics());
 		if (this.gm.mustDraw()) {
 			drawGame();
 		}
-		if (this.gm.isCheckMate()){
+		if (this.gm.isCheckMate()) {
 			JPanel panel = new JPanel(new GridLayout(2, 1));
 			JLabel label;
 			if(myCheckmate.getGameModel().getBoard().isWhiteTurn()) {
 				label = new JLabel("Black Wins!!");
-                this.gm.getBoard().setWinner(GameResult.BlackWon);
+				this.gm.getBoard().setWinner(GameResult.BlackWon);
 			} else {
 				label = new JLabel("White Wins!!");
-                this.gm.getBoard().setWinner(GameResult.WhiteWon);
+				this.gm.getBoard().setWinner(GameResult.WhiteWon);
 			}
 			panel.add(label);
 			endGame();
@@ -354,7 +353,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 			}
 			drawPiece(g2d, p.getX() * 60 + 160, p.getY() * 60 + 60, gridX, gridY);
 		}
-		for (PossibleTile pt : pTiles){
+		for (PossibleTile pt : pTiles) {
 			drawPossibleTile(
 				g2d,
 				pt.getX() * 60 + 160,
@@ -362,7 +361,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 			);
 		}
 		g2d.setPaint(Color.WHITE);
-		if (this.gm.getBoard().getMetaInfo().getGameType().equals(GameType.TIMED_GAME)){
+		if (this.gm.getBoard().getMetaInfo().getGameType().equals(GameType.TIMED_GAME)) {
 			int blackTime = gm.getBoard().getBlackTime();
 			int whiteTime = gm.getBoard().getWhiteTime();
 			g2d.drawString("Black Time", myCheckmate.getWidth() * 0.81f, myCheckmate.getHeight() * 0.06f);
@@ -379,7 +378,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 				myCheckmate.getHeight() * 0.25f
 			);
 		}
-		if (chatTextArea != null){
+		if (chatTextArea != null) {
 			addChats();
 		}
 		this.paintChildren(g);
@@ -398,7 +397,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		boolean found = false;
 		Piece piece = null;
 		PossibleTile possibleTile = null;
-		for (Piece p : this.gm.getBoard().getPieces()){
+		for (Piece p : this.gm.getBoard().getPieces()) {
 			if (
 				x > (p.getX() + 1) * 60 + 100 &&
 				x < (p.getX() + 2) * 60 + 100 &&
@@ -410,7 +409,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 				break;
 			}
 		}
-		for (PossibleTile pt : this.gm.getBoard().getPossibleTiles()){
+		for (PossibleTile pt : this.gm.getBoard().getPossibleTiles()) {
 			if (
 				x > (pt.getX() + 1) * 60 + 100 &&
 				x < (pt.getX() + 2) * 60 + 100 &&
@@ -424,28 +423,28 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 		}
 		pTiles = new ArrayList<PossibleTile>();
 		if (found) {
-			if(possibleTile != null && piece != null && !possibleTile.hasPieceToRemove()){
-				if (this.gm.getBoard().hasSelectedPiece()){
+			if(possibleTile != null && piece != null && !possibleTile.hasPieceToRemove()) {
+				if (this.gm.getBoard().hasSelectedPiece()) {
 					Piece p = this.gm.getBoard().getSelectedPiece();
 					p.setSelected(false);
 					for(Player player : this.players) {
-						if (player.updateCastle(p, piece)){
+						if (player.updateCastle(p, piece)) {
 							break;
 						}
 					}
 				}
 			} else if (possibleTile != null) {
-				if (this.gm.getBoard().hasSelectedPiece()){
+				if (this.gm.getBoard().hasSelectedPiece()) {
 					Piece p = this.gm.getBoard().getSelectedPiece();
 					p.setSelected(false);
 					for(Player player : this.players) {
-						if (player.updateModel(p, possibleTile)){
+						if (player.updateModel(p, possibleTile)) {
 							break;
 						}
 					}
 				}
 			} else if (piece != null) {
-				if (this.gm.getBoard().hasSelectedPiece()){
+				if (this.gm.getBoard().hasSelectedPiece()) {
 					Piece p = this.gm.getBoard().getSelectedPiece();
 					p.setSelected(false);
 					repaint();
@@ -463,7 +462,7 @@ public class GameView extends SettingsView implements Observer, MouseListener{
 				}
 			}
 		} else {
-			if (this.gm.getBoard().hasSelectedPiece()){
+			if (this.gm.getBoard().hasSelectedPiece()) {
 				Piece p = this.gm.getBoard().getSelectedPiece();
 				p.setSelected(false);
 				repaint();

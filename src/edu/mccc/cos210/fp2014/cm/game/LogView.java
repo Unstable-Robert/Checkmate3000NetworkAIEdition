@@ -34,7 +34,7 @@ public class LogView extends SettingsView implements Observer {
 	private int maxTurn;
 	private int[] removedPiece;
 	private boolean whiteWon;
-    private GameResult winner;
+	private GameResult winner;
 	public LogView(Checkmate c) {
 		super(c);
 
@@ -77,7 +77,7 @@ public class LogView extends SettingsView implements Observer {
 							"File Loaded",
 							JOptionPane.DEFAULT_OPTION
 						);
-					} catch (Exception ex){
+					} catch (Exception ex) {
 						JOptionPane.showMessageDialog(
 							myCheckmate,
 							"The file you have chosen is not a valid Checkmate 3000 game log.",
@@ -97,61 +97,61 @@ public class LogView extends SettingsView implements Observer {
 		nextButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-                boolean endGameVis = false;
+				boolean endGameVis = false;
 				if (turnNum < moves.size()-1) {
 					turnNum++;
 					repaint();
 				}
-                if (turnNum == moves.size()-1 && !endGameVis){
-                    String message = "";
-                    switch(winner){
-                        case WhiteWon:
-                            message = "White Won!!";
-                            break;
-                        case BlackWon:
-                            message = "Black Won!!";
-                            break;
-                        case DrawGame:
-                            message = "The game ended in a draw.";
-                            break;
-                    }
-                    String[] options = new String[]{"Load New Log", "Reset", "Okay"};
-                    int gameOverAction = JOptionPane.showOptionDialog(
-                        null, message, "Log Over",
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
-                        null, options, options[0]
-                    );
-                    if (gameOverAction == 1){
-                        turnNum = 0;
-                        repaint();
-                    }
-                    if (gameOverAction == 0){
-                        JFileChooser fc = new JFileChooser(new File("logs"));
-                        fc.setAcceptAllFileFilterUsed(false);
-                        fc.setFileFilter(
-                            new FileNameExtensionFilter("Checkmate 3000 Logs", "cm3")
-                        );
-                        int result = fc.showOpenDialog(LogView.this);
-                        if (result == JFileChooser.APPROVE_OPTION) {
-                            try {
-                                loadFile(fc.getSelectedFile());
-                                JOptionPane.showMessageDialog(
-                                    myCheckmate,
-                                    "File successfully loaded.",
-                                    "File Loaded",
-                                    JOptionPane.DEFAULT_OPTION
-                                );
-                            } catch (Exception ex){
-                                JOptionPane.showMessageDialog(
-                                    myCheckmate,
-                                    "The file you have chosen is not a valid Checkmate 3000 game log.",
-                                    "Invalid Checkmate 3000 Game Log",
-                                    JOptionPane.WARNING_MESSAGE
-                                );
-                            }
-                        }
-                    }
-                }
+				if (turnNum == moves.size()-1 && !endGameVis) {
+					String message = "";
+					switch(winner) {
+						case WhiteWon:
+							message = "White Won!!";
+							break;
+						case BlackWon:
+							message = "Black Won!!";
+							break;
+						case DrawGame:
+							message = "The game ended in a draw.";
+							break;
+					}
+					String[] options = new String[]{"Load New Log", "Reset", "Okay"};
+					int gameOverAction = JOptionPane.showOptionDialog(
+						null, message, "Log Over",
+						JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+						null, options, options[0]
+					);
+					if (gameOverAction == 1) {
+						turnNum = 0;
+						repaint();
+					}
+					if (gameOverAction == 0) {
+						JFileChooser fc = new JFileChooser(new File("logs"));
+						fc.setAcceptAllFileFilterUsed(false);
+						fc.setFileFilter(
+							new FileNameExtensionFilter("Checkmate 3000 Logs", "cm3")
+						);
+						int result = fc.showOpenDialog(LogView.this);
+						if (result == JFileChooser.APPROVE_OPTION) {
+							try {
+								loadFile(fc.getSelectedFile());
+								JOptionPane.showMessageDialog(
+									myCheckmate,
+									"File successfully loaded.",
+									"File Loaded",
+									JOptionPane.DEFAULT_OPTION
+								);
+							} catch (Exception ex) {
+								JOptionPane.showMessageDialog(
+									myCheckmate,
+									"The file you have chosen is not a valid Checkmate 3000 game log.",
+									"Invalid Checkmate 3000 Game Log",
+									JOptionPane.WARNING_MESSAGE
+								);
+							}
+						}
+					}
+				}
 			}
 		});
 		add(nextButton);
@@ -189,9 +189,9 @@ public class LogView extends SettingsView implements Observer {
 		String s = br.readLine();
 		br.close();
 		String[] sArray1 = s.split(";");
-        this.winner = GameResult.fromInt(Integer.parseInt(Character.toString(sArray1[sArray1.length-1].charAt(0))));
-        String[] sArray = new String[sArray1.length-1];
-        for (int x = 0; x < sArray1.length-1; x++) sArray[x] = sArray1[x];
+		this.winner = GameResult.fromInt(Integer.parseInt(Character.toString(sArray1[sArray1.length-1].charAt(0))));
+		String[] sArray = new String[sArray1.length-1];
+		for (int x = 0; x < sArray1.length-1; x++) sArray[x] = sArray1[x];
 		String[] moveElements;
 		int uid, x, y, specialInfo;
 		ArrayList<Piece> pieces;
@@ -271,7 +271,7 @@ public class LogView extends SettingsView implements Observer {
 			newBoard.setPrevTiles(tiles);
 			newBoard.removePiece(originalPiece);
 			newBoard.addPiece(newPiece);
-			if (removedPiece != null){
+			if (removedPiece != null) {
 				newBoard.removePiece(removedPiece);
 			}
 			newMoves.add(newBoard);

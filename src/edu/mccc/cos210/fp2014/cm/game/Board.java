@@ -16,7 +16,7 @@ import edu.mccc.cos210.fp2014.cm.util.GameType;
  * It also keeps track of information about draw scenarios.
  */
  @XmlRootElement
-public class Board implements Cloneable{
+public class Board implements Cloneable {
 	@XmlElement(name="possibleTiles")
 	private ArrayList<PossibleTile> possibleTiles;
 	@XmlElement(name="piece")
@@ -28,26 +28,26 @@ public class Board implements Cloneable{
 	@XmlElement(name="metaInfo")
 	private Meta metaInfo;
 	@XmlElement(name="moves")
-    private ArrayList<int[]> moves;
+	private ArrayList<int[]> moves;
 	@XmlElement(name="messages")
 	private ArrayList<ChatMessage> messages;
 	@XmlElement(name="prevTiles")
 	private ArrayList<PossibleTile> prevTiles;
-    @XmlElement(name="winner")
-    private GameResult winner;
+	@XmlElement(name="winner")
+	private GameResult winner;
 	/**
 	 * Constructor.
 	 * Saves possible tiles, pieces, moves, whose turn it is, and meta data.
 	 */
-	public Board(){
+	public Board() {
 		this.possibleTiles = new ArrayList<PossibleTile>();
 		this.pieces = new ArrayList<Piece>();
 		this.messages = new ArrayList<ChatMessage>();
 		this.movesSincePieceTaken = 0;
 		this.whiteTurn = true;
 		this.metaInfo = new Meta();
-        this.moves = new ArrayList<int[]>();
-        this.winner = GameResult.GameRunning;
+		this.moves = new ArrayList<int[]>();
+		this.winner = GameResult.GameRunning;
 		prevTiles = new ArrayList<PossibleTile>();
 	}
 	public Board(GameType g) {
@@ -55,22 +55,26 @@ public class Board implements Cloneable{
 		this.metaInfo = new Meta(g);
 		setUpPieces();
 	}
-	public Board(GameType g, int t){
+	public Board(GameType g, int t) {
 		this();
 		this.metaInfo = new Meta(g, t);
 		setUpPieces();
 	}
-	public Board(ArrayList<PossibleTile> tiles, ArrayList<Piece> p, int m, boolean t, Meta meta, ArrayList<int[]> moveList, GameResult win) {
+	public Board(
+		ArrayList<PossibleTile> tiles, ArrayList<Piece> p, 
+		int m, boolean t, Meta meta, 
+		ArrayList<int[]> moveList, GameResult win
+	) {
 		this.possibleTiles = tiles;
 		this.pieces = p;
 		this.movesSincePieceTaken = m;
 		this.whiteTurn = t;
 		this.metaInfo = meta;
-        this.moves = moveList;
-        this.winner = win;
+		this.moves = moveList;
+		this.winner = win;
 		prevTiles = new ArrayList<PossibleTile>();
 	}
-	private void setUpPieces(){
+	private void setUpPieces() {
 		int id = 0;
 		this.pieces.add(new Rook(0, 7, true, id));
 		id++;
@@ -88,7 +92,7 @@ public class Board implements Cloneable{
 		id++;
 		this.pieces.add(new Rook(7, 7, true, id));
 		id++;
-		for (int i = 0; i< 8; i++){
+		for (int i = 0; i< 8; i++) {
 			this.pieces.add(new Pawn(i, 6, true, id));
 			id++;
 		}
@@ -108,7 +112,7 @@ public class Board implements Cloneable{
 		id++;
 		this.pieces.add(new Rook(7, 0, false, id));
 		id++;
-		for (int i = 0; i< 8; i++){
+		for (int i = 0; i< 8; i++) {
 			this.pieces.add(new Pawn(i, 1, false, id));
 			id++;
 		}
@@ -132,7 +136,6 @@ public class Board implements Cloneable{
 	public void updateBothTimes(int i) {
 		this.metaInfo.setWhiteTime(i);
 		this.metaInfo.setBlackTime(i);
-		System.out.println(this.metaInfo.getBlackTime());
 	}
 	public int getWhiteTime() {
 		return this.metaInfo.getWhiteTime();
@@ -140,12 +143,12 @@ public class Board implements Cloneable{
 	public int getBlackTime() {
 		return this.metaInfo.getBlackTime();
 	}
-    public GameResult getWinner(){
-        return this.winner;
-    }
-    public void setWinner(GameResult gr){
-        this.winner = gr;
-    }
+	public GameResult getWinner() {
+		return this.winner;
+	}
+	public void setWinner(GameResult gr) {
+		this.winner = gr;
+	}
 	public void setPrevTiles(ArrayList<PossibleTile> pts) {
 		prevTiles = pts;
 	}
@@ -164,11 +167,11 @@ public class Board implements Cloneable{
 	public void pieceTaken() {
 		this.movesSincePieceTaken = 0;
 	}
-    /**
-     * Removes a Piece from the board
-     * @param p Piece being removed from board
-     */
-	public void removePiece(Piece p){
+	/**
+	 * Removes a Piece from the board
+	 * @param p Piece being removed from board
+	 */
+	public void removePiece(Piece p) {
 		boolean found = false;
 		for(Piece piece : this.getPieces()) {
 			if (piece.getUID() == p.getUID()) {
@@ -177,14 +180,14 @@ public class Board implements Cloneable{
 				break;
 			}
 		}
-		if (!found){
+		if (!found) {
 			throw new NoSuchElementException();
 		}
 	}
-    /**
-     * Gets all the pieces on the board
-     * @return All the pieces currently on the board
-     */
+	/**
+	 * Gets all the pieces on the board
+	 * @return All the pieces currently on the board
+	 */
 	public ArrayList<Piece> getPieces() {
 		return this.pieces;
 	}
@@ -197,7 +200,7 @@ public class Board implements Cloneable{
 		}
 		return this.possibleTiles;
 	}
-	public int getNumMovesSinceLastPieceTaken(){
+	public int getNumMovesSinceLastPieceTaken() {
 		return this.movesSincePieceTaken;
 	}
 	public boolean isWhiteTurn() {
@@ -206,10 +209,10 @@ public class Board implements Cloneable{
 	public Meta getMetaInfo() {
 		return this.metaInfo;
 	}
-    /**
-     * Adds a piece to the board
-     * @param p Piece being added to the board
-     */
+	/**
+	 * Adds a piece to the board
+	 * @param p Piece being added to the board
+	 */
 	public void addPiece(Piece p) {
 		this.getPieces().add(p);
 	}
@@ -220,7 +223,7 @@ public class Board implements Cloneable{
 	}
 	public boolean hasSelectedPiece() {
 		for (Piece p : this.getPieces()) {
-			if (p.isSelected()){
+			if (p.isSelected()) {
 				return true;
 			}
 		}
@@ -234,33 +237,34 @@ public class Board implements Cloneable{
 		}
 		return null;
 	}
-    /**
-     * Gets the Log of all moves Taken
-     * @return String of Moves
-     */
-    public ArrayList<int[]> getMoves() {
-        return this.moves;
-    }
-    /**
-     * Adds a Move to the Log
-     * @param s Move Taken
-     */
+	/**
+	 * Gets the Log of all moves Taken
+	 * @return String of Moves
+	 */
+	public ArrayList<int[]> getMoves() {
+		return this.moves;
+	}
+	/**
+	 * Adds a Move to the Log
+	 * @param s Move Taken
+	 */
 	public void addMove(int[] move) {
 		this.moves.add(move);
-    }
+	}
 	public Board clone() {
 		ArrayList<Piece> newPieces = new ArrayList<Piece>();
 		ArrayList<PossibleTile> newTiles = new ArrayList<PossibleTile>();
 		for(Piece p : this.getPieces()) {
 			newPieces.add(p.clone());
 		}
-		return new Board(newTiles,
+		return new Board(
+			newTiles,
 			newPieces,
 			this.getNumMovesSinceLastPieceTaken(),
 			this.whiteTurn,
 			this.getMetaInfo().clone(),
 			this.getMoves(),
-            this.getWinner()
+			this.getWinner()
 		);
 	}
 }

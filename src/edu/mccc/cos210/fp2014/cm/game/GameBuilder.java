@@ -32,16 +32,16 @@ public class GameBuilder {
 			LocalPlayer lp1 = new LocalPlayer(gm, c, true);
 			LocalPlayer lp2 = new LocalPlayer(gm, c, false);
 			c.setGameView(setupGameView(c, gm, lp1, lp2));
-		} else if (d1 == Difficulty.HUMAN && d2 != Difficulty.HUMAN){
+		} else if (d1 == Difficulty.HUMAN && d2 != Difficulty.HUMAN) {
 			LocalPlayer lp = new LocalPlayer(gm, c, true);
 			AiPlayer aip = new AiPlayer(gm, c, false, d2);
 			c.setGameView(setupGameView(c, gm, lp, aip));
-		} else if (d1 != Difficulty.HUMAN && d2 == Difficulty.HUMAN){
+		} else if (d1 != Difficulty.HUMAN && d2 == Difficulty.HUMAN) {
 			LocalPlayer lp = new LocalPlayer(gm, c, false);
 			AiPlayer aip = new AiPlayer(gm, c, true, d1);
 			c.setGameView(setupGameView(c, gm, lp, aip));
 			aip.update(null, null);
-		}else {
+		} else {
 			AiPlayer aip1 = new AiPlayer(gm, c, true, d1);
 			AiPlayer aip2 = new AiPlayer(gm, c, false, d2);
 			c.setGameView(setupGameView(c, gm, aip1, aip2));
@@ -62,8 +62,8 @@ public class GameBuilder {
 		try {
 			np = NetworkPlayer.GetHostNetwork(gm, c);
 			c.setGameView(setupGameView(c, gm, np));
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 	}
 	/**
@@ -84,15 +84,17 @@ public class GameBuilder {
 			JLabel label = new JLabel("It looks like your host isn't ready, please wait.");
 			String[] options = new String[]{"OK"};
 			panel.add(label);
-			JOptionPane.showOptionDialog(null, panel, "Waiting for Another Player",
-						  JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
-						  null, options, options[0]);
+			JOptionPane.showOptionDialog(
+				null, panel, "Waiting for Another Player",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+				null, options, options[0]
+			);
 		}
 	}
 	private static GameModel setupGameType(GameType g, int t) {
 		GameModel gm;
 		Board b;
-		if (g.equals(GameType.TIMED_GAME)){
+		if (g.equals(GameType.TIMED_GAME)) {
 			b = new Board(g, t);
 			gm = new GameModel(t, true, b);
 		} else {
@@ -102,13 +104,13 @@ public class GameBuilder {
 		gm.updateBoard(b, false);
 		return gm;
 	}
-	private static GameModel setupGameType(){
+	private static GameModel setupGameType() {
 		Board b = new Board();
 		GameModel gm = new GameModel(b);
 		gm.updateBoard(b, false);
 		return gm;
 	}
-	private static GameView setupGameView(Checkmate c, GameModel gm, Player p1, Player p2){
+	private static GameView setupGameView(Checkmate c, GameModel gm, Player p1, Player p2) {
 		GameView gv = new GameView(c, gm, false);
 		gm.addObserver(gv);
 		gm.addObserver(p1);
@@ -117,7 +119,7 @@ public class GameBuilder {
 		gv.addPlayer(p2);
 		return gv;
 	}
-	private static GameView setupGameView(Checkmate c, GameModel gm, Player p1){
+	private static GameView setupGameView(Checkmate c, GameModel gm, Player p1) {
 		GameView gv = new GameView(c, gm, true);
 		gm.addObserver(gv);
 		gm.addObserver(p1);
