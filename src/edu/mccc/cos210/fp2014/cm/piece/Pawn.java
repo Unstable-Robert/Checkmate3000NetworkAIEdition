@@ -19,39 +19,38 @@ public class Pawn extends Piece {
 	private boolean hasMoved;
 	@XmlElement
 	private boolean possibleToPassant;
-    @XmlElement
-    private boolean hasPromoted;
-    public Pawn(){
-    	
-    }
-	public Pawn(int x, int y, boolean c, int iD){
+	@XmlElement
+	private boolean hasPromoted;
+	public Pawn() {
+	}
+	public Pawn(int x, int y, boolean c, int iD) {
 		super(x,y,c,iD);
 		this.hasMoved = false;
 		this.possibleToPassant = false;
-        this.hasPromoted = false;
+		this.hasPromoted = false;
 	}
-	public Pawn(int x, int y, boolean c, int iD, boolean s){
+	public Pawn(int x, int y, boolean c, int iD, boolean s) {
 		super(x,y,c,iD,s);
 		this.selected = s;
 		this.hasMoved = false;
 		this.possibleToPassant = false;
-        this.hasPromoted = false;
+		this.hasPromoted = false;
 	}
-	public Pawn(int x, int y, boolean c, int iD, boolean s, boolean moved, boolean passant){
+	public Pawn(int x, int y, boolean c, int iD, boolean s, boolean moved, boolean passant) {
 		super(x,y,c,iD,s);
 		this.selected = s;
 		this.hasMoved = moved;
 		this.possibleToPassant = passant;
-        this.hasPromoted = false;
+		this.hasPromoted = false;
 	}
-    public Pawn(Piece p){
-        super(p);
-        this.hasPromoted = false;
-    }
-    public boolean isPromoted(){
+	public Pawn(Piece p) {
+		super(p);
+		this.hasPromoted = false;
+	}
+	public boolean isPromoted() {
 		return this.hasPromoted;
 	}
-    public void  setHasPromoted(boolean p) {
+	public void  setHasPromoted(boolean p) {
 		this.hasPromoted = p;
 	}
 	/**
@@ -72,37 +71,38 @@ public class Pawn extends Piece {
 	private void setMoved() {
 		this.hasMoved = true;
 	}
-
-    /**
-     * Weather or not the pawn is in a position to be promoted
-     */
-    public boolean canPromote() {
-        if (this.isWhite()){
-            if (this.getY() == 0) {
+	/**
+	 * Weather or not the pawn is in a position to be promoted
+	 */
+	public boolean canPromote() {
+		if (this.isWhite()) {
+			if (this.getY() == 0) {
 				return true;
 			}
-        } else {
-            if (this.getY() == 7) {
+		} else {
+			if (this.getY() == 7) {
 				return true;
 			}
-        }
-        return false;
-    }
+		}
+		return false;
+	}
 	@Override
 	public Pawn clone() {
-		return new Pawn(this.getX(), 
-				this.getY(), 
-				this.isWhite(), 
-				this.getUID(), 
-				this.isSelected(),
-				this.hasMoved(),
-				this.possibleToPassant());
+		return new Pawn(
+			this.getX(), 
+			this.getY(), 
+			this.isWhite(), 
+			this.getUID(), 
+			this.isSelected(),
+			this.hasMoved(),
+			this.possibleToPassant()
+		);
 	}
 	@Override
 	protected ArrayList<PossibleTile> getLazyTiles(Board b) {
 		ArrayList<PossibleTile> lazyTiles = new ArrayList<PossibleTile>();
 		PossibleTile step1;
-		if (isWhite){
+		if (isWhite) {
 			Pawn clone = this.clone();
 			clone.setMoved();
 			step1 = new PossibleTile(clone.getX(), clone.getY() - 1, clone);
@@ -117,7 +117,7 @@ public class Pawn extends Piece {
 			PossibleTile step2;
 			clone.setMoved();
 			clone.setPossibleToPassant(true);
-			if (isWhite){
+			if (isWhite) {
 				step2 = new PossibleTile(clone.getX(), clone.getY() - 2, clone);
 			} else {
 				step2 = new PossibleTile(clone.getX(), clone.getY() + 2, clone);
@@ -128,7 +128,7 @@ public class Pawn extends Piece {
 		clone.setMoved();
 		PossibleTile attack1;
 		PossibleTile attack2;
-		if (isWhite){
+		if (isWhite) {
 			attack1 = new PossibleTile(clone.getX() - 1, clone.getY() - 1, clone);
 			attack2 = new PossibleTile(clone.getX() + 1, clone.getY() - 1, clone);
 		} else {
@@ -144,11 +144,11 @@ public class Pawn extends Piece {
 		return lazyTiles;
 	}
 	@Override
-	protected boolean decideToAddTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
+	protected boolean decideToAddTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt) {
 		if (!checkBounds(pt.getX(), pt.getY())) {
 			return false;
 		}
-		for (Piece p : b.getPieces()){
+		for (Piece p : b.getPieces()) {
 			if (checkSameSpace(p, pt)) {
 				return false;
 			} 
@@ -156,11 +156,11 @@ public class Pawn extends Piece {
 		pts.add(pt);
 		return true;
 	}
-	private boolean decideToAddAttackTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
+	private boolean decideToAddAttackTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt) {
 		if (!checkBounds(pt.getX(), pt.getY())) {
 			return false;
 		}
-		for (Piece p : b.getPieces()){
+		for (Piece p : b.getPieces()) {
 			if (checkSameSpace(p, pt)) {
 				if (this.isWhite != p.isWhite) {
 					pt.setRemovePiece(p);
@@ -171,21 +171,21 @@ public class Pawn extends Piece {
 		}
 		return true;
 	}
-	private boolean decideToAddPassantTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
+	private boolean decideToAddPassantTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt) {
 		if (!checkBounds(pt.getX(), pt.getY())) {
 			return false;
 		}
 		PossibleTile ps;
-		if (isWhite){
+		if (isWhite) {
 			ps = new PossibleTile(pt.getX(), pt.getY() - 1, pt.getOriginalPiece());
 		} else {
 			ps = new PossibleTile(pt.getX(), pt.getY() + 1, pt.getOriginalPiece());
 		}
-		for (Piece p : b.getPieces()){
-			if (p instanceof Pawn && p.isWhite != this.isWhite){
+		for (Piece p : b.getPieces()) {
+			if (p instanceof Pawn && p.isWhite != this.isWhite) {
 				Pawn pawn = (Pawn) p;
-				if (pawn.possibleToPassant()){
-					if (checkSameSpace(pawn, pt)){
+				if (pawn.possibleToPassant()) {
+					if (checkSameSpace(pawn, pt)) {
 						ps.setRemovePiece(pawn);
 						pts.add(ps);
 						return false;

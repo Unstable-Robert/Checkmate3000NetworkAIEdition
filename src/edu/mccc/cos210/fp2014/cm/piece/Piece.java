@@ -31,21 +31,21 @@ public abstract class Piece implements Cloneable {
 	/**
 	 * Constructor to be implemented by subclasses which gets a list of possible moves.
 	 */
-	public Piece(){
+	public Piece() {
 	}
-	public Piece(int x, int y, boolean c, int iD){
+	public Piece(int x, int y, boolean c, int iD) {
 		this.xLoc = x;
 		this.yLoc = y;
 		this.isWhite = c;
 		this.uID = iD;
 	}
-	public Piece(int x, int y, boolean c, int iD, boolean s){
+	public Piece(int x, int y, boolean c, int iD, boolean s) {
 		this(x, y, c, iD);
 		this.selected = s;
 	}
-    public Piece(Piece p){
-        this(p.getX(),p.getY(),p.isWhite(),p.getUID());
-    }
+	public Piece(Piece p){
+		this(p.getX(),p.getY(),p.isWhite(),p.getUID());
+	}
 	/**
 	 * Gets possible tiles that this piece can move on the given board.
 	 * @param board the board that is checked for possible moves
@@ -54,17 +54,17 @@ public abstract class Piece implements Cloneable {
 	public ArrayList<PossibleTile> getPossibleTiles(Board board) {
 		ArrayList<PossibleTile> finalTiles = new ArrayList<PossibleTile>();
 		ArrayList<PossibleTile> lazyTiles = getLazyTiles(board);
-		for (PossibleTile pt : lazyTiles){
-			if (!causesCheck(pt, board)){
+		for (PossibleTile pt : lazyTiles) {
+			if (!causesCheck(pt, board)) {
 				finalTiles.add(pt);
 			}
 		}
 		return finalTiles;
 	}	
-	public void setNumMoves(int i){
+	public void setNumMoves(int i) {
 		this.numMoves = i;
 	}
-	public int getNumMoves(){
+	public int getNumMoves() {
 		return this.numMoves;
 	}
 	/**
@@ -79,21 +79,23 @@ public abstract class Piece implements Cloneable {
 		newPiece.setX(pt.getX());
 		newPiece.setY(pt.getY());
 		bClone.addPiece(newPiece);
-		if (pt.hasPieceToRemove()){
+		if (pt.hasPieceToRemove()) {
 			bClone.removePiece(pt.getRemovePiece());
 		}
 		King k = null;
-		for (Piece p : bClone.getPieces()){
-			if (p.isWhite() == pt.getOriginalPiece().isWhite() &&
-					p instanceof King){
+		for (Piece p : bClone.getPieces()) {
+			if (
+				p.isWhite() == pt.getOriginalPiece().isWhite() &&
+				p instanceof King
+			) {
 				k = (King) p;
 				break;
 			}
 		}
-		for (Piece p : bClone.getPieces()){
-			if(p.isWhite() != pt.getOriginalPiece().isWhite()){
-				for(PossibleTile move : p.getLazyTiles(bClone)){
-					if (checkSameSpace(k, move)){
+		for (Piece p : bClone.getPieces()) {
+			if(p.isWhite() != pt.getOriginalPiece().isWhite()) {
+				for(PossibleTile move : p.getLazyTiles(bClone)) {
+					if (checkSameSpace(k, move)) {
 						return true;
 					}
 				}
@@ -101,7 +103,6 @@ public abstract class Piece implements Cloneable {
 		}
 		return false;
 	}
-	
 	/**
 	 * Changes the location of the piece.
 	 */
@@ -124,7 +125,7 @@ public abstract class Piece implements Cloneable {
 	public boolean isWhite() {
 		return this.isWhite;
 	}
-	public int getUID(){
+	public int getUID() {
 		return this.uID;
 	}
 	public boolean isSelected() {
@@ -136,11 +137,11 @@ public abstract class Piece implements Cloneable {
 	public void setSelected(boolean b) {
 		this.selected = b;
 	}
-	protected boolean decideToAddTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt){
+	protected boolean decideToAddTile(Board b, ArrayList<PossibleTile> pts, PossibleTile pt) {
 		if (!checkBounds(pt.getX(), pt.getY())) {
 			return false;
 		}
-		for (Piece p : b.getPieces()){
+		for (Piece p : b.getPieces()) {
 			if (checkSameSpace(p, pt)) {
 				if (this.isWhite != p.isWhite) {
 					pt.setRemovePiece(p);
@@ -152,16 +153,16 @@ public abstract class Piece implements Cloneable {
 		pts.add(pt);
 		return true;
 	}
-	protected boolean checkBounds(int x, int y){
+	protected boolean checkBounds(int x, int y) {
 		return x >= 0 && x <= 7 && y >= 0 && y <= 7;
 	}
-    public String locToString (){
-        return String.valueOf(Character.toChars(65+this.getX())) + (Math.abs(this.getY() - 8));
-    }
-	protected boolean checkSameSpace(Piece p1, PossibleTile p2){
+	public String locToString() {
+		return String.valueOf(Character.toChars(65+this.getX())) + (Math.abs(this.getY() - 8));
+	}
+	protected boolean checkSameSpace(Piece p1, PossibleTile p2) {
 		return (p1.getX() == p2.getX() && p1.getY() == p2.getY());
 	}
-	protected boolean checkSameSpace(PossibleTile p1, PossibleTile p2){
+	protected boolean checkSameSpace(PossibleTile p1, PossibleTile p2) {
 		return (p1.getX() == p2.getX() && p1.getY() == p2.getY());
 	}
 	public abstract Piece clone();

@@ -15,36 +15,39 @@ import edu.mccc.cos210.fp2014.cm.game.Board;
 public class Rook extends Piece {
 	@XmlElement
 	private boolean canCastle;
-	public Rook(){
-		
+	public Rook() {
 	}
-	public Rook(int x, int y, boolean c, int iD){
+	public Rook(int x, int y, boolean c, int iD) {
 		super(x,y,c,iD);
 		this.canCastle = true;
 	}
-	public Rook(int x, int y, boolean c, int iD, boolean s){
+	public Rook(int x, int y, boolean c, int iD, boolean s) {
 		super(x,y,c,iD,s);
 		this.canCastle = true;
 	}
-	public Rook(int x, int y, boolean c, int iD, boolean s, boolean castle){
+	public Rook(int x, int y, boolean c, int iD, boolean s, boolean castle) {
 		super(x,y,c,iD,s);
 		this.canCastle = castle;
 	}
-    public Rook(Piece p){super(p);}
+	public Rook(Piece p){
+		super(p);
+	}
 	/**
 	 * This returns true if the rook has not moved and false if it has.
 	 */
-	public boolean canCastle(){
+	public boolean canCastle() {
 		return this.canCastle;
 	}
 	@Override
-	public Rook clone(){
-		return new Rook(this.getX(), 
-				this.getY(), 
-				this.isWhite(), 
-				this.getUID(), 
-				this.isSelected(), 
-				this.canCastle);
+	public Rook clone() {
+		return new Rook(
+			this.getX(), 
+			this.getY(), 
+			this.isWhite(), 
+			this.getUID(), 
+			this.isSelected(), 
+			this.canCastle
+		);
 	}
 	@Override
 	protected ArrayList<PossibleTile> getLazyTiles(Board b) {
@@ -52,29 +55,28 @@ public class Rook extends Piece {
 		int i = 1;
 		boolean canSearch = true;
 		Rook clone = this.clone();
-		//clone.canCastle();
-		while (canSearch){
+		while (canSearch) {
 			PossibleTile pt = new PossibleTile(clone.getX() - i, clone.getY(), clone);
 			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		i = 1;
 		canSearch = true;
-		while (canSearch){
+		while (canSearch) {
 			PossibleTile pt = new PossibleTile(clone.getX() + i, clone.getY(), clone);
 			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		i = 1;
 		canSearch = true;
-		while (canSearch){
+		while (canSearch) {
 			PossibleTile pt = new PossibleTile(clone.getX(), clone.getY() - i, clone);
 			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		i = 1;
 		canSearch = true;
-		while (canSearch){
+		while (canSearch) {
 			PossibleTile pt = new PossibleTile(clone.getX(), clone.getY() + i, clone);
 			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
@@ -96,8 +98,8 @@ public class Rook extends Piece {
 		}*/
 		return possibleTiles;
 	}
-    @Override
-    public String locToString (){
-        return "R" + String.valueOf(Character.toChars(65+this.getX())) + (Math.abs(this.getY() - 8));
-    }
+	@Override
+	public String locToString() {
+		return "R" + String.valueOf(Character.toChars(65+this.getX())) + (Math.abs(this.getY() - 8));
+	}
 }

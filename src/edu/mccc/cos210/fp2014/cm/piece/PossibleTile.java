@@ -22,8 +22,7 @@ public class PossibleTile implements Cloneable {
 	/**
 	 * Default constructor.
 	 */
-	public PossibleTile(){
-		
+	public PossibleTile() {
 	}
 	public PossibleTile(int x, int y, Piece original) {
 		this.xLoc = x;
@@ -64,7 +63,7 @@ public class PossibleTile implements Cloneable {
 	public boolean hasPieceToRemove() {
 		return !(this.removePiece instanceof NullPiece);
 	}
-	public PossibleTile clone(){
+	public PossibleTile clone() {
 		return new PossibleTile(
 			this.getX(),
 			this.getY(),

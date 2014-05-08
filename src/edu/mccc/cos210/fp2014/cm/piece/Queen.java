@@ -14,87 +14,90 @@ import edu.mccc.cos210.fp2014.cm.game.Board;
 @XmlRootElement(name="Queen")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Queen extends Piece {
-	public Queen(){
-		
+	public Queen() {
 	}
-	public Queen(int x, int y, boolean c, int iD){
+	public Queen(int x, int y, boolean c, int iD) {
 		super(x,y,c,iD);
 	}
-	public Queen(int x, int y, boolean c, int iD, boolean s){
+	public Queen(int x, int y, boolean c, int iD, boolean s) {
 		super(x,y,c,iD,s);
 	}
-    public Queen(Piece p){super(p);}
+	public Queen(Piece p){
+		super(p);
+	}
 	@Override
-	public Queen clone(){
-		return new Queen(this.getX(), 
-				this.getY(), 
-				this.isWhite(), 
-				this.getUID(), 
-				this.isSelected());
+	public Queen clone() {
+		return new Queen(
+			this.getX(), 
+			this.getY(), 
+			this.isWhite(), 
+			this.getUID(), 
+			this.isSelected()
+		);
 	}
 	@Override
 	protected ArrayList<PossibleTile> getLazyTiles(Board b) {
 		ArrayList<PossibleTile> possibleTiles = new ArrayList<PossibleTile>();
 		int i = 1;
 		boolean canSearch = true;
-		while (canSearch){
+		while (canSearch) {
 			PossibleTile pt = new PossibleTile(this.getX() - i, this.getY() - i, this);
 			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		i = 1;
 		canSearch = true;
-		while (canSearch){
+		while (canSearch) {
 			PossibleTile pt = new PossibleTile(this.getX() - i, this.getY() + i, this);
 			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		i = 1;
 		canSearch = true;
-		while (canSearch){
+		while (canSearch) {
 			PossibleTile pt = new PossibleTile(this.getX() + i, this.getY() - i, this);
 			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		i = 1;
 		canSearch = true;
-		while (canSearch){
+		while (canSearch) {
 			PossibleTile pt = new PossibleTile(this.getX() + i, this.getY() + i, this);
 			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		i = 1;
 		canSearch = true;
-		while (canSearch){
+		while (canSearch) {
 			PossibleTile pt = new PossibleTile(this.getX() - i, this.getY(), this);
 			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		i = 1;
 		canSearch = true;
-		while (canSearch){
+		while (canSearch) {
 			PossibleTile pt = new PossibleTile(this.getX() + i, this.getY(), this);
 			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		i = 1;
 		canSearch = true;
-		while (canSearch){
+		while (canSearch) {
 			PossibleTile pt = new PossibleTile(this.getX(), this.getY() - i, this);
 			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		i = 1;
 		canSearch = true;
-		while (canSearch){
+		while (canSearch) {
 			PossibleTile pt = new PossibleTile(this.getX(), this.getY() + i, this);
 			canSearch = decideToAddTile(b, possibleTiles, pt);
 			i++;
 		}
 		return possibleTiles;
 	}
-    @Override
-    public String locToString (){
-        return "Q" + String.valueOf(Character.toChars(65+this.getX())) + (Math.abs(this.getY() - 8));
-    }
+	@Override
+	public String locToString() {
+		return "Q" + String.valueOf(Character.toChars(65+this.getX())) + (Math.abs(this.getY() - 8));
+	}
 }
