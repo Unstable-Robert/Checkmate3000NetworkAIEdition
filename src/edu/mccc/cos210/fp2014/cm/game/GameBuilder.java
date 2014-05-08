@@ -40,10 +40,12 @@ public class GameBuilder {
 			LocalPlayer lp = new LocalPlayer(gm, c, false);
 			AiPlayer aip = new AiPlayer(gm, c, true, d1);
 			c.setGameView(setupGameView(c, gm, lp, aip));
+			aip.update(null, null);
 		}else {
 			AiPlayer aip1 = new AiPlayer(gm, c, true, d1);
 			AiPlayer aip2 = new AiPlayer(gm, c, false, d2);
 			c.setGameView(setupGameView(c, gm, aip1, aip2));
+			aip1.update(null, null);
 		}
 		gm.startTimer();
 	}

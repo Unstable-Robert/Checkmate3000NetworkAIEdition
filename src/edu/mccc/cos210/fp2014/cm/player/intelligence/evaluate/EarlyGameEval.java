@@ -30,11 +30,11 @@ public class EarlyGameEval extends EvaluationAlgorithm {
 			if (p.isWhite() == this.isWhite){
 					value = value + getLocationVal(p);
 					if (p instanceof Bishop){
-						value = value + 3;
+						value = value + 3 + getHomeRowVal(p);
 					} else if (p instanceof King){
 						value = value + 200;
 					} else if (p instanceof Knight){
-						value = value + 3;
+						value = value + 3 + getHomeRowVal(p);
 					} else if (p instanceof Pawn){
 						value = value + 1;
 					} else if (p instanceof Queen){
@@ -51,11 +51,11 @@ public class EarlyGameEval extends EvaluationAlgorithm {
 			} else {
 				value = value - getLocationVal(p);
 				if (p instanceof Bishop){
-					value = value - 3;
+					value = value - 3 - getHomeRowVal(p);
 				} else if (p instanceof King){
 					value = value - 200;
 				} else if (p instanceof Knight){
-					value = value - 3;
+					value = value - 3 - getHomeRowVal(p);
 				} else if (p instanceof Pawn){
 					value = value - 1;
 				} else if (p instanceof Queen){
@@ -90,5 +90,17 @@ public class EarlyGameEval extends EvaluationAlgorithm {
 			default:
 				return 0;
 		}
+	}
+	private double getHomeRowVal(Piece p){
+		if (p.isWhite()) {
+			if (p.getY() == 7) {
+				return -1;
+			}
+		} else {
+			if (p.getY() == 0) {
+				return -1;
+			}
+		}
+		return 0;
 	}
 }
