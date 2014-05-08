@@ -20,7 +20,7 @@ public class LocalView extends SettingsView {
 	private int time;
 	private Difficulty difficulty1;
 	private Difficulty difficulty2;
-    private final int TIME_MIN = 1;
+	private final int TIME_MIN = 1;
 	private final int TIME_MAX = 180;
 	private JSpinner timeSpinner;
 	private JCheckBox checkbox;
@@ -47,6 +47,7 @@ public class LocalView extends SettingsView {
 			(int)(c.getHeight() * 0.325)
 		);
 		add(player1);
+		
 		JLabel player2 = new JLabel("Black Player");
 		player2.setForeground(Color.WHITE);
 		player2.setSize(100,40);
@@ -56,7 +57,7 @@ public class LocalView extends SettingsView {
 		);
 		add(player2);		
 				
-		//dropdown for AIs
+		// Dropdown menu for choosing human player or AI difficulty.
 		this.p1 = new JComboBox<String>();
 		p1.addItem("Human");
 		p1.addItem("Easy AI");
@@ -68,6 +69,7 @@ public class LocalView extends SettingsView {
 			(int)(c.getHeight() * 0.375)
 		);
 		add(p1);
+		
 		this.p2 = new JComboBox<String>();
 		p2.addItem("Human");
 		p2.addItem("Easy AI");
@@ -89,10 +91,10 @@ public class LocalView extends SettingsView {
 		);
 		add(timedGame);	
 		
-		//Checkbox whether game is timed or not
+		// Checkbox for whether game is timed or not.
 		this.checkbox = new JCheckBox("", true);
 		checkbox.setSize(24,15);
-        checkbox.setBackground(new Color(10,10,10,0));
+		checkbox.setBackground(new Color(10,10,10,0));
 		checkbox.setLocation(
 			c.getWidth() / 3 + timedGame.getWidth() + 10,
 			(int)(c.getHeight() * 0.475)
@@ -110,7 +112,7 @@ public class LocalView extends SettingsView {
 		});
 		add(checkbox);
 		
-		//if game is timed on is display timer settings
+		// Display time limit if timer is selected.
 		JLabel timeLabel = new JLabel("Time");
 		timeLabel.setForeground(Color.WHITE);
 		timeLabel.setSize(40,20);
@@ -119,6 +121,7 @@ public class LocalView extends SettingsView {
 			(int)(c.getHeight() * 0.575)
 		);
 		add(timeLabel);
+		
 		this.timeSpinner = new JSpinner(new SpinnerNumberModel(5, TIME_MIN, TIME_MAX, 1));
 		timeSpinner.setSize(40,20);
 		timeSpinner.setLocation(
@@ -127,6 +130,7 @@ public class LocalView extends SettingsView {
 			(int)(c.getHeight() * 0.575)
 		);
 		add(timeSpinner);
+		
 		JLabel minLabel = new JLabel("Minutes");
 		minLabel.setForeground(Color.WHITE);
 		minLabel.setSize(55,20);
@@ -138,7 +142,7 @@ public class LocalView extends SettingsView {
 		);		
 		add(minLabel);
 		
-		//backButton returns to previous screen
+		// Clicking backButton returns you to main menu.
 		JButton backButton = new JButton("Back");
 		backButton.setSize(150,50);
 		backButton.setLocation(
@@ -173,27 +177,27 @@ public class LocalView extends SettingsView {
 		add(startButton);
 	}
 	protected void setSettings() {
-		if (this.checkbox.isSelected()){
+		if (this.checkbox.isSelected()) {
 			this.gameType = GameType.TIMED_GAME;
 			this.time = (int)this.timeSpinner.getValue();
 		} else {
 			this.gameType = GameType.NORMAL;
 			this.time = 0;
 		}
-		if (this.p1.getSelectedItem().equals("Human")){
+		if (this.p1.getSelectedItem().equals("Human")) {
 			this.difficulty1 = Difficulty.HUMAN;
-		} else if (this.p1.getSelectedItem().equals("Easy AI")){
+		} else if (this.p1.getSelectedItem().equals("Easy AI")) {
 			this.difficulty1 = Difficulty.EASY;
-		} else if (this.p1.getSelectedItem().equals("Medium AI")){
+		} else if (this.p1.getSelectedItem().equals("Medium AI")) {
 			this.difficulty1 = Difficulty.MEDIUM;
 		} else {
 			this.difficulty1 = Difficulty.HARD;
 		} 
-		if (this.p2.getSelectedItem().equals("Human")){
+		if (this.p2.getSelectedItem().equals("Human")) {
 			this.difficulty2 = Difficulty.HUMAN;
-		} else if (this.p2.getSelectedItem().equals("Easy AI")){
+		} else if (this.p2.getSelectedItem().equals("Easy AI")) {
 			this.difficulty2 = Difficulty.EASY;
-		} else if (this.p2.getSelectedItem().equals("Medium AI")){
+		} else if (this.p2.getSelectedItem().equals("Medium AI")) {
 			this.difficulty2 = Difficulty.MEDIUM;
 		} else {
 			this.difficulty2 = Difficulty.HARD;

@@ -18,7 +18,6 @@ public class MainMenuView extends SettingsView {
 	public MainMenuView(Checkmate c) {
 		super(c);
 		
-		// Use Font class to make this bigger.
 		JLabel titleLabel = new JLabel("Checkmate 3000 Network AI Edition");
 		titleLabel.setForeground(Color.WHITE);
 		titleLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 42));
@@ -37,7 +36,7 @@ public class MainMenuView extends SettingsView {
 		);
 		localButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent ae) {
 				myCheckmate.setView(Checkmate.LOCAL);
 			}
 		});
@@ -51,7 +50,7 @@ public class MainMenuView extends SettingsView {
 		);
 		hostButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent ae) {
 				myCheckmate.setView(Checkmate.HOST);
 			}
 		});
@@ -65,7 +64,7 @@ public class MainMenuView extends SettingsView {
 		);
 		joinButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent ae) {
 				myCheckmate.setView(Checkmate.JOIN);
 			}
 		});
@@ -79,7 +78,7 @@ public class MainMenuView extends SettingsView {
 		);
 		logButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent ae) {
 				myCheckmate.setView(Checkmate.LOG);
 			}
 		});
@@ -93,7 +92,7 @@ public class MainMenuView extends SettingsView {
 		);
 		quitButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent ae) {
 				int wantsExit = JOptionPane.showConfirmDialog(
 					myCheckmate,
 					"Are you sure you want to exit the program?",

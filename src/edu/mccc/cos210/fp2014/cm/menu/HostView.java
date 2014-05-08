@@ -22,7 +22,7 @@ public class HostView extends SettingsView {
 	private static final long serialVersionUID = 1L;
 	private GameType gameType;
 	private int time;
-    private final int TIME_MIN = 1;
+	private final int TIME_MIN = 1;
 	private final int TIME_MAX = 180;
 	private JSpinner timeSpinner;
 	private JCheckBox checkbox;
@@ -49,9 +49,9 @@ public class HostView extends SettingsView {
 		);
 		add(timedGame);	
 		
-		//Checkbox whether game is timed or not
+		// Checkbox for whether the game is timed or not.
 		this.checkbox = new JCheckBox("", true);
-        checkbox.setBackground(new Color(10,10,10,0));
+		checkbox.setBackground(new Color(10,10,10,0));
 		checkbox.setSize(24,15);
 		checkbox.setLocation(
 			c.getWidth() / 3 + timedGame.getWidth() + 10,
@@ -60,7 +60,7 @@ public class HostView extends SettingsView {
 		checkbox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				if (gameType == GameType.NORMAL){
+				if (gameType == GameType.NORMAL) {
 					gameType = GameType.TIMED_GAME;
 				} else {
 					gameType = GameType.NORMAL;
@@ -79,6 +79,7 @@ public class HostView extends SettingsView {
 			(int)(c.getHeight() * 0.425)
 		);
 		add(timeLabel);
+		
 		this.timeSpinner = new JSpinner(new SpinnerNumberModel(5, TIME_MIN, TIME_MAX, 1));
 		timeSpinner.setSize(40,20);
 		timeSpinner.setLocation(
@@ -87,6 +88,7 @@ public class HostView extends SettingsView {
 			(int)(c.getHeight() * 0.425)
 		);
 		add(timeSpinner);
+		
 		JLabel minLabel = new JLabel("Minutes");
 		minLabel.setForeground(Color.WHITE);
 		minLabel.setSize(55,20);
@@ -98,15 +100,16 @@ public class HostView extends SettingsView {
 		);		
 		add(minLabel);
 
-		//displays your ip
+		// Displays your IP address.
 		String ipAddress = "UNKNOWN";
 		try {
-            URL ip = new URL("http://checkip.amazonaws.com");
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                    ip.openStream()));
-
-            ipAddress = in.readLine();
-		} catch (IOException e){}
+			URL ip = new URL("http://checkip.amazonaws.com");
+			BufferedReader in = new BufferedReader(
+				new InputStreamReader(ip.openStream())
+			);
+			ipAddress = in.readLine();
+		} catch (IOException ex){
+		}
 		JLabel ipLabel = new JLabel("Your IP: " + ipAddress);
 		ipLabel.setSize(160,40);
 		ipLabel.setForeground(Color.WHITE);
@@ -120,11 +123,12 @@ public class HostView extends SettingsView {
 		colorLabel.setForeground(Color.WHITE);
 		colorLabel.setSize(200, 20);
 		colorLabel.setLocation(
-				c.getWidth() / 3 - timedGame.getWidth() / 2,
-				(int)(c.getHeight() * 0.600)
-			);
+			c.getWidth() / 3 - timedGame.getWidth() / 2,
+			(int)(c.getHeight() * 0.600)
+		);
 		add(colorLabel);
-		//backButton returns to previous screen
+		
+		// Clicking backButton returns you to main menu.
 		JButton backButton = new JButton("Back");
 		backButton.setSize(150,50);
 		backButton.setLocation(
@@ -161,7 +165,7 @@ public class HostView extends SettingsView {
 		
 	}
 	protected void setSettings() {
-		if (this.checkbox.isSelected()){
+		if (this.checkbox.isSelected()) {
 			this.gameType = GameType.TIMED_GAME;
 			this.time = (int)this.timeSpinner.getValue();
 		} else {

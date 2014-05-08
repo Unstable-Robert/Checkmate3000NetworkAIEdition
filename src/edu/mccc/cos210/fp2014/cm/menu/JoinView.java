@@ -52,12 +52,13 @@ public class JoinView extends SettingsView {
 		colorLabel.setForeground(Color.WHITE);
 		colorLabel.setSize(105, 20);
 		colorLabel.setLocation(
-				c.getWidth() / 2
-				- colorLabel.getWidth()/2,
-				 (int) (c.getHeight() * 0.560)
-			);
+			c.getWidth() / 2
+			- colorLabel.getWidth()/2,
+			(int) (c.getHeight() * 0.560)
+		);
 		add(colorLabel);
-		//backButton returns to previous screen
+		
+		// Clicking the backButton returns you to main menu.
 		JButton backButton = new JButton("Back");
 		backButton.setSize(150,50);
 		backButton.setLocation(
@@ -72,7 +73,7 @@ public class JoinView extends SettingsView {
 		});
 		add(backButton);
 
-		//joinButton starts the game with given settings
+		// Clicking joinButton starts the game with given settings.
 		JButton joinButton = new JButton("Join Game");
 		joinButton.setSize(150,50);
 		joinButton.setLocation(
@@ -87,7 +88,7 @@ public class JoinView extends SettingsView {
 					InetAddress inetAddress = InetAddress.getByName(address);
 					GameBuilder.buildJoinGame(myCheckmate, inetAddress);
 					myCheckmate.setView(Checkmate.GAME);
-				} catch (IOException e){
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}

@@ -26,13 +26,13 @@ public abstract class SettingsView extends JPanel {
 		this.setDoubleBuffered(true);
 		try {
 			this.backgroundImage = ImageIO.read(new File("res/Chess-king.JPG"));
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 	}
 	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-	    g.drawImage(backgroundImage, 0, 0, this);
+		g.drawImage(backgroundImage, 0, 0, this);
 	}
 }

@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
 /**
@@ -17,13 +16,13 @@ public class SplashView extends SettingsView {
 		super(c);
 		try {
 			this.splashImage = ImageIO.read(new File("res/splash.jpg"));
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 	}
 	@Override
-	public void paintComponent(Graphics g){
+	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-	    g.drawImage(splashImage, 0, 0, this);
+		g.drawImage(splashImage, 0, 0, this);
 	}
 }
