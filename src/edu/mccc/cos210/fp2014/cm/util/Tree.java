@@ -13,7 +13,7 @@ public class Tree<T> {
 	private TreeNode<T> root;
 	private ArrayList<Tree<T>> leaves;
 	private double score;
-	public Tree(T t){ 
+	public Tree(T t) { 
 		this.root = new TreeNode<T>(t);
 		this.leaves = new ArrayList<Tree<T>>();
 	}
@@ -28,10 +28,10 @@ public class Tree<T> {
 	public T getRoot() {
 		return this.root.getValue();
 	}
-	public void setScore(double s){
+	public void setScore(double s) {
 		this.score = s;
 	}
-	public double getScore(){
+	public double getScore() {
 		return this.score;
 	}
 	/**
@@ -68,7 +68,7 @@ public class Tree<T> {
 	protected class TreeNode<T> {
 		private T value;
 		private TreeNode<T> parent;
-		public TreeNode(T t){
+		public TreeNode(T t) {
 			this.value = t;
 		}
 		public TreeNode(T t, TreeNode<T> p) {
@@ -83,8 +83,8 @@ public class Tree<T> {
 		}
 	}
 	public Tree<T> getLeaf(Board newBoard) {
-		for (Tree<T> leaf : this.getLeaves()){
-			if (newBoard.equals(leaf.getRoot())){
+		for (Tree<T> leaf : this.getLeaves()) {
+			if (newBoard.equals(leaf.getRoot())) {
 				return leaf;
 			}
 		}

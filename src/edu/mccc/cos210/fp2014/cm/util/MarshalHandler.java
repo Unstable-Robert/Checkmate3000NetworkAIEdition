@@ -20,17 +20,17 @@ public class MarshalHandler {
 	 * @param in The input stream to unmarshal
 	 * @return The board object which was represented by the input stream.
 	 */
-	public MarshalHandler(){
+	public MarshalHandler() {
 		try {
 			jc = JAXBContext.newInstance(Board.class);
-		} catch (JAXBException e) {
-			e.printStackTrace();
+		} catch (JAXBException ex) {
+			ex.printStackTrace();
 		}
 	}
-	public Board unmarshal(ByteArrayInputStream bais) throws JAXBException, IOException{
-			Unmarshaller um = this.jc.createUnmarshaller();
-			Board b = (Board) um.unmarshal(bais);
-			return b;
+	public Board unmarshal(ByteArrayInputStream bais) throws JAXBException, IOException {
+		Unmarshaller um = this.jc.createUnmarshaller();
+		Board b = (Board) um.unmarshal(bais);
+		return b;
 	}
 	/**
 	 * Marshals a board object into an OutputStream.
@@ -38,9 +38,8 @@ public class MarshalHandler {
 	 * @return The outputstream which represents the board object.
 	 */
 	public void marshal(Board b, ByteArrayOutputStream bout) throws JAXBException, IOException {
-			Marshaller m = this.jc.createMarshaller();
-			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			m.marshal(b, bout);
-			
+		Marshaller m = this.jc.createMarshaller();
+		m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+		m.marshal(b, bout);
 	}
 }
