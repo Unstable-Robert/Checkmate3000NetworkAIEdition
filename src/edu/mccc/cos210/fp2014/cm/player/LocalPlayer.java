@@ -19,7 +19,7 @@ public class LocalPlayer extends Player {
 	 * Updates the model.
 	 */
 	@Override
-	public boolean updateModel(Piece piece, PossibleTile pt){
+	public boolean updateModel(Piece piece, PossibleTile pt) {
 		return super.updateModel(piece, pt);
 	}
 	/**
@@ -27,9 +27,9 @@ public class LocalPlayer extends Player {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		if (this.gm.getBoard() != null){
+		if (this.gm.getBoard() != null) {
 			Board b = this.checkPawnPromotion();
-			if (b != null){
+			if (b != null) {
 				gm.updateBoard(b, false);
 			}
 		}

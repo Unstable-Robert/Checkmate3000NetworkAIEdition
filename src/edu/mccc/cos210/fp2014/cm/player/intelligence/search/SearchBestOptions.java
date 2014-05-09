@@ -40,7 +40,9 @@ public class SearchBestOptions extends SearchAlgorithm {
 							newBoard.removePiece(removedPiece);
 							/*if (newPiece instanceof Pawn) {
 								if (!((Pawn)newPiece).canPromote()) {
-									newBoard.addMove(new int[] {newPiece.getUID(), pt.getX(), pt.getY(), removedPiece.getUID()});
+									newBoard.addMove(new int[] {
+										newPiece.getUID(), pt.getX(), pt.getY(), removedPiece.getUID()}
+									);
 								} else {
 									newBoard.addMove(new int[] {newPiece.getUID(), pt.getX(), pt.getY()});
 								}
@@ -63,8 +65,8 @@ public class SearchBestOptions extends SearchAlgorithm {
 	}
 	@Override
 	public void search(Tree<Board> t) {
-		if (t.hasLeaves()){
-			for (Tree<Board> b : t.getLeaves()){
+		if (t.hasLeaves()) {
+			for (Tree<Board> b : t.getLeaves()) {
 				search(b);
 			}
 		} else {

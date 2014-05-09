@@ -47,7 +47,9 @@ public class BruteSearch extends SearchAlgorithm implements Runnable {
 							newBoard.removePiece(removedPiece);
 							/*if (newPiece instanceof Pawn) {
 								if (!((Pawn)newPiece).canPromote()) {
-									newBoard.addMove(new int[] {newPiece.getUID(), pt.getX(), pt.getY(), removedPiece.getUID()});
+									newBoard.addMove(
+										new int[] {newPiece.getUID(), pt.getX(), pt.getY(), removedPiece.getUID()}
+									);
 								} else {
 									newBoard.addMove(new int[] {newPiece.getUID(), pt.getX(), pt.getY()});
 								}
@@ -68,7 +70,7 @@ public class BruteSearch extends SearchAlgorithm implements Runnable {
 			}
 		}
 	}
-	public void search(Tree<Board> t){
+	public void search(Tree<Board> t) {
 		this.tree = t;
 		this.search(0, t);
 	}

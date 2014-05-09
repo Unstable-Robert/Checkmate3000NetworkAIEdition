@@ -37,33 +37,32 @@ public class NetworkPlayer extends Player implements Runnable {
 	private MarshalHandler mh;
 	private boolean active;
 	private boolean closeResponsibilities;
-	
-	private NetworkPlayer(GameModel gm, Checkmate c, Boolean color) throws IOException{
+	private NetworkPlayer(GameModel gm, Checkmate c, Boolean color) throws IOException {
 		super(gm, c, color);
 		this.mh = new MarshalHandler();
 		this.active = true;
 		this.closeResponsibilities = true;
 	}
-	public static NetworkPlayer GetHostNetwork(GameModel gm, Checkmate c)throws IOException{
+	public static NetworkPlayer GetHostNetwork(GameModel gm, Checkmate c) throws IOException {
 		NetworkPlayer np = new NetworkPlayer(gm, c, true);
 		np.setServerSocket(new ServerSocket(7531));
-		(new Thread(np)).start();
+		new Thread(np).start();
 		return np;
 	}
-	public static NetworkPlayer GetJoinNetwork(GameModel gm, Checkmate c, InetAddress a) throws IOException{
+	public static NetworkPlayer GetJoinNetwork(GameModel gm, Checkmate c, InetAddress a) throws IOException {
 		NetworkPlayer np = new NetworkPlayer(gm, c, false);
 		np.setSocket(new Socket(a, 7531));
-		(new Thread(np)).start();
+		new Thread(np).start();
 		return np;
 	}
-	private void setServerSocket(ServerSocket ss){
+	private void setServerSocket(ServerSocket ss) {
 		this.ss = ss;
 	}
-	private void setSocket(Socket s){
+	private void setSocket(Socket s) {
 		this.socket = s;
 	}
 	@Override
-	public boolean updateModel(Piece piece, PossibleTile pt){
+	public boolean updateModel(Piece piece, PossibleTile pt) {
 		return super.updateModel(piece, pt);
 	}
 	/**
@@ -72,26 +71,28 @@ public class NetworkPlayer extends Player implements Runnable {
 	@Override
 	public void update(Observable o, Object arg) {
 		Board b = this.checkPawnPromotion();
-		if (b != null){
+		if (b != null) {
 			this.gm.updateBoard(b, false);
 		}
 		try {
-			if(!this.gm.isNetworkUpdate()){ 
+			if(!this.gm.isNetworkUpdate()) { 
 				DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
 				writeMessage(this.gm.getBoard(), dos);
 			}
-		}catch (IOException e) {
+		} catch (IOException e) {
 			this.closeSockets();
-		}catch (JAXBException e) {
+		} catch (JAXBException e) {
 			e.printStackTrace();
-		} catch (NullPointerException e){
+		} catch (NullPointerException e) {
 			JPanel panel = new JPanel(new GridLayout(2, 1));
 			JLabel label = new JLabel("Wait up, nobody's connected yet!");
 			String[] options = new String[]{"OK"};
 			panel.add(label);
-			JOptionPane.showOptionDialog(null, panel, "Waiting for Another Player",
-						  JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
-						  null, options, options[0]);
+			JOptionPane.showOptionDialog(
+				null, panel, "Waiting for Another Player",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+				null, options, options[0]
+			);
 		}
 	}
 	/**
@@ -100,56 +101,56 @@ public class NetworkPlayer extends Player implements Runnable {
 	@Override
 	public void run() {
 		try {
-			if (this.ss != null){
+			if (this.ss != null) {
 				this.socket = this.ss.accept();
 				this.gm.startTimer();
 				this.update(gm, null);
 			}
-			while (this.active){
+			while (this.active) {
 				try {
 					InputStream is = socket.getInputStream();
-					if (is.available() > 0){
+					if (is.available() > 0) {
 						DataInputStream dis = new DataInputStream(is);
 						ByteArrayInputStream bais = readMessage(dis);
 						try {
 							Board b = mh.unmarshal(bais);
 							this.gm.updateBoard(b, true);
-						}catch (JAXBException e){
+						} catch (JAXBException ex) {
 							unreachablePlayer();
 							this.gm.updateBoard(this.gm.getBoard(), false);
 						}
 					}
-				} catch (IOException e){
-					e.printStackTrace();
+				} catch (IOException ex) {
+					ex.printStackTrace();
 				}
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 	}
 	private void unreachablePlayer() {
 		this.closeSockets();
-		if (this.closeResponsibilities){
-			if (gm.hasTimer()){
+		if (this.closeResponsibilities) {
+			if (gm.hasTimer()) {
 				gm.cancelTimer();
 			} 
 			myCheckmate.setView(Checkmate.MAIN_MENU);	
 		}
 	}
-	private void writeMessage(Board b, DataOutputStream dos) throws JAXBException, IOException, SocketException{
-	    ByteArrayOutputStream bout = new ByteArrayOutputStream();
-	    mh.marshal(b, bout);
-	    byte[] msgBytes = bout.toByteArray();
-	    dos.writeInt(msgBytes.length);
-	    dos.write(msgBytes);
+	private void writeMessage(Board b, DataOutputStream dos) throws JAXBException, IOException, SocketException {
+		ByteArrayOutputStream bout = new ByteArrayOutputStream();
+		mh.marshal(b, bout);
+		byte[] msgBytes = bout.toByteArray();
+		dos.writeInt(msgBytes.length);
+		dos.write(msgBytes);
 		dos.flush();
 	}
 	private ByteArrayInputStream readMessage(DataInputStream dis) throws IOException {
-        int size = dis.readInt();
-        byte[] ba = new byte[size];
-        dis.readFully(ba);
-        return new ByteArrayInputStream(ba);
-    }
+		int size = dis.readInt();
+		byte[] ba = new byte[size];
+		dis.readFully(ba);
+		return new ByteArrayInputStream(ba);
+	}
 	public void closeSockets() {
 		try {
 			this.active = false;
@@ -157,8 +158,8 @@ public class NetworkPlayer extends Player implements Runnable {
 			if (this.ss != null) {
 				this.ss.close();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 	}
 	public void setCloseResponsibility(boolean b) {

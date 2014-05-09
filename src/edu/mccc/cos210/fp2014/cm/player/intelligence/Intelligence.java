@@ -21,7 +21,7 @@ public abstract class Intelligence {
 	/**
 	 * Gets the best board given the search and eval classes.
 	 */
-	protected Intelligence(int n, boolean iw){
+	protected Intelligence(int n, boolean iw) {
 		this.depth = n;
 		this.isWhite = iw;
 	}	
@@ -41,7 +41,7 @@ public abstract class Intelligence {
 	 * or trims the tree.
 	 * It then loops.
 	 */
-	public void searchAndEval(Board b){
+	public void searchAndEval(Board b) {
 		Tree<Board> t = new Tree<Board>(b);
 		this.search.search(t);
 		this.eval.setRoot(t);

@@ -14,38 +14,38 @@ import edu.mccc.cos210.fp2014.cm.util.Tree;
 public abstract class EvaluationAlgorithm implements Runnable {
 	protected ExecutorService threadPool;
 	protected boolean isWhite;
-    protected boolean isFinished;
-    protected Tree<Board> tree;
-    protected int depth;
-    protected EvaluationAlgorithm(Board b, int d, boolean iW){
-    	this.tree = new Tree<Board>(b);
-    	this.depth = d;
+	protected boolean isFinished;
+	protected Tree<Board> tree;
+	protected int depth;
+	protected EvaluationAlgorithm(Board b, int d, boolean iW) {
+		this.tree = new Tree<Board>(b);
+		this.depth = d;
 		this.isWhite = iW;
 	}	
 	public boolean isFinished() {
 		return this.isFinished;
 	}
-	public void setRoot(Tree<Board> t){
-    	this.tree = t;
-    }
+	public void setRoot(Tree<Board> t) {
+		this.tree = t;
+	}
 	public double evaluate(Tree<Board> tree, boolean maxPlayer) {
 		Board b = tree.getRoot();
-		if (tree.getLeaves().isEmpty()){
+		if (tree.getLeaves().isEmpty()) {
 			this.isFinished = true;
 			return getBoardValue(b);
-		}else {
+		} else {
 			double bestValue;
-			if (maxPlayer){
+			if (maxPlayer) {
 				bestValue = Integer.MIN_VALUE;
 				List<Tree<Board>> t = tree.getLeaves();
-				for(int i = 0; i < t.size(); i++){
+				for(int i = 0; i < t.size(); i++) {
 					double value = evaluate(t.get(i), false);
 					bestValue = bestValue > value ? bestValue : value;
 				}
 			} else {
 				bestValue = Integer.MAX_VALUE;
 				List<Tree<Board>> t = tree.getLeaves();
-				for(int i = 0; i < t.size(); i++){
+				for(int i = 0; i < t.size(); i++) {
 					double value = evaluate(t.get(i), true);
 					bestValue = bestValue < value ? bestValue : value; 
 				}
@@ -58,8 +58,8 @@ public abstract class EvaluationAlgorithm implements Runnable {
 	public Board getBest() {
 		ArrayList<Board> best = new ArrayList<Board>();
 		double bestScore = Integer.MIN_VALUE;
-		for (Tree<Board> b : this.tree.getLeaves()){
-			if (b.getScore() > bestScore){
+		for (Tree<Board> b : this.tree.getLeaves()) {
+			if (b.getScore() > bestScore) {
 				best.clear();
 				bestScore = b.getScore();
 				best.add(b.getRoot());
@@ -72,13 +72,13 @@ public abstract class EvaluationAlgorithm implements Runnable {
 	public abstract double getBoardValue(Board b);
 	public Tree<Board> getSeveralBest(int i) {
 		Tree<Board> intermediate = new Tree<Board>(this.tree.getRoot());
-		for(Tree<Board> t : this.tree.getLeaves()){
+		for(Tree<Board> t : this.tree.getLeaves()) {
 			intermediate.addLeaf(t.getRoot());
-			if (intermediate.getLeaves().size() > i){
+			if (intermediate.getLeaves().size() > i) {
 				Tree<Board> lowest = null;
 				int lowestInt = Integer.MAX_VALUE;
-				for (Tree<Board> remove : intermediate.getLeaves()){
-					if (remove.getScore() < lowestInt){
+				for (Tree<Board> remove : intermediate.getLeaves()) {
+					if (remove.getScore() < lowestInt) {
 						lowest = remove;
 					}
 				}

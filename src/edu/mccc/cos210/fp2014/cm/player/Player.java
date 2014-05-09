@@ -19,7 +19,7 @@ import edu.mccc.cos210.fp2014.cm.piece.*;
  * Generic player object, containing the update model and update methods in addition to 
  * some a game model and a color.
  */
-public abstract class Player implements Observer{
+public abstract class Player implements Observer {
 	protected GameModel gm;
 	protected boolean isWhite;
 	protected Checkmate myCheckmate;
@@ -59,7 +59,7 @@ public abstract class Player implements Observer{
  				this.gm.resetMoveRule();
 				if (piece instanceof Pawn) {
 					this.gm.resetMoveRule();
-					if (!((Pawn)clone).canPromote()){
+					if (!((Pawn)clone).canPromote()) {
 						b.addMove(new int[] {clone.getUID(), pt.getX(), pt.getY(), removedPiece.getUID()});
 					}
 				} else {
@@ -68,7 +68,7 @@ public abstract class Player implements Observer{
 			} else {
 				if (piece instanceof Pawn) {
 					this.gm.resetMoveRule();
-					if (!((Pawn)clone).canPromote()){
+					if (!((Pawn)clone).canPromote()) {
 						b.addMove(new int[] {clone.getUID(), pt.getX(), pt.getY()});
 					}
 				} else {
@@ -87,7 +87,7 @@ public abstract class Player implements Observer{
 		if (
 			b.isWhiteTurn() == p1.isWhite() &&
 			b.isWhiteTurn() == this.isWhite
-		){
+		) {
 			ArrayList<PossibleTile> tiles = new ArrayList<PossibleTile>();
 			b.nextTurn();
 			Piece clone1 = p1.clone();
@@ -134,7 +134,7 @@ public abstract class Player implements Observer{
 	}
 	public Board checkPawnPromotion() {
 		for (Piece p : this.gm.getBoard().getPieces()) {
-			if (p instanceof Pawn && p.isWhite() == isWhite){
+			if (p instanceof Pawn && p.isWhite() == isWhite) {
 				Pawn pawn = (Pawn) p;
 				if (pawn.canPromote() && !pawn.isPromoted()) {
 					pawn.setHasPromoted(true);

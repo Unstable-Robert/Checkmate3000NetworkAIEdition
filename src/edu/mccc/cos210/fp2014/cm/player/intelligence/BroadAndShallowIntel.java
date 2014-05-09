@@ -4,8 +4,7 @@ import edu.mccc.cos210.fp2014.cm.player.intelligence.evaluate.SimpleEvalWithNumM
 import edu.mccc.cos210.fp2014.cm.player.intelligence.search.BruteSearch;
 
 public class BroadAndShallowIntel extends Intelligence {
-	
-	public BroadAndShallowIntel(int n, boolean iw){
+	public BroadAndShallowIntel(int n, boolean iw) {
 		super(n,iw);
 		this.search = new BruteSearch(this.currentBoard, this.depth);
 		this.eval = new SimpleEvalWithNumMoves(this.currentBoard,this.depth, this.isWhite);

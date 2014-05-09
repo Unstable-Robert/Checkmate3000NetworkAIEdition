@@ -6,7 +6,6 @@ import edu.mccc.cos210.fp2014.cm.player.intelligence.search.SearchBestOptions;
 import edu.mccc.cos210.fp2014.cm.util.Tree;
 
 public class BestOptionsIntel extends Intelligence {
-
 	public BestOptionsIntel(int n, boolean iw) {
 		super(n, iw);
 		this.search = new SearchBestOptions(this.currentBoard, this.depth);
@@ -14,7 +13,7 @@ public class BestOptionsIntel extends Intelligence {
 		// TODO Auto-generated constructor stub
 	}
 	@Override
-	public void searchAndEval(Board b){
+	public void searchAndEval(Board b) {
 		Tree<Board> t = new Tree<Board>(b);
 		for (int i = 0; i < 3; i++) {
 			this.search.search(t);
