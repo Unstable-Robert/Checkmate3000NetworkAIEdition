@@ -84,7 +84,6 @@ public class EarlyGameEval extends EvaluationAlgorithm {
 		default:
 			return 0;
 		}
-		return 0;
 	}
 	private double getHomeRowVal(Piece p) {
 		if (p.isWhite()) {

@@ -72,7 +72,6 @@ public class LateGameEval extends EvaluationAlgorithm {
 		default:
 			return 0;
 		}
-		return 0;
 	}
 	private int getPawnVal(Piece p) {
 		if (p.isWhite()) {
