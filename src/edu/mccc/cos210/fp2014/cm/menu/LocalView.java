@@ -39,7 +39,7 @@ public class LocalView extends SettingsView {
 		);
 		add(titleLabel);
 		
-		JLabel player1 = new JLabel("White Player");
+		JLabel player1 = new JLabel("White ");
 		player1.setForeground(Color.WHITE);
 		player1.setSize(100,40);
 		player1.setLocation(
@@ -48,7 +48,7 @@ public class LocalView extends SettingsView {
 		);
 		add(player1);
 		
-		JLabel player2 = new JLabel("Black Player");
+		JLabel player2 = new JLabel("Black ");
 		player2.setForeground(Color.WHITE);
 		player2.setSize(100,40);
 		player2.setLocation(
