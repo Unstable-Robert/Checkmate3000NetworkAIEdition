@@ -20,7 +20,7 @@ public class MainMenuView extends SettingsView {
 		
 		JLabel titleLabel = new JLabel("Checkmate 3000 Network AI Edition");
 		titleLabel.setForeground(Color.WHITE);		
-		titleLabel.setFont(new Font(Font.MOTORWERK, Font.PLAIN, 42));
+		//titleLabel.setFont(new Font(Font.MOTORWERK, Font.PLAIN, 42));
 		titleLabel.setSize(680, 50); 
 		titleLabel.setLocation(
 			c.getWidth() / 2 - titleLabel.getWidth() / 2, 

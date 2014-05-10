@@ -55,35 +55,30 @@ public abstract class EvaluationAlgorithm implements Runnable {
 			return bestValue;
 		}
 	}
-	public Board getBest() {
-		ArrayList<Board> best = new ArrayList<Board>();
+	private Tree<Board> getBest(Tree<Board> t) {
+		Tree<Board> best = new Tree<Board>(t.getRoot());
 		double bestScore = Integer.MIN_VALUE;
-		for (Tree<Board> b : this.tree.getLeaves()) {
+		for (Tree<Board> b : t.getLeaves()) {
 			if (b.getScore() > bestScore) {
 				best.clear();
 				bestScore = b.getScore();
-				best.add(b.getRoot());
+				best.add(b);
 			} else if (b.getScore() == bestScore) {
-				best.add(b.getRoot());
+				best.add(b);
 			}
 		}
-		return best.get(new Random().nextInt(best.size()));
+		return best.get(new Random().nextInt(best.getNumLeaves()));
 	}	
+	public Board getBest() {
+		return getBest(this.tree).getRoot();
+	}
 	public abstract double getBoardValue(Board b);
-	public Tree<Board> getSeveralBest(int i) {
+	public Tree<Board> getSeveralBest(int num) {
 		Tree<Board> intermediate = new Tree<Board>(this.tree.getRoot());
-		for(Tree<Board> t : this.tree.getLeaves()) {
-			intermediate.addLeaf(t.getRoot());
-			if (intermediate.getLeaves().size() > i) {
-				Tree<Board> lowest = null;
-				int lowestInt = Integer.MAX_VALUE;
-				for (Tree<Board> remove : intermediate.getLeaves()) {
-					if (remove.getScore() < lowestInt) {
-						lowest = remove;
-					}
-				}
-				intermediate.removeLeaf(lowest);
-			}
+		for (int i = 0; i < num; i++) {
+			Tree<Board> best = getBest(this.tree);
+			intermediate.addLeaf(best);
+			this.tree.removeLeaf(best);
 		}
 		return intermediate;
 	}

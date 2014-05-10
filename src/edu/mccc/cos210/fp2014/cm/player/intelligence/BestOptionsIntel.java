@@ -10,16 +10,15 @@ public class BestOptionsIntel extends Intelligence {
 		super(n, iw);
 		this.search = new SearchBestOptions(this.currentBoard, this.depth);
 		this.eval = new SimpleEvalWithNumMoves(this.currentBoard, this.depth, this.isWhite);
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public void searchAndEval(Board b) {
 		Tree<Board> t = new Tree<Board>(b);
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 2; i++) {
 			this.search.search(t);
 			this.eval.setRoot(t);
 			this.eval.evaluate(t, true);
-			t = this.eval.getSeveralBest(10);
+			t = this.eval.getSeveralBest(5);
 		}
 	}
 }

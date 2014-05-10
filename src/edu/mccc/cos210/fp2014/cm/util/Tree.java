@@ -90,4 +90,19 @@ public class Tree<T> {
 		}
 		return null;
 	}
+	public void clear() {
+		this.leaves = new ArrayList<Tree<T>>();
+	}
+	public void add(Tree<T> b) {
+		this.leaves.add(b);
+	}
+	public int getNumLeaves() {
+		return this.leaves.size();
+	}
+	public Tree<T> get(int index) {
+		return this.leaves.get(index);
+	}
+	public void addLeaf(Tree<T> t) {
+		this.leaves.add(t);
+	}
 }
