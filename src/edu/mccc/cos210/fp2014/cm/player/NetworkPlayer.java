@@ -86,13 +86,16 @@ public class NetworkPlayer extends Player implements Runnable {
 		} catch (NullPointerException e) {
 			JPanel panel = new JPanel(new GridLayout(2, 1));
 			JLabel label = new JLabel("Wait up, nobody's connected yet!");
-			String[] options = new String[]{"OK"};
+			String[] options = new String[]{"OK", "Exit"};
 			panel.add(label);
-			JOptionPane.showOptionDialog(
+			int waitAction = JOptionPane.showOptionDialog(
 				null, panel, "Waiting for Another Player",
 				JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
 				null, options, options[0]
 			);
+			if (waitAction != JOptionPane.OK_OPTION) {
+				myCheckmate.setView(Checkmate.HOST);
+			}
 		}
 	}
 	/**

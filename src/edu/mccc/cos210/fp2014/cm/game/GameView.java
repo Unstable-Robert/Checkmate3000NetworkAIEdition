@@ -202,7 +202,7 @@ public class GameView extends SettingsView implements Observer, MouseListener {
 	private void drawGame() {
 		cleanUp();
 		String message = "The game ends in a draw.";
-		String[] options = new String[]{"Okay", "Save Game Log"};
+		String[] options = new String[]{"Ok", "Save Game Log"};
 		int gameOverAction = JOptionPane.showOptionDialog(
 			this, message, "Game Over",
 			JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
