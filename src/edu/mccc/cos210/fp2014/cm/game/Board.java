@@ -3,6 +3,8 @@ package edu.mccc.cos210.fp2014.cm.game;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -16,6 +18,7 @@ import edu.mccc.cos210.fp2014.cm.util.GameType;
  * It also keeps track of information about draw scenarios.
  */
  @XmlRootElement
+ @XmlAccessorType(XmlAccessType.FIELD)
 public class Board implements Cloneable {
 	@XmlElement(name="possibleTiles")
 	private ArrayList<PossibleTile> possibleTiles;
@@ -48,7 +51,7 @@ public class Board implements Cloneable {
 		this.metaInfo = new Meta();
 		this.moves = new ArrayList<int[]>();
 		this.winner = GameResult.GameRunning;
-		prevTiles = new ArrayList<PossibleTile>();
+		this.prevTiles = new ArrayList<PossibleTile>();
 	}
 	public Board(GameType g) {
 		this();
@@ -72,7 +75,7 @@ public class Board implements Cloneable {
 		this.metaInfo = meta;
 		this.moves = moveList;
 		this.winner = win;
-		prevTiles = new ArrayList<PossibleTile>();
+		this.prevTiles = new ArrayList<PossibleTile>();
 	}
 	private void setUpPieces() {
 		int id = 0;
