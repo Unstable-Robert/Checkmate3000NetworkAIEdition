@@ -34,6 +34,9 @@ public class LateGameEval extends EvaluationAlgorithm {
 				} else if (p instanceof Rook) {
 					value = value + 5;
 				}
+				if (!(p instanceof Queen)) {
+					value = value + .05 * (double) p.getNumMoves();
+				}
 			} else {
 				if (p instanceof Bishop) {
 					value = value - 3;
@@ -47,6 +50,9 @@ public class LateGameEval extends EvaluationAlgorithm {
 					value = value - 9;
 				} else if (p instanceof Rook) {
 					value = value - 5;
+				}
+				if (!(p instanceof Queen)) {
+					value = value - .05 * (double) p.getNumMoves();
 				}
 			}
 		}

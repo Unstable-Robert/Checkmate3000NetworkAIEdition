@@ -17,6 +17,7 @@ public class SimpleEvalWithNumMoves extends EvaluationAlgorithm {
 	public double getBoardValue(Board b) {
 		double value = 0;
 		for (Piece p : b.getPieces()) {
+			value = value + getAxisVal(p.getY());
 			if (p.isWhite() == this.isWhite) {
 					if (p instanceof Bishop) {
 						value = value + 3;
@@ -30,8 +31,12 @@ public class SimpleEvalWithNumMoves extends EvaluationAlgorithm {
 						value = value + 9;
 					} else if (p instanceof Rook) {
 						value = value + 5;
-				}
+					}
+					if (!(p instanceof Queen)){
+						value = value + .05 * (double) p.getNumMoves();
+					}
 			} else {
+				value = value - getAxisVal(p.getY());
 				if (p instanceof Bishop) {
 					value = value - 3;
 				} else if (p instanceof King) {
@@ -45,10 +50,29 @@ public class SimpleEvalWithNumMoves extends EvaluationAlgorithm {
 				} else if (p instanceof Rook) {
 					value = value - 5;
 				}
-			}
-			value = value + .05 * (double) p.getNumMoves();
+				if (!(p instanceof Queen)){
+					value = value - .05 * (double) p.getNumMoves();
+				}			}
 		}
 		return value;
+	}
+	private double getAxisVal(int loc) {
+		switch(loc){
+		case 0:
+		case 7:
+			return -1;
+		case 1:
+		case 6:
+			return -.5;
+		case 2:
+		case 5:
+			return .5;
+		case 3:
+		case 4:
+			return 2;
+		default:
+			return 0;
+		}
 	}
 	@Override
 	public void run(){

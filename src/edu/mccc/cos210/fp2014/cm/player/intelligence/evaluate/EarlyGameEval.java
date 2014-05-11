@@ -42,6 +42,9 @@ public class EarlyGameEval extends EvaluationAlgorithm {
 				} else if (p instanceof Rook) {
 					value = value + 5;
 				}
+				if (!(p instanceof Queen)) {
+					value = value + .05 * (double) p.getNumMoves();
+				}
 			} else {
 				value = value - getLocationVal(p);
 				if (p instanceof Bishop) {
@@ -57,9 +60,9 @@ public class EarlyGameEval extends EvaluationAlgorithm {
 				} else if (p instanceof Rook) {
 					value = value - 5;
 				}
-			}
-			if (!(p instanceof Queen)) {
-				value = value + .05 * (double) p.getNumMoves();
+				if (!(p instanceof Queen)) {
+					value = value - .05 * (double) p.getNumMoves();
+				}
 			}
 		}
 		return value;
