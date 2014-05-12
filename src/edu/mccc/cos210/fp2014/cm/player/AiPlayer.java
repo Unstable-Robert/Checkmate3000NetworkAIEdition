@@ -52,18 +52,17 @@ public class AiPlayer extends Player implements Runnable {
 		return board;
 	}
 	private void setIntelligence() {
-		int depth = 2;
 		switch(this.gamePart) {
 			case BEGINNING:
 				switch (this.difficulty) {
 				case EASY:
-					this.intelligence = new EarlyGameIntel(3, this.isWhite);
+					this.intelligence = new EarlyGameIntel(2, this.isWhite);
 					break;
 				case MEDIUM:
-					this.intelligence = new BestOptionsEarlyGameIntel(2, this.isWhite);
+					this.intelligence = new EarlyGameIntel(3, this.isWhite);
 					break;
 				case HARD:
-					this.intelligence = new BestOptionsEarlyGameIntel(3, this.isWhite);
+					this.intelligence = new EarlyGameIntel(4, this.isWhite);
 					break;
 				case HUMAN:
 					break;
@@ -72,13 +71,13 @@ public class AiPlayer extends Player implements Runnable {
 			case MIDDLE:	
 				switch (this.difficulty) {
 				case EASY:
-					this.intelligence = new BroadAndShallowIntel(3, this.isWhite);
+					this.intelligence = new BroadAndShallowIntel(2, this.isWhite);
 					break;
 				case MEDIUM:
-					this.intelligence = new BestOptionsIntel(2, this.isWhite);
+					this.intelligence = new BroadAndShallowIntel(3, this.isWhite);
 					break;
 				case HARD:
-					this.intelligence = new BestOptionsIntel(3, this.isWhite);
+					this.intelligence = new BroadAndShallowIntel(4, this.isWhite);
 					break;
 				case HUMAN:
 					break;
@@ -87,13 +86,13 @@ public class AiPlayer extends Player implements Runnable {
 			case END:
 				switch (this.difficulty) {
 				case EASY:
-					this.intelligence = new LateGameIntel(3, this.isWhite);
-					break;
-				case MEDIUM:
 					this.intelligence = new LateGameIntel(2, this.isWhite);
 					break;
-				case HARD:
+				case MEDIUM:
 					this.intelligence = new LateGameIntel(3, this.isWhite);
+					break;
+				case HARD:
+					this.intelligence = new LateGameIntel(4, this.isWhite);
 					break;
 				case HUMAN:
 					break;

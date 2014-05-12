@@ -178,6 +178,7 @@ public class GameView extends SettingsView implements Observer, MouseListener {
 		}
 	}
 	private void endGame() {
+		this.gm.updateBoard(this.gm.getBoard(), false);
 		cleanUp();
 		String message = "White won.";
 		this.gm.getBoard().setWinner(GameResult.WhiteWon);
@@ -258,6 +259,9 @@ public class GameView extends SettingsView implements Observer, MouseListener {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
+		if (!this.gm.getBoard().getWinner().equals(GameResult.GameRunning)){
+			endGame();
+		}
 		if (this.gm.canDraw() && (!isDrawVisable)) {
 			isDrawVisable = true;
 			int wantsDraw = JOptionPane.showConfirmDialog(

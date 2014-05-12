@@ -23,6 +23,7 @@ import edu.mccc.cos210.fp2014.cm.game.GameModel;
 import edu.mccc.cos210.fp2014.cm.menu.Checkmate;
 import edu.mccc.cos210.fp2014.cm.piece.Piece;
 import edu.mccc.cos210.fp2014.cm.piece.PossibleTile;
+import edu.mccc.cos210.fp2014.cm.util.GameResult;
 import edu.mccc.cos210.fp2014.cm.util.MarshalHandler;
 
 /**
