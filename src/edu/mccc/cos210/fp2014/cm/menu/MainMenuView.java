@@ -20,18 +20,18 @@ public class MainMenuView extends SettingsView {
 		
 		JLabel titleLabel = new JLabel("Checkmate 3000 Network AI Edition");
 		titleLabel.setForeground(Color.WHITE);
-		titleLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 42));
-		titleLabel.setSize(680, 50);
+		titleLabel.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 38));
+		titleLabel.setSize(700, 50);
 		titleLabel.setLocation(
-			c.getWidth() / 2 - titleLabel.getWidth() / 2, 
+			c.getWidth() / 2 - titleLabel.getWidth() / 2,
 			(int)(c.getHeight() * 0.200)
 		);
 		add(titleLabel);
-		
+
 		JButton localButton = new JButton("Local Game");
 		localButton.setSize(150, 35);
 		localButton.setLocation(
-			c.getWidth() / 2 - localButton.getWidth() / 2, 
+			c.getWidth() / 2 - localButton.getWidth() / 2,
 			(int)(c.getHeight() * 0.480)
 		);
 		localButton.addActionListener(new ActionListener() {
@@ -41,11 +41,11 @@ public class MainMenuView extends SettingsView {
 			}
 		});
 		add(localButton);
-		
+
 		JButton hostButton = new JButton("Host Game");
 		hostButton.setSize(150, 35);
 		hostButton.setLocation(
-			c.getWidth() / 2 - hostButton.getWidth() / 2, 
+			c.getWidth() / 2 - hostButton.getWidth() / 2,
 			(int)(c.getHeight() * 0.555)
 		);
 		hostButton.addActionListener(new ActionListener() {
@@ -55,11 +55,11 @@ public class MainMenuView extends SettingsView {
 			}
 		});
 		add(hostButton);
-		
+
 		JButton joinButton = new JButton("Join Game");
 		joinButton.setSize(150, 35);
 		joinButton.setLocation(
-			c.getWidth() / 2 - joinButton.getWidth() / 2, 
+			c.getWidth() / 2 - joinButton.getWidth() / 2,
 			(int)(c.getHeight() * 0.630)
 		);
 		joinButton.addActionListener(new ActionListener() {
@@ -69,11 +69,11 @@ public class MainMenuView extends SettingsView {
 			}
 		});
 		add(joinButton);
-		
+
 		JButton logButton = new JButton("View Logged Game");
 		logButton.setSize(150, 35);
 		logButton.setLocation(
-			c.getWidth() / 2 - logButton.getWidth() / 2, 
+			c.getWidth() / 2 - logButton.getWidth() / 2,
 			(int)(c.getHeight() * 0.705)
 		);
 		logButton.addActionListener(new ActionListener() {
@@ -83,11 +83,11 @@ public class MainMenuView extends SettingsView {
 			}
 		});
 		add(logButton);
-		
+
 		JButton quitButton = new JButton("Quit Game");
 		quitButton.setSize(150, 35);
 		quitButton.setLocation(
-			c.getWidth() / 2 - quitButton.getWidth() / 2, 
+			c.getWidth() / 2 - quitButton.getWidth() / 2,
 			(int)(c.getHeight() * 0.780)
 		);
 		quitButton.addActionListener(new ActionListener() {
