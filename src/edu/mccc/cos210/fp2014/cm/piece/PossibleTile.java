@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name="PossibleTile")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class PossibleTile implements Cloneable{
+public class PossibleTile implements Cloneable {
 	@XmlElement
 	private int xLoc;
 	@XmlElement
@@ -25,7 +25,7 @@ public class PossibleTile implements Cloneable{
 	public PossibleTile(){
 		
 	}
-	public PossibleTile(int x, int y, Piece original){
+	public PossibleTile(int x, int y, Piece original) {
 		this.xLoc = x;
 		this.yLoc = y;
 		this.originalPiece = original;
@@ -58,7 +58,7 @@ public class PossibleTile implements Cloneable{
 	public Piece getRemovePiece() {
 		return this.removePiece;
 	}
-	public void setRemovePiece(Piece p){
+	public void setRemovePiece(Piece p) {
 		this.removePiece = p;
 	}
 	public boolean hasPieceToRemove() {
@@ -66,9 +66,10 @@ public class PossibleTile implements Cloneable{
 	}
 	public PossibleTile clone(){
 		return new PossibleTile(
-				this.getX(),
-				this.getY(),
-				this.getOriginalPiece().clone(),
-				this.getRemovePiece().clone());
+			this.getX(),
+			this.getY(),
+			this.getOriginalPiece().clone(),
+			this.getRemovePiece().clone()
+		);
 	}
 }

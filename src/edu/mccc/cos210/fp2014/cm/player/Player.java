@@ -29,9 +29,9 @@ public abstract class Player implements Observer{
 	protected GameModel gm;
 	protected boolean isWhite;
 	protected Checkmate myCheckmate;
-	public Player(){
+	public Player() {
 	}
-	public Player(GameModel gm, Checkmate c, boolean isWhite){
+	public Player(GameModel gm, Checkmate c, boolean isWhite) {
 		this.myCheckmate = c;
 		this.gm = gm;
 		this.isWhite = isWhite;
@@ -58,21 +58,17 @@ public abstract class Player implements Observer{
 			clone.setY(pt.getY());
 			clone.setSelected(false);
 			b.addPiece(clone);
-			if (pt.hasPieceToRemove()){
+			if (pt.hasPieceToRemove()) {
 				b.removePiece(pt.getRemovePiece());
 				this.gm.resetMoveRule();
-                if (piece instanceof Pawn){
-                    if (!((Pawn)clone).canPromote()){
-                        b.addMove(clone.locToString()+":");
-                    }
-                } else b.addMove(clone.locToString()+":");
+                b.addMove(clone.getUID() + ":" + pt.getX() + pt.getY());
 			} else if (piece instanceof Pawn) {
 				this.gm.resetMoveRule();
                 if (!((Pawn)clone).canPromote())
-                    b.addMove(clone.locToString());
+                    b.addMove(clone.getUID() + ":" + pt.getX() + pt.getY());
 			} else {
 				this.gm.increaseMoveRule();
-                b.addMove(clone.locToString());
+                b.addMove(clone.getUID() + ":" + pt.getX() + pt.getY());
 			}
 			gm.updateBoard(b, false);
             System.out.println(b.getMoves());
@@ -134,31 +130,10 @@ public abstract class Player implements Observer{
 								  JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
 								  null, options, options[0]);
 					Piece newPiece = null;
-                    String pie = "";
-					switch (selection.getSelectedIndex()) {
-					case 0:
-						newPiece = new Queen(p);
-                        pie = "Q";
-						break;
-					case 1:
-						newPiece = new Knight(p);
-                        pie = "N";
-						break;
-					case 2:
-						newPiece = new Bishop(p);
-                        pie = "B";
-						break;
-					case 3:
-						newPiece = new Rook(p);
-                        pie = "R";
-						break;
-					default:
-						break;
-					}
 					Board bClone = gm.getBoard().clone();
 					bClone.removePiece(p);
 					bClone.addPiece(newPiece);
-                    bClone.addMove(p.locToString()+"="+pie);
+                    bClone.addMove(p.getUID()+":"+p.locToString());
 					return bClone;
 				}
 			}

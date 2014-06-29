@@ -27,7 +27,7 @@ public class Board implements Cloneable{
 	@XmlElement(name="metaInfo")
 	private Meta metaInfo;
 	@XmlElement(name="moves")
-    private String moves;
+    private ArrayList<String> moves;
 	@XmlElement(name="messages")
 	private ArrayList<ChatMessage> messages;
 	/**
@@ -41,7 +41,7 @@ public class Board implements Cloneable{
 		this.movesSincePieceTaken = 0;
 		this.whiteTurn = true;
 		this.metaInfo = new Meta();
-        this.moves = "";
+        this.moves = new ArrayList<String>();
 	}
 	public Board(GameType g) {
 		this();
@@ -53,7 +53,7 @@ public class Board implements Cloneable{
 		this.metaInfo = new Meta(g, t);
 		setUpPieces();
 	}
-	public Board(ArrayList<PossibleTile> tiles, ArrayList<Piece> p, int moves, boolean t, Meta meta, String move) {
+	public Board(ArrayList<PossibleTile> tiles, ArrayList<Piece> p, int moves, boolean t, Meta meta, ArrayList<String> move) {
 		this.possibleTiles = tiles;
 		this.pieces = p;
 		this.movesSincePieceTaken = moves;
@@ -218,20 +218,15 @@ public class Board implements Cloneable{
      * Gets the Log of all moves Taken
      * @return String of Moves
      */
-    public String getMoves() {
+    public ArrayList<String> getMoves() {
         return this.moves;
     }
     /**
      * Adds a Move to the Log
      * @param s Move Taken
      */
-    public void addMove(String s) {
-        if (!whiteTurn) {
-            this.moves = this.moves+getMetaInfo().getNumTurns()+". "+s+" ";
-        } else {
-            this.moves = this.moves+" "+s+" ";
-            getMetaInfo().increaseTurn();
-        }
+	public void addMove(String s) {
+		this.moves.add(s);
     }
 	public Board clone() {
 		ArrayList<Piece> newPieces = new ArrayList<Piece>();
